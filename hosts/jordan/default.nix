@@ -13,7 +13,7 @@ in
   imports = [
     ./home.nix
     ./homebrew.nix
-    ./system.nix
+    ./dock.nix
   ];
 
   environment = {
