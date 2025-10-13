@@ -12,9 +12,6 @@
 
   config = lib.mkMerge [
     {
-      programs.home-manager.enable = true;
-      xdg.enable = true;
-
       myHome = {
         profiles.full.enable = true;
       };
