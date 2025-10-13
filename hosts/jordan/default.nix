@@ -31,8 +31,6 @@
     };
   };
 
-  nixpkgs.hostPlatform = "aarch64-darwin";
-
   users.users =
     let
       primaryUser = config.myDarwin.primaryUser;
