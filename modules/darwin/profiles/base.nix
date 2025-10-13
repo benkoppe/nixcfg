@@ -31,7 +31,17 @@
       systemPackages = with pkgs; [ nh ];
     };
 
-    networking.applicationFirewall.enable = true;
+    networking =
+      let
+        hostName = config.myDarwin.hostName;
+      in
+      {
+        computerName = hostName;
+        hostName = hostName;
+        localHostName = hostName;
+
+        applicationFirewall.enable = true;
+      };
 
     security.pam.services.sudo_local = {
       enable = true;
