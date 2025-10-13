@@ -45,7 +45,12 @@ in
     lib.mkEnableOption "enable Karabiner for macOS keyboard customization";
 
   config = lib.mkIf config.myDarwin.programs.karabiner.enable {
-    homebrew.casks = [ "karabiner-elements" ];
+    homebrew.casks = [
+      {
+        name = "karabiner-elements";
+        greedy = true;
+      }
+    ];
 
     home-manager.sharedModules = [
       {

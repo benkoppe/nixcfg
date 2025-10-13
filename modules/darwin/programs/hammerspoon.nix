@@ -7,7 +7,12 @@
     system.defaults.CustomUserPreferences."org.hammerspoon.Hammerspoon".MJConfigFile =
       "~/.config/hammerspoon/init.lua";
 
-    homebrew.casks = [ "hammerspoon" ];
+    homebrew.casks = [
+      {
+        name = "hammerspoon";
+        greedy = true;
+      }
+    ];
 
     home-manager.sharedModules = [
       {
