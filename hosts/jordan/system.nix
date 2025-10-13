@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   system = {
     defaults = {
@@ -16,7 +16,8 @@
             small = false;
           };
         }
-        { app = "/Applications/Ghostty.app"; }
+        #{ app = "Users/ben/Applications/Home Manager Apps/Ghostty.app"; }
+        { app = "${pkgs.ghostty-bin}/Applications/Ghostty.app"; }
         { app = "/Applications/Xcode.app"; }
         {
           spacer = {
