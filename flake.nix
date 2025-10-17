@@ -28,6 +28,11 @@
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Non-flake inputs
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
