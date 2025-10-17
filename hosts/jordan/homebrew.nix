@@ -23,7 +23,7 @@
         (greedy "xcodes-app")
 
         (greedy "figma")
-        # (greedy "figma-agent")
+        (greedy "figma-agent")
 
         # Cybersecurity tools
         (greedy "proxyman")
