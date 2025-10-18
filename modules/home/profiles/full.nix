@@ -14,13 +14,19 @@
 
       programs = {
         zsh.enable = true;
+
         ghostty.enable = true;
         lazygit.enable = true;
         nvim.enable = true;
-        claude-code.enable = true;
+        tmux.enablePlugins = true;
+
         devenv.enable = true;
+
+        claude-code.enable = true;
+
         git.signingKey.enable = true;
         ssh.enable = true;
+        ssh.enableServers = true;
       };
     };
 
@@ -34,6 +40,12 @@
         aspellDicts.en
         btop
         sqlite
+
+        # Text/data tools
+        jq
+        ripgrep
+        fd
+        tree
 
         # CLI power tools
         bat
@@ -80,6 +92,12 @@
         clippy
         rustc
         rustfmt
+
+        # Security / crypto
+        gnupg
+        age
+        age-plugin-yubikey
+        libfido2
 
         # Silly
         fastfetch

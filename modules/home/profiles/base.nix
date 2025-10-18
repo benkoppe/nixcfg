@@ -32,18 +32,6 @@
       zip
       unzip
 
-      # Text/data tools
-      jq
-      ripgrep
-      fd
-      tree
-
-      # Security / crypto
-      gnupg
-      age
-      age-plugin-yubikey
-      libfido2
-
       # Monitoring and diagnostics
       htop
       iftop
