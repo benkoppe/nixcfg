@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 {
@@ -47,6 +48,35 @@
 
       (lib.mkIf config.myHome.programs.ssh.enableServers {
         programs.ssh = {
+          matchBlocks = {
+            "russ" = {
+              hostname = "10.192.168.99";
+              identitiesOnly = true;
+              identityFile = config.age.secrets.ssh-russ.path;
+            };
+
+            "builder-1" = {
+              hostname = "10.192.168.240";
+              identitiesOnly = true;
+              identityFile = config.age.secrets.ssh-builder-1.path;
+            };
+          };
+        };
+
+        age.secrets = {
+          ssh-russ = {
+            file = "${self.inputs.secrets}/pve/russ-key.age";
+            symlink = false;
+            path = "${config.home.homeDirectory}/.ssh/pve/russ";
+            mode = "600";
+          };
+
+          ssh-builder-1 = {
+            file = "${self.inputs.secrets}/pve/builder-1-key.age";
+            symlink = false;
+            path = "${config.home.homeDirectory}/.ssh/pve/builder-1";
+            mode = "600";
+          };
         };
       })
     ]
