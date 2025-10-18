@@ -18,6 +18,7 @@
           inputs.agenix.nixosModules.default
           inputs.home-manager.nixosModules.home-manager
           inputs.nixos-generators.nixosModules.all-formats
+          inputs.disko.nixosModules.disko
           ../nixos
 
           {
