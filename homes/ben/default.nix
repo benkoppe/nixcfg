@@ -33,7 +33,7 @@
 
     (lib.mkIf pkgs.stdenv.isLinux {
       home = {
-        homeDirectory = "/home/ben";
+        homeDirectory = lib.mkDefault "/home/ben";
       };
     })
   ];
