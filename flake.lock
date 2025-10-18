@@ -123,6 +123,26 @@
         "url": "https://install.determinate.systems/determinate-nixd/tag/v3.11.3/x86_64-linux"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1760701190,
+        "narHash": "sha256-y7UhnWlER8r776JsySqsbTUh2Txf7K30smfHlqdaIQw=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "3a9450b26e69dcb6f8de6e2b07b3fc1c288d85f5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -532,6 +552,7 @@
       "inputs": {
         "agenix": "agenix",
         "determinate": "determinate",
+        "disko": "disko",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager_2",
         "homebrew-bundle": "homebrew-bundle",
@@ -550,11 +571,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1754757257,
-        "narHash": "sha256-7jt6H6a1jDdBTJs6pwH31fzeTrkreOJNb4PBnXi3trQ=",
+        "lastModified": 1760764555,
+        "narHash": "sha256-7jvstItCzg+NZ7w/1IWrfJiaB/6Lfu3kzdqu7jXWg18=",
         "ref": "refs/heads/main",
-        "rev": "6e6aff97eb230b0e583ad5aaa0bf2cc312f74e1b",
-        "revCount": 3,
+        "rev": "f4a5f44a8733f638af233af8640cede2aea60b87",
+        "revCount": 6,
         "type": "git",
         "url": "ssh://git@github.com/benkoppe/nix-secrets.git"
       },
