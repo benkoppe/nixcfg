@@ -36,6 +36,7 @@
       trusted-users = [
         "@admin"
         "${config.myDarwin.primaryUser}"
+        "builder"
       ];
       extra-substituters = [
         "https://nix-community.cachix.org"
@@ -47,6 +48,11 @@
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
       ];
+      eval-cores = 0;
+      builders = "ssh://builder@builder-1 x86_64-linux - - - - - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUJ5aEZuSDFpWHVRaXNhcFpVTXRoSktBTW9jZ2w4dHM3OVBSd2hoTUFwUDIK";
+      # + " ; "
+      # + "";
+      builders-use-substitutes = true;
     };
   };
 }
