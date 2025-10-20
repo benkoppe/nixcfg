@@ -16,7 +16,7 @@
       enableZshIntegration = true;
       nix-direnv.enable = true;
 
-      silent = true;
+      # silent = true;
     };
   };
 }
