@@ -14,25 +14,7 @@
       inputs.nixpkgs.lib.nixosSystem {
         modules = [
           ../../hosts/${host}
-          inputs.determinate.nixosModules.default
-          inputs.agenix.nixosModules.default
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nixos-generators.nixosModules.all-formats
-          inputs.disko.nixosModules.disko
           ../nixos
-
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = { inherit self; };
-              backupFileExtension = "backup";
-            };
-
-            nixpkgs = {
-              config.allowUnfree = true;
-            };
-          }
         ];
 
         specialArgs = { inherit self; };
