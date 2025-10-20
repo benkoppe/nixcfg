@@ -49,7 +49,7 @@
           #
           deadnix
           statix
-          nil
+          nixd
           nixfmt
 
           ripgrep
