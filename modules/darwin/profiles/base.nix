@@ -6,6 +6,17 @@
   ...
 }:
 {
+  imports =
+    let
+      inputs = self.inputs;
+    in
+    [
+      inputs.agenix.darwinModules.default
+      inputs.home-manager.darwinModules.home-manager
+      inputs.nix-homebrew.darwinModules.nix-homebrew
+      inputs.determinate.darwinModules.default
+    ];
+
   options.myDarwin.profiles.base.enable = lib.mkEnableOption "base system configuration";
 
   config = lib.mkIf config.myDarwin.profiles.base.enable {
@@ -29,6 +40,18 @@
     environment = {
       etc."nix-darwin".source = self;
       systemPackages = with pkgs; [ nh ];
+    };
+
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = false;
+      extraSpecialArgs = { inherit self; };
+      backupFileExtension = "backup";
+    };
+
+    nixpkgs = {
+      hostPlatform = "aarch64-darwin";
+      config.allowUnfree = true;
     };
 
     networking =
