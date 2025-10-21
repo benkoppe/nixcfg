@@ -31,7 +31,7 @@
           targetUser = "root";
         };
         imports = [
-          ../../hosts/builder-1
+          ../../hosts/microhosts/builder-1.nix
           ../nixos
         ];
       };
