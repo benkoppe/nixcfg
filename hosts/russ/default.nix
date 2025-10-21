@@ -12,8 +12,7 @@
   ];
 
   myNixOS = {
-    profiles.base.enable = true;
-  };
+    profiles.server.enable = true;
   };
 
   boot.loader = {

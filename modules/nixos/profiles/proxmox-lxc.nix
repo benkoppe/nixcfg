@@ -43,7 +43,7 @@
       proxmoxLXC.enable = lib.mkDefault false;
     }
     (lib.mkIf config.myNixOS.profiles.proxmox-lxc.enable {
-      myNixOS.profiles.base.enable = true;
+      myNixOS.profiles.server.enable = true;
 
       proxmoxLXC =
         let
