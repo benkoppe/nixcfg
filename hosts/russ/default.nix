@@ -17,20 +17,6 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  services.openssh = {
-    enable = true;
-
-    openFirewall = true;
-    settings = {
-      PermitRootLogin = "prohibit-password";
-      PasswordAuthentication = true;
-      PermitEmptyPasswords = false;
-      KbdInteractiveAuthentication = false;
-      UsePAM = true;
-      X11Forwarding = true;
-      PrintMotd = false;
-      AcceptEnv = "LANG LC_*";
-    };
   };
 
   boot.loader = {
@@ -42,8 +28,6 @@
       efiInstallAsRemovable = true;
     };
   };
-
-  security.pam.services.sshd.allowNullPassword = true;
 
   users.users.root.openssh.authorizedKeys.keyFiles = [
     "${self.inputs.secrets}/pve/russ-key.pub"
