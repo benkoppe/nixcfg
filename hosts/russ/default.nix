@@ -64,6 +64,4 @@
     };
     nameservers = [ "192.168.1.1" ];
   };
-
-  system.stateVersion = "25.11";
 }
