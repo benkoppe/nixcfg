@@ -24,6 +24,17 @@
           ../nixos
         ];
       };
+
+      builder-1 = {
+        deployment = {
+          targetHost = "builder-1-root";
+          targetUser = "root";
+        };
+        imports = [
+          ../../hosts/builder-1
+          ../nixos
+        ];
+      };
     };
   };
 }
