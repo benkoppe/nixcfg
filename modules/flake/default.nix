@@ -3,5 +3,6 @@
     ./darwin.nix
     ./home-manager.nix
     ./nixos.nix
+    ./colmena.nix
   ];
 }
