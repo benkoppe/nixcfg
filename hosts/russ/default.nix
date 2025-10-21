@@ -14,9 +14,6 @@
   myNixOS = {
     profiles.base.enable = true;
   };
-
-  nixpkgs.hostPlatform = "x86_64-linux";
-
   };
 
   boot.loader = {
