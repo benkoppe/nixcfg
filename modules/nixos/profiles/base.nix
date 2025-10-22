@@ -11,6 +11,7 @@
       inputs = self.inputs;
     in
     [
+      self.snippetsModule
       inputs.determinate.nixosModules.default
       inputs.agenix.nixosModules.default
       inputs.home-manager.nixosModules.home-manager

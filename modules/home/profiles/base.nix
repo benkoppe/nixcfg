@@ -9,6 +9,7 @@
   options.myHome.profiles.base.enable = lib.mkEnableOption "base home configuration";
 
   imports = [
+    self.snippetsModule
     self.inputs.agenix.homeManagerModules.default
   ];
 

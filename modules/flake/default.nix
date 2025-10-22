@@ -4,5 +4,6 @@
     ./home-manager.nix
     ./nixos.nix
     ./colmena.nix
+    ./snippets.nix
   ];
 }

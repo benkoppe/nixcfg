@@ -11,6 +11,7 @@
       inputs = self.inputs;
     in
     [
+      self.snippetsModule
       inputs.agenix.darwinModules.default
       inputs.home-manager.darwinModules.home-manager
       inputs.nix-homebrew.darwinModules.nix-homebrew

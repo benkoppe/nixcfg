@@ -1,6 +1,7 @@
 {
   self,
   inputs,
+  lib,
   ...
 }:
 {
@@ -9,12 +10,16 @@
       simple-ext4 = ../disko/simple-ext4.nix;
     };
 
-    nixosConfigurations = inputs.nixpkgs.lib.genAttrs [ "russ" ] (
+    nixosModules = {
+      default = ../nixos;
+    };
+
+    nixosConfigurations = lib.genAttrs [ "russ" ] (
       host:
       inputs.nixpkgs.lib.nixosSystem {
         modules = [
+          self.nixosModules.default
           ../../hosts/${host}
-          ../nixos
         ];
 
         specialArgs = { inherit self; };

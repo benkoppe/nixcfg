@@ -4,57 +4,53 @@
     lib.mkEnableOption "sane determinate-nix configuration";
 
   config = lib.mkIf config.myDarwin.programs.determinate.enable {
-    nix = {
-      enable = false;
+    nix.enable = false;
 
-      # package = pkgs.nix;
+    determinate-nix.customSettings = lib.mkMerge [
+      config.mySnippets.nix.settings
+      {
+        eval-cores = 0;
+        # builders = "ssh://builder@builder-1 x86_64-linux - - - - - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUJ5aEZuSDFpWHVRaXNhcFpVTXRoSktBTW9jZ2w4dHM3OVBSd2hoTUFwUDIK";
+      }
+      (
+        let
+          # convert normal nix buildMachines config to determinate string format
+          builderToString =
+            b:
+            let
+              # safely get an attribute or fallback
+              get =
+                name: default:
+                if builtins.hasAttr name b then
+                  let
+                    val = builtins.getAttr name b;
+                  in
+                  if val == "" || val == [ ] then default else val
+                else
+                  default;
 
-      settings = {
-        trusted-users = [
-          "@admin"
-          "${config.myDarwin.primaryUser}"
-        ];
-        substituters = [
-          "https://nix-community.cachix.org"
-          "https://cache.nixos.org"
-        ];
-        trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-      };
+              hostName = get "hostName" "-";
+              sshUser = get "sshUser" "-";
+              protocol = get "protocol" "ssh";
+              uri =
+                if sshUser == "-" then "${protocol}://${hostName}" else "${protocol}://${sshUser}@${hostName}";
 
-      # gc = {
-      # automatic = true;
-      # interval = { Weekday = 0; Hour = 2; Minute = 0; };
-      # options = "--delete-older-than 30d";
-      # };
-
-      extraOptions = ''
-        experimental-features = nix-command flakes
-      '';
-    };
-
-    determinate-nix.customSettings = {
-      trusted-users = [
-        "@admin"
-        "${config.myDarwin.primaryUser}"
-        "builder"
-      ];
-      extra-substituters = [
-        "https://nix-community.cachix.org"
-        "https://cache.nixos.org"
-        "https://install.determinate.systems"
-        "https://colmena.cachix.org"
-      ];
-      extra-trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
-        "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
-      ];
-      eval-cores = 0;
-      builders = "ssh://builder@builder-1 x86_64-linux - - - - - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUJ5aEZuSDFpWHVRaXNhcFpVTXRoSktBTW9jZ2w4dHM3OVBSd2hoTUFwUDIK";
-      # + " ; "
-      # + "";
-      builders-use-substitutes = true;
-    };
+              systems = builtins.concatStringsSep "," (get "systems" [ "-" ]);
+              sshKey = get "sshKey" "-";
+              maxJobs = toString (get "maxJobs" "-");
+              speedFactor = toString (get "speedFactor" "-");
+              supportedFeatures = builtins.concatStringsSep "," (get "supportedFeatures" [ "-" ]);
+              mandatoryFeatures = builtins.concatStringsSep "," (get "mandatoryFeatures" [ "-" ]);
+              publicHostKey = get "publicHostKey" "-";
+            in
+            "${uri} ${systems} ${sshKey} ${maxJobs} ${speedFactor} ${supportedFeatures} ${mandatoryFeatures} ${publicHostKey}";
+        in
+        {
+          builders = builtins.concatStringsSep " ; " (
+            map builderToString config.mySnippets.nix.buildMachines
+          );
+        }
+      )
+    ];
   };
 }

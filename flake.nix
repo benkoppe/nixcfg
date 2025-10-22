@@ -79,6 +79,26 @@
       "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
       "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
     ];
+
+    experimental-features = [
+      "cgroups"
+      "flakes"
+      "nix-command"
+    ];
+
+    builders-use-substitutes = true;
+    flake-registry = "";
+    http-connections = 50;
+    lazy-trees = true;
+    show-trace = true;
+    trusted-users = [
+      "root"
+      "@build"
+      "@wheel"
+      "@admin"
+    ];
+    use-cgroups = true;
+    warn-dirty = false;
   };
 
   outputs =
