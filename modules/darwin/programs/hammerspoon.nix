@@ -18,7 +18,7 @@
       {
         # Do hyper keys on darwin with hyper
         # from https://github.com/evantravers/hammerspoon-config/blob/38a7d8c0ad2190d1563d681725628e4399dcbe6c/hyper.lua
-        xdg.configFile."hammerspoon/hyper.lua".text = ''
+        xdg.configFile."hammerspoon/hyper.lua".text = /* lua */ ''
           local hyper = hs.hotkey.modal.new({}, nil)
 
           hyper.pressed = function()
