@@ -20,4 +20,6 @@
   users.users.root.openssh.authorizedKeys.keyFiles = [
     "${self.inputs.secrets}/pve/builder-1-root-key.pub"
   ];
+
+  networking.hostName = "builder-1";
 }
