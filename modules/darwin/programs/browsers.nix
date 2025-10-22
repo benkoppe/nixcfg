@@ -29,6 +29,21 @@
           package = self.inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.firefox;
         };
       }
+      (lib.mkIf config.myDarwin.programs.hammerspoon.enable {
+        # shortcut to open new tabs to the right
+        xdg.configFile."hammerspoon/init.lua".text =
+          lib.mkAfter # lua
+            ''
+              newWindowRight = hs.hotkey.new({"ctrl"}, "t", function()
+                local app = hs.appfinder.appFromName("Brave")
+                app:selectMenuItem({"Tab", "New Tab to the Right"})
+              end)
+
+              hs.window.filter.new("Brave Browser")
+                :subscribe(hs.window.filter.windowFocused, function() newWindowRight:enable() end)
+                :subscribe(hs.window.filter.windowUnfocused, function() newWindowRight:disable() end)
+            '';
+      })
     ];
   };
 }
