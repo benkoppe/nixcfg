@@ -5,5 +5,6 @@
     ./browsers.nix
     ./hammerspoon.nix
     ./karabiner.nix
+    ./xcode.nix
   ];
 }

@@ -1,8 +1,6 @@
 {
   config,
-  lib,
   pkgs,
-  self,
   ...
 }:
 {
@@ -28,6 +26,7 @@
       browsers.enable = true;
       hammerspoon.enable = true;
       karabiner.enable = true;
+      xcode.enable = true;
     };
   };
 
