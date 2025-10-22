@@ -10,7 +10,6 @@
       config.mySnippets.nix.settings
       {
         eval-cores = 0;
-        # builders = "ssh://builder@builder-1 x86_64-linux - - - - - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUJ5aEZuSDFpWHVRaXNhcFpVTXRoSktBTW9jZ2w4dHM3OVBSd2hoTUFwUDIK";
       }
       (
         let
