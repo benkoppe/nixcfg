@@ -93,6 +93,7 @@
     show-trace = true;
     trusted-users = [
       "root"
+      "builder"
       "@build"
       "@wheel"
       "@admin"
