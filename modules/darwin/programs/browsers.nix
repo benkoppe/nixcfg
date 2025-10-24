@@ -30,7 +30,7 @@
         };
       }
       (lib.mkIf config.myDarwin.programs.hammerspoon.enable {
-        # shortcut to open new tabs to the right
+        # open new tabs to the right
         xdg.configFile."hammerspoon/init.lua".text =
           lib.mkAfter # lua
             ''
