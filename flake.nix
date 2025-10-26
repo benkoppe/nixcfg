@@ -87,7 +87,7 @@
     ];
 
     builders-use-substitutes = true;
-    flake-registry = "";
+    # flake-registry = "";
     http-connections = 50;
     lazy-trees = true;
     show-trace = true;
