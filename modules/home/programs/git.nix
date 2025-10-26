@@ -17,12 +17,14 @@
         programs.git = {
           enable = true;
           ignores = [ "*.swp" ];
-          userName = "Ben";
-          userEmail = "koppe.development@gmail.com";
           lfs = {
             enable = true;
           };
-          extraConfig = {
+          settings = {
+            user = {
+              name = "Ben";
+              email = "koppe.development@gmail.com";
+            };
             init.defaultBranch = "main";
             core = {
               editor = "vim";
@@ -40,7 +42,7 @@
           githubPublicSigningKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMqe4FEfKED0fJ1IETiws0aYV1lzDTBuGJfBFi+WTsJ8 ben@Bens-MBP";
         in
         {
-          programs.git.extraConfig = {
+          programs.git.settings = {
             commit.gpgsign = true;
             gpg.format = "ssh";
             user.signingKey = "~/${signingKeyPath}";
