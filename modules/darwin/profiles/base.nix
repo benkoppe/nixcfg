@@ -57,11 +57,11 @@
 
     networking =
       let
-        hostName = config.myDarwin.hostName;
+        inherit (config.myDarwin) hostName;
       in
       {
+        inherit hostName;
         computerName = hostName;
-        hostName = hostName;
         localHostName = hostName;
 
         applicationFirewall.enable = true;
@@ -74,7 +74,7 @@
     };
 
     system = {
-      primaryUser = config.myDarwin.primaryUser;
+      inherit (config.myDarwin) primaryUser;
       checks.verifyNixPath = false;
       stateVersion = 5;
 
