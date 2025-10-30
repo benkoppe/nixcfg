@@ -8,7 +8,7 @@
 {
   imports =
     let
-      inputs = self.inputs;
+      inherit (self) inputs;
     in
     [
       self.snippetsModule
