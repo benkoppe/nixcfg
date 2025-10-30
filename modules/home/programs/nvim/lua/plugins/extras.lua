@@ -15,7 +15,7 @@ return {
 		},
 	},
 
-	-- use nixd lsp
+	-- adjust lsps and inlay hints
 	{
 		"neovim/nvim-lspconfig",
 		opts = {
@@ -25,6 +25,7 @@ return {
 				statix = {},
 				lua_ls = {},
 			},
+			inlay_hints = { enabled = false },
 		},
 	},
 
