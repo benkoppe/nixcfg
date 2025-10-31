@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   self,
   ...
 }:
@@ -33,6 +32,12 @@
             pull.rebase = true;
             rebase.autoStash = true;
           };
+        };
+
+        programs.difftastic = {
+          enable = true;
+          git.enable = true;
+          git.diffToolMode = true;
         };
       }
 

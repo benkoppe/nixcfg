@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -11,6 +12,15 @@
       enable = true;
       settings = {
         promptToReturnFromSubprocess = false;
+
+        git = {
+          pagers = [
+            {
+              # directly reference the binary from the Nix store
+              externalDiffCommand = "${pkgs.difftastic}/bin/difft --color=always --display=inline --syntax-highlight=off";
+            }
+          ];
+        };
       };
     };
   };
