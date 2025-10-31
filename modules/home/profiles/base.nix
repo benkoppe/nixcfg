@@ -23,19 +23,24 @@
     programs.home-manager.enable = true;
     xdg.enable = true;
 
-    home.packages = with pkgs; [
-      # General packages for development and system management
-      nh
-      coreutils
-      bash-completion
-      killall
-      wget
-      zip
-      unzip
+    home.packages =
+      with pkgs;
+      [
+        # General packages for development and system management
+        nh
+        coreutils
+        bash-completion
+        killall
+        wget
+        zip
+        unzip
 
-      # Monitoring and diagnostics
-      htop
-      iftop
-    ];
+        # Monitoring and diagnostics
+        htop
+        iftop
+      ]
+      ++ [
+        self.inputs.colmena.packages.${pkgs.system}.colmena
+      ];
   };
 }
