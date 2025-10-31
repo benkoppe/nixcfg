@@ -84,6 +84,7 @@
       "cgroups"
       "flakes"
       "nix-command"
+      "parallel-eval"
     ];
 
     builders-use-substitutes = true;
