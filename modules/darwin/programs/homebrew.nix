@@ -20,6 +20,7 @@
 
     nix-homebrew = {
       enable = true;
+      enableRosetta = true;
       mutableTaps = false;
       autoMigrate = true;
       taps = {
