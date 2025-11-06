@@ -55,7 +55,6 @@
         # "rectangle"
 
         # Entertainment Tools - Examples (uncomment as needed)
-        (greedy "spotify")
         # "vlc"
         (greedy "steam")
         (greedy "altserver")
