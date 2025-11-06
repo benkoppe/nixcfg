@@ -40,7 +40,7 @@
         iftop
       ]
       ++ [
-        self.inputs.colmena.packages.${pkgs.system}.colmena
+        self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
       ];
   };
 }
