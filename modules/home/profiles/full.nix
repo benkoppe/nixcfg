@@ -59,7 +59,7 @@
         font-awesome
         hack-font
         noto-fonts
-        noto-fonts-emoji
+        noto-fonts-color-emoji
         jetbrains-mono
         meslo-lgs-nf
 
