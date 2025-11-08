@@ -30,6 +30,11 @@
       "65" = {
         enabled = false;
       };
+
+      # Disable double-tap 'Cmd' for siri
+      "176" = {
+        enabled = false;
+      };
     };
   };
 }
