@@ -19,6 +19,7 @@
       [
         (greedy "google-chrome")
         (greedy "brave-browser")
+        (greedy "helium-browser")
       ];
 
     home-manager.sharedModules = [
