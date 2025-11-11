@@ -40,6 +40,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    terranix = {
+      url = "github:terranix/terranix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Non-flake inputs
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
@@ -114,6 +119,7 @@
       imports = [
         ./modules/flake
         inputs.home-manager.flakeModules.home-manager
+        inputs.terranix.flakeModule
       ];
     };
 }
