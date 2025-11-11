@@ -47,6 +47,10 @@
                 "if".app-name-regex-substring = "finder";
                 run = [ "layout floating" ];
               }
+              {
+                "if".app-name-regex-substring = "qemu-system-*";
+                run = [ "layout floating" ];
+              }
             ];
           };
         };
