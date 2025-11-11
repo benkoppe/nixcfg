@@ -111,6 +111,8 @@
 
           # docker daemon without docker desktop
           colima
+
+          raycast
         ]
       );
   };
