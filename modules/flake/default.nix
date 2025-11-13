@@ -5,5 +5,6 @@
     ./nixos.nix
     ./colmena.nix
     ./snippets.nix
+    ./terranix.nix
   ];
 }
