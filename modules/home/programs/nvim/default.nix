@@ -105,6 +105,9 @@
         rubocop
         shfmt
         sqlfluff
+
+        # latex
+        texlab
       ];
     };
   };
