@@ -48,35 +48,39 @@
 
       (lib.mkIf config.myHome.programs.ssh.enableServers {
         programs.ssh = {
-          matchBlocks = {
-            "russ" = {
-              hostname = "10.192.168.99";
-              user = "root";
-              identitiesOnly = true;
-              identityFile = config.age.secrets.ssh-russ.path;
-            };
+          matchBlocks =
+            let
+              inherit (config.mySnippets) hosts;
+            in
+            {
+              "russ" = {
+                hostname = hosts.russ.ipv4;
+                user = "root";
+                identitiesOnly = true;
+                identityFile = config.age.secrets.ssh-russ.path;
+              };
 
-            "builder-1" = {
-              hostname = config.mySnippets.hosts.builder-1.ipv4;
-              user = "builder";
-              identitiesOnly = true;
-              identityFile = config.age.secrets.ssh-builder-1.path;
-            };
+              "builder-1" = {
+                hostname = hosts.builder-1.ipv4;
+                user = "builder";
+                identitiesOnly = true;
+                identityFile = config.age.secrets.ssh-builder-1.path;
+              };
 
-            "builder-1-root" = {
-              hostname = "10.192.168.240";
-              user = "root";
-              identitiesOnly = true;
-              identityFile = config.age.secrets.ssh-builder-1-root.path;
-            };
+              "builder-1-root" = {
+                hostname = hosts.builder-1.ipv4;
+                user = "root";
+                identitiesOnly = true;
+                identityFile = config.age.secrets.ssh-builder-1-root.path;
+              };
 
-            "*" = {
-              host = "*";
-              user = "root";
-              identitiesOnly = true;
-              identityFile = config.age.secrets.ssh-lxc-bootstrap.path;
+              "*" = {
+                host = "*";
+                user = "root";
+                identitiesOnly = true;
+                identityFile = config.age.secrets.ssh-lxc-bootstrap.path;
+              };
             };
-          };
         };
 
         age.secrets = {
