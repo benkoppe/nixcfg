@@ -5,23 +5,23 @@
   ...
 }:
 {
-  flake =
-    { config, ... }:
-    {
-      colmenaHive =
-        inputs.colmena.lib.makeHive {
-          meta = {
-            nixpkgs = import inputs.nixpkgs {
-              system = "x86_64-linux";
-              overlays = [ ];
-            };
-            specialArgs = {
-              inherit self;
-            };
+  flake = {
+    colmenaHive = inputs.colmena.lib.makeHive (
+      {
+        meta = {
+          nixpkgs = import inputs.nixpkgs {
+            system = "x86_64-linux";
+            overlays = [ ];
           };
-
-        }
-        // (lib.genAttrs [ "russ" "builder-1" "adguard" ] (host: {
+          specialArgs = {
+            inherit self;
+          };
+        };
+      }
+      // (lib.genAttrs [ "russ" "builder-1" "adguard" ] (
+        host:
+        { config, ... }:
+        {
           deployment = {
             targetHost = config.mySnippets.hosts.${host}.ipv4;
             targetUser = "root";
@@ -30,6 +30,8 @@
             ../../hosts/${host}
             ../nixos
           ];
-        }));
-    };
+        }
+      ))
+    );
+  };
 }
