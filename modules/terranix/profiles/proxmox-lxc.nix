@@ -45,7 +45,7 @@
 
         initialization = {
           hostname = hostName;
-          ip_config.ipv4.gateway = "10.192.168.1";
+          ip_config.ipv4.gateway = "${config.mySnippets.networks.tailscale.gateway}";
         };
 
         features = {

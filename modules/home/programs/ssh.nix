@@ -51,12 +51,13 @@
           matchBlocks = {
             "russ" = {
               hostname = "10.192.168.99";
+              user = "root";
               identitiesOnly = true;
               identityFile = config.age.secrets.ssh-russ.path;
             };
 
             "builder-1" = {
-              hostname = "10.192.168.240";
+              hostname = config.mySnippets.hosts.builder-1.ipv4;
               user = "builder";
               identitiesOnly = true;
               identityFile = config.age.secrets.ssh-builder-1.path;
@@ -67,6 +68,13 @@
               user = "root";
               identitiesOnly = true;
               identityFile = config.age.secrets.ssh-builder-1-root.path;
+            };
+
+            "*" = {
+              host = "*";
+              user = "root";
+              identitiesOnly = true;
+              identityFile = config.age.secrets.ssh-lxc-bootstrap.path;
             };
           };
         };
@@ -90,6 +98,13 @@
             file = "${self.inputs.secrets}/pve/builder-1-root-key.age";
             symlink = false;
             path = "${config.home.homeDirectory}/.ssh/pve/builder-1-root";
+            mode = "600";
+          };
+
+          ssh-lxc-bootstrap = {
+            file = "${self.inputs.secrets}/pve/lxc-bootstrap-key.age";
+            symlink = false;
+            path = "${config.home.homeDirectory}/.ssh/pve/lxc-bootstrap";
             mode = "600";
           };
         };

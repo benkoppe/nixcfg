@@ -29,19 +29,23 @@
     "${self.inputs.secrets}/pve/russ-key.pub"
   ];
 
-  networking = {
-    useDHCP = false;
+  networking =
+    let
+      inherit (config.mySnippets.networks) tailscale;
+    in
+    {
+      useDHCP = false;
 
-    interfaces."ens18".ipv4.addresses = [
-      {
-        address = "10.192.168.99";
-        prefixLength = 24;
-      }
-    ];
-    defaultGateway = {
-      address = "10.192.168.1";
-      interface = "ens18";
+      interfaces."ens18".ipv4.addresses = [
+        {
+          address = "${tailscale.prefix}.99";
+          prefixLength = 24;
+        }
+      ];
+      defaultGateway = {
+        address = tailscale.gateway;
+        interface = "ens18";
+      };
+      nameservers = [ "192.168.1.1" ];
     };
-    nameservers = [ "192.168.1.1" ];
-  };
 }

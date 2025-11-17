@@ -51,9 +51,7 @@
         in
         {
           enable = true;
-          privileged = cfg.privileged;
-          manageNetwork = cfg.manageNetwork;
-          manageHostName = cfg.manageHostName;
+          inherit (cfg) privileged manageNetwork manageHostName;
         };
 
       security.pam.services.sshd.allowNullPassword = true;

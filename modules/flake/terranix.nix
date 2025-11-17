@@ -1,9 +1,10 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
   perSystem =
     {
       system,
       lib,
+      config,
       ...
     }:
     {
@@ -15,9 +16,12 @@
       terranix.terranixConfigurations = lib.genAttrs [ "adguard" ] (host: {
         workdir = "terraform/${host}";
 
+        extraArgs = { inherit self; };
+
         modules = [
           ../terranix
           ../../hosts/${host}/terranix.nix
+          self.snippetsModule
           {
             myTerranix.hostName = host;
           }
