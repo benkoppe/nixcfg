@@ -13,7 +13,7 @@
       default = lib.mkMerge [
         (
           let
-            nixConfig = (import (self + /flake.nix)).nixConfig;
+            inherit (import (self + /flake.nix)) nixConfig;
             removed = lib.optionals pkgs.stdenv.isDarwin [ "use-cgroups" ];
           in
           lib.removeAttrs nixConfig removed
