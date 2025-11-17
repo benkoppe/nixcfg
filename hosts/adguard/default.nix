@@ -10,11 +10,16 @@
     openssh.authorizedKeys.keyFiles = [
       "${self.inputs.secrets}/pve/lxc-bootstrap-key.pub"
     ];
-
-    hashedPassword = "";
   };
+
+  services.resolved.enable = false;
 
   services.adguardhome = {
     enable = true;
+    port = 80;
+    openFirewall = true;
+
+    mutableSettings = false;
+    settings = import ./adguard-conf.nix;
   };
 }
