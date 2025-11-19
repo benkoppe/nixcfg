@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   self,
@@ -14,6 +13,7 @@
     {
       myHome = {
         profiles.full.enable = true;
+        profiles.gaming.enable = true;
       };
     }
 
