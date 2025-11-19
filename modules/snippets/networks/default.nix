@@ -24,6 +24,15 @@
             inherit prefix;
             gateway = "${prefix}.1";
           };
+
+        newt =
+          let
+            prefix = "10.0.0";
+          in
+          {
+            inherit prefix;
+            gateway = "${prefix}.1";
+          };
       };
     };
   };
