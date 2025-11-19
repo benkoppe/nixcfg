@@ -61,6 +61,8 @@
 
         # Work tools
         (greedy "microsoft-powerpoint")
+
+        (greedy "macfuse")
       ];
 
     masApps = {
