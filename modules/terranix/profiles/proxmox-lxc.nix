@@ -6,6 +6,33 @@
 {
   options.myTerranix.profiles.proxmox-lxc = {
     enable = lib.mkEnableOption "proxmox lxc terraform defaults";
+
+    disk.size = lib.mkOption {
+      type = lib.types.int;
+      default = 10;
+      description = "Disk size in GB";
+    };
+
+    cpu.cores = lib.mkOption {
+      type = lib.types.int;
+      default = 2;
+      description = "Num. CPU cores";
+    };
+
+    memory = {
+      dedicated = lib.mkOption {
+        type = lib.types.int;
+        default = 1024;
+        description = "Dedicated memory in MiB";
+      };
+
+      swap = lib.mkOption {
+        type = lib.types.int;
+        default = 512;
+        description = "Swap memory in MiB";
+      };
+    };
+
   };
 
   config = lib.mkIf config.myTerranix.profiles.proxmox-lxc.enable (
@@ -28,14 +55,13 @@
 
         disk = {
           datastore_id = "local-zfs";
-          size = 10;
+          inherit (config.myTerranix.profiles.proxmox-lxc.disk) size;
         };
 
-        cpu.cores = 2;
+        cpu.cores = config.myTerranix.profiles.proxmox-lxc.cpu.cores;
 
         memory = {
-          dedicated = 1024;
-          swap = 512;
+          inherit (config.myTerranix.profiles.proxmox-lxc.memory) dedicated swap;
         };
 
         operating_system = {
