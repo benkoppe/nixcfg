@@ -60,18 +60,18 @@
                 identityFile = config.age.secrets.ssh-russ.path;
               };
 
-              "builder-1" = {
-                hostname = hosts.builder-1.ipv4;
+              "nix-builder" = {
+                hostname = hosts.nix-builder.ipv4;
                 user = "builder";
                 identitiesOnly = true;
-                identityFile = config.age.secrets.ssh-builder-1.path;
+                identityFile = config.age.secrets.ssh-nix-builder.path;
               };
 
-              "builder-1-root" = {
-                hostname = hosts.builder-1.ipv4;
+              "nix-builder-root" = {
+                hostname = hosts.nix-builder.ipv4;
                 user = "root";
                 identitiesOnly = true;
-                identityFile = config.age.secrets.ssh-builder-1-root.path;
+                identityFile = config.age.secrets.ssh-nix-builder-root.path;
               };
 
               "*" = {
@@ -91,17 +91,17 @@
             mode = "600";
           };
 
-          ssh-builder-1 = {
+          ssh-nix-builder = {
             file = "${self.inputs.secrets}/pve/builder-1-key.age";
             symlink = false;
-            path = "${config.home.homeDirectory}/.ssh/pve/builder-1";
+            path = "${config.home.homeDirectory}/.ssh/pve/nix-builder";
             mode = "600";
           };
 
-          ssh-builder-1-root = {
+          ssh-nix-builder-root = {
             file = "${self.inputs.secrets}/pve/builder-1-root-key.age";
             symlink = false;
-            path = "${config.home.homeDirectory}/.ssh/pve/builder-1-root";
+            path = "${config.home.homeDirectory}/.ssh/pve/nix-builder-root";
             mode = "600";
           };
 

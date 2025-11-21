@@ -8,14 +8,14 @@
       default = [
         (
           let
-            inherit (config.mySnippets.hosts) builder-1;
+            inherit (config.mySnippets.hosts) nix-builder;
           in
           {
-            hostName = builder-1.ipv4;
+            hostName = nix-builder.ipv4;
             maxJobs = 10;
             protocol = "ssh-ng";
             speedFactor = 2;
-            sshKey = "${config.mySnippets.primaryHome}/.ssh/pve/builder-1";
+            sshKey = "${config.mySnippets.primaryHome}/.ssh/pve/nix-builder";
             sshUser = "builder";
             supportedFeatures = [
               "nixos-test"
