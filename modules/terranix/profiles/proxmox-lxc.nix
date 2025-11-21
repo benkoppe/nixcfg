@@ -33,6 +33,48 @@
       };
     };
 
+    networks = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            deviceName = lib.mkOption {
+              type = lib.types.str;
+              description = "Interface name (e.g. eth0)";
+            };
+            bridge = lib.mkOption {
+              type = lib.types.str;
+              description = "Bridge to attach to";
+            };
+
+            ipv4.address = lib.mkOption {
+              type = lib.types.str;
+              description = "IPv4 CIDR address";
+            };
+
+            ipv4.gateway = lib.mkOption {
+              type = lib.types.str;
+              default = null;
+              description = "Gateway (optional)";
+            };
+          };
+        }
+      );
+
+      description = "Network interface definitions";
+      default = {
+        tailscale =
+          let
+            ts = config.mySnippets.networks.tailscale;
+          in
+          {
+            inherit (ts) bridge deviceName;
+            ipv4 = {
+              inherit (ts) gateway;
+              address = config.mySnippets.hosts.${config.mySnippets.hostName}.ipv4;
+            };
+          };
+      };
+    };
   };
 
   config = lib.mkIf config.myTerranix.profiles.proxmox-lxc.enable (
@@ -47,11 +89,6 @@
       resource.proxmox_virtual_environment_container.${hostName} = {
         description = "Managed by Terranix";
         unprivileged = lib.mkDefault true;
-
-        network_interface = {
-          name = "eth_ts";
-          bridge = "vxnetts";
-        };
 
         disk = {
           datastore_id = "local-zfs";
@@ -71,7 +108,6 @@
 
         initialization = {
           hostname = hostName;
-          ip_config.ipv4.gateway = "${config.mySnippets.networks.tailscale.gateway}";
         };
 
         features = {
@@ -80,7 +116,27 @@
 
         start_on_boot = true;
         tags = lib.mkDefault [ "terranix" ];
-      };
+      }
+      // (
+        let
+          inherit (config.myTerranix.profiles.proxmox-lxc) networks;
+
+          networkInterfaceList = lib.mapAttrsToList (_: v: {
+            inherit (v) bridge;
+            name = v.deviceName;
+          }) networks;
+
+          ipConfigList = lib.mapAttrsToList (_: v: {
+            ipv4 = {
+              inherit (v.ipv4) address gateway;
+            };
+          }) networks;
+        in
+        {
+          network_interface = networkInterfaceList;
+          initialization.ip_config = ipConfigList;
+        }
+      );
     }
   );
 }

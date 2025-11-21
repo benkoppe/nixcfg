@@ -11,6 +11,13 @@
             gateway = lib.mkOption {
               type = lib.types.str;
             };
+            bridge = lib.mkOption {
+              type = lib.types.str;
+            };
+            deviceName = lib.mkOption {
+              type = lib.types.str;
+              description = "typical name for devices on this network";
+            };
           };
         }
       );
@@ -23,6 +30,8 @@
           {
             inherit prefix;
             gateway = "${prefix}.1";
+            bridge = "vxnetts";
+            deviceName = "eth_ts";
           };
 
         newt =
@@ -32,6 +41,8 @@
           {
             inherit prefix;
             gateway = "${prefix}.1";
+            bridge = "vxnetnwt";
+            deviceName = "eth_newt";
           };
       };
     };
