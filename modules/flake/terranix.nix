@@ -12,7 +12,7 @@
         config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "terraform" ];
       };
 
-      terranix.terranixConfigurations = lib.genAttrs [ "adguard" ] (host: {
+      terranix.terranixConfigurations = lib.genAttrs [ "nix-builder" "adguard" ] (host: {
         workdir = "terraform/${host}";
 
         extraArgs = { inherit self; };

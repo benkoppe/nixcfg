@@ -18,7 +18,7 @@
           };
         };
       }
-      // (lib.genAttrs [ "russ" "builder-1" "adguard" ] (
+      // (lib.genAttrs [ "russ" "nix-builder" "adguard" ] (
         host:
         { config, ... }:
         {
