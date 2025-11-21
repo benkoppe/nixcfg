@@ -23,7 +23,7 @@
               "benchmark"
             ];
             systems = [ "x86_64-linux" ];
-            publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUJ5aEZuSDFpWHVRaXNhcFpVTXRoSktBTW9jZ2w4dHM3OVBSd2hoTUFwUDIK";
+            publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUVvTlJteVV2Vm5nVTkzZnJZNWEzUjRXSHFFcllZcktyQUxaS0RiODVtL3ogcm9vdEBuaXgtYnVpbGRlcgo=";
           }
         )
       ];
