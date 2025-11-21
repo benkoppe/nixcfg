@@ -140,7 +140,8 @@ in
 
         ipConfigList = lib.mapAttrsToList (_: v: {
           ipv4 = {
-            inherit (v.ipv4) address gateway;
+            inherit (v.ipv4) gateway;
+            address = "${v.ipv4.address}/24";
           };
         }) networks;
       in
