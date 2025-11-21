@@ -100,6 +100,8 @@ in
       description = "Managed by Terranix";
       unprivileged = lib.mkDefault true;
 
+      inherit (config.myTerranix.profiles.proxmox-lxc) vm_id node_name;
+
       disk = {
         datastore_id = "local-zfs";
         inherit (config.myTerranix.profiles.proxmox-lxc.disk) size;
