@@ -1,6 +1,7 @@
 {
   self,
   pkgs,
+  config,
   ...
 }:
 {
@@ -21,5 +22,5 @@
     "${self.inputs.secrets}/pve/builder-1-root-key.pub"
   ];
 
-  networking.hostName = "builder-1";
+  networking.hostName = config.mySnippets.hostName;
 }

@@ -1,7 +1,7 @@
 { config, ... }:
 let
   inherit (config.mySnippets.networks) tailscale;
-  vm_id = 240;
+  vm_id = 242;
 in
 {
   inherit vm_id;
