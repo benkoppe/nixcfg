@@ -15,7 +15,7 @@ in
     vm_id = lib.mkOption {
       type = lib.types.int;
       description = "Proxmox VM ID";
-      default = config.mySnippets.hosts.${hostName}.proxmox.vm_id;
+      default = config.mySnippets.hosts.${hostName}.vm_id;
     };
 
     node_name = lib.mkOption {
