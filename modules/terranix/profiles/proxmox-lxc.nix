@@ -118,10 +118,6 @@ in
         type = "nixos";
       };
 
-      initialization = {
-        hostname = hostName;
-      };
-
       features = {
         nesting = true;
       };
@@ -147,7 +143,10 @@ in
       in
       {
         network_interface = networkInterfaceList;
-        initialization.ip_config = ipConfigList;
+        initialization = {
+          hostname = hostName;
+          ip_config = ipConfigList;
+        };
       }
     );
   };
