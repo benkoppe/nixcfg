@@ -4,7 +4,6 @@
     {
       system,
       lib,
-      config,
       ...
     }:
     {
@@ -23,7 +22,7 @@
           ../../hosts/${host}/terranix.nix
           self.snippetsModule
           {
-            myTerranix.hostName = host;
+            mySnippets.hostName = host;
           }
         ];
       });

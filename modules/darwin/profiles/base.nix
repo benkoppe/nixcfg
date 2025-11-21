@@ -57,7 +57,7 @@
 
     networking =
       let
-        inherit (config.myDarwin) hostName;
+        inherit (config.mySnippets) hostName;
       in
       {
         inherit hostName;
@@ -74,13 +74,13 @@
     };
 
     system = {
-      inherit (config.myDarwin) primaryUser;
+      inherit (config.mySnippets) primaryUser;
       checks.verifyNixPath = false;
       stateVersion = 5;
 
       activationScripts.postActivation.text = ''
         # should allow us to avoid a logout/login cycle when changing settings
-        sudo -u ${config.myDarwin.primaryUser} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+        sudo -u ${config.mySnippets.primaryUser} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
       '';
 
       defaults.SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;

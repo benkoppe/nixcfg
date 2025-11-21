@@ -37,7 +37,7 @@
 
   config = lib.mkIf config.myTerranix.profiles.proxmox-lxc.enable (
     let
-      inherit (config.myTerranix)
+      inherit (config.mySnippets)
         hostName
         ;
     in

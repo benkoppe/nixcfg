@@ -16,10 +16,12 @@
     ];
   };
 
-  myDarwin = {
+  mySnippets = {
     hostName = "jordan";
     primaryUser = "ben";
+  };
 
+  myDarwin = {
     profiles.base.enable = true;
 
     programs = {
@@ -32,7 +34,7 @@
 
   users.users =
     let
-      primaryUser = config.myDarwin.primaryUser;
+      inherit (config.mySnippets) primaryUser;
     in
     {
       "${primaryUser}" = {

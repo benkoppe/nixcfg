@@ -1,6 +1,6 @@
 { self, config, ... }:
 {
-  home-manager.users.${config.myDarwin.primaryUser} = {
+  home-manager.users.${config.mySnippets.primaryUser} = {
     imports = [
       self.homeModules.ben
     ];

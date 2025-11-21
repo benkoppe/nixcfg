@@ -30,7 +30,7 @@
         "sst/homebrew-tap" = self.inputs.homebrew-sst-tap;
       };
 
-      user = config.myDarwin.primaryUser;
+      user = config.mySnippets.primaryUser;
     };
 
   };

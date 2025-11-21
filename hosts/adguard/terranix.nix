@@ -1,7 +1,7 @@
 { config, ... }:
 let
-  inherit (config.myTerranix) hostName;
   inherit (config) mySnippets;
+  inherit (mySnippets) hostName;
   inherit (mySnippets.hosts.${hostName}) vm_id;
   inherit (mySnippets.networks) tailscale;
 in
