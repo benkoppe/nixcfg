@@ -26,6 +26,10 @@
       programs.nix.enable = true;
     };
 
+    mySnippets = {
+      primaryUser = lib.mkDefault "root";
+    };
+
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;

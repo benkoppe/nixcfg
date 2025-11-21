@@ -29,6 +29,9 @@
           imports = [
             ../../hosts/${host}
             ../nixos
+            {
+              mySnippets.hostName = host;
+            }
           ];
         }
       ))

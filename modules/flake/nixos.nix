@@ -20,6 +20,9 @@
         modules = [
           self.nixosModules.default
           ../../hosts/${host}
+          {
+            mySnippets.hostName = host;
+          }
         ];
 
         specialArgs = { inherit self; };
