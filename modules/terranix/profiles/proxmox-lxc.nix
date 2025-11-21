@@ -3,9 +3,26 @@
   lib,
   ...
 }:
+let
+  inherit (config.mySnippets)
+    hostName
+    ;
+in
 {
   options.myTerranix.profiles.proxmox-lxc = {
     enable = lib.mkEnableOption "proxmox lxc terraform defaults";
+
+    vm_id = lib.mkOption {
+      type = lib.types.int;
+      description = "Proxmox VM ID";
+      default = config.mySnippets.hosts.${hostName}.proxmox.vm_id;
+    };
+
+    node_name = lib.mkOption {
+      type = lib.types.str;
+      description = "Proxmox node name for this CT";
+      default = "dray";
+    };
 
     disk.size = lib.mkOption {
       type = lib.types.int;
@@ -59,7 +76,6 @@
           };
         }
       );
-
       description = "Network interface definitions";
       default = {
         tailscale =
@@ -70,73 +86,66 @@
             inherit (ts) bridge deviceName;
             ipv4 = {
               inherit (ts) gateway;
-              address = config.mySnippets.hosts.${config.mySnippets.hostName}.ipv4;
+              address = config.mySnippets.hosts.${hostName}.ipv4;
             };
           };
       };
     };
   };
 
-  config = lib.mkIf config.myTerranix.profiles.proxmox-lxc.enable (
-    let
-      inherit (config.mySnippets)
-        hostName
-        ;
-    in
-    {
-      myTerranix.profiles.proxmox.enable = true;
+  config = lib.mkIf config.myTerranix.profiles.proxmox-lxc.enable {
+    myTerranix.profiles.proxmox.enable = true;
 
-      resource.proxmox_virtual_environment_container.${hostName} = {
-        description = "Managed by Terranix";
-        unprivileged = lib.mkDefault true;
+    resource.proxmox_virtual_environment_container.${hostName} = {
+      description = "Managed by Terranix";
+      unprivileged = lib.mkDefault true;
 
-        disk = {
-          datastore_id = "local-zfs";
-          inherit (config.myTerranix.profiles.proxmox-lxc.disk) size;
-        };
+      disk = {
+        datastore_id = "local-zfs";
+        inherit (config.myTerranix.profiles.proxmox-lxc.disk) size;
+      };
 
-        cpu.cores = config.myTerranix.profiles.proxmox-lxc.cpu.cores;
+      cpu.cores = config.myTerranix.profiles.proxmox-lxc.cpu.cores;
 
-        memory = {
-          inherit (config.myTerranix.profiles.proxmox-lxc.memory) dedicated swap;
-        };
+      memory = {
+        inherit (config.myTerranix.profiles.proxmox-lxc.memory) dedicated swap;
+      };
 
-        operating_system = {
-          template_file_id = "local:vztmpl/nixos-flake-bootstrap-x86_64-linux.tar.xz";
-          type = "nixos";
-        };
+      operating_system = {
+        template_file_id = "local:vztmpl/nixos-flake-bootstrap-x86_64-linux.tar.xz";
+        type = "nixos";
+      };
 
-        initialization = {
-          hostname = hostName;
-        };
+      initialization = {
+        hostname = hostName;
+      };
 
-        features = {
-          nesting = true;
-        };
+      features = {
+        nesting = true;
+      };
 
-        start_on_boot = true;
-        tags = lib.mkDefault [ "terranix" ];
-      }
-      // (
-        let
-          inherit (config.myTerranix.profiles.proxmox-lxc) networks;
-
-          networkInterfaceList = lib.mapAttrsToList (_: v: {
-            inherit (v) bridge;
-            name = v.deviceName;
-          }) networks;
-
-          ipConfigList = lib.mapAttrsToList (_: v: {
-            ipv4 = {
-              inherit (v.ipv4) address gateway;
-            };
-          }) networks;
-        in
-        {
-          network_interface = networkInterfaceList;
-          initialization.ip_config = ipConfigList;
-        }
-      );
+      start_on_boot = true;
+      tags = lib.mkDefault [ "terranix" ];
     }
-  );
+    // (
+      let
+        inherit (config.myTerranix.profiles.proxmox-lxc) networks;
+
+        networkInterfaceList = lib.mapAttrsToList (_: v: {
+          inherit (v) bridge;
+          name = v.deviceName;
+        }) networks;
+
+        ipConfigList = lib.mapAttrsToList (_: v: {
+          ipv4 = {
+            inherit (v.ipv4) address gateway;
+          };
+        }) networks;
+      in
+      {
+        network_interface = networkInterfaceList;
+        initialization.ip_config = ipConfigList;
+      }
+    );
+  };
 }
