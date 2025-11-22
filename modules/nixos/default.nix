@@ -2,5 +2,6 @@
   imports = [
     ./profiles
     ./programs
+    ./services
   ];
 }
