@@ -684,11 +684,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1763838243,
-        "narHash": "sha256-Ukv9cb+DjbIh085Lek8w31mFe7Tni+aJwdkUl99zzWQ=",
+        "lastModified": 1763847136,
+        "narHash": "sha256-DBn+7C4Nng0qYjqzrHEvH9wwRd8CEOGUuDNuSj/3Wdg=",
         "ref": "refs/heads/main",
-        "rev": "3127d814067ff5a2ddbc5e3f26bab2973b49f5f9",
-        "revCount": 11,
+        "rev": "6ea31a45bf3d0f7d5c40ac02802f1e01b05eedfd",
+        "revCount": 13,
         "type": "git",
         "url": "ssh://git@github.com/benkoppe/nix-secrets.git"
       },
