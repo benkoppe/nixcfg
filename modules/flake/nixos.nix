@@ -14,7 +14,7 @@
       default = ../nixos;
     };
 
-    nixosConfigurations = lib.genAttrs [ "russ" "nix-builder" "adguard" "lxc-bootstrap" ] (
+    nixosConfigurations = lib.genAttrs [ "russ" "nix-builder" "adguard" "lxc-bootstrap" "lldap" ] (
       host:
       inputs.nixpkgs.lib.nixosSystem {
         modules = [
