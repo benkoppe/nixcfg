@@ -23,6 +23,12 @@
       type = lib.types.int;
       description = "The port Caddy should forward.";
     };
+
+    networkDevice = lib.mkOption {
+      type = lib.types.str;
+      description = "The network device to bind to.";
+      default = config.mySnippets.networks.tailscale.deviceName;
+    };
   };
 
   config =
@@ -65,5 +71,12 @@
       };
 
       age.secrets.caddy-cloudflare.file = "${self.inputs.secrets}/services/caddy/cloudflare-api.age";
+
+      networking.firewall.interfaces = {
+        ${cfg.networkDevice}.allowedTCPPorts = [
+          80
+          443
+        ];
+      };
     };
 }

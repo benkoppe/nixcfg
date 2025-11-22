@@ -91,8 +91,6 @@
     {
       ${networks.tailscale.deviceName}.allowedTCPPorts = [
         cfg.http_port
-        80
-        443
       ];
 
       ${networks.ldap.deviceName}.allowedTCPPorts = [ cfg.ldap_port ];
