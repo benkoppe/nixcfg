@@ -8,13 +8,35 @@
 {
   myNixOS = {
     profiles.proxmox-lxc.enable = true;
+
+    services.caddy = {
+      enable = true;
+      domain = "thekoppe.com";
+      subdomain = "lldap";
+      port = config.services.lldap.settings.http_port;
+    };
   };
 
-  users.users.root = {
-    openssh.authorizedKeys.keyFiles = [
-      "${self.inputs.secrets}/pve/lxc-bootstrap-key.pub"
-    ];
+  users = {
+    users = {
+      root = {
+        openssh.authorizedKeys.keyFiles = [
+          "${self.inputs.secrets}/pve/lxc-bootstrap-key.pub"
+        ];
+      };
+
+      lldap = {
+        isNormalUser = true;
+        home = "/home/lldap";
+        shell = pkgs.bash;
+        group = "lldap";
+      };
+    };
+
+    groups.lldap = { };
   };
+
+  systemd.services.lldap.serviceConfig.DynamicUser = lib.mkForce false;
 
   services.lldap = {
     enable = true;
@@ -24,7 +46,7 @@
     silenceForceUserPassResetWarning = true;
 
     settings = {
-      http_url = "http://lldap.thekoppe.com";
+      http_url = "https://lldap.thekoppe.com";
       http_host = "0.0.0.0";
       http_port = 17170;
 
@@ -43,18 +65,6 @@
 
       database_url = "sqlite://./users.db?mode=rwc";
     };
-  };
-
-  systemd.services.lldap.serviceConfig.DynamicUser = lib.mkForce false;
-
-  users = {
-    users.lldap = {
-      isNormalUser = true;
-      home = "/home/lldap";
-      shell = pkgs.bash;
-      group = "lldap";
-    };
-    groups.lldap = { };
   };
 
   age.secrets =
@@ -79,7 +89,11 @@
       inherit (config.mySnippets) networks;
     in
     {
-      ${networks.tailscale.deviceName}.allowedTCPPorts = [ cfg.http_port ];
+      ${networks.tailscale.deviceName}.allowedTCPPorts = [
+        cfg.http_port
+        80
+        443
+      ];
 
       ${networks.ldap.deviceName}.allowedTCPPorts = [ cfg.ldap_port ];
     };
