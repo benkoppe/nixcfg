@@ -13,7 +13,7 @@
     [
       self.snippetsModule
       inputs.determinate.nixosModules.default
-      inputs.agenix.nixosModules.default
+      inputs.ragenix.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
       inputs.nixos-generators.nixosModules.all-formats
       inputs.disko.nixosModules.disko

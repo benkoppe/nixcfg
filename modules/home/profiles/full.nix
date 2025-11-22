@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 {
@@ -31,89 +32,90 @@
 
     programs.gh.enable = true;
 
-    home.packages =
+    home.packages = [
+      self.inputs.ragenix.packages.${pkgs.stdenv.hostPlatform.system}.ragenix
+    ]
+    ++ (with pkgs; [
+      # General packages for development and system management
+      aspell
+      aspellDicts.en
+      btop
+      sqlite
+
+      # Text/data tools
+      jq
+      ripgrep
+      fd
+      tree
+
+      # CLI power tools
+      bat
+
+      # Cloud tools and SDKs
+      docker
+      docker-compose
+
+      # Fonts & UI
+      dejavu_fonts
+      ffmpeg
+      font-awesome
+      hack-font
+      noto-fonts
+      noto-fonts-color-emoji
+      jetbrains-mono
+      meslo-lgs-nf
+
+      # Media
+      ffmpeg
+      unrar
+      hunspell
+      spotify
+
+      # Node.js dev tools
+      nodejs_24
+      pnpm
+
+      # Python
+      python3
+      virtualenv
+      uv
+
+      # Go
+      go
+
+      # Rust
+      cargo-deny
+      cargo-expand
+      cargo-fuzz
+      cargo-nextest
+      evcxr
+      taplo
+      cargo
+      clippy
+      rustc
+      rustfmt
+
+      # Security / crypto
+      gnupg
+      age
+      age-plugin-yubikey
+      libfido2
+
+      # Silly
+      fastfetch
+    ])
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
       with pkgs;
       [
-        # General packages for development and system management
-        aspell
-        aspellDicts.en
-        btop
-        sqlite
+        dockutil
 
-        # Text/data tools
-        jq
-        ripgrep
-        fd
-        tree
+        alt-tab-macos
 
-        # CLI power tools
-        bat
+        # docker daemon without docker desktop
+        colima
 
-        # Cloud tools and SDKs
-        docker
-        docker-compose
-
-        # Fonts & UI
-        dejavu_fonts
-        ffmpeg
-        font-awesome
-        hack-font
-        noto-fonts
-        noto-fonts-color-emoji
-        jetbrains-mono
-        meslo-lgs-nf
-
-        # Media
-        ffmpeg
-        unrar
-        hunspell
-        spotify
-
-        # Node.js dev tools
-        nodejs_24
-        pnpm
-
-        # Python
-        python3
-        virtualenv
-        uv
-
-        # Go
-        go
-
-        # Rust
-        cargo-deny
-        cargo-expand
-        cargo-fuzz
-        cargo-nextest
-        evcxr
-        taplo
-        cargo
-        clippy
-        rustc
-        rustfmt
-
-        # Security / crypto
-        gnupg
-        age
-        age-plugin-yubikey
-        libfido2
-
-        # Silly
-        fastfetch
+        raycast
       ]
-      ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
-        with pkgs;
-        [
-          dockutil
-
-          alt-tab-macos
-
-          # docker daemon without docker desktop
-          colima
-
-          raycast
-        ]
-      );
+    );
   };
 }

@@ -12,7 +12,7 @@
     in
     [
       self.snippetsModule
-      inputs.agenix.darwinModules.default
+      inputs.ragenix.darwinModules.default
       inputs.home-manager.darwinModules.home-manager
       inputs.nix-homebrew.darwinModules.nix-homebrew
       inputs.determinate.darwinModules.default

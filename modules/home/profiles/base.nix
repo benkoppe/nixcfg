@@ -10,7 +10,7 @@
 
   imports = [
     self.snippetsModule
-    self.inputs.agenix.homeManagerModules.default
+    self.inputs.ragenix.homeManagerModules.default
   ];
 
   config = lib.mkIf config.myHome.profiles.base.enable {

@@ -5,9 +5,13 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+    ragenix = {
+      url = "github:yaxitech/ragenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        agenix.inputs.darwin.follows = "nix-darwin";
+        agenix.inputs.home-manager.follows = "home-manager";
+      };
     };
 
     colmena.url = "github:zhaofengli/colmena";
