@@ -9,7 +9,7 @@
               type = lib.types.str;
             };
             gateway = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
             };
             bridge = lib.mkOption {
               type = lib.types.str;

@@ -69,7 +69,7 @@ in
             };
 
             ipv4.gateway = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
               default = null;
               description = "Gateway (optional)";
             };
