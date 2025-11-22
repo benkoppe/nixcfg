@@ -44,6 +44,16 @@
             bridge = "vxnetnwt";
             deviceName = "eth_newt";
           };
+
+        ldap =
+          let
+            prefix = "10.155.155";
+          in
+          {
+            inherit prefix;
+            bridge = "vxnet2";
+            deviceName = "eth_ldap";
+          };
       };
     };
   };
