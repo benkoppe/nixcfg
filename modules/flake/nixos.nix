@@ -14,19 +14,21 @@
       default = ../nixos;
     };
 
-    nixosConfigurations = lib.genAttrs [ "russ" "nix-builder" "adguard" "lxc-bootstrap" "lldap" ] (
-      host:
-      inputs.nixpkgs.lib.nixosSystem {
-        modules = [
-          self.nixosModules.default
-          ../../hosts/${host}
-          {
-            mySnippets.hostName = host;
-          }
-        ];
+    nixosConfigurations =
+      lib.genAttrs [ "russ" "nix-builder" "adguard" "lxc-bootstrap" "lldap" "pocket-id" ]
+        (
+          host:
+          inputs.nixpkgs.lib.nixosSystem {
+            modules = [
+              self.nixosModules.default
+              ../../hosts/${host}
+              {
+                mySnippets.hostName = host;
+              }
+            ];
 
-        specialArgs = { inherit self; };
-      }
-    );
+            specialArgs = { inherit self; };
+          }
+        );
   };
 }

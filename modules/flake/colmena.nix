@@ -18,7 +18,7 @@
           };
         };
       }
-      // (lib.genAttrs [ "russ" "nix-builder" "adguard" "lldap" ] (
+      // (lib.genAttrs [ "russ" "nix-builder" "adguard" "lldap" "pocket-id" ] (
         host:
         { config, ... }:
         {
