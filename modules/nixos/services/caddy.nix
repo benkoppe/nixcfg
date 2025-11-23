@@ -2,6 +2,7 @@
   lib,
   config,
   self,
+  pkgs,
   ...
 }:
 {
@@ -29,6 +30,12 @@
       description = "The network device to bind to.";
       default = config.mySnippets.networks.tailscale.deviceName;
     };
+
+    extraConfig = lib.mkOption {
+      type = lib.types.listOf lib.types.lines;
+      default = [ ];
+      description = "Additional Caddy config fragments merged into this virtual host.";
+    };
   };
 
   config =
@@ -36,45 +43,34 @@
       cfg = config.myNixOS.services.caddy;
     in
     lib.mkIf cfg.enable {
-      security.acme = {
-        acceptTerms = true;
-        defaults.email = "koppe.development@gmail.com";
-
-        certs."${cfg.domain}" = {
-          inherit (config.services.caddy) group;
-
-          inherit (cfg) domain;
-          extraDomainNames = [ "*.${cfg.domain}" ];
-          dnsProvider = "cloudflare";
-          dnsResolver = "1.1.1.1:53";
-          dnsPropagationCheck = true;
-          environmentFile = config.age.secrets.caddy-cloudflare.path;
-        };
-      };
-
       services.caddy = {
         enable = true;
+        package = pkgs.caddy.withPlugins {
+          plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
+          hash = "sha256-4qUWhrv3/8BtNCi48kk4ZvbMckh/cGRL7k+MFvXKbTw=";
+        };
 
         virtualHosts."${cfg.subdomain}.${cfg.domain}" = {
-          extraConfig =
-            let
-              certloc = "/var/lib/acme/${cfg.domain}";
-            in
-            ''
-              reverse_proxy http://127.0.0.1:${toString cfg.port}
+          extraConfig = lib.concatStringsSep "\n" (
+            [
+              ''
+                reverse_proxy localhost:${toString cfg.port}
 
-              tls ${certloc}/cert.pem ${certloc}/key.pem {
-                protocols tls1.3
-              }
-            '';
+                tls {
+                  dns cloudflare {env.CLOUDFLARE_DNS_API_TOKEN}
+                }
+              ''
+            ]
+            ++ cfg.extraConfig
+          );
         };
+        environmentFile = config.age.secrets.caddy-cloudflare.path;
       };
 
       age.secrets.caddy-cloudflare.file = "${self.inputs.secrets}/services/caddy/cloudflare-api.age";
 
       networking.firewall.interfaces = {
         ${cfg.networkDevice}.allowedTCPPorts = [
-          80
           443
         ];
       };
