@@ -35,8 +35,31 @@
               autocrlf = "input";
             };
             pull.rebase = true;
-            rebase.autoStash = true;
+            push.autoSetupRemote = true;
+
+            rebase = {
+              autoStash = true;
+              autoSquash = true;
+              updateRefs = true;
+            };
+            rerere.enabled = true;
+
+            fetch.fsckObjects = true;
+            receive.fsckObjects = true;
+            transfer.fsckobjects = true;
           };
+
+          includes = [
+            {
+              condition = "hasconfig:remote.*.url:git@git.thekoppe.com:*";
+              contents = {
+                user = {
+                  name = "";
+                  email = "";
+                };
+              };
+            }
+          ];
         };
       }
 
