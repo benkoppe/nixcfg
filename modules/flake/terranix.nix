@@ -13,7 +13,16 @@
       };
 
       terranix.terranixConfigurations =
-        lib.genAttrs [ "nix-builder" "adguard" "lldap" "pocket-id" "vaultwarden" "immich" ]
+        lib.genAttrs
+          [
+            "nix-builder"
+            "adguard"
+            "lldap"
+            "pocket-id"
+            "vaultwarden"
+            "immich"
+            "forgejo"
+          ]
           (host: {
             workdir = "terraform/${host}";
 

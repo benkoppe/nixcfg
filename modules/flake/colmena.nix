@@ -27,6 +27,7 @@
           "pocket-id"
           "vaultwarden"
           "immich"
+          "forgejo"
         ]
         (
           host:
