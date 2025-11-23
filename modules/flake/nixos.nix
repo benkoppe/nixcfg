@@ -15,7 +15,16 @@
     };
 
     nixosConfigurations =
-      lib.genAttrs [ "russ" "nix-builder" "adguard" "lxc-bootstrap" "lldap" "pocket-id" ]
+      lib.genAttrs
+        [
+          "russ"
+          "nix-builder"
+          "adguard"
+          "lxc-bootstrap"
+          "lldap"
+          "pocket-id"
+          "vaultwarden"
+        ]
         (
           host:
           inputs.nixpkgs.lib.nixosSystem {
