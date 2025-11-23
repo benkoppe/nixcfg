@@ -1,7 +1,7 @@
 { config, ... }:
 let
   inherit (config.mySnippets) networks hostName;
-  inherit (config.mySnippets.hosts.${hostName}) ipv4 mediaLocation;
+  inherit (config.mySnippets.hosts.${hostName}) ipv4;
 in
 {
   myTerranix.profiles.proxmox-lxc = {
@@ -28,7 +28,7 @@ in
   resource.proxmox_virtual_environment_container.${config.mySnippets.hostName} = {
     mount_point = {
       volume = "/tank0/files/immich";
-      path = mediaLocation;
+      path = "/mnt/immich";
     };
 
     device_passthrough = {
