@@ -31,6 +31,14 @@
     };
 
     proxyWebsockets = lib.mkEnableOption "Also proxy websockets";
+
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = ''
+        These lines go to the end of the upstream verbatim.
+      '';
+    };
   };
 
   config =
@@ -68,7 +76,7 @@
             forceSSL = true;
             locations."/" = {
               proxyPass = "http://127.0.0.1:${toString cfg.port}";
-              inherit (cfg) proxyWebsockets;
+              inherit (cfg) proxyWebsockets extraConfig;
             };
           };
         };
