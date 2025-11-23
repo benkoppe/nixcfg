@@ -25,6 +25,8 @@
         claude-code.enable = true;
 
         git.signingKey.enable = true;
+        git.forgejo.enable = true;
+
         ssh.enable = true;
         ssh.enableServers = true;
       };

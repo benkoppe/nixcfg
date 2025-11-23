@@ -7,7 +7,8 @@
 {
   options.myHome.programs.git = {
     enable = lib.mkEnableOption "git";
-    signingKey.enable = lib.mkEnableOption "use signing key for commits";
+    signingKey.enable = lib.mkEnableOption "use github signing key for commits";
+    forgejo.enable = lib.mkEnableOption "configure git for forgejo usage";
   };
 
   config = lib.mkIf config.myHome.programs.git.enable (
@@ -47,19 +48,9 @@
             fetch.fsckObjects = true;
             receive.fsckObjects = true;
             transfer.fsckobjects = true;
-          };
 
-          includes = [
-            {
-              condition = "hasconfig:remote.*.url:git@git.thekoppe.com:*";
-              contents = {
-                user = {
-                  name = "";
-                  email = "";
-                };
-              };
-            }
-          ];
+            url."ssh://git@github.com/".insteadOf = "https://github.com/";
+          };
         };
       }
 
@@ -76,13 +67,54 @@
           };
 
           age.secrets."github-signing-key" = {
-            file = "${self.inputs.secrets}/github-signing-key.age";
+            file = "${self.inputs.secrets}/ssh/github-signing-key.age";
             symlink = false;
             path = "$HOME/${signingKeyPath}";
             mode = "600";
           };
 
           home.file.".ssh/github_sign.pub".text = githubPublicSigningKey;
+        }
+      ))
+
+      (lib.mkIf config.myHome.programs.git.forgejo.enable (
+        let
+          sshKeyPath = ".ssh/git-forgejo";
+        in
+        {
+          programs.git = {
+            settings = {
+              url."ssh://forgejo@git.thekoppe.com/".insteadOf = "https://git.thekoppe.com/";
+            };
+
+            includes = [
+              {
+                condition = "hasconfig:remote.*.url:ssh://forgejo@git.thekoppe.com/**";
+                contents = {
+                  user = {
+                    name = "ben";
+                    email = "benjamin.e.koppe@gmail.com";
+                  };
+
+                  commit.gpgsign = true;
+                  gpg.format = "ssh";
+                  user.signingKey = "~/${sshKeyPath}";
+
+                  core.sshCommand = "ssh -i ~/${sshKeyPath}";
+                };
+              }
+            ];
+          };
+
+          age.secrets."forgejo-ssh-key" = {
+            file = "${self.inputs.secrets}/ssh/git-forgejo.age";
+            symlink = false;
+            path = "$HOME/${sshKeyPath}";
+            mode = "600";
+          };
+
+          home.file.".ssh/git-forgejo.pub".text =
+            builtins.readFile "${self.inputs.secrets}/ssh/git-forgejo.pub";
         }
       ))
     ]
