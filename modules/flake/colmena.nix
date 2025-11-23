@@ -18,23 +18,37 @@
           };
         };
       }
-      // (lib.genAttrs [ "russ" "nix-builder" "adguard" "lldap" "pocket-id" "vaultwarden" ] (
-        host:
-        { config, ... }:
-        {
-          deployment = {
-            targetHost = config.mySnippets.hosts.${host}.ipv4;
-            targetUser = "root";
-          };
-          imports = [
-            ../../hosts/${host}
-            ../nixos
-            {
-              mySnippets.hostName = host;
-            }
-          ];
-        }
-      ))
+      // (lib.genAttrs
+        [
+          "russ"
+          "nix-builder"
+          "adguard"
+          "lldap"
+          "pocket-id"
+          "vaultwarden"
+        ]
+        (
+          host:
+          { config, ... }:
+          {
+            deployment =
+              let
+                cfg = config.mySnippets.hosts.${host};
+              in
+              {
+                targetHost = cfg.targetHost or cfg.ipv4;
+                targetUser = "root";
+              };
+            imports = [
+              ../../hosts/${host}
+              ../nixos
+              {
+                mySnippets.hostName = host;
+              }
+            ];
+          }
+        )
+      )
     );
   };
 }

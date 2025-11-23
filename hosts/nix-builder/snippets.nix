@@ -6,4 +6,6 @@ in
 {
   inherit vm_id;
   ipv4 = "${tailscale.prefix}.${toString vm_id}";
+
+  targetHost = "nix-builder-root";
 }
