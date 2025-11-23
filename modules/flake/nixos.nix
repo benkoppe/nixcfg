@@ -26,6 +26,7 @@
           "vaultwarden"
           "immich"
           "forgejo"
+          "forgejo-runner"
         ]
         (
           host:

@@ -22,6 +22,7 @@
             "vaultwarden"
             "immich"
             "forgejo"
+            "forgejo-runner"
           ]
           (host: {
             workdir = "terraform/${host}";
