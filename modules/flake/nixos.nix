@@ -24,6 +24,7 @@
           "lldap"
           "pocket-id"
           "vaultwarden"
+          "immich"
         ]
         (
           host:
