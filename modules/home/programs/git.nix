@@ -13,6 +13,12 @@
   config = lib.mkIf config.myHome.programs.git.enable (
     lib.mkMerge [
       {
+        programs.difftastic = {
+          enable = true;
+          git.enable = true;
+          git.diffToolMode = true;
+        };
+
         programs.git = {
           enable = true;
           ignores = [ "*.swp" ];
@@ -31,12 +37,6 @@
             pull.rebase = true;
             rebase.autoStash = true;
           };
-        };
-
-        programs.difftastic = {
-          enable = true;
-          git.enable = true;
-          git.diffToolMode = true;
         };
       }
 
