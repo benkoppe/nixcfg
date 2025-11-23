@@ -90,7 +90,7 @@
     in
     {
       ${networks.tailscale.deviceName}.allowedTCPPorts = [
-        cfg.http_port
+        # cfg.http_port
       ];
 
       ${networks.ldap.deviceName}.allowedTCPPorts = [ cfg.ldap_port ];
