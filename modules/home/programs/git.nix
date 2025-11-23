@@ -16,9 +16,8 @@
         programs.git = {
           enable = true;
           ignores = [ "*.swp" ];
-          lfs = {
-            enable = true;
-          };
+          lfs.enable = true;
+
           settings = {
             user = {
               name = "Ben";
