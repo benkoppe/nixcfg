@@ -84,12 +84,13 @@
         {
           programs.git = {
             settings = {
-              url."ssh://forgejo@git.thekoppe.com/".insteadOf = "https://git.thekoppe.com/";
+              url."ssh://forgejo@${config.mySnippets.hosts.forgejo.ipv4}/".insteadOf =
+                "https://git.thekoppe.com/";
             };
 
             includes = [
               {
-                condition = "hasconfig:remote.*.url:ssh://forgejo@git.thekoppe.com/**";
+                condition = "hasconfig:remote.*.url:https://git.thekoppe.com/**";
                 contents = {
                   user = {
                     name = "ben";
