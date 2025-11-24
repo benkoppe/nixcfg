@@ -12,7 +12,7 @@
           "ragenix",
           "nixpkgs"
         ],
-        "systems": "systems"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1761656077,
@@ -268,7 +268,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_2"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -308,6 +308,27 @@
       "original": {
         "type": "tarball",
         "url": "https://flakehub.com/f/cachix/git-hooks.nix/0.1.941"
+      }
+    },
+    "github2forgejo": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1761325329,
+        "narHash": "sha256-H0IyRBKs/rz8hOPTl35pe7hc++l7s4kN+nz+THj8RUg=",
+        "owner": "RGBCube",
+        "repo": "GitHub2Forgejo",
+        "rev": "7d5469c249505410a2ad29bc7f5a4a642fdf176d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "RGBCube",
+        "repo": "GitHub2Forgejo",
+        "type": "github"
       }
     },
     "home-manager": {
@@ -696,6 +717,7 @@
         "determinate": "determinate",
         "disko": "disko",
         "flake-parts": "flake-parts_2",
+        "github2forgejo": "github2forgejo",
         "home-manager": "home-manager",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
@@ -737,11 +759,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1763940797,
-        "narHash": "sha256-24a/lGSY8c2QP3WVpWuLBfBmou7HmFVxdcAL95ZepSw=",
+        "lastModified": 1763945741,
+        "narHash": "sha256-mf5P4UxP9g3QoHQ9aJTPBFO69RPQlSi38MQWTkDbUPs=",
         "ref": "refs/heads/main",
-        "rev": "0ee7143dc2038fe8b62bfb58f9a47e4bc09a4924",
-        "revCount": 28,
+        "rev": "0b1a2abdb38481861f365ffc4bc0ca15f2c82e21",
+        "revCount": 30,
         "type": "git",
         "url": "ssh://git@github.com/benkoppe/nix-secrets.git"
       },
@@ -811,13 +833,28 @@
         "type": "github"
       }
     },
+    "systems_4": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "terranix": {
       "inputs": {
         "flake-parts": "flake-parts_3",
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1762472226,

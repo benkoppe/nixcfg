@@ -15,6 +15,8 @@ let
   inherit (config.mySnippets.hosts.${hostName}) dataLocation;
 in
 {
+  imports = [ ./github2forgejo.nix ];
+
   myNixOS = {
     profiles.proxmox-lxc.enable = true;
 

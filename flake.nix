@@ -50,6 +50,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    github2forgejo = {
+      url = "github:RGBCube/GitHub2Forgejo";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Non-flake inputs
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
