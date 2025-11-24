@@ -27,6 +27,7 @@
           "immich"
           "forgejo"
           "forgejo-runner"
+          "garage-dray"
         ]
         (
           host:
