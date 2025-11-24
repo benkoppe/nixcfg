@@ -49,6 +49,8 @@ in
   services.forgejo = {
     enable = true;
 
+    package = pkgs.forgejo;
+
     stateDir = dataLocation;
     database = {
       type = "sqlite3";
