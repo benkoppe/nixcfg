@@ -11,9 +11,13 @@
 
     services.caddy = {
       enable = true;
-      domain = "thekoppe.com";
-      subdomain = "lldap";
-      port = config.services.lldap.settings.http_port;
+      virtualHosts = [
+        {
+          domain = "thekoppe.com";
+          subdomain = "lldap";
+          port = config.services.lldap.settings.http_port;
+        }
+      ];
     };
   };
 

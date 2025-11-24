@@ -26,10 +26,14 @@ in
       in
       {
         enable = false;
-        inherit subdomain domain port;
         networkDevices = with config.mySnippets.networks; [
           tailscale.deviceName
           newt.deviceName
+        ];
+        virtualHosts = [
+          {
+            inherit subdomain domain port;
+          }
         ];
       };
   };

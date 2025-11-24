@@ -18,9 +18,13 @@ in
       in
       {
         enable = true;
-        domain = "thekoppe.com";
-        subdomain = "immich";
-        inherit port;
+        virtualHosts = [
+          {
+            domain = "thekoppe.com";
+            subdomain = "immich";
+            inherit port;
+          }
+        ];
       };
   };
 
