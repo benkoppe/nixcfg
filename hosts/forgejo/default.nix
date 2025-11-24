@@ -23,7 +23,7 @@ in
         port = server.HTTP_PORT;
       in
       {
-        enable = true;
+        enable = false;
         inherit subdomain domain port;
         networkDevices = with config.mySnippets.networks; [
           tailscale.deviceName
@@ -90,7 +90,7 @@ in
         repository = {
           DEFAULT_BRANCH = "main";
           DEFAULT_MERGE_STYLE = "rebase-merge";
-          # DEFAULT_REPO_UNITS = "repo.code, repo.issues, repo.pulls";
+          DEFAULT_REPO_UNITS = "repo.code, repo.issues, repo.pulls";
 
           ENABLE_PUSH_CREATE_ORG = true;
           ENABLE_PUSH_CREATE_USER = true;
@@ -145,5 +145,22 @@ in
     in
     {
       forgejo-smtp-pass = common "${self.inputs.secrets}/services/smtp/koppe-development-password.age";
+    };
+
+  networking.firewall.interfaces =
+    let
+      port = server.HTTP_PORT;
+      inherit (config.mySnippets) networks;
+    in
+    {
+      ${networks.tailscale.deviceName}.allowedTCPPorts = [
+        port
+      ];
+
+      ${networks.newt.deviceName}.allowedTCPPorts = [
+        port
+      ];
+
+      # ${networks.ldap.deviceName}.allowedTCPPorts = [ cfg.ldap_port ];
     };
 }
