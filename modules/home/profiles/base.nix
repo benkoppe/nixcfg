@@ -28,6 +28,7 @@
       [
         # General packages for development and system management
         nh
+        nix-output-monitor
         coreutils
         bash-completion
         killall
