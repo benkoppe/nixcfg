@@ -27,7 +27,7 @@
 
           settings = {
             user = {
-              name = "Ben";
+              name = "ben";
               email = "koppe.development@gmail.com";
             };
             init.defaultBranch = "main";
