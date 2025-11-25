@@ -6,5 +6,6 @@
     ./colmena.nix
     ./snippets.nix
     ./terranix.nix
+    ./hercules-ci.nix
   ];
 }
