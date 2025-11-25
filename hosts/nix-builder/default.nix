@@ -13,6 +13,8 @@
     };
   };
 
+  imports = [ ./cache.nix ];
+
   users.users.builder = {
     isNormalUser = true;
     home = "/home/builder";
