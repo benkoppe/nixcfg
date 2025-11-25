@@ -12,6 +12,12 @@ let
     rpc_bind = 3901;
     admin = 3903;
   };
+  subdomains = {
+    S3 = "s3";
+    web = "cdn";
+    UI = "garage";
+    admin = "garage-admin";
+  };
   mntDir = "/mnt/garage";
 in
 {
@@ -24,7 +30,7 @@ in
       virtualHosts = [
         {
           domain = "thekoppe.com";
-          subdomain = "garage";
+          subdomain = subdomains.UI;
           port = 3909;
         }
       ];
@@ -60,21 +66,21 @@ in
       '';
     in
     ''
-      s3.thekoppe.com, *.s3.thekoppe.com {
+      ${subdomains.S3}.thekoppe.com, *.${subdomains.S3}.thekoppe.com {
         reverse_proxy localhost:${toString ports.s3_api} {
           ${healthSnippet}
         }
         ${dnsSnippet}
       }
 
-      *.garage.thekoppe.com {
+      *.${subdomains.web}.thekoppe.com {
         reverse_proxy localhost:${toString ports.s3_web} {
           ${healthSnippet}
         }
         ${dnsSnippet}
       }
 
-      garage-admin.thekoppe.com {
+      ${subdomains.admin}.thekoppe.com {
         reverse_proxy localhost:${toString ports.admin} {
           ${healthSnippet}
         }
@@ -100,12 +106,12 @@ in
       s3_api = {
         s3_region = "garage";
         api_bind_addr = "[::]:${toString ports.s3_api}";
-        root_domain = ".s3.thekoppe.com";
+        root_domain = ".${subdomains.S3}.thekoppe.com";
       };
 
       s3_web = {
         bind_addr = "[::]:${toString ports.s3_web}";
-        root_domain = ".garage.thekoppe.com";
+        root_domain = ".${subdomains.web}.thekoppe.com";
         index = "index.html";
       };
 
@@ -133,7 +139,7 @@ in
     environment = {
       CONFIG_PATH = "/etc/garage.toml";
 
-      API_BASE_URL = "https://garage-admin.thekoppe.com";
+      API_BASE_URL = "https://${subdomains.admin}.thekoppe.com";
       S3_REGION = "garage";
       S3_ENDPOINT_URL = "http://localhost:${toString ports.s3_api}";
     };
