@@ -7,6 +7,10 @@
 {
   myNixOS = {
     profiles.proxmox-lxc.enable = true;
+
+    services.hercules-ci-agent = {
+      enable = true;
+    };
   };
 
   users.users.builder = {
