@@ -6,12 +6,20 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-immich-pr.url = "github:NixOS/nixpkgs/pull/463349/head";
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        darwin.follows = "nix-darwin";
+        home-manager.follows = "home-manager";
+      };
+    };
+
     ragenix = {
       url = "github:yaxitech/ragenix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        agenix.inputs.darwin.follows = "nix-darwin";
-        agenix.inputs.home-manager.follows = "home-manager";
+        agenix.follows = "agenix";
       };
     };
 
