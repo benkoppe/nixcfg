@@ -92,14 +92,14 @@
           };
 
           ssh-nix-builder = {
-            file = "${self.inputs.secrets}/pve/builder-1-key.age";
+            file = "${self.inputs.secrets}/pve/nix-builder-key.age";
             symlink = false;
             path = "${config.home.homeDirectory}/.ssh/pve/nix-builder";
             mode = "600";
           };
 
           ssh-nix-builder-root = {
-            file = "${self.inputs.secrets}/pve/builder-1-root-key.age";
+            file = "${self.inputs.secrets}/pve/nix-builder-root-key.age";
             symlink = false;
             path = "${config.home.homeDirectory}/.ssh/pve/nix-builder-root";
             mode = "600";

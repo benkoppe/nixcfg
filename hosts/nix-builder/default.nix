@@ -14,12 +14,12 @@
     home = "/home/builder";
     shell = pkgs.bash;
     openssh.authorizedKeys.keyFiles = [
-      "${self.inputs.secrets}/pve/builder-1-key.pub"
+      "${self.inputs.secrets}/pve/nix-builder-key.pub"
     ];
   };
 
   users.users.root.openssh.authorizedKeys.keyFiles = [
-    "${self.inputs.secrets}/pve/builder-1-root-key.pub"
+    "${self.inputs.secrets}/pve/nix-builder-root-key.pub"
   ];
 
   networking.hostName = config.mySnippets.hostName;
