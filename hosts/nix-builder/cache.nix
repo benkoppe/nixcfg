@@ -67,6 +67,7 @@ in
             extraConfig = [
               ''
                 @root path /
+                header @root Content-Type "text/html"
                 respond @root <<EOF
                   ${rootIndexHtml}
                 EOF
