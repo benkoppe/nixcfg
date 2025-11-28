@@ -30,6 +30,7 @@
           "forgejo"
           "forgejo-runner"
           "garage-dray"
+          "komodo"
         ]
         (
           host:
