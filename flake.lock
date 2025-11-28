@@ -931,11 +931,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1764110374,
-        "narHash": "sha256-pT6HPoE0haIXgLfs1GFkUbgyIuinGcbjys1cO6NzpP8=",
+        "lastModified": 1764353060,
+        "narHash": "sha256-+Xc0GFtdeBwMYJmjxBz8w7rEsKGLOWO+I/bZkRbemNU=",
         "ref": "refs/heads/main",
-        "rev": "70c5357d9917367d5106045891d61551f0d75847",
-        "revCount": 48,
+        "rev": "b3dd651ff6e9ad29d6e435e30300398459525a31",
+        "revCount": 50,
         "type": "git",
         "url": "ssh://git@github.com/benkoppe/nix-secrets.git"
       },
