@@ -4,11 +4,13 @@
   ...
 }:
 let
+  inherit (config.mySnippets) hostName;
+  inherit (config.mySnippets.hosts.${hostName}) ipv4;
   isBuildMachine =
     let
       buildHosts = lib.map (m: m.hostName) config.mySnippets.nix.buildMachines;
     in
-    lib.elem config.networking.hostName buildHosts;
+    lib.elem ipv4 buildHosts;
 in
 {
   options.myNixOS.programs.nix.enable = lib.mkEnableOption "sane nix configuration";
