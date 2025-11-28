@@ -22,7 +22,20 @@
         inputs = [
           self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
           self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
-        ];
+        ]
+        ++ (map (host: self.nixosConfigurations.${host}.config.system.build.toplevel) [
+          "russ"
+          "nix-builder"
+          "adguard"
+          "lldap"
+          "pocket-id"
+          "vaultwarden"
+          "immich"
+          "forgejo"
+          "forgejo-runner"
+          "garage-dray"
+          "komodo"
+        ]);
 
         effectScript = "colmena apply --config ${self.outPath}/flake.nix --nix-option accept-flake-config true";
       };
