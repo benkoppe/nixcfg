@@ -1,6 +1,7 @@
 {
   withSystem,
   self,
+  lib,
   ...
 }:
 {
@@ -15,7 +16,6 @@
     {
       hci-effects,
       pkgs,
-      lib,
       ...
     }:
     let
