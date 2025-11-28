@@ -49,4 +49,19 @@
       }
     );
   };
+
+  hercules-ci.flake-update = {
+    enable = true;
+
+    system = "x86_64-linux";
+
+    nix.package =
+      { pkgs }: self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
+    flakes."." = {
+      commitSummary = "chore: update flake inputs";
+    };
+
+    pullRequestTitle = "chore: update `flake.lock`";
+  };
 }
