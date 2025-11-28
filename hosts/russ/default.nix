@@ -26,9 +26,19 @@
     };
   };
 
-  users.users.root.openssh.authorizedKeys.keyFiles = [
-    "${self.inputs.secrets}/pve/russ-key.pub"
-  ];
+  users.users = {
+    root.openssh.authorizedKeys.keyFiles = [
+      "${self.inputs.secrets}/pve/russ-key.pub"
+    ];
+
+    russ = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+      openssh.authorizedKeys.keyFiles = [
+        "${self.inputs.secrets}/pve/russ-key.pub"
+      ];
+    };
+  };
 
   networking =
     let
