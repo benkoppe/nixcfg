@@ -1,5 +1,4 @@
 {
-  pkgs,
   withSystem,
   self,
   ...
@@ -13,7 +12,7 @@
   };
 
   flake.effects = withSystem "x86_64-linux" (
-    { hci-effects, ... }:
+    { hci-effects, pkgs, ... }:
     let
       runColmena = hci-effects.mkEffect {
         inputs = [
