@@ -37,6 +37,10 @@
           "komodo"
         ]);
 
+        secretsMap.ssh = "colmena-ssh";
+
+        userSetupScript = "writeSSHKey ssh";
+
         effectScript = "colmena apply --config ${self.outPath}/flake.nix --nix-option accept-flake-config true";
       };
     in
