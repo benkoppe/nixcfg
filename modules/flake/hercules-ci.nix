@@ -1,6 +1,5 @@
 {
   pkgs,
-  withSystem,
   hci-effects,
   self,
   ...
@@ -22,18 +21,7 @@ in
     ];
   };
 
-  flake.effects =
-    { branch, ... }:
-    withSystem "x86_64-linux" (
-      {
-        config,
-        hci-effects,
-        pkgs,
-        inputs',
-        ...
-      }:
-      {
-        deploy = runColmena;
-      }
-    );
+  flake.effects = {
+    deploy = runColmena;
+  };
 }
