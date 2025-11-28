@@ -22,6 +22,7 @@
         inputs = [
           self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
           self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
+          pkgs.openssh
         ]
         ++ (map (host: self.nixosConfigurations.${host}.config.system.build.toplevel) [
           "russ"
