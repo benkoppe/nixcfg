@@ -63,5 +63,9 @@
     };
 
     pullRequestTitle = "chore: update `flake.lock`";
+
+    when = {
+      hour = [ 23 ];
+    };
   };
 }
