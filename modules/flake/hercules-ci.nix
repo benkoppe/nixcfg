@@ -53,7 +53,7 @@
   hercules-ci.flake-update = {
     enable = true;
 
-    system = "x86_64-linux";
+    effect.system = "x86_64-linux";
 
     nix.package =
       { pkgs }: self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default;
