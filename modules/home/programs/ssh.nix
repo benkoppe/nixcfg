@@ -78,7 +78,10 @@
                 host = "*";
                 user = "root";
                 identitiesOnly = true;
-                identityFile = config.age.secrets.ssh-lxc-bootstrap.path;
+                identityFile = [
+                  config.age.secrets.ssh-colmena.path
+                  config.age.secrets.ssh-lxc-bootstrap.path
+                ];
               };
             };
         };
@@ -109,6 +112,13 @@
             file = "${self.inputs.secrets}/pve/lxc-bootstrap-key.age";
             symlink = false;
             path = "${config.home.homeDirectory}/.ssh/pve/lxc-bootstrap";
+            mode = "600";
+          };
+
+          ssh-colmena = {
+            file = "${self.inputs.secrets}/pve/colmena.age";
+            symlink = false;
+            path = "${config.home.homeDirectory}/.ssh/pve/colmena";
             mode = "600";
           };
         };
