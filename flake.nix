@@ -63,6 +63,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Non-flake inputs
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
@@ -140,6 +145,7 @@
         ./modules/flake
         inputs.home-manager.flakeModules.home-manager
         inputs.terranix.flakeModule
+        inputs.hercules-ci-effects.flakeModule
       ];
     };
 }
