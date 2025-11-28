@@ -1,31 +1,50 @@
 {
   config,
   lib,
+  self,
   ...
 }:
 {
-  options.myNixOS.profiles.server.enable = lib.mkEnableOption "base system configuration";
+  options.myNixOS.profiles.server = {
+    enable = lib.mkEnableOption "base system configuration";
 
-  config = lib.mkIf config.myNixOS.profiles.server.enable {
-    myNixOS = {
-      profiles.base.enable = true;
-    };
-
-    security.pam.services.sshd.allowNullPassword = true;
-
-    services.openssh = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        PermitRootLogin = "prohibit-password";
-        PasswordAuthentication = false;
-        PermitEmptyPasswords = false;
-        KbdInteractiveAuthentication = false;
-        UsePAM = true;
-        X11Forwarding = true;
-        PrintMotd = false;
-        AcceptEnv = "LANG LC_*";
-      };
+    colmenaSshAccess.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable SSH access for Colmena management";
     };
   };
+
+  config = lib.mkIf config.myNixOS.profiles.server.enable (
+    lib.mkMerge [
+      {
+        myNixOS = {
+          profiles.base.enable = true;
+        };
+
+        security.pam.services.sshd.allowNullPassword = true;
+
+        services.openssh = {
+          enable = true;
+          openFirewall = true;
+          settings = {
+            PermitRootLogin = "prohibit-password";
+            PasswordAuthentication = false;
+            PermitEmptyPasswords = false;
+            KbdInteractiveAuthentication = false;
+            UsePAM = true;
+            X11Forwarding = true;
+            PrintMotd = false;
+            AcceptEnv = "LANG LC_*";
+          };
+        };
+      }
+
+      (lib.mkIf config.myNixOS.profiles.server.colmenaSshAccess.enable {
+        users.users.root.openssh.authorizedKeys.keyFiles = [
+          "${self.inputs.secrets}/pve/colmena.pub"
+        ];
+      })
+    ]
+  );
 }
