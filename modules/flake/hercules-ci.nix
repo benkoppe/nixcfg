@@ -19,7 +19,7 @@
           self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
         ];
 
-        effectScript = "colmena apply";
+        effectScript = "colmena apply --config ${self}";
       };
     in
     {
