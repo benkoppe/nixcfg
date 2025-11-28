@@ -27,10 +27,6 @@ in
       };
   };
 
-  users.users.root.openssh.authorizedKeys.keyFiles = [
-    "${self.inputs.secrets}/pve/lxc-bootstrap-key.pub"
-  ];
-
   environment.systemPackages = [
     pkgs.vaultwarden
   ];

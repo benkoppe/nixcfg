@@ -24,9 +24,5 @@
     ];
   };
 
-  users.users.root.openssh.authorizedKeys.keyFiles = [
-    "${self.inputs.secrets}/pve/nix-builder-root-key.pub"
-  ];
-
   networking.hostName = config.mySnippets.hostName;
 }

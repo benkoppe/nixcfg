@@ -4,6 +4,8 @@
 }:
 {
   myNixOS = {
+    profiles.server.colmenaSshAccess.enable = false;
+
     profiles.proxmox-lxc.enable = true;
   };
 

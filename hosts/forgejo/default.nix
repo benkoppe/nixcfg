@@ -39,9 +39,6 @@ in
   };
 
   users = {
-    users.root.openssh.authorizedKeys.keyFiles = [
-      "${self.inputs.secrets}/pve/lxc-bootstrap-key.pub"
-    ];
     users.${user}.uid = 1000;
     groups.${group}.gid = 1000;
   };

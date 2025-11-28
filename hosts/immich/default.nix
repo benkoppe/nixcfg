@@ -33,9 +33,6 @@ in
   ];
 
   users = {
-    users.root.openssh.authorizedKeys.keyFiles = [
-      "${self.inputs.secrets}/pve/lxc-bootstrap-key.pub"
-    ];
     users.immich = {
       uid = 1000;
       extraGroups = [

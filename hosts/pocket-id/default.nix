@@ -8,10 +8,6 @@
     profiles.proxmox-lxc.enable = true;
   };
 
-  users.users.root.openssh.authorizedKeys.keyFiles = [
-    "${self.inputs.secrets}/pve/lxc-bootstrap-key.pub"
-  ];
-
   services.pocket-id = {
     enable = true;
 

@@ -22,19 +22,11 @@
   };
 
   users = {
-    users = {
-      root = {
-        openssh.authorizedKeys.keyFiles = [
-          "${self.inputs.secrets}/pve/lxc-bootstrap-key.pub"
-        ];
-      };
-
-      lldap = {
-        isNormalUser = true;
-        home = "/home/lldap";
-        shell = pkgs.bash;
-        group = "lldap";
-      };
+    users.lldap = {
+      isNormalUser = true;
+      home = "/home/lldap";
+      shell = pkgs.bash;
+      group = "lldap";
     };
 
     groups.lldap = { };
