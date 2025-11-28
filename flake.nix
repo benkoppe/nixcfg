@@ -31,6 +31,7 @@
     };
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    determinate-nix.url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
