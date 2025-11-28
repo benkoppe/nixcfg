@@ -1,18 +1,9 @@
 {
   pkgs,
-  hci-effects,
+  withSystem,
   self,
   ...
 }:
-let
-  runColmena = hci-effects.mkEffect {
-    inputs = [
-      self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
-    ];
-
-    effectScript = "colmena apply";
-  };
-in
 {
   herculesCI = _: {
     ciSystems = [
@@ -21,7 +12,19 @@ in
     ];
   };
 
-  flake.effects = {
-    deploy = runColmena;
-  };
+  flake.effects = withSystem "x86_64-linux" (
+    { hci-effects, ... }:
+    let
+      runColmena = hci-effects.mkEffect {
+        inputs = [
+          self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
+        ];
+
+        effectScript = "colmena apply";
+      };
+    in
+    {
+      deploy = runColmena;
+    }
+  );
 }
