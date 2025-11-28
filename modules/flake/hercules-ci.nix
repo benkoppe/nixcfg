@@ -21,9 +21,10 @@
       runColmena = hci-effects.mkEffect {
         inputs = [
           self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
+          self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
         ];
 
-        effectScript = "colmena apply --config ${self.outPath}";
+        effectScript = "colmena apply --config ${self.outPath}/flake.nix";
       };
     in
     {
