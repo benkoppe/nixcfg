@@ -1,7 +1,6 @@
 {
   withSystem,
   self,
-  lib,
   ...
 }:
 {
@@ -23,9 +22,8 @@
         inputs = [
           self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
         ];
-        src = lib.cleanSource ../../.;
 
-        effectScript = "colmena apply --config $src";
+        effectScript = "colmena apply --config ${self.outPath}";
       };
     in
     {
