@@ -10,7 +10,7 @@
       "x86_64-linux"
     ];
 
-    onPush.default.outputs = withSystem "x86_64-linux" (
+    onPush.default.outputs.effects = withSystem "x86_64-linux" (
       {
         hci-effects,
         pkgs,
