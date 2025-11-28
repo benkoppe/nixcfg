@@ -5,12 +5,17 @@
 }:
 let
   inherit (config.mySnippets) hostName;
-  inherit (config.mySnippets.hosts.${hostName}) ipv4;
+
+  hostCfg =
+    if lib.hasAttr hostName config.mySnippets.hosts then config.mySnippets.hosts.${hostName} else null;
+
+  ipv4 = if hostCfg != null then hostCfg.ipv4 else null;
+
   isBuildMachine =
     let
       buildHosts = lib.map (m: m.hostName) config.mySnippets.nix.buildMachines;
     in
-    lib.elem ipv4 buildHosts;
+    hostCfg != null && lib.elem ipv4 buildHosts;
 in
 {
   options.myNixOS.programs.nix.enable = lib.mkEnableOption "sane nix configuration";
