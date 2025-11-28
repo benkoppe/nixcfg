@@ -55,8 +55,7 @@
 
     effect.system = "x86_64-linux";
 
-    nix.package =
-      { pkgs }: self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    nix.package = { system }: self.inputs.determinate-nix.packages.${system}.default;
 
     flakes."." = {
       commitSummary = "chore: update flake inputs";
