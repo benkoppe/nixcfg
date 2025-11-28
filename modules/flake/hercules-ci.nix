@@ -12,16 +12,20 @@
   };
 
   flake.effects = withSystem "x86_64-linux" (
-    { hci-effects, pkgs, ... }:
+    {
+      hci-effects,
+      pkgs,
+      lib,
+      ...
+    }:
     let
-      flakePath = self.outPath;
       runColmena = hci-effects.mkEffect {
         inputs = [
           self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
-          flakePath
         ];
+        src = lib.cleanSource ../../.;
 
-        effectScript = "colmena apply --config ${flakePath}";
+        effectScript = "colmena apply --config $src";
       };
     in
     {
