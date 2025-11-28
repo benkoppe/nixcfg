@@ -24,7 +24,7 @@
           self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
         ];
 
-        effectScript = "colmena apply --config ${self.outPath}/flake.nix";
+        effectScript = "colmena apply --config ${self.outPath}/flake.nix --nix-option accept-flake-config true";
       };
     in
     {
