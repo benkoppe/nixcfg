@@ -3,6 +3,7 @@
   self,
   lib,
   config,
+  inputs,
   ...
 }:
 let
@@ -58,14 +59,24 @@ in
           let
             runHost =
               host:
-              hci-effects.runNixOS {
-                name = host;
-                configuration = self.nixosConfigurations.${host};
-                ssh.destination = topConfig.mySnippets.hosts.${host}.ipv4;
-                system = "x86_64-linux";
-                secretsMap.ssh = "colmena-ssh";
-                userSetupScript = "writeSSHKey ssh";
-              };
+              hci-effects.runNixOS (
+                let
+                  inherit (topConfig.mySnippets.hosts.${host}) ipv4;
+                in
+                {
+                  name = host;
+                  configuration = self.nixosConfigurations.${host};
+                  ssh.destination = ipv4;
+                  system = "x86_64-linux";
+                  secretsMap.ssh = "colmena-ssh";
+                  userSetupScript = ''
+                    writeSSHKey ssh
+                    cat >>~/.ssh/known_hosts <<EOF
+                    ${ipv4} ${builtins.readFile "${inputs.secrets}/publicKeys/pve/${host}.pub"}
+                    EOF
+                  '';
+                }
+              );
           in
           builtins.listToAttrs (
             map
