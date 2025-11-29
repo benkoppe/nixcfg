@@ -37,7 +37,13 @@
       openssh.authorizedKeys.keyFiles = [
         "${self.inputs.secrets}/pve/russ-key.pub"
       ];
+      hashedPasswordFile = config.age.secrets.russ-user-password.path;
     };
+  };
+
+  age.secrets.russ-user-password = {
+    file = "${self.inputs.secrets}/passwords/server-main.age";
+    owner = "russ";
   };
 
   networking =
