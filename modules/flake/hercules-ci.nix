@@ -86,7 +86,7 @@ in
               })
               [
                 "russ"
-                "nix-builder"
+                # "nix-builder"
                 "adguard"
                 "lldap"
                 "pocket-id"
