@@ -10,7 +10,7 @@
 
     concurrentTasks = lib.mkOption {
       type = lib.types.int;
-      default = 4;
+      default = 10;
       description = "Number of concurrent tasks the Hercules CI Agent can run.";
     };
   };
