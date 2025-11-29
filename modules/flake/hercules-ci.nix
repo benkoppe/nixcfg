@@ -1,8 +1,13 @@
 {
   withSystem,
   self,
+  lib,
+  config,
   ...
 }:
+let
+  topConfig = config;
+in
 {
   herculesCI =
     { config, ... }:
@@ -49,6 +54,40 @@
         {
           # deploy = hci-effects.runIf (config.repo.branch == "main") runColmena;
         }
+        // (
+          let
+            runHost =
+              host:
+              hci-effects.runNixOS {
+                name = host;
+                configuration = self.nixosConfigurations.${host};
+                ssh.destination = topConfig.mySnippets.hosts.${host}.ipv4;
+                system = "x86_64-linux";
+                secretsMap.ssh = "colmena-ssh";
+                userSetupScript = "writeSSHKey ssh";
+              };
+          in
+          builtins.listToAttrs (
+            map
+              (host: {
+                name = "deploy-${host}";
+                value = hci-effects.runIf (config.repo.branch == "main") (runHost host);
+              })
+              [
+                "russ"
+                "nix-builder"
+                "adguard"
+                "lldap"
+                "pocket-id"
+                "vaultwarden"
+                "immich"
+                "forgejo"
+                "forgejo-runner"
+                "garage-dray"
+                "komodo"
+              ]
+          )
+        )
       );
     };
 
