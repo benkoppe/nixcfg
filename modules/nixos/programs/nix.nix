@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  self,
   ...
 }:
 let
@@ -18,37 +19,54 @@ let
     hostCfg != null && lib.elem ipv4 buildHosts;
 in
 {
-  options.myNixOS.programs.nix.enable = lib.mkEnableOption "sane nix configuration";
+  options.myNixOS.programs.nix = {
+    enable = lib.mkEnableOption "sane nix configuration";
 
-  config = lib.mkIf config.myNixOS.programs.nix.enable {
-    nix = {
-      buildMachines = lib.mkIf config.services.tailscale.enable (
-        lib.filter (m: m.hostName != config.networking.hostName) config.mySnippets.nix.buildMachines
-      );
-
-      distributedBuilds = true;
-
-      gc = {
-        automatic = true;
-
-        options = if isBuildMachine then "--delete-older-than 20d" else "--delete-older-than 3d";
-
-        persistent = true;
-        randomizedDelaySec = "60min";
-      };
-
-      extraOptions = ''
-        min-free = ${toString (1 * 1024 * 1024 * 1024)}   # 1 GiB
-        max-free = ${toString (5 * 1024 * 1024 * 1024)}   # 5 GiB
-      '';
-
-      optimise = {
-        automatic = true;
-        persistent = true;
-        randomizedDelaySec = "60min";
-      };
-
-      inherit (config.mySnippets.nix) settings;
-    };
+    accessTokens.enable = lib.mkEnableOption "use access tokens for github private inputs access";
   };
+
+  config = lib.mkIf config.myNixOS.programs.nix.enable (
+    lib.mkMerge [
+      {
+        nix = {
+          buildMachines = lib.mkIf config.services.tailscale.enable (
+            lib.filter (m: m.hostName != config.networking.hostName) config.mySnippets.nix.buildMachines
+          );
+
+          distributedBuilds = true;
+
+          gc = {
+            automatic = true;
+
+            options = if isBuildMachine then "--delete-older-than 20d" else "--delete-older-than 3d";
+
+            persistent = true;
+            randomizedDelaySec = "60min";
+          };
+
+          extraOptions = ''
+            min-free = ${toString (1 * 1024 * 1024 * 1024)}   # 1 GiB
+            max-free = ${toString (5 * 1024 * 1024 * 1024)}   # 5 GiB
+          '';
+
+          optimise = {
+            automatic = true;
+            persistent = true;
+            randomizedDelaySec = "60min";
+          };
+
+          inherit (config.mySnippets.nix) settings;
+        };
+      }
+
+      (lib.mkIf config.myNixOS.programs.nix.accessTokens.enable {
+        nix.extraOptions = lib.mkAfter "!include ${config.age.secrets.nix-access-tokens.path}";
+
+        age.secrets.nix-access-tokens = {
+          file = "${self.inputs.secrets}/programs/nix/access-tokens.age";
+          mode = "444";
+        };
+      })
+    ]
+  );
 }
