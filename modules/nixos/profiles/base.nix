@@ -53,6 +53,8 @@
 
     users.mutableUsers = lib.mkDefault false;
 
+    time.timeZone = lib.mkDefault "America/Los_Angeles";
+
     # Cache DNS lookups to improve performance
     services.resolved = {
       extraConfig = ''
