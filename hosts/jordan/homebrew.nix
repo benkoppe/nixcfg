@@ -23,12 +23,12 @@
         (greedy "xcodes-app")
 
         (greedy "figma")
-        (greedy "figma-agent")
+        # (greedy "figma-agent")
 
         # Cybersecurity tools
         (greedy "proxyman")
-        (greedy "burp-suite")
-        (greedy "zap")
+        # (greedy "burp-suite")
+        # (greedy "zap")
 
         # Productivity Tools
         # "raycast"
