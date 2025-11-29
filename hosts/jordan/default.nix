@@ -3,6 +3,9 @@
   pkgs,
   ...
 }:
+let
+  inherit (config.mySnippets) primaryUser primaryHome;
+in
 {
   imports = [
     ./home.nix
@@ -32,16 +35,14 @@
     };
   };
 
-  users.users =
-    let
-      inherit (config.mySnippets) primaryUser;
-    in
-    {
-      "${primaryUser}" = {
-        name = primaryUser;
-        home = "/Users/${primaryUser}";
-        isHidden = false;
-        shell = pkgs.zsh;
-      };
+  users.users = {
+    "${primaryUser}" = {
+      name = primaryUser;
+      home = primaryHome;
+      isHidden = false;
+      shell = pkgs.zsh;
     };
+  };
+
+  age.identityPaths = [ "${primaryHome}/.ssh/id_ed25519" ];
 }
