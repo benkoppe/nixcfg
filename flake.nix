@@ -88,7 +88,7 @@
     };
 
     secrets = {
-      url = "git+ssh://git@github.com/benkoppe/nix-secrets.git";
+      url = "github:/benkoppe/nix-secrets";
       flake = false;
     };
   };
