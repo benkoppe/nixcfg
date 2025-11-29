@@ -71,7 +71,7 @@
       ffmpeg
       unrar
       hunspell
-      spotify
+      # spotify
 
       # Node.js dev tools
       nodejs_24

@@ -9,7 +9,7 @@
           };
         }
         { app = "/Applications/Brave Browser.app"; }
-        { app = "${pkgs.spotify}/Applications/Spotify.app"; }
+        # { app = "${pkgs.spotify}/Applications/Spotify.app"; }
         { app = "/Applications/Discord.app"; }
         {
           spacer = {
