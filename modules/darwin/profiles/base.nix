@@ -23,6 +23,7 @@
   config = lib.mkIf config.myDarwin.profiles.base.enable {
     myDarwin = {
       programs.determinate.enable = true;
+      programs.determinate.accessTokens.enable = true;
 
       system = {
         dock.enable = true;
