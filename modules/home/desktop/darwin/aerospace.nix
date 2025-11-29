@@ -20,7 +20,7 @@
             keepAlive = true;
           };
 
-          userSettings = {
+          settings = {
             # Disable all native main keybinds (no F19 modifier key)
             mode.main.binding = { };
 
