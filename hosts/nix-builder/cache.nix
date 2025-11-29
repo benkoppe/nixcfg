@@ -16,6 +16,8 @@ in
 
     bindAddress = "127.0.0.1";
     port = nixServePort;
+
+    extraParams = "--priority 50";
   };
 
   age.secrets.nix-serve-key = {
