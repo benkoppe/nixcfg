@@ -2,8 +2,12 @@
   withSystem,
   self,
   lib,
+  config,
   ...
 }:
+let
+  topConfig = config;
+in
 {
   herculesCI =
     { config, ... }:
@@ -57,7 +61,7 @@
               hci-effects.runNixOS {
                 name = host;
                 configuration = self.nixosConfigurations.${host};
-                ssh.destination = config.mySnippets.hosts.${host}.ipv4;
+                ssh.destination = topConfig.mySnippets.hosts.${host}.ipv4;
                 system = "x86_64-linux";
                 secretsMap.ssh = "colmena-ssh";
                 userSetupScript = "writeSSHKey ssh";
