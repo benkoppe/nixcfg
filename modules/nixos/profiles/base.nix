@@ -51,6 +51,8 @@
 
     security.sudo.enable = true;
 
+    users.mutableUsers = lib.mkDefault false;
+
     # Cache DNS lookups to improve performance
     services.resolved = {
       extraConfig = ''
