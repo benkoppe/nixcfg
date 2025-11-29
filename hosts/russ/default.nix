@@ -10,6 +10,7 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
+    ./display-config.nix
   ];
 
   myNixOS = {
