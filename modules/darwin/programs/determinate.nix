@@ -65,9 +65,9 @@
 
       (lib.mkIf config.myDarwin.programs.determinate.accessTokens.enable {
         environment.etc."nix/nix.custom.conf".text =
-          lib.mkAfter "!include ${config.age.secrets.access-tokens.path}";
+          lib.mkAfter "!include ${config.age.secrets.nix-access-tokens.path}";
 
-        age.secrets.access-tokens = {
+        age.secrets.nix-access-tokens = {
           file = "${self.inputs.secrets}/programs/nix/access-tokens.age";
           symlink = false;
           mode = "444";
