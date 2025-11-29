@@ -1,13 +1,12 @@
 {
   withSystem,
   self,
-  lib,
   config,
   inputs,
   ...
 }:
 let
-  topConfig = config;
+  inherit (config) mySnippets;
 in
 {
   herculesCI =
@@ -21,19 +20,39 @@ in
       onPush.default.outputs.effects = withSystem "x86_64-linux" (
         {
           hci-effects,
-          pkgs,
           ...
         }:
         let
-          runColmena = hci-effects.mkEffect {
-            inputs = [
-              self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
-              self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
-              pkgs.openssh
-            ]
-            ++ (map (host: self.nixosConfigurations.${host}.config.system.build.toplevel) [
+          runHost =
+            host:
+            hci-effects.runNixOS (
+              let
+                inherit (mySnippets.hosts.${host}) ipv4;
+              in
+              {
+                name = host;
+                configuration = self.nixosConfigurations.${host};
+                ssh.destination = ipv4;
+                system = "x86_64-linux";
+                secretsMap.ssh = "colmena-ssh";
+                userSetupScript = ''
+                  writeSSHKey ssh
+                  cat >>~/.ssh/known_hosts <<EOF
+                  ${ipv4} ${builtins.readFile "${inputs.secrets}/publicKeys/pve/${host}.pub"}
+                  EOF
+                '';
+              }
+            );
+        in
+        builtins.listToAttrs (
+          map
+            (host: {
+              name = "deploy-${host}";
+              value = hci-effects.runIf (config.repo.branch == "main") (runHost host);
+            })
+            [
               "russ"
-              "nix-builder"
+              # "nix-builder"
               "adguard"
               "lldap"
               "pocket-id"
@@ -43,61 +62,7 @@ in
               "forgejo-runner"
               "garage-dray"
               "komodo"
-            ]);
-
-            secretsMap.ssh = "colmena-ssh";
-
-            userSetupScript = "writeSSHKey ssh";
-
-            effectScript = "colmena apply --config ${self.outPath}/flake.nix --nix-option accept-flake-config true";
-          };
-        in
-        {
-          # deploy = hci-effects.runIf (config.repo.branch == "main") runColmena;
-        }
-        // (
-          let
-            runHost =
-              host:
-              hci-effects.runNixOS (
-                let
-                  inherit (topConfig.mySnippets.hosts.${host}) ipv4;
-                in
-                {
-                  name = host;
-                  configuration = self.nixosConfigurations.${host};
-                  ssh.destination = ipv4;
-                  system = "x86_64-linux";
-                  secretsMap.ssh = "colmena-ssh";
-                  userSetupScript = ''
-                    writeSSHKey ssh
-                    cat >>~/.ssh/known_hosts <<EOF
-                    ${ipv4} ${builtins.readFile "${inputs.secrets}/publicKeys/pve/${host}.pub"}
-                    EOF
-                  '';
-                }
-              );
-          in
-          builtins.listToAttrs (
-            map
-              (host: {
-                name = "deploy-${host}";
-                value = hci-effects.runIf (config.repo.branch == "main") (runHost host);
-              })
-              [
-                "russ"
-                # "nix-builder"
-                "adguard"
-                "lldap"
-                "pocket-id"
-                "vaultwarden"
-                "immich"
-                "forgejo"
-                "forgejo-runner"
-                "garage-dray"
-                "komodo"
-              ]
-          )
+            ]
         )
       );
     };
