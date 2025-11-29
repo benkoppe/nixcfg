@@ -11,6 +11,8 @@
     services.hercules-ci-agent = {
       enable = true;
     };
+
+    programs.nix.accessTokens.enable = true;
   };
 
   imports = [ ./cache.nix ];
