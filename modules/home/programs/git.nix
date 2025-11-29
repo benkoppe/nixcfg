@@ -14,42 +14,46 @@
   config = lib.mkIf config.myHome.programs.git.enable (
     lib.mkMerge [
       {
-        programs.difftastic = {
-          enable = true;
-          git.enable = true;
-          git.diffToolMode = true;
-        };
+        programs = {
+          difftastic = {
+            enable = true;
+            git.enable = true;
+            git.diffToolMode = true;
+          };
 
-        programs.git = {
-          enable = true;
-          ignores = [ "*.swp" ];
-          lfs.enable = true;
+          mergiraf.enable = true;
 
-          settings = {
-            user = {
-              name = "ben";
-              email = "koppe.development@gmail.com";
+          git = {
+            enable = true;
+            ignores = [ "*.swp" ];
+            lfs.enable = true;
+
+            settings = {
+              user = {
+                name = "ben";
+                email = "koppe.development@gmail.com";
+              };
+              init.defaultBranch = "main";
+              core = {
+                editor = "vim";
+                autocrlf = "input";
+              };
+              pull.rebase = true;
+              push.autoSetupRemote = true;
+
+              rebase = {
+                autoStash = true;
+                autoSquash = true;
+                updateRefs = true;
+              };
+              rerere.enabled = true;
+
+              fetch.fsckObjects = true;
+              receive.fsckObjects = true;
+              transfer.fsckobjects = true;
+
+              url."ssh://git@github.com/".insteadOf = "https://github.com/";
             };
-            init.defaultBranch = "main";
-            core = {
-              editor = "vim";
-              autocrlf = "input";
-            };
-            pull.rebase = true;
-            push.autoSetupRemote = true;
-
-            rebase = {
-              autoStash = true;
-              autoSquash = true;
-              updateRefs = true;
-            };
-            rerere.enabled = true;
-
-            fetch.fsckObjects = true;
-            receive.fsckObjects = true;
-            transfer.fsckobjects = true;
-
-            url."ssh://git@github.com/".insteadOf = "https://github.com/";
           };
         };
       }
