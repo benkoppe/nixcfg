@@ -4,52 +4,53 @@
   ...
 }:
 {
-  herculesCI = _: {
-    ciSystems = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
+  herculesCI =
+    { config, ... }:
+    {
+      ciSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
 
-    onPush.default.outputs.effects = withSystem "x86_64-linux" (
-      {
-        hci-effects,
-        pkgs,
-        config,
-        ...
-      }:
-      let
-        runColmena = hci-effects.mkEffect {
-          inputs = [
-            self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
-            self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
-            pkgs.openssh
-          ]
-          ++ (map (host: self.nixosConfigurations.${host}.config.system.build.toplevel) [
-            "russ"
-            "nix-builder"
-            "adguard"
-            "lldap"
-            "pocket-id"
-            "vaultwarden"
-            "immich"
-            "forgejo"
-            "forgejo-runner"
-            "garage-dray"
-            "komodo"
-          ]);
+      onPush.default.outputs.effects = withSystem "x86_64-linux" (
+        {
+          hci-effects,
+          pkgs,
+          ...
+        }:
+        let
+          runColmena = hci-effects.mkEffect {
+            inputs = [
+              self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
+              self.inputs.determinate-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
+              pkgs.openssh
+            ]
+            ++ (map (host: self.nixosConfigurations.${host}.config.system.build.toplevel) [
+              "russ"
+              "nix-builder"
+              "adguard"
+              "lldap"
+              "pocket-id"
+              "vaultwarden"
+              "immich"
+              "forgejo"
+              "forgejo-runner"
+              "garage-dray"
+              "komodo"
+            ]);
 
-          secretsMap.ssh = "colmena-ssh";
+            secretsMap.ssh = "colmena-ssh";
 
-          userSetupScript = "writeSSHKey ssh";
+            userSetupScript = "writeSSHKey ssh";
 
-          effectScript = "colmena apply --config ${self.outPath}/flake.nix --nix-option accept-flake-config true";
-        };
-      in
-      {
-        deploy = hci-effects.runIf (config.herculesCI.repo.branch == "main") runColmena;
-      }
-    );
-  };
+            effectScript = "colmena apply --config ${self.outPath}/flake.nix --nix-option accept-flake-config true";
+          };
+        in
+        {
+          deploy = hci-effects.runIf (config.herculesCI.repo.branch == "main") runColmena;
+        }
+      );
+    };
 
   hercules-ci.flake-update = {
     enable = true;
