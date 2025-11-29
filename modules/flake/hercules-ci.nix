@@ -1,6 +1,7 @@
 {
   withSystem,
   self,
+  config,
   ...
 }:
 {
@@ -45,7 +46,7 @@
         };
       in
       {
-        deploy = runColmena;
+        deploy = hci-effects.runIf (config.herculesCI.repo.branch == "main") runColmena;
       }
     );
   };
