@@ -47,7 +47,7 @@
           };
         in
         {
-          deploy = hci-effects.runIf (config.repo.branch == "main") runColmena;
+          # deploy = hci-effects.runIf (config.repo.branch == "main") runColmena;
         }
       );
     };
