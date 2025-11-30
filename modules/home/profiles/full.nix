@@ -43,6 +43,7 @@
       aspellDicts.en
       btop
       sqlite
+      cachix
 
       # Text/data tools
       jq
