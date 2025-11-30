@@ -9,4 +9,6 @@ in
   ipv4 = "${tailscale.prefix}.${toString suffix}";
 
   mediaLocation = "/mnt/immich/data";
+
+  vHost = "immich.thekoppe.com";
 }

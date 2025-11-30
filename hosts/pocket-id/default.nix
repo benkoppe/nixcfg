@@ -3,6 +3,10 @@
   config,
   ...
 }:
+let
+  inherit (config.mySnippets) hostName hosts;
+  inherit (hosts.${hostName}) vHost;
+in
 {
   myNixOS = {
     profiles.proxmox-lxc.enable = true;
@@ -13,7 +17,7 @@
 
     dataDir = "/var/lib/pocket-id";
     settings = {
-      APP_URL = "https://pocket.thekoppe.com";
+      APP_URL = "https://${vHost}";
       PORT = 1411;
       ANALYTICS_DISABLED = true;
 
@@ -33,7 +37,11 @@
       EMAIL_ONE_TIME_ACCESS_AS_UNAUTHENTICATED_ENABLED = false;
 
       LDAP_ENABLED = true;
-      LDAP_URL = "ldap://10.155.155.20:3890";
+      LDAP_URL =
+        let
+          inherit (self.nixosConfigurations.lldap.config.services.lldap.settings) ldap_port;
+        in
+        "ldap://${config.mySnippets.networks.ldap.prefix}.${toString hosts.lldap.suffix}:${toString ldap_port}";
       LDAP_BIND_DN = "uid=pocketid,ou=people,dc=thekoppe,dc=com";
       LDAP_BASE = "dc=thekoppe,dc=com";
       LDAP_USER_SEARCH_FILTER = "(&(objectClass=person)(|(memberof=cn=pocket_user,ou=groups,dc=thekoppe,dc=com)(memberof=cn=pocket_admin,ou=groups,dc=thekoppe,dc=com)))";

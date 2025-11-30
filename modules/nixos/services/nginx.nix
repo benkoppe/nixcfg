@@ -8,15 +8,9 @@
   options.myNixOS.services.nginx = {
     enable = lib.mkEnableOption "Nginx web server";
 
-    domain = lib.mkOption {
+    vHost = lib.mkOption {
       type = lib.types.str;
-      description = "The domain name for the Nginx server.";
-      default = "thekoppe.com";
-    };
-
-    subdomain = lib.mkOption {
-      type = lib.types.str;
-      description = "The subdomain for the Caddy server.";
+      description = "The virtual host for the Nginx server.";
     };
 
     port = lib.mkOption {
@@ -50,7 +44,7 @@
         acceptTerms = true;
         defaults.email = "koppe.development@gmail.com";
 
-        certs."${cfg.subdomain}.${cfg.domain}" = {
+        certs."${cfg.vHost}" = {
           inherit (config.services.nginx) group;
           webroot = null;
           dnsProvider = "cloudflare";
@@ -71,7 +65,7 @@
         recommendedTlsSettings = true;
 
         virtualHosts = {
-          "${cfg.subdomain}.${cfg.domain}" = {
+          "${cfg.vHost}" = {
             enableACME = true;
             forceSSL = true;
             locations."/" = {

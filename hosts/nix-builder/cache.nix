@@ -5,7 +5,8 @@
   ...
 }:
 let
-  nixServePort = 5000;
+  inherit (config.mySnippets) hostName hosts;
+  inherit (hosts.${hostName}) vHost;
 in
 {
   services.nix-serve = {
@@ -15,7 +16,6 @@ in
     secretKeyFile = config.age.secrets.nix-serve-key.path;
 
     bindAddress = "127.0.0.1";
-    port = nixServePort;
 
     extraParams = "--priority 50";
   };
@@ -34,7 +34,7 @@ in
           rootIndexHtml = ''
               <html lang="en">
               <head>
-                <title>cache.thekoppe.com is up</title>
+                <title>${vHost} is up</title>
                 <link rel="stylesheet" href="https://nixos.org/bootstrap/css/bootstrap.min.css">
                 <link rel="stylesheet" href="https://nixos.org/bootstrap/css/bootstrap-responsive.min.css">
                 <style>
@@ -52,7 +52,7 @@ in
                             width="400px">
                     </p>
                     <p class="lead">
-                      <code>https://cache.thekoppe.com/</code> is a private source for prebuilt binaries.<br>
+                      <code>https://${vHost}/</code> is a private source for prebuilt binaries.<br>
                       It is built on <a href="https://hercules-ci.com/github/benkoppe">Hercules CI</a>.
                     </p>
                   </div>
@@ -64,8 +64,8 @@ in
         in
         [
           {
-            subdomain = "cache";
-            port = nixServePort;
+            inherit vHost;
+            inherit (config.services.nix-serve) port;
             extraConfig = [
               ''
                 @root path /

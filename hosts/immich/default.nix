@@ -5,8 +5,8 @@
   ...
 }:
 let
-  inherit (config.mySnippets) hostName;
-  inherit (config.mySnippets.hosts.${hostName}) mediaLocation;
+  inherit (config.mySnippets) hostName hosts;
+  inherit (hosts.${hostName}) mediaLocation vHost;
 in
 {
   myNixOS = {
@@ -20,9 +20,7 @@ in
         enable = true;
         virtualHosts = [
           {
-            domain = "thekoppe.com";
-            subdomain = "immich";
-            inherit port;
+            inherit port vHost;
           }
         ];
       };
@@ -238,7 +236,7 @@ in
         clientSecret._secret = config.age.secrets.immich-oauth-secret.path;
         defaultStorageQuota = null;
         enabled = true;
-        issuerUrl = "https://pocket.thekoppe.com";
+        issuerUrl = "https://${hosts.pocket-id.vHost}";
         mobileOverrideEnabled = false;
         mobileRedirectUri = "";
         profileSigningAlgorithm = "none";
@@ -257,7 +255,7 @@ in
         enabled = true;
       };
       server = {
-        externalDomain = "https://immich.thekoppe.com";
+        externalDomain = "https://${vHost}";
         loginPageMessage = "";
         publicUsers = true;
       };

@@ -9,4 +9,6 @@ in
   ipv4 = "${tailscale.prefix}.${toString suffix}";
 
   dataLocation = "/mnt/forgejo";
+
+  vHost = "git.thekoppe.com";
 }

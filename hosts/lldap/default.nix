@@ -5,6 +5,10 @@
   pkgs,
   ...
 }:
+let
+  inherit (config.mySnippets) hostName hosts;
+  inherit (hosts.${hostName}) vHost;
+in
 {
   myNixOS = {
     profiles.proxmox-lxc.enable = true;
@@ -13,8 +17,7 @@
       enable = true;
       virtualHosts = [
         {
-          domain = "thekoppe.com";
-          subdomain = "lldap";
+          inherit vHost;
           port = config.services.lldap.settings.http_port;
         }
       ];
@@ -42,7 +45,7 @@
     silenceForceUserPassResetWarning = true;
 
     settings = {
-      http_url = "https://lldap.thekoppe.com";
+      http_url = "https://${vHost}";
       http_host = "0.0.0.0";
       http_port = 17170;
 

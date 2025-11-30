@@ -6,6 +6,9 @@
   ...
 }:
 let
+  inherit (config.mySnippets) hostName hosts;
+  inherit (hosts.${hostName}) vHost;
+
   user = config.users.users.vaultwarden.name;
   group = config.users.groups.vaultwarden.name;
   dataDir = "/var/lib/vaultwarden/data";
@@ -14,17 +17,12 @@ in
   myNixOS = {
     profiles.proxmox-lxc.enable = true;
 
-    services.nginx =
-      let
-        port = config.services.vaultwarden.config.ROCKET_PORT;
-      in
-      {
-        enable = true;
-        domain = "thekoppe.com";
-        subdomain = "vault";
-        inherit port;
-        proxyWebsockets = true;
-      };
+    services.nginx = {
+      enable = true;
+      inherit vHost;
+      port = config.services.vaultwarden.config.ROCKET_PORT;
+      proxyWebsockets = true;
+    };
   };
 
   environment.systemPackages = [
@@ -37,11 +35,7 @@ in
     dbBackend = "sqlite";
 
     config = {
-      DOMAIN =
-        let
-          cfg = config.myNixOS.services.nginx;
-        in
-        "https://${cfg.subdomain}.${cfg.domain}";
+      DOMAIN = "https://${vHost}";
       SIGNUPS_ALLOWED = false;
       DATA_FOLDER = dataDir;
 

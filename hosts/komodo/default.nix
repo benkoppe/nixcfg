@@ -5,7 +5,8 @@
   ...
 }:
 let
-  corePort = 9120;
+  inherit (config.mySnippets) hostName hosts;
+  inherit (hosts.${hostName}) vHost port;
 in
 {
   myNixOS = {
@@ -48,14 +49,14 @@ in
               "komodo.skip" = "";
             };
             dependsOn = [ "mongo" ];
-            ports = [ "${toString corePort}:9120" ];
+            ports = [ "${toString port}:9120" ];
             environmentFiles = [
               secrets.komodo-mongo-env.path
               secrets.komodo-core-env.path
               secrets.komodo-periphery-env.path
             ];
             environment = {
-              KOMODO_HOST = "https://komodo2.thekoppe.com";
+              KOMODO_HOST = "https://${vHost}";
               KOMODO_TITLE = "Komodo";
               KOMODO_FIRST_SERVER = "https://komodo-periphery:8120";
               KOMODO_DISABLE_CONFIRM_DIALOG = "true";
@@ -77,7 +78,7 @@ in
               KOMODO_PRETTY_STARTUP_CONFIG = "true";
 
               KOMODO_OIDC_ENABLED = "true";
-              KOMODO_OIDC_PROVIDER = "https://pocket.thekoppe.com";
+              KOMODO_OIDC_PROVIDER = "https://${hosts.pocket-id.vHost}";
 
               KOMODO_GITHUB_OAUTH_ENABLED = "false";
               KOMODO_GOOGLE_OAUTH_ENABLED = "false";
@@ -164,14 +165,12 @@ in
       in
       {
         ${networks.tailscale.deviceName}.allowedTCPPorts = [
-          corePort
+          port
         ];
 
         #${networks.newt.deviceName}.allowedTCPPorts = [
-        #corePort
+        #port
         #];
-
-        # ${networks.ldap.deviceName}.allowedTCPPorts = [ cfg.ldap_port ];
       };
   };
 }

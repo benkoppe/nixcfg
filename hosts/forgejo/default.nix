@@ -7,12 +7,10 @@
 }:
 let
   cfg = config.services.forgejo;
-  subdomain = "git";
-  domain = "thekoppe.com";
   inherit (cfg) user group;
   inherit (cfg.settings) server;
   inherit (config.mySnippets) hostName;
-  inherit (config.mySnippets.hosts.${hostName}) dataLocation;
+  inherit (config.mySnippets.hosts.${hostName}) dataLocation vHost;
 in
 {
   imports = [ ./github2forgejo.nix ];
@@ -32,7 +30,7 @@ in
         ];
         virtualHosts = [
           {
-            inherit subdomain domain port;
+            inherit vHost port;
           }
         ];
       };
@@ -79,7 +77,7 @@ in
       in
       {
         server = {
-          DOMAIN = "${subdomain}.${domain}";
+          DOMAIN = "${vHost}";
           ROOT_URL = "https://${server.DOMAIN}";
           HTTP_PORT = 3000;
           LANDING_PAGE = "explore";

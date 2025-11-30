@@ -19,15 +19,9 @@
       type = lib.types.listOf (
         lib.types.submodule {
           options = {
-            domain = lib.mkOption {
+            vHost = lib.mkOption {
               type = lib.types.str;
-              description = "The domain name for the Caddy server.";
-              default = "thekoppe.com";
-            };
-
-            subdomain = lib.mkOption {
-              type = lib.types.str;
-              description = "The subdomain for the Caddy server.";
+              description = "The virtual host for the Caddy server.";
             };
 
             port = lib.mkOption {
@@ -63,7 +57,7 @@
 
         virtualHosts = lib.foldl' lib.recursiveUpdate { } (
           map (vh: {
-            "${vh.subdomain}.${vh.domain}" = {
+            "${vh.vHost}" = {
               extraConfig = lib.concatStringsSep "\n" (
                 [
                   ''

@@ -29,8 +29,7 @@ in
 
       virtualHosts = [
         {
-          domain = "thekoppe.com";
-          subdomain = subdomains.UI;
+          vHost = "garage.thekoppe.com";
           port = 3909;
         }
       ];
