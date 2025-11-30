@@ -40,8 +40,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mnw.url = "github:Gerg-L/mnw";
-
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,6 +64,11 @@
 
     hercules-ci-effects = {
       url = "github:hercules-ci/hercules-ci-effects";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nvim-flake = {
+      url = "github:benkoppe/nvim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -4,7 +4,7 @@
     ./claude-code.nix
     ./ghostty.nix
     ./tmux.nix
-    ./nvim
+    ./nvim.nix
     ./zsh
     ./vim.nix
     ./git.nix

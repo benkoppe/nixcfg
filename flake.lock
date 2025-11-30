@@ -308,6 +308,24 @@
     },
     "flake-parts_5": {
       "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib_2"
+      },
+      "locked": {
+        "lastModified": 1763759067,
+        "narHash": "sha256-LlLt2Jo/gMNYAwOgdRQBrsRoOz7BPRkzvNaI/fzXi2Q=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "2cccadc7357c0ba201788ae99c4dfa90728ef5e0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_6": {
+      "inputs": {
         "nixpkgs-lib": [
           "terranix",
           "nixpkgs"
@@ -748,6 +766,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-lib_2": {
+      "locked": {
+        "lastModified": 1761765539,
+        "narHash": "sha256-b0yj6kfvO8ApcSE+QmA6mUfu8IYG6/uU28OFn4PaC8M=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "719359f4562934ae99f5443f20aa06c2ffff91fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -854,6 +887,28 @@
         "type": "github"
       }
     },
+    "nvim-flake": {
+      "inputs": {
+        "flake-parts": "flake-parts_5",
+        "mnw": "mnw",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764517499,
+        "narHash": "sha256-9TY9eE6fhwzWU9WLCExhexzkITnHn+d9vuodDwbPUlM=",
+        "owner": "benkoppe",
+        "repo": "nvim-flake",
+        "rev": "1b575d24e1a15f67ca7c9a666cee97122637ecce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "benkoppe",
+        "repo": "nvim-flake",
+        "type": "github"
+      }
+    },
     "ragenix": {
       "inputs": {
         "agenix": [
@@ -895,13 +950,13 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "homebrew-sst-tap": "homebrew-sst-tap",
-        "mnw": "mnw",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-immich-pr": "nixpkgs-immich-pr",
         "nixpkgs-stable": "nixpkgs-stable",
+        "nvim-flake": "nvim-flake",
         "ragenix": "ragenix",
         "secrets": "secrets",
         "terranix": "terranix"
@@ -1022,7 +1077,7 @@
     },
     "terranix": {
       "inputs": {
-        "flake-parts": "flake-parts_5",
+        "flake-parts": "flake-parts_6",
         "nixpkgs": [
           "nixpkgs"
         ],
