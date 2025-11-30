@@ -24,6 +24,8 @@
 
         security.pam.services.sshd.allowNullPassword = true;
 
+        users.users.root.hashedPassword = lib.mkDefault "";
+
         services.openssh = {
           enable = true;
           openFirewall = true;
