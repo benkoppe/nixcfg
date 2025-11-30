@@ -896,11 +896,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764517499,
-        "narHash": "sha256-9TY9eE6fhwzWU9WLCExhexzkITnHn+d9vuodDwbPUlM=",
+        "lastModified": 1764522521,
+        "narHash": "sha256-/pLhbDckLcxduLnopOtLpk1ZftqHR72ewmKA2mJ3FSQ=",
         "owner": "benkoppe",
         "repo": "nvim-flake",
-        "rev": "1b575d24e1a15f67ca7c9a666cee97122637ecce",
+        "rev": "dea213e2162305eaa508cb0f1a367f2c3042b5e6",
         "type": "github"
       },
       "original": {
