@@ -12,7 +12,7 @@
             owner = "benkoppe";
             repo = "glance";
             rev = "monitor-descriptions";
-            hash = "sha256-hrIC0NRZVlrZeSy0PdgL7Sqdb3IeYwbT7VZ5jSfQENE=";
+            hash = "sha256-nOltrNS9RSyIuNC2x42q94/I7BxPMDsQlZYOu3CAG54=";
           };
         });
       };
