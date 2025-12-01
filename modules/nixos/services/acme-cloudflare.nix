@@ -9,7 +9,7 @@
     enable = lib.mkEnableOption "ACME Cloudflare DNS provider for certificate issuance";
   };
 
-  config = lib.mkIf config.myNixOS.services.acme-cloudflare {
+  config = lib.mkIf config.myNixOS.services.acme-cloudflare.enable {
     security.acme = {
       acceptTerms = true;
       defaults = {
