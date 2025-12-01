@@ -54,6 +54,17 @@
             bridge = "vxnet2";
             deviceName = "eth_ldap";
           };
+
+        home =
+          let
+            prefix = "192.168.1";
+          in
+          {
+            inherit prefix;
+            gateway = "${prefix}.1";
+            bridge = "vmbr0";
+            deviceName = "eth_home";
+          };
       };
     };
   };
