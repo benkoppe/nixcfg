@@ -735,22 +735,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-immich-pr": {
-      "locked": {
-        "lastModified": 1763788194,
-        "narHash": "sha256-2m+G3t0Vgk3okoJ5DtNVTQSYXlyOcf94AUKdZRjZ+k4=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "97c48561dda88cc5993b1ea670763e246e6f31c2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "pull/463349/head",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1761765539,
@@ -954,7 +938,6 @@
         "nix-homebrew": "nix-homebrew",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_5",
-        "nixpkgs-immich-pr": "nixpkgs-immich-pr",
         "nixpkgs-stable": "nixpkgs-stable",
         "nvim-flake": "nvim-flake",
         "ragenix": "ragenix",

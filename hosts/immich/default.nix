@@ -45,7 +45,6 @@ in
 
   services.immich = {
     enable = true;
-    package = self.inputs.nixpkgs-immich-pr.legacyPackages.${pkgs.stdenv.hostPlatform.system}.immich;
 
     port = 2283;
     # openFirewall = true;
