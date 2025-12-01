@@ -105,6 +105,12 @@ in
           FILE_MAX_SIZE = 100;
           MAX_FILES = 10;
         };
+        "repository.signing" = {
+          FORMAT = "ssh";
+          SIGNING_KEY = config.age.secrets."forgejo-signing-key.pub".path;
+          SIGNING_NAME = "git.thekoppe.com Instance";
+          SIGNING_EMAIL = "noreply-forgejo@thekoppe.com";
+        };
         attachment.ALLOWED_TYPES = "*/*";
         cache.ENABLED = true;
 
@@ -148,6 +154,9 @@ in
     in
     {
       forgejo-smtp-pass = common "${self.inputs.secrets}/services/smtp/koppe-development-password.age";
+      forgejo-signing-key = common "${self.inputs.secrets}/services/forgejo/server-signing-key.age";
+      "forgejo-signing-key.pub" =
+        common "${self.inputs.secrets}/services/forgejo/server-signing-key-pub.age";
     };
 
   networking.firewall.interfaces =
