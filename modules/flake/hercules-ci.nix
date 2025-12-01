@@ -62,6 +62,7 @@ in
               "forgejo-runner"
               "garage-dray"
               "komodo"
+              "glance"
             ]
         )
       );
