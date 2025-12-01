@@ -5,6 +5,8 @@
   ...
 }:
 let
+  inherit (config.mySnippets) hostName;
+  inherit (config.mySnippets.hosts.${hostName}) vHost;
   ports = {
     s3_api = 3900;
     s3_web = 3902;
@@ -15,7 +17,6 @@ let
   subdomains = {
     S3 = "s3";
     web = "cdn";
-    UI = "garage";
     admin = "garage-admin";
   };
   mntDir = "/mnt/garage";
@@ -29,7 +30,7 @@ in
 
       virtualHosts = [
         {
-          vHost = "garage.thekoppe.com";
+          inherit vHost;
           port = 3909;
         }
       ];
