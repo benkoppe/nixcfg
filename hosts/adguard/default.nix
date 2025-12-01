@@ -1,19 +1,35 @@
-{ config, ... }:
+{ config, self, ... }:
 let
   dnsPort = 53;
-  inherit (config.mySnippets) hosts hostName;
-  inherit (hosts.${hostName}) home_ipv4;
+  inherit (config.mySnippets) hosts networks hostName;
+  inherit (hosts.${hostName}) home_ipv4 vHost;
 in
 {
   myNixOS = {
     profiles.proxmox-lxc.enable = true;
+
+    services.caddy = {
+      enable = true;
+
+      networkDevices = [
+        networks.tailscale.deviceName
+        networks.home.deviceName
+      ];
+
+      virtualHosts = [
+        {
+          inherit vHost;
+          inherit (config.services.adguardhome) port;
+        }
+      ];
+    };
   };
 
   services.resolved.enable = false;
 
   services.adguardhome = {
     enable = true;
-    port = 80;
+    port = 3000;
     openFirewall = true;
 
     mutableSettings = false;
@@ -28,7 +44,7 @@ in
       users = [
         {
           name = "ben";
-          password = "$2y$10$IWla6F26UQ5tp42rOGHZEOUlMBjrBPOEwKv6.SOWC9ft12RkE2Kpe";
+          password = builtins.readFile "${self.inputs.secrets}/services/adguard/password-hashed.txt";
         }
       ];
       auth_attempts = 5;
@@ -197,7 +213,7 @@ in
         safebrowsing_block_host = "standard-block.dns.adguard.com";
         rewrites = [
           {
-            domain = "adguard.thekoppe.com";
+            domain = "${vHost}";
             answer = "${home_ipv4}";
           }
           {
@@ -262,14 +278,10 @@ in
     };
   };
 
-  networking.firewall.interfaces =
-    let
-      inherit (config.mySnippets) networks;
-    in
-    {
-      ${networks.home.deviceName} = {
-        allowedTCPPorts = [ dnsPort ];
-        allowedUDPPorts = [ dnsPort ];
-      };
+  networking.firewall.interfaces = {
+    ${networks.home.deviceName} = {
+      allowedTCPPorts = [ dnsPort ];
+      allowedUDPPorts = [ dnsPort ];
     };
+  };
 }

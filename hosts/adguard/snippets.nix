@@ -7,4 +7,6 @@ in
   inherit vm_id;
   ipv4 = "${tailscale.prefix}.${toString vm_id}";
   home_ipv4 = "${home.prefix}.102";
+
+  vHost = "adguard.thekoppe.com";
 }
