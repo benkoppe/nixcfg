@@ -9,8 +9,6 @@ in
     profiles.proxmox-lxc.enable = true;
   };
 
-  networking.hostName = "adguard";
-
   services.resolved.enable = false;
 
   services.adguardhome = {
