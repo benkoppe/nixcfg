@@ -39,7 +39,7 @@
       cfg = config.myNixOS.services.nginx;
     in
     lib.mkIf cfg.enable {
-      myNixOS.services.acme-cloudflare = true;
+      myNixOS.services.acme-cloudflare.enable = true;
       security.acme.certs."${cfg.vHost}" = {
         inherit (config.services.nginx) group;
       };
