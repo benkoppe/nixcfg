@@ -40,21 +40,10 @@
       cfg = config.myNixOS.services.nginx;
     in
     lib.mkIf cfg.enable {
-      security.acme = {
-        acceptTerms = true;
-        defaults.email = "koppe.development@gmail.com";
-
-        certs."${cfg.vHost}" = {
-          inherit (config.services.nginx) group;
-          webroot = null;
-          dnsProvider = "cloudflare";
-          dnsResolver = "1.1.1.1:53";
-          dnsPropagationCheck = true;
-          environmentFile = config.age.secrets.caddy-cloudflare.path;
-        };
+      myNixOS.services.acme-cloudflare = true;
+      security.acme.certs."${cfg.vHost}" = {
+        inherit (config.services.nginx) group;
       };
-
-      age.secrets.caddy-cloudflare.file = "${self.inputs.secrets}/services/caddy/cloudflare-api.age";
 
       services.nginx = {
         enable = true;
