@@ -29,6 +29,7 @@
           "forgejo-runner"
           "garage-dray"
           "komodo"
+          "glance"
         ]
         (
           host:

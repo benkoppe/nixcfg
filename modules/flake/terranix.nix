@@ -25,6 +25,7 @@
             "forgejo-runner"
             "garage-dray"
             "komodo"
+            "glance"
           ]
           (host: {
             workdir = "terraform/${host}";
