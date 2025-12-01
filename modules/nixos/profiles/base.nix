@@ -41,6 +41,8 @@
       config.allowUnfree = true;
 
       hostPlatform = lib.mkDefault "x86_64-linux";
+
+      overlays = self.defaultOverlays;
     };
 
     environment.systemPackages = with pkgs; [

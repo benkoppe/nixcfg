@@ -7,5 +7,6 @@
     ./snippets.nix
     ./terranix.nix
     ./hercules-ci.nix
+    ./overlays.nix
   ];
 }
