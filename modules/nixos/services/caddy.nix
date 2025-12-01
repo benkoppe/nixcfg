@@ -24,9 +24,27 @@
               description = "The virtual host for the Caddy server.";
             };
 
+            address = lib.mkOption {
+              type = lib.types.str;
+              default = "localhost";
+              description = "The address Caddy should forward to.";
+            };
+
             port = lib.mkOption {
               type = lib.types.int;
               description = "The port Caddy should forward.";
+            };
+
+            insecureTLS = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+              description = "Whether to enable tls_insecure_skip_verify for the reverse proxy.";
+            };
+
+            reverseProxyExtraConfig = lib.mkOption {
+              type = lib.types.lines;
+              default = "";
+              description = "Additional Caddy reverse_proxy config fragment.";
             };
 
             extraConfig = lib.mkOption {
@@ -61,7 +79,19 @@
               extraConfig = lib.concatStringsSep "\n" (
                 [
                   ''
-                    reverse_proxy localhost:${toString vh.port}
+                    reverse_proxy ${vh.address}:${toString vh.port} { 
+                      ${
+                        if vh.insecureTLS then
+                          ''
+                            transport http {
+                              tls_insecure_skip_verify
+                            }
+                          ''
+                        else
+                          ""
+                      }
+                      ${vh.reverseProxyExtraConfig}
+                    }
 
                     tls {
                       dns cloudflare {env.CLOUDFLARE_DNS_API_TOKEN}
