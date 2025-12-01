@@ -22,6 +22,6 @@
       };
     };
 
-    age.secrets.caddy-cloudflare.file = "${self.inputs.secrets}/services/caddy/cloudflare-api.age";
+    age.secrets.cloudflare-api.file = "${self.inputs.secrets}/services/caddy/cloudflare-api.age";
   };
 }
