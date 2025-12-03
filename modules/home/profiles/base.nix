@@ -15,32 +15,51 @@
     inputs.ragenix.homeManagerModules.default
   ];
 
-  config = lib.mkIf config.myHome.profiles.base.enable {
-    myHome.programs = {
-      git.enable = true;
-      vim.enable = true;
-      tmux.enable = true;
-    };
+  config = lib.mkIf config.myHome.profiles.base.enable (
+    lib.mkMerge [
+      {
+        myHome.programs = {
+          git.enable = true;
+          vim.enable = true;
+          tmux.enable = true;
+        };
 
-    programs.home-manager.enable = true;
-    xdg.enable = true;
+        programs.home-manager.enable = true;
+        xdg.enable = true;
 
-    home.packages = with pkgs; [
-      # General packages for development and system management
-      nh
-      nix-output-monitor
-      coreutils
-      bash-completion
-      killall
-      wget
-      zip
-      unzip
+        home.packages = with pkgs; [
+          # General packages for development and system management
+          nh
+          nix-output-monitor
+          coreutils
+          bash-completion
+          killall
+          wget
+          zip
+          unzip
 
-      # Monitoring and diagnostics
-      htop
-      iftop
+          # Monitoring and diagnostics
+          htop
+          iftop
 
-      inputs'.colmena.packages.colmena
-    ];
-  };
+          inputs'.colmena.packages.colmena
+        ];
+
+        home.stateVersion = "25.05";
+      }
+
+      (lib.mkIf pkgs.stdenv.isLinux {
+        home = {
+          homeDirectory = lib.mkDefault "/home/${config.home.username}";
+        };
+      })
+
+      (lib.mkIf pkgs.stdenv.isDarwin {
+        home = {
+          enableNixpkgsReleaseCheck = false;
+          homeDirectory = "/Users/${config.home.username}";
+        };
+      })
+    ]
+  );
 }
