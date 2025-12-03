@@ -27,7 +27,6 @@
         "homebrew/homebrew-core" = self.inputs.homebrew-core;
         "homebrew/homebrew-cask" = self.inputs.homebrew-cask;
         "homebrew/homebrew-bundle" = self.inputs.homebrew-bundle;
-        "sst/homebrew-tap" = self.inputs.homebrew-sst-tap;
       };
 
       user = config.mySnippets.primaryUser;

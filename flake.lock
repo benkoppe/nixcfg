@@ -539,22 +539,6 @@
         "type": "github"
       }
     },
-    "homebrew-sst-tap": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1764383640,
-        "narHash": "sha256-mlbohOveUp79aMJKMy31psOiBe2c0PpjdIHdf4lTAjc=",
-        "owner": "sst",
-        "repo": "homebrew-tap",
-        "rev": "c1b7dbd3b2cd6664e0f87a85f532804a098e1923",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sst",
-        "repo": "homebrew-tap",
-        "type": "github"
-      }
-    },
     "mnw": {
       "locked": {
         "lastModified": 1764066817,
@@ -933,7 +917,6 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
-        "homebrew-sst-tap": "homebrew-sst-tap",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixos-generators": "nixos-generators",

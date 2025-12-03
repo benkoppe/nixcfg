@@ -5,10 +5,6 @@
   homebrew = {
     taps = builtins.attrNames config.nix-homebrew.taps;
 
-    brews = [
-      "sst/tap/opencode"
-    ];
-
     casks =
       let
         greedy = name: {

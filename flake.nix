@@ -84,10 +84,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    homebrew-sst-tap = {
-      url = "github:sst/homebrew-tap";
-      flake = false;
-    };
 
     secrets = {
       url = "github:/benkoppe/nix-secrets";
