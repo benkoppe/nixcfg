@@ -1,6 +1,7 @@
 {
   self,
   inputs,
+  withSystem,
   ...
 }:
 {
@@ -9,13 +10,19 @@
       default = ../darwin;
     };
 
-    darwinConfigurations.jordan = inputs.nix-darwin.lib.darwinSystem {
-      modules = [
-        self.darwinModules.default
-        ../../hosts/jordan
-      ];
+    darwinConfigurations.jordan = withSystem "aarch64-darwin" (
+      ctx:
+      inputs.nix-darwin.lib.darwinSystem {
+        modules = [
+          self.darwinModules.default
+          ../../hosts/jordan
+        ];
 
-      specialArgs = { inherit self; };
-    };
+        specialArgs = {
+          inherit self inputs;
+          inherit (ctx) inputs' system;
+        };
+      }
+    );
   };
 }

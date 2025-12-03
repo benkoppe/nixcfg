@@ -3,6 +3,9 @@
   lib,
   pkgs,
   self,
+  inputs,
+  inputs',
+  system,
   ...
 }:
 {
@@ -47,12 +50,19 @@
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = false;
-      extraSpecialArgs = { inherit self; };
+      extraSpecialArgs = {
+        inherit
+          self
+          inputs
+          inputs'
+          system
+          ;
+      };
       backupFileExtension = "backup";
     };
 
     nixpkgs = {
-      hostPlatform = "aarch64-darwin";
+      hostPlatform = system;
       config.allowUnfree = true;
     };
 
