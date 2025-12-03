@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  self,
+  inputs,
   ...
 }:
 {
@@ -68,7 +68,7 @@
           lib.mkAfter "!include ${config.age.secrets.nix-access-tokens.path}";
 
         age.secrets.nix-access-tokens = {
-          file = "${self.inputs.secrets}/programs/nix/access-tokens.age";
+          file = "${inputs.secrets}/programs/nix/access-tokens.age";
           symlink = false;
           mode = "444";
         };

@@ -1,5 +1,5 @@
 {
-  self,
+  inputs,
   config,
   lib,
   pkgs,
@@ -68,7 +68,7 @@ in
 
   age.secrets =
     let
-      secrets = "${self.inputs.secrets}/services/lldap";
+      secrets = "${inputs.secrets}/services/lldap";
       common = secretFile: {
         file = secretFile;
         owner = "lldap";

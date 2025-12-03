@@ -1,7 +1,7 @@
 {
-  self,
   config,
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -36,7 +36,7 @@
     };
   };
 
-  age.secrets.forgejo-runner-token.file = "${self.inputs.secrets}/services/forgejo/runner-token.age";
+  age.secrets.forgejo-runner-token.file = "${inputs.secrets}/services/forgejo/runner-token.age";
 
   # add docker bridge interfaces to firewall to use docker runners with cache actions
   networking.firewall.trustedInterfaces = [ "br-+" ];

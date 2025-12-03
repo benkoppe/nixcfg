@@ -1,5 +1,5 @@
 {
-  self,
+  inputs,
   pkgs,
   config,
   ...
@@ -22,7 +22,7 @@
     home = "/home/builder";
     shell = pkgs.bash;
     openssh.authorizedKeys.keyFiles = [
-      "${self.inputs.secrets}/pve/nix-builder-key.pub"
+      "${inputs.secrets}/pve/nix-builder-key.pub"
     ];
   };
 

@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  self,
+  inputs,
   ...
 }:
 {
@@ -22,6 +22,6 @@
       };
     };
 
-    age.secrets.cloudflare-api.file = "${self.inputs.secrets}/services/caddy/cloudflare-api.age";
+    age.secrets.cloudflare-api.file = "${inputs.secrets}/services/caddy/cloudflare-api.age";
   };
 }

@@ -1,8 +1,7 @@
 {
   config,
   lib,
-  self,
-  pkgs,
+  inputs',
   ...
 }:
 {
@@ -27,7 +26,7 @@
         programs.firefox = {
           enable = true;
 
-          package = self.inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.firefox;
+          package = inputs'.nixpkgs-stable.legacyPackages.firefox;
         };
       }
       (lib.mkIf config.myDarwin.programs.hammerspoon.enable {

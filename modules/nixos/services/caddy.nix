@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  self,
+  inputs,
   pkgs,
   ...
 }:
@@ -107,7 +107,7 @@
         environmentFile = config.age.secrets.caddy-cloudflare.path;
       };
 
-      age.secrets.caddy-cloudflare.file = "${self.inputs.secrets}/services/caddy/cloudflare-api.age";
+      age.secrets.caddy-cloudflare.file = "${inputs.secrets}/services/caddy/cloudflare-api.age";
 
       # open firewall for each network device
       networking.firewall.interfaces = lib.foldl' lib.recursiveUpdate { } (

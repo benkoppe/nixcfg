@@ -2,6 +2,7 @@
   lib,
   config,
   self,
+  inputs,
   ...
 }:
 {
@@ -45,9 +46,9 @@
           };
         in
         {
-          hercules-token = common "${self.inputs.secrets}/services/hercules-ci/cluster-join-token.age";
-          hercules-caches = common "${self.inputs.secrets}/services/hercules-ci/caches.age";
-          hercules-secrets = common "${self.inputs.secrets}/services/hercules-ci/secrets.age";
+          hercules-token = common "${inputs.secrets}/services/hercules-ci/cluster-join-token.age";
+          hercules-caches = common "${inputs.secrets}/services/hercules-ci/caches.age";
+          hercules-secrets = common "${inputs.secrets}/services/hercules-ci/secrets.age";
         };
     };
 }

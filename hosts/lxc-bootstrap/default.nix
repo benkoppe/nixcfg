@@ -1,5 +1,5 @@
 {
-  self,
+  inputs,
   ...
 }:
 {
@@ -11,7 +11,7 @@
 
   users.users.root = {
     openssh.authorizedKeys.keyFiles = [
-      "${self.inputs.secrets}/pve/lxc-bootstrap-key.pub"
+      "${inputs.secrets}/pve/lxc-bootstrap-key.pub"
     ];
 
     hashedPassword = "";

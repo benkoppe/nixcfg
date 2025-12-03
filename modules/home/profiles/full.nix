@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   inputs',
   ...
 }:
@@ -35,92 +34,91 @@
 
     programs.gh.enable = true;
 
-    home.packages = [
-      self.inputs.ragenix.packages.${pkgs.stdenv.hostPlatform.system}.ragenix
-    ]
-    ++ (with pkgs; [
-      # General packages for development and system management
-      aspell
-      aspellDicts.en
-      btop
-      sqlite
-      cachix
-      inputs'.opencode.packages.default
+    home.packages =
+      (with pkgs; [
+        # General packages for development and system management
+        aspell
+        aspellDicts.en
+        btop
+        sqlite
+        cachix
+        inputs'.ragenix.packages.ragenix
+        inputs'.opencode.packages.default
 
-      # Text/data tools
-      jq
-      ripgrep
-      fd
-      tree
+        # Text/data tools
+        jq
+        ripgrep
+        fd
+        tree
 
-      # CLI power tools
-      bat
+        # CLI power tools
+        bat
 
-      # Cloud tools and SDKs
-      docker
-      docker-compose
+        # Cloud tools and SDKs
+        docker
+        docker-compose
 
-      # Fonts & UI
-      dejavu_fonts
-      ffmpeg
-      font-awesome
-      hack-font
-      noto-fonts
-      noto-fonts-color-emoji
-      jetbrains-mono
-      meslo-lgs-nf
+        # Fonts & UI
+        dejavu_fonts
+        ffmpeg
+        font-awesome
+        hack-font
+        noto-fonts
+        noto-fonts-color-emoji
+        jetbrains-mono
+        meslo-lgs-nf
 
-      # Media
-      ffmpeg
-      unrar
-      hunspell
-      # spotify
+        # Media
+        ffmpeg
+        unrar
+        hunspell
+        # spotify
 
-      # Node.js dev tools
-      nodejs_24
-      pnpm
+        # Node.js dev tools
+        nodejs_24
+        pnpm
 
-      # Python
-      python3
-      virtualenv
-      uv
+        # Python
+        python3
+        virtualenv
+        uv
 
-      # Go
-      go
+        # Go
+        go
 
-      # Rust
-      cargo-deny
-      cargo-expand
-      cargo-fuzz
-      cargo-nextest
-      evcxr
-      taplo
-      cargo
-      clippy
-      rustc
-      rustfmt
+        # Rust
+        cargo-deny
+        cargo-expand
+        cargo-fuzz
+        cargo-nextest
+        evcxr
+        taplo
+        cargo
+        clippy
+        rustc
+        rustfmt
 
-      # Security / crypto
-      gnupg
-      age
-      age-plugin-yubikey
-      libfido2
+        # Security / crypto
+        gnupg
+        age
+        age-plugin-yubikey
+        libfido2
 
-      # Silly
-      fastfetch
-    ])
-    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
-      with pkgs;
-      [
-        dockutil
+        # Silly
+        fastfetch
+      ])
+      ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
+        with pkgs;
+        [
+          dockutil
 
-        alt-tab-macos
+          alt-tab-macos
 
-        # docker daemon without docker desktop
-        colima
+          # docker daemon without docker desktop
+          colima
 
-        raycast
-      ]
-    );
+          raycast
+        ]
+      );
   };
 }

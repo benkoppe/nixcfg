@@ -1,5 +1,5 @@
 {
-  self,
+  inputs,
   config,
   pkgs,
   lib,
@@ -153,10 +153,9 @@ in
       };
     in
     {
-      forgejo-smtp-pass = common "${self.inputs.secrets}/services/smtp/koppe-development-password.age";
-      forgejo-signing-key = common "${self.inputs.secrets}/services/forgejo/server-signing-key.age";
-      "forgejo-signing-key.pub" =
-        common "${self.inputs.secrets}/services/forgejo/server-signing-key-pub.age";
+      forgejo-smtp-pass = common "${inputs.secrets}/services/smtp/koppe-development-password.age";
+      forgejo-signing-key = common "${inputs.secrets}/services/forgejo/server-signing-key.age";
+      "forgejo-signing-key.pub" = common "${inputs.secrets}/services/forgejo/server-signing-key-pub.age";
     };
 
   networking.firewall.interfaces =

@@ -1,5 +1,5 @@
 {
-  self,
+  inputs,
   config,
   pkgs,
   ...
@@ -143,7 +143,7 @@ in
   };
 
   age.secrets = {
-    garage-environment.file = "${self.inputs.secrets}/services/garage/environment.age";
-    garage-webui-environment.file = "${self.inputs.secrets}/services/garage/webui-environment.age";
+    garage-environment.file = "${inputs.secrets}/services/garage/environment.age";
+    garage-webui-environment.file = "${inputs.secrets}/services/garage/webui-environment.age";
   };
 }

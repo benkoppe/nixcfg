@@ -3,6 +3,8 @@
   lib,
   pkgs,
   self,
+  inputs,
+  inputs',
   ...
 }:
 {
@@ -10,7 +12,7 @@
 
   imports = [
     self.snippetsModule
-    self.inputs.ragenix.homeManagerModules.default
+    inputs.ragenix.homeManagerModules.default
   ];
 
   config = lib.mkIf config.myHome.profiles.base.enable {
@@ -23,25 +25,22 @@
     programs.home-manager.enable = true;
     xdg.enable = true;
 
-    home.packages =
-      with pkgs;
-      [
-        # General packages for development and system management
-        nh
-        nix-output-monitor
-        coreutils
-        bash-completion
-        killall
-        wget
-        zip
-        unzip
+    home.packages = with pkgs; [
+      # General packages for development and system management
+      nh
+      nix-output-monitor
+      coreutils
+      bash-completion
+      killall
+      wget
+      zip
+      unzip
 
-        # Monitoring and diagnostics
-        htop
-        iftop
-      ]
-      ++ [
-        self.inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena
-      ];
+      # Monitoring and diagnostics
+      htop
+      iftop
+
+      inputs'.colmena.packages.default
+    ];
   };
 }

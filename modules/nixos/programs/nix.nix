@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  self,
+  inputs,
   ...
 }:
 let
@@ -63,7 +63,7 @@ in
         nix.extraOptions = lib.mkAfter "!include ${config.age.secrets.nix-access-tokens.path}";
 
         age.secrets.nix-access-tokens = {
-          file = "${self.inputs.secrets}/programs/nix/access-tokens.age";
+          file = "${inputs.secrets}/programs/nix/access-tokens.age";
           mode = "444";
         };
       })

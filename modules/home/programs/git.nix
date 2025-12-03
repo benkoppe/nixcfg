@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  self,
+  inputs,
   ...
 }:
 {
@@ -71,7 +71,7 @@
           };
 
           age.secrets."github-signing-key" = {
-            file = "${self.inputs.secrets}/ssh/github-signing-key.age";
+            file = "${inputs.secrets}/ssh/github-signing-key.age";
             symlink = false;
             path = "$HOME/${signingKeyPath}";
             mode = "600";
@@ -112,14 +112,13 @@
           };
 
           age.secrets."forgejo-ssh-key" = {
-            file = "${self.inputs.secrets}/ssh/git-forgejo.age";
+            file = "${inputs.secrets}/ssh/git-forgejo.age";
             symlink = false;
             path = "$HOME/${sshKeyPath}";
             mode = "600";
           };
 
-          home.file.".ssh/git-forgejo.pub".text =
-            builtins.readFile "${self.inputs.secrets}/ssh/git-forgejo.pub";
+          home.file.".ssh/git-forgejo.pub".text = builtins.readFile "${inputs.secrets}/ssh/git-forgejo.pub";
         }
       ))
     ]

@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  self,
+  inputs,
   ...
 }:
 {
@@ -88,35 +88,35 @@
 
         age.secrets = {
           ssh-russ = {
-            file = "${self.inputs.secrets}/pve/russ-key.age";
+            file = "${inputs.secrets}/pve/russ-key.age";
             symlink = false;
             path = "${config.home.homeDirectory}/.ssh/pve/russ";
             mode = "600";
           };
 
           ssh-nix-builder = {
-            file = "${self.inputs.secrets}/pve/nix-builder-key.age";
+            file = "${inputs.secrets}/pve/nix-builder-key.age";
             symlink = false;
             path = "${config.home.homeDirectory}/.ssh/pve/nix-builder";
             mode = "600";
           };
 
           ssh-nix-builder-root = {
-            file = "${self.inputs.secrets}/pve/nix-builder-root-key.age";
+            file = "${inputs.secrets}/pve/nix-builder-root-key.age";
             symlink = false;
             path = "${config.home.homeDirectory}/.ssh/pve/nix-builder-root";
             mode = "600";
           };
 
           ssh-lxc-bootstrap = {
-            file = "${self.inputs.secrets}/pve/lxc-bootstrap-key.age";
+            file = "${inputs.secrets}/pve/lxc-bootstrap-key.age";
             symlink = false;
             path = "${config.home.homeDirectory}/.ssh/pve/lxc-bootstrap";
             mode = "600";
           };
 
           ssh-colmena = {
-            file = "${self.inputs.secrets}/pve/colmena.age";
+            file = "${inputs.secrets}/pve/colmena.age";
             symlink = false;
             path = "${config.home.homeDirectory}/.ssh/pve/colmena";
             mode = "600";

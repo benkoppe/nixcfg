@@ -1,7 +1,7 @@
 {
-  self,
   config,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -292,11 +292,11 @@ in
         inherit group;
         mode = "440";
       };
-      secretsDir = "${self.inputs.secrets}/services/immich";
+      secretsDir = "${inputs.secrets}/services/immich";
     in
     {
       immich-oauth-client-id = common "${secretsDir}/oauth-client-id.age";
       immich-oauth-secret = common "${secretsDir}/oauth-secret.age";
-      immich-smtp-pass = common "${self.inputs.secrets}/services/smtp/koppe-development-password.age";
+      immich-smtp-pass = common "${inputs.secrets}/services/smtp/koppe-development-password.age";
     };
 }

@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  self,
+  inputs,
   ...
 }:
 {
@@ -44,7 +44,7 @@
 
       (lib.mkIf config.myNixOS.profiles.server.colmenaSshAccess.enable {
         users.users.root.openssh.authorizedKeys.keyFiles = [
-          "${self.inputs.secrets}/pve/colmena.pub"
+          "${inputs.secrets}/pve/colmena.pub"
         ];
       })
     ]

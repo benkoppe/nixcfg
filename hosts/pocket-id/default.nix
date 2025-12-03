@@ -1,6 +1,7 @@
 {
   self,
   config,
+  inputs,
   ...
 }:
 let
@@ -73,8 +74,8 @@ in
       };
     in
     {
-      pocket-smtp-pass = common "${self.inputs.secrets}/services/smtp/koppe-development-password.age";
-      pocket-ldap-pass = common "${self.inputs.secrets}/services/pocket-id/ldap-bind-password.age";
+      pocket-smtp-pass = common "${inputs.secrets}/services/smtp/koppe-development-password.age";
+      pocket-ldap-pass = common "${inputs.secrets}/services/pocket-id/ldap-bind-password.age";
     };
 
   networking.firewall.interfaces =

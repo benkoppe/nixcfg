@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  self,
+  inputs,
   ...
 }:
 {
@@ -24,9 +24,9 @@
       mutableTaps = false;
       autoMigrate = true;
       taps = {
-        "homebrew/homebrew-core" = self.inputs.homebrew-core;
-        "homebrew/homebrew-cask" = self.inputs.homebrew-cask;
-        "homebrew/homebrew-bundle" = self.inputs.homebrew-bundle;
+        "homebrew/homebrew-core" = inputs.homebrew-core;
+        "homebrew/homebrew-cask" = inputs.homebrew-cask;
+        "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
       };
 
       user = config.mySnippets.primaryUser;

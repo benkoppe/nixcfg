@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  self,
+  inputs,
   ...
 }:
 let
@@ -21,7 +21,7 @@ in
   };
 
   age.secrets.nix-serve-key = {
-    file = "${self.inputs.secrets}/services/nix-serve/key.age";
+    file = "${inputs.secrets}/services/nix-serve/key.age";
     owner = "root"; # `nix-serve` runs as root.
   };
 

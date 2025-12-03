@@ -1,8 +1,7 @@
 {
   lib,
   config,
-  self,
-  pkgs,
+  inputs',
   ...
 }:
 {
@@ -10,7 +9,7 @@
 
   config = lib.mkIf config.myHome.programs.nvim.enable {
     home.packages = [
-      self.inputs.nvim-flake.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs'.nvim-flake.packages.default
     ];
   };
 }

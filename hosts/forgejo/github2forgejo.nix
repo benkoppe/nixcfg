@@ -1,8 +1,8 @@
-{ self, config, ... }:
+{ inputs, config, ... }:
 {
-  imports = [ self.inputs.github2forgejo.nixosModules.default ];
+  imports = [ inputs.github2forgejo.nixosModules.default ];
 
-  nixpkgs.overlays = [ self.inputs.github2forgejo.overlays.default ];
+  nixpkgs.overlays = [ inputs.github2forgejo.overlays.default ];
 
   services.github2forgejo = {
     enable = true;
@@ -12,5 +12,5 @@
     # The default runs every day at midnight. But you can override it like so:
   };
 
-  age.secrets.github2forgejo-env.file = "${self.inputs.secrets}/services/forgejo/github2forgejo-environment.age";
+  age.secrets.github2forgejo-env.file = "${inputs.secrets}/services/forgejo/github2forgejo-environment.age";
 }

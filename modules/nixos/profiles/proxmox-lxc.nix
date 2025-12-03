@@ -1,12 +1,12 @@
 {
   config,
   lib,
-  self,
+  inputs,
   ...
 }:
 {
   # see <https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/proxmox-lxc.nix>
-  imports = [ "${self.inputs.nixpkgs}/nixos/modules/virtualisation/proxmox-lxc.nix" ];
+  imports = [ "${inputs.nixpkgs}/nixos/modules/virtualisation/proxmox-lxc.nix" ];
 
   options.myNixOS.profiles.proxmox-lxc = {
     enable = lib.mkEnableOption "profile for proxmox LXC's";

@@ -1,5 +1,5 @@
 {
-  self,
+  inputs,
   config,
   pkgs,
   lib,
@@ -65,8 +65,8 @@ in
       };
     in
     {
-      vaultwarden-smtp-pass = common "${self.inputs.secrets}/services/smtp/koppe-development-password.age";
-      vaultwarden-admin-token = common "${self.inputs.secrets}/services/vaultwarden/admin-token.age";
+      vaultwarden-smtp-pass = common "${inputs.secrets}/services/smtp/koppe-development-password.age";
+      vaultwarden-admin-token = common "${inputs.secrets}/services/vaultwarden/admin-token.age";
     };
 }
 // (

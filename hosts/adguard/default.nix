@@ -1,4 +1,4 @@
-{ config, self, ... }:
+{ config, inputs, ... }:
 let
   dnsPort = 53;
   inherit (config.mySnippets) hosts networks hostName;
@@ -44,7 +44,7 @@ in
       users = [
         {
           name = "ben";
-          password = builtins.readFile "${self.inputs.secrets}/services/adguard/password-hashed.txt";
+          password = builtins.readFile "${inputs.secrets}/services/adguard/password-hashed.txt";
         }
       ];
       auth_attempts = 5;

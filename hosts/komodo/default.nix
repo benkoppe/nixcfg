@@ -1,5 +1,5 @@
 {
-  self,
+  inputs,
   config,
   pkgs,
   ...
@@ -130,7 +130,7 @@ in
 
   age.secrets =
     let
-      komodoSecrets = "${self.inputs.secrets}/services/komodo";
+      komodoSecrets = "${inputs.secrets}/services/komodo";
       common = secretFile: {
         file = secretFile;
       };

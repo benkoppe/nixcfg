@@ -1,6 +1,6 @@
 {
   config,
-  self,
+  inputs,
   ...
 }:
 let
@@ -11,7 +11,7 @@ in
     profiles.proxmox-lxc.enable = true;
   };
 
-  age.secrets.glance-environment.file = "${self.inputs.secrets}/services/glance/environment.age";
+  age.secrets.glance-environment.file = "${inputs.secrets}/services/glance/environment.age";
 
   services.glance = {
     enable = true;
