@@ -61,7 +61,7 @@
         xdg.configFile."hammerspoon/init.lua".text =
           lib.mkAfter # lua
             ''
-              local AEROSPACE = "/Users/ben/.nix-profile/bin/aerospace"
+              local AEROSPACE = "${config.home.homeDirectory}/.nix-profile/bin/aerospace"
 
               function aerospaceExec(cmd)
                 os.execute("nohup " .. AEROSPACE .. " " .. cmd .. " &")

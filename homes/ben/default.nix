@@ -2,8 +2,12 @@
   pkgs,
   lib,
   self,
+  config,
   ...
 }:
+let
+  inherit (config.home) username;
+in
 {
   imports = [
     self.homeModules.default
@@ -20,7 +24,7 @@
     (lib.mkIf pkgs.stdenv.isDarwin {
       home = {
         enableNixpkgsReleaseCheck = false;
-        homeDirectory = "/Users/ben";
+        homeDirectory = "/Users/${username}";
       };
 
       myHome = {
@@ -33,7 +37,7 @@
 
     (lib.mkIf pkgs.stdenv.isLinux {
       home = {
-        homeDirectory = lib.mkDefault "/home/ben";
+        homeDirectory = lib.mkDefault "/home/${username}";
       };
     })
   ];
