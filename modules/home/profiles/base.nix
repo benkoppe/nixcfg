@@ -40,7 +40,7 @@
       htop
       iftop
 
-      inputs'.colmena.packages.default
+      inputs'.colmena.packages.colmena
     ];
   };
 }
