@@ -2,6 +2,7 @@
   self,
   inputs,
   lib,
+  withSystem,
   ...
 }:
 {
@@ -33,17 +34,23 @@
         ]
         (
           host:
-          inputs.nixpkgs.lib.nixosSystem {
-            modules = [
-              self.nixosModules.default
-              ../../hosts/${host}
-              {
-                mySnippets.hostName = host;
-              }
-            ];
+          withSystem "x86_64-linux" (
+            ctx:
+            inputs.nixpkgs.lib.nixosSystem {
+              modules = [
+                self.nixosModules.default
+                ../../hosts/${host}
+                {
+                  mySnippets.hostName = host;
+                }
+              ];
 
-            specialArgs = { inherit self; };
-          }
+              specialArgs = {
+                inherit self inputs;
+                inherit (ctx) inputs' system;
+              };
+            }
+          )
         );
   };
 }

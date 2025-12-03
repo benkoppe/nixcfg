@@ -3,6 +3,9 @@
   lib,
   pkgs,
   self,
+  inputs,
+  inputs',
+  system,
   ...
 }:
 {
@@ -33,14 +36,21 @@
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      extraSpecialArgs = { inherit self; };
+      extraSpecialArgs = {
+        inherit
+          self
+          inputs
+          inputs'
+          system
+          ;
+      };
       backupFileExtension = "backup";
     };
 
     nixpkgs = {
       config.allowUnfree = true;
 
-      hostPlatform = lib.mkDefault "x86_64-linux";
+      hostPlatform = lib.mkDefault system;
 
       overlays = self.defaultOverlays;
     };
