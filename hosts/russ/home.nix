@@ -6,7 +6,7 @@
     ];
 
     myHome = {
-      profiles.base.enable = true;
+      profiles.full.enable = true;
     };
   };
 }
