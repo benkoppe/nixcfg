@@ -19,16 +19,9 @@
         lazygit.enable = true;
         nvim.enable = true;
         tmux.enablePlugins = true;
-
         devenv.enable = true;
 
         claude-code.enable = true;
-
-        git.signingKey.enable = true;
-        git.forgejo.enable = true;
-
-        ssh.enable = true;
-        ssh.enableServers = true;
       };
     };
 
