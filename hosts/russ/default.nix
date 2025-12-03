@@ -12,6 +12,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
     ./display-config.nix
+    ./home.nix
   ];
 
   myNixOS = {
@@ -26,6 +27,10 @@
       efiSupport = true;
       efiInstallAsRemovable = true;
     };
+  };
+
+  mySnippets = {
+    primaryUser = "russ";
   };
 
   users.users = {
