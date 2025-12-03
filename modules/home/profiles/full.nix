@@ -3,6 +3,7 @@
   lib,
   pkgs,
   self,
+  inputs',
   ...
 }:
 {
@@ -44,6 +45,7 @@
       btop
       sqlite
       cachix
+      inputs'.opencode.packages.default
 
       # Text/data tools
       jq

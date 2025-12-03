@@ -877,6 +877,26 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764740230,
+        "narHash": "sha256-8TCOa/d6zjTsekVbzYXo/aB8tpNvIjDmxsOv1Ap1ywk=",
+        "owner": "sst",
+        "repo": "opencode",
+        "rev": "b457923970ea7034d550e3371b92daae4c1b37b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sst",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "ragenix": {
       "inputs": {
         "agenix": [
@@ -923,6 +943,7 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-stable": "nixpkgs-stable",
         "nvim-flake": "nvim-flake",
+        "opencode": "opencode",
         "ragenix": "ragenix",
         "secrets": "secrets",
         "terranix": "terranix"

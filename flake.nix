@@ -66,6 +66,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    opencode = {
+      url = "github:sst/opencode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nvim-flake = {
       url = "github:benkoppe/nvim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
