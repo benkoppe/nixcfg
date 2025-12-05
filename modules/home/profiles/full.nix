@@ -43,6 +43,7 @@
         ripgrep
         fd
         tree
+        nix-tree
 
         # CLI power tools
         bat
