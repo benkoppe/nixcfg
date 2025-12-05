@@ -37,7 +37,6 @@
               esc = "mode main";
             };
 
-            # don't tile ghostty tabs unnecessarily
             on-window-detected = [
               {
                 "if".app-id = "com.mitchellh.ghostty";
@@ -49,6 +48,10 @@
               }
               {
                 "if".app-name-regex-substring = "qemu-system-*";
+                run = [ "layout floating" ];
+              }
+              {
+                "if".window-title-regex-substring = "Bitwarden";
                 run = [ "layout floating" ];
               }
             ];
