@@ -126,6 +126,18 @@
               hyper:bind({}, "9", nil, function() aerospaceExec("workspace 9") end)
               hyper:bind({}, "0", nil, function() aerospaceExec("workspace 10") end)
 
+              -- WORKSPACE JUMP - SECOND LAYER
+              hyper:bind({"cmd"}, "1", nil, function() aerospaceExec("workspace 11") end)
+              hyper:bind({"cmd"}, "2", nil, function() aerospaceExec("workspace 12") end)
+              hyper:bind({"cmd"}, "3", nil, function() aerospaceExec("workspace 13") end)
+              hyper:bind({"cmd"}, "4", nil, function() aerospaceExec("workspace 14") end)
+              hyper:bind({"cmd"}, "5", nil, function() aerospaceExec("workspace 15") end)
+              hyper:bind({"cmd"}, "6", nil, function() aerospaceExec("workspace 16") end)
+              hyper:bind({"cmd"}, "7", nil, function() aerospaceExec("workspace 17") end)
+              hyper:bind({"cmd"}, "8", nil, function() aerospaceExec("workspace 18") end)
+              hyper:bind({"cmd"}, "9", nil, function() aerospaceExec("workspace 19") end)
+              hyper:bind({"cmd"}, "0", nil, function() aerospaceExec("workspace 20") end)
+
               -- WORKSPACE MOVE
               hyper:bind({"shift"}, "1", nil, function() aerospaceExec("move-node-to-workspace 1") end)
               hyper:bind({"shift"}, "2", nil, function() aerospaceExec("move-node-to-workspace 2") end)
@@ -137,6 +149,18 @@
               hyper:bind({"shift"}, "8", nil, function() aerospaceExec("move-node-to-workspace 8") end)
               hyper:bind({"shift"}, "9", nil, function() aerospaceExec("move-node-to-workspace 9") end)
               hyper:bind({"shift"}, "0", nil, function() aerospaceExec("move-node-to-workspace 10") end)
+
+              -- WORKSPACE MOVE - SECOND LAYER
+              hyper:bind({"shift", "cmd"}, "1", nil, function() aerospaceExec("move-node-to-workspace 11") end)
+              hyper:bind({"shift", "cmd"}, "2", nil, function() aerospaceExec("move-node-to-workspace 12") end)
+              hyper:bind({"shift", "cmd"}, "3", nil, function() aerospaceExec("move-node-to-workspace 13") end)
+              hyper:bind({"shift", "cmd"}, "4", nil, function() aerospaceExec("move-node-to-workspace 14") end)
+              hyper:bind({"shift", "cmd"}, "5", nil, function() aerospaceExec("move-node-to-workspace 15") end)
+              hyper:bind({"shift", "cmd"}, "6", nil, function() aerospaceExec("move-node-to-workspace 16") end)
+              hyper:bind({"shift", "cmd"}, "7", nil, function() aerospaceExec("move-node-to-workspace 17") end)
+              hyper:bind({"shift", "cmd"}, "8", nil, function() aerospaceExec("move-node-to-workspace 18") end)
+              hyper:bind({"shift", "cmd"}, "9", nil, function() aerospaceExec("move-node-to-workspace 19") end)
+              hyper:bind({"shift", "cmd"}, "0", nil, function() aerospaceExec("move-node-to-workspace 20") end)
 
               -- WORKSPACE TAB
               hyper:bind({}, "tab", nil, function() aerospaceExec("workspace-back-and-forth") end)
