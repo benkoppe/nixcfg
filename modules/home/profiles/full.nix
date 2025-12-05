@@ -36,7 +36,6 @@
         sqlite
         cachix
         inputs'.ragenix.packages.ragenix
-        inputs'.opencode.packages.default
 
         # Text/data tools
         jq

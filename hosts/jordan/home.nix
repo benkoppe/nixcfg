@@ -1,4 +1,9 @@
-{ self, config, ... }:
+{
+  self,
+  config,
+  inputs',
+  ...
+}:
 {
   home-manager.users.${config.mySnippets.primaryUser} = {
     imports = [
@@ -20,5 +25,9 @@
         ssh.enableServers = true;
       };
     };
+
+    home.packages = [
+      inputs'.opencode.packages.default
+    ];
   };
 }
