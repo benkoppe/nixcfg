@@ -1,7 +1,6 @@
 {
   self,
   config,
-  inputs',
   ...
 }:
 {
@@ -11,23 +10,9 @@
     ];
 
     myHome = {
-      profiles.full.enable = true;
-      profiles.gaming.enable = true;
+      profiles.workstation.enable = true;
 
       desktop.darwin.aerospace.enable = true;
-      programs = {
-        defaultbrowser.enable = true;
-
-        git.signingKey.enable = true;
-        git.forgejo.enable = true;
-
-        ssh.enable = true;
-        ssh.enableServers = true;
-      };
     };
-
-    home.packages = [
-      inputs'.opencode.packages.default
-    ];
   };
 }

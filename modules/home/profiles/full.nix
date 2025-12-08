@@ -20,12 +20,8 @@
         nvim.enable = true;
         tmux.enablePlugins = true;
         devenv.enable = true;
-
-        claude-code.enable = true;
       };
     };
-
-    programs.gh.enable = true;
 
     home.packages =
       (with pkgs; [
@@ -35,14 +31,12 @@
         btop
         sqlite
         cachix
-        inputs'.ragenix.packages.ragenix
 
         # Text/data tools
         jq
         ripgrep
         fd
         tree
-        nix-tree
 
         # CLI power tools
         bat
