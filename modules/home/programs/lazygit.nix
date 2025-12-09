@@ -14,6 +14,7 @@
         promptToReturnFromSubprocess = false;
 
         git = {
+          overrideGpg = true;
           pagers = [
             {
               # directly reference the binary from the Nix store
