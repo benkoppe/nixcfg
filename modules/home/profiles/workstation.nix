@@ -15,6 +15,7 @@
 
       programs = {
         nushell.enable = true;
+        helix.enable = false;
 
         claude-code.enable = true;
 

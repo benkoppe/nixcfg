@@ -12,5 +12,6 @@
     ./lazygit.nix
     ./devenv.nix
     ./ssh.nix
+    ./helix.nix
   ];
 }
