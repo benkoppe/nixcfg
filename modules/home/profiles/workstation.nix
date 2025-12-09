@@ -14,6 +14,8 @@
       profiles.gaming.enable = true;
 
       programs = {
+        nushell.enable = true;
+
         claude-code.enable = true;
 
         defaultbrowser.enable = true;

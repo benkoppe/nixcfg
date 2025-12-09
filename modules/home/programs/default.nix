@@ -6,6 +6,7 @@
     ./tmux.nix
     ./nvim.nix
     ./zsh
+    ./nushell
     ./vim.nix
     ./git.nix
     ./lazygit.nix
