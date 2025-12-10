@@ -37,6 +37,11 @@
       inputs'.opencode.packages.default
 
       nix-tree
+
+      codex
+      gemini-cli
+      amp-cli
+      github-copilot-cli
     ];
   };
 }
