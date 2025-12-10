@@ -14,5 +14,6 @@
     ./ssh.nix
     ./helix.nix
     ./atuin.nix
+    ./yazi.nix
   ];
 }

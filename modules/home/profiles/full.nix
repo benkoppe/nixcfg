@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs',
   ...
 }:
 {
@@ -20,6 +19,8 @@
         nvim.enable = true;
         tmux.enablePlugins = true;
         devenv.enable = true;
+
+        yazi.enable = true;
       };
     };
 
