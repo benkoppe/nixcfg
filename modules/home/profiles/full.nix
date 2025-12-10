@@ -24,6 +24,11 @@
       };
     };
 
+    programs.tealdeer = {
+      enable = true;
+      settings.updates.auto_update = true;
+    };
+
     home.packages =
       (with pkgs; [
         # General packages for development and system management
@@ -32,6 +37,9 @@
         btop
         sqlite
         cachix
+
+        dust
+        sd
 
         # Text/data tools
         jq
