@@ -17,6 +17,7 @@
         nushell.enable = true;
         helix.enable = true;
         atuin.enable = true;
+        television.enable = true;
 
         claude-code.enable = true;
 
@@ -37,6 +38,7 @@
       inputs'.opencode.packages.default
 
       nix-tree
+      fzf
 
       codex
       gemini-cli

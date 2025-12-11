@@ -15,5 +15,6 @@
     ./helix.nix
     ./atuin.nix
     ./yazi.nix
+    ./television.nix
   ];
 }
