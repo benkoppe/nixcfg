@@ -28,6 +28,7 @@
             "glance"
             "alloy"
             "prometheus"
+            "grafana"
             "influxdb"
           ]
           (host: {

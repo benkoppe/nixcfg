@@ -38,6 +38,7 @@
             "glance"
             "alloy"
             "prometheus"
+            "grafana"
             "influxdb"
           ]
           (
