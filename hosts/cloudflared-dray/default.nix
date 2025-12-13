@@ -32,6 +32,11 @@
           address = "10.0.0.210";
           port = 9120;
         }
+        {
+          vHost = "lab.thekoppe.com";
+          address = "10.192.168.80";
+          port = 8080;
+        }
       ];
     };
   };
@@ -49,6 +54,7 @@
               "pocket.thekoppe.com"
               "komodo2.thekoppe.com"
               "komodo.thekoppe.com"
+              "lab.thekoppe.com"
             ];
           in
           lib.genAttrs hosts (host: {
