@@ -22,11 +22,11 @@
           ipv4.address = "${networks.ldap.prefix}.${toString suffix}";
         };
 
-        newt = {
-          inherit (networks.newt) bridge deviceName;
+        cloudflare = {
+          inherit (networks.cloudflare) bridge deviceName;
           ipv4 = {
-            inherit (networks.newt) gateway;
-            address = "${networks.newt.prefix}.${toString suffix}";
+            inherit (networks.cloudflare) gateway;
+            address = "${networks.cloudflare.prefix}.${toString suffix}";
           };
         };
       };

@@ -164,11 +164,7 @@ in
       inherit (config.mySnippets) networks;
     in
     {
-      ${networks.tailscale.deviceName}.allowedTCPPorts = [
-        port
-      ];
-
-      ${networks.newt.deviceName}.allowedTCPPorts = [
+      ${networks.cloudflare.deviceName}.allowedTCPPorts = [
         port
       ];
 
