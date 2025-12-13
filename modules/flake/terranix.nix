@@ -30,6 +30,7 @@
             "prometheus"
             "grafana"
             "influxdb"
+            "cloudflared-dray"
           ]
           (host: {
             workdir = "terraform/${host}";

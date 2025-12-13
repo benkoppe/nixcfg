@@ -35,6 +35,7 @@
           "prometheus"
           "grafana"
           "influxdb"
+          "cloudflared-dray"
         ]
         (
           host:
