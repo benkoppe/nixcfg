@@ -45,6 +45,17 @@
             deviceName = "eth_newt";
           };
 
+        cloudflare =
+          let
+            prefix = "10.1.1";
+          in
+          {
+            inherit prefix;
+            gateway = "${prefix}.1";
+            bridge = "vxnetcf";
+            deviceName = "eth_cf";
+          };
+
         ldap =
           let
             prefix = "10.155.155";
