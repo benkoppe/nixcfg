@@ -27,6 +27,7 @@
             "komodo"
             "glance"
             "alloy"
+            "influxdb"
           ]
           (host: {
             workdir = "terraform/${host}";

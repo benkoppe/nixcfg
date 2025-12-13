@@ -37,6 +37,7 @@
             "komodo"
             "glance"
             "alloy"
+            "influxdb"
           ]
           (
             host:
