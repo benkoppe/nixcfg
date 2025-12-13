@@ -65,6 +65,16 @@
             bridge = "vmbr0";
             deviceName = "eth_home";
           };
+
+        obs =
+          let
+            prefix = "10.40.40";
+          in
+          {
+            inherit prefix;
+            bridge = "vxnetobs";
+            deviceName = "eth_obs";
+          };
       };
     };
   };
