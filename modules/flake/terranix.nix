@@ -26,6 +26,7 @@
             "garage-dray"
             "komodo"
             "glance"
+            "alloy"
           ]
           (host: {
             workdir = "terraform/${host}";

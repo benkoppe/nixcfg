@@ -31,6 +31,7 @@
           "garage-dray"
           "komodo"
           "glance"
+          "alloy"
         ]
         (
           host:
