@@ -15,6 +15,8 @@
     ./home.nix
   ];
 
+  services.qemuGuest.enable = true;
+
   myNixOS = {
     profiles.server.enable = true;
   };
