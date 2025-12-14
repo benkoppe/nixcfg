@@ -27,7 +27,7 @@
 
   boot.loader = {
     systemd-boot.enable = true;
-    efi.cantouchEfiVariables = true;
+    efi.canTouchEfiVariables = true;
   };
 
   services.cloud-init = {
