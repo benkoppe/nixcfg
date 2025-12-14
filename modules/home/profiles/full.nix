@@ -13,6 +13,7 @@
 
       programs = {
         zsh.enable = true;
+        ssh.enable = true;
 
         ghostty.enable = true;
         lazygit.enable = true;
