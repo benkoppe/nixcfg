@@ -8,5 +8,6 @@
     ./terranix.nix
     ./hercules-ci.nix
     ./overlays.nix
+    ./generators.nix
   ];
 }

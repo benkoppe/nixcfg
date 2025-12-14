@@ -36,6 +36,7 @@
           "grafana"
           "influxdb"
           "cloudflared-dray"
+          "vm-bootstrap"
         ]
         (
           host:
