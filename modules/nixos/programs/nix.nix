@@ -67,6 +67,20 @@ in
           mode = "444";
         };
       })
+
+      {
+        nix =
+          let
+            registryMap = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
+          in
+          {
+            channel.enable = false;
+
+            registry = lib.mapAttrs (_: flake: { inherit flake; }) registryMap;
+
+            nixPath = lib.mapAttrsToList (name: flake: "${name}=${flake.outPath}") registryMap;
+          };
+      }
     ]
   );
 }
