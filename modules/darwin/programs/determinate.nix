@@ -20,8 +20,6 @@
           config.mySnippets.nix.settings
           {
             eval-cores = 0;
-
-            flake-registry = "/etc/flake-registry.json";
           }
           (
             let
@@ -76,27 +74,35 @@
         };
       })
 
-      {
-        environment.etc."flake-registry.json".text =
-          let
-            registryMap = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
-
-            flakes = lib.mapAttrsToList (name: flake: {
-              from = {
-                id = name;
-                type = "indirect";
-              };
-              to = {
-                type = "path";
-                path = flake.outPath;
-              };
-            }) registryMap;
-          in
-          lib.strings.toJSON {
-            inherit flakes;
-            version = 2;
+      (
+        let
+          registryMap = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
+        in
+        {
+          determinate-nix.customSettings = {
+            flake-registry = "/etc/flake-registry.json";
+            nix-path = lib.mapAttrsToList (name: flake: "${name}=${flake.outPath}") registryMap;
           };
-      }
+
+          environment.etc."flake-registry.json".text =
+            let
+              flakes = lib.mapAttrsToList (name: flake: {
+                from = {
+                  id = name;
+                  type = "indirect";
+                };
+                to = {
+                  type = "path";
+                  path = flake.outPath;
+                };
+              }) registryMap;
+            in
+            lib.strings.toJSON {
+              inherit flakes;
+              version = 2;
+            };
+        }
+      )
     ]
   );
 }
