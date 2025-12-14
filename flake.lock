@@ -956,11 +956,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1765661502,
-        "narHash": "sha256-0Rqr7uleIDJDkMIu4XnOHp6jTyU1D9nkmcPcwlqKuvM=",
+        "lastModified": 1765674506,
+        "narHash": "sha256-10c72Q4dJfdTuUv3nLYKqkmhv4thx8YThsadmYPoZ8U=",
         "owner": "benkoppe",
         "repo": "nix-secrets",
-        "rev": "3720e199760ec4d189597e87a93af5a7cea55096",
+        "rev": "59be5538289e72c0f1b88addb491964397465088",
         "type": "github"
       },
       "original": {
