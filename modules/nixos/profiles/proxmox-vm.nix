@@ -37,7 +37,7 @@ in
           services.qemuGuest.enable = true;
           networking.useDHCP = false; # override generated `true`
 
-          boot.loader.timeout = 5;
+          boot.loader.timeout = lib.mkForce 5;
           boot.loader.grub = {
             enable = lib.mkDefault true;
             efiSupport = true;
