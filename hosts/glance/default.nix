@@ -64,7 +64,7 @@ in
                     {
                       title = "Komodo";
                       url = "https://komodo.thekoppe.com";
-                      icon = "di:komodo";
+                      icon = "sh:komodo";
                       description = "Docker Control";
                     }
                   ];
