@@ -4,7 +4,7 @@
   ...
 }:
 let
-  inherit (config.mySnippets) hosts;
+  inherit (config.mySnippets) hosts hostName;
 in
 {
   myNixOS = {
@@ -36,10 +36,10 @@ in
       };
       pages = [
         {
-          name = "Home";
+          name = "Koppelab";
           slug = "";
           width = "slim";
-          # hide-desktop-navigation = true;
+          hide-desktop-navigation = true;
           center-vertically = true;
           columns = [
             {
@@ -125,6 +125,22 @@ in
                   username = "ben";
                   password = ''''${ADGUARD_PASSWORD}'';
                 }
+                {
+                  type = "bookmarks";
+                  title = "Goto";
+                  groups = [
+                    {
+                      same-tab = true;
+                      links = [
+                        {
+                          title = "More";
+                          icon = "mdi:console";
+                          url = "https://${hosts.${hostName}.vHost}/more";
+                        }
+                      ];
+                    }
+                  ];
+                }
               ];
             }
           ];
@@ -133,6 +149,7 @@ in
           name = "More";
           width = "slim";
           center-vertically = true;
+          hide-desktop-navigation = true;
           columns = [
             {
               size = "full";
@@ -166,6 +183,27 @@ in
                       url = "https://${hosts.influxdb.vHost}";
                       icon = "di:influxdb";
                       description = "Time-Series Store";
+                    }
+                  ];
+                }
+              ];
+            }
+            {
+              size = "small";
+              widgets = [
+                {
+                  type = "bookmarks";
+                  title = "Goto";
+                  groups = [
+                    {
+                      same-tab = true;
+                      links = [
+                        {
+                          title = "Home";
+                          icon = "mdi:home";
+                          url = "https://${hosts.${hostName}.vHost}";
+                        }
+                      ];
                     }
                   ];
                 }

@@ -7,4 +7,6 @@ in
 {
   inherit vm_id suffix;
   ipv4 = "${tailscale.prefix}.${toString suffix}";
+
+  vHost = "lab.thekoppe.com";
 }
