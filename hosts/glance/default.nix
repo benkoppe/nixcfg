@@ -20,11 +20,26 @@ in
     environmentFile = config.age.secrets.glance-environment.path;
     settings = {
       server.host = "0.0.0.0";
+      branding = {
+        app-name = "Koppelab";
+        custom-footer =
+          let
+            url = "https://github.com/benkoppe/glance";
+            # releaseUrl = "https://github.com/glanceapp/glance/releases/tag/{{ .App.Version }}";
+          in
+          ''
+            <div>
+              <a class="size-h3" href="${url}" target="_blank" rel="noreferrer">Glance</a>
+              <a class="visited-indicator" title="Custom fork" href="${url}" target="_blank" rel="noreferrer">${config.services.glance.package.version}</a>
+            </div>
+          '';
+      };
       pages = [
         {
-          name = "Koppelab";
+          name = "Home";
+          slug = "";
           width = "slim";
-          hide-desktop-navigation = true;
+          # hide-desktop-navigation = true;
           center-vertically = true;
           columns = [
             {
@@ -45,6 +60,12 @@ in
                       url = "https://${hosts.forgejo.vHost}";
                       icon = "di:forgejo";
                       description = "Git Forge";
+                    }
+                    {
+                      title = "Komodo";
+                      url = "https://komodo.thekoppe.com";
+                      icon = "di:komodo";
+                      description = "Docker Control";
                     }
                   ];
                 }
@@ -103,6 +124,50 @@ in
                   url = "https://${hosts.adguard.vHost}";
                   username = "ben";
                   password = ''''${ADGUARD_PASSWORD}'';
+                }
+              ];
+            }
+          ];
+        }
+        {
+          name = "More";
+          width = "slim";
+          center-vertically = true;
+          columns = [
+            {
+              size = "full";
+              widgets = [
+                {
+                  type = "monitor";
+                  cache = "1m";
+                  title = "Observability";
+
+                  sites = [
+                    {
+                      title = "Grafana";
+                      url = "https://${hosts.grafana.vHost}";
+                      icon = "di:grafana";
+                      description = "Visualizations";
+                    }
+                    {
+                      title = "Prometheus";
+                      url = "https://${hosts.prometheus.vHost}";
+                      icon = "di:prometheus";
+                      description = "Metrics Database";
+                    }
+                    {
+                      title = "Alloy";
+                      url = "https://${hosts.alloy.vHost}";
+                      icon = "di:alloy";
+                      description = "Telemetry Collector";
+                    }
+                    {
+                      title = "InfluxDB";
+                      url = "https://${hosts.influxdb.vHost}";
+                      icon = "di:influxdb";
+                      description = "Time-Series Store";
+                    }
+                  ];
                 }
               ];
             }
