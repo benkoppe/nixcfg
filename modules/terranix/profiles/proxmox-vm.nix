@@ -50,6 +50,12 @@ in
       };
     };
 
+    cloudInit = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable cloud-init for VM initialization";
+    };
+
     networks = lib.mkOption {
       type = lib.types.attrsOf (
         lib.types.submodule {
@@ -104,6 +110,7 @@ in
           machine = "q35";
           operating_system.type = "l26";
           migrate = true;
+          serial_device = { }; # enable serial console for xterm.js
 
           inherit (cfg) vm_id node_name;
 
@@ -112,7 +119,7 @@ in
           disk = {
             datastore_id = "local-zfs";
             inherit (cfg.disk) size;
-            import_from = "local:import/nixos-vm-v2.qcow2";
+            import_from = "local:import/nixos-vm-v3.qcow2";
             interface = "scsi0";
             discard = "on";
           };
@@ -133,7 +140,7 @@ in
           on_boot = true;
           tags = lib.mkDefault [ "terranix" ];
 
-          initialization = {
+          initialization = lib.mkIf cfg.cloudInit {
             datastore_id = "local-zfs";
           };
         }
@@ -156,7 +163,7 @@ in
           {
             network_device = networkDeviceList;
 
-            initialization = {
+            initialization = lib.mkIf cfg.cloudInit {
               ip_config = ipConfigList;
             };
           }
