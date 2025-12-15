@@ -31,6 +31,7 @@
             "grafana"
             "influxdb"
             "cloudflared-dray"
+            "tailscale-dray"
           ]
           (host: {
             workdir = "terraform/${host}";

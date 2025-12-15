@@ -36,6 +36,7 @@
           "grafana"
           "influxdb"
           "cloudflared-dray"
+          "tailscale-dray"
           "vm-bootstrap"
         ]
         (

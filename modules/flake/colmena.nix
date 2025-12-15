@@ -41,6 +41,7 @@
             "grafana"
             "influxdb"
             "cloudflared-dray"
+            "tailscale-dray"
           ]
           (
             host:
