@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  inherit (config.mySnippets) hosts;
+in
 {
   myNixOS = {
     profiles.proxmox-lxc.enable = true;
@@ -33,8 +36,8 @@
           port = 9120;
         }
         {
-          vHost = "lab.thekoppe.com";
-          address = "10.192.168.80";
+          inherit (hosts.glance) vHost;
+          address = hosts.glance.ipv4;
           port = 8080;
         }
       ];
