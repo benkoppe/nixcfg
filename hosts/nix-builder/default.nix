@@ -6,7 +6,7 @@
 }:
 {
   myNixOS = {
-    profiles.proxmox-lxc.enable = true;
+    profiles.proxmox-vm.enable = true;
 
     services.hercules-ci-agent = {
       enable = true;
@@ -26,5 +26,24 @@
     ];
   };
 
-  networking.hostName = config.mySnippets.hostName;
+  networking =
+    let
+      inherit (config.mySnippets.networks) tailscale;
+    in
+    {
+      inherit (config.mySnippets) hostName;
+
+      interfaces."eth0".ipv4.addresses = [
+        {
+          address = "${tailscale.prefix}.100";
+          prefixLength = 24;
+        }
+      ];
+      defaultGateway = {
+        address = tailscale.gateway;
+        interface = "eth0";
+      };
+      nameservers = [ "192.168.1.1" ];
+    };
+
 }
