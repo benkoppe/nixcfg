@@ -105,6 +105,47 @@
         );
 
         environmentFile = config.age.secrets.caddy-cloudflare.path;
+
+        # TODO: hopefully we can remove this soon. this resolves the weird formatting issue I have by removing it
+        # it is a copy of https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/web-servers/caddy/default.nix#L56-L60 w/o formatting
+        configFile =
+          let
+            cfg = config.services.caddy;
+            inherit (config.security.acme) certs;
+            virtualHosts = lib.attrValues cfg.virtualHosts;
+
+            mkVHostConf =
+              hostOpts:
+              let
+                sslCertDir = certs.${hostOpts.useACMEHost}.directory;
+              in
+              ''
+                ${hostOpts.hostName} ${lib.concatStringsSep " " hostOpts.serverAliases} {
+                  ${lib.optionalString (
+                    hostOpts.listenAddresses != [ ]
+                  ) "bind ${lib.concatStringsSep " " hostOpts.listenAddresses}"}
+                  ${lib.optionalString (
+                    hostOpts.useACMEHost != null
+                  ) "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"}
+                  ${lib.optionalString (hostOpts.logFormat != null) ''
+                    log {
+                      ${hostOpts.logFormat}
+                    }
+                  ''}
+
+                  ${hostOpts.extraConfig}
+                }
+              '';
+
+            Caddyfile = pkgs.writeTextDir "Caddyfile" ''
+              {
+                ${cfg.globalConfig}
+              }
+              ${cfg.extraConfig}
+              ${lib.concatMapStringsSep "\n" mkVHostConf virtualHosts}
+            '';
+          in
+          "${Caddyfile}/Caddyfile";
       };
 
       age.secrets.caddy-cloudflare.file = "${inputs.secrets}/services/caddy/cloudflare-api.age";
