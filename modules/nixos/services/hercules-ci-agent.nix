@@ -21,6 +21,8 @@
       cfg = config.myNixOS.services.hercules-ci-agent;
     in
     lib.mkIf cfg.enable {
+      nix.settings.narinfo-cache-negative-ttl = 0;
+
       services.hercules-ci-agent = {
         enable = true;
 
