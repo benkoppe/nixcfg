@@ -40,7 +40,7 @@
       inherit (config.mySnippets.networks) tailscale;
     in
     {
-      hostName = "tailscale-dray";
+      inherit (config.mySnippets) hostName;
 
       interfaces."eth0".ipv4.addresses = [
         {
