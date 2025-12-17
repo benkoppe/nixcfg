@@ -10,7 +10,7 @@ let
 in
 {
   services.nix-serve = {
-    enable = true;
+    enable = false;
 
     package = pkgs.nix-serve-ng;
     secretKeyFile = config.age.secrets.nix-serve-key.path;
@@ -20,14 +20,9 @@ in
     extraParams = "--priority 50";
   };
 
-  age.secrets.nix-serve-key = {
-    file = "${inputs.secrets}/services/nix-serve/key.age";
-    owner = "root"; # `nix-serve` runs as root.
-  };
-
   myNixOS = {
     services.caddy = {
-      enable = true;
+      enable = false;
 
       virtualHosts =
         let
