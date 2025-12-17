@@ -1,5 +1,6 @@
 {
   inputs,
+  inputs',
   pkgs,
   config,
   ...
@@ -25,6 +26,10 @@
       "${inputs.secrets}/pve/nix-builder-key.pub"
     ];
   };
+
+  environment.systemPackages = [
+    inputs'.colmena.packages.colmena
+  ];
 
   networking =
     let
