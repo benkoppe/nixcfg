@@ -52,7 +52,6 @@ in
             ports = [ "${toString port}:9120" ];
             environmentFiles = [
               secrets.komodo-mongo-env.path
-              secrets.komodo-core-env.path
               secrets.komodo-periphery-env.path
             ];
             environment = {
@@ -88,6 +87,7 @@ in
             };
             volumes = [
               "/var/lib/komodo/backups:/backups"
+              "${secrets.komodo-core-mounted-config.path}:/config/config.toml"
             ];
             networks = [ "komodo-net" ];
           };
@@ -121,6 +121,7 @@ in
                 "/var/run/docker.sock:/var/run/docker.sock"
                 "/proc:/proc"
                 "${rootDirectory}:${rootDirectory}"
+                "${secrets.komodo-periphery-mounted-config.path}:/config/config.toml"
               ];
               networks = [ "komodo-net" ];
             };
@@ -137,8 +138,10 @@ in
     in
     {
       komodo-mongo-env = common "${komodoSecrets}/mongo-environment.age";
-      komodo-core-env = common "${komodoSecrets}/core-environment.age";
       komodo-periphery-env = common "${komodoSecrets}/periphery-environment.age";
+
+      komodo-periphery-mounted-config = common "${komodoSecrets}/periphery-mounted-config.age";
+      komodo-core-mounted-config = common "${komodoSecrets}/core-mounted-config.age";
     };
 
   systemd.services.init-komodo-network = {
