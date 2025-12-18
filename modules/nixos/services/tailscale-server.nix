@@ -22,8 +22,6 @@
         "--advertise-exit-node"
         "--advertise-routes=10.192.168.0/24"
       ];
-
-      interfaceName = config.mySnippets.networks.tailscale.deviceName;
     };
 
     age.secrets.tailscale-key.file = "${inputs.secrets}/services/tailscale/auth-key.age";

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   myNixOS = {
     profiles.proxmox-vm.enable = true;
@@ -35,6 +35,33 @@
     };
   };
 
+  # tailscale web isn't built into the module
+  # this provides metrics
+  systemd.services.tailscaled-web =
+    let
+      # flags to pass to `tailscale web`
+      webFlags = [
+        "--readonly"
+        "--listen"
+        "10.192.168.10:8088"
+      ];
+    in
+    lib.mkIf (webFlags != [ ]) {
+      after = [
+        "tailscaled.service"
+        "tailscaled-autoconnect.service"
+      ];
+      wants = [ "tailscaled.service" ];
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${lib.getExe config.services.tailscale.package} web ${lib.escapeShellArgs webFlags}";
+        Restart = "always";
+        RestartSec = 2;
+      };
+    };
+
   networking =
     let
       inherit (config.mySnippets.networks) tailscale;
@@ -53,5 +80,7 @@
         interface = "eth0";
       };
       nameservers = [ "192.168.1.1" ];
+
+      firewall.interfaces."eth0".allowedTCPPorts = [ 8088 ]; # tailscale web
     };
 }
