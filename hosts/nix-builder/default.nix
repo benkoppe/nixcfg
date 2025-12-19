@@ -31,6 +31,9 @@
     inputs'.colmena.packages.colmena
   ];
 
+  # enable virtualizing aarch64
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   networking =
     let
       inherit (config.mySnippets.networks) tailscale;
