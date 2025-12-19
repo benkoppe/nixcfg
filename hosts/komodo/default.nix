@@ -122,6 +122,12 @@ in
                 "/proc:/proc"
                 "${rootDirectory}:${rootDirectory}"
                 "${secrets.komodo-periphery-mounted-config.path}:/config/config.toml"
+                "${secrets.komodo-periphery-syncs-local.path}:/config/komodo-syncs"
+              ];
+              cmd = [
+                "periphery"
+                "--config-path"
+                "/config/config.toml"
               ];
               networks = [ "komodo-net" ];
             };
@@ -142,6 +148,8 @@ in
 
       komodo-periphery-mounted-config = common "${komodoSecrets}/periphery-mounted-config.age";
       komodo-core-mounted-config = common "${komodoSecrets}/core-mounted-config.age";
+
+      komodo-periphery-syncs-local = common "${komodoSecrets}/sync-keys/local.age";
     };
 
   systemd.services.init-komodo-network = {
