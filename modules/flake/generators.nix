@@ -20,14 +20,14 @@
               specialArgs = {
                 inherit self inputs;
                 inherit (ctx) inputs' system;
-                modules = [
-                  self.nixosModules.default
-                  ../../hosts/lxc-bootstrap
-                  {
-                    mySnippets.hostName = "lxc-bootstrap";
-                  }
-                ];
               };
+              modules = [
+                self.nixosModules.default
+                ../../hosts/lxc-bootstrap
+                {
+                  mySnippets.hostName = "lxc-bootstrap";
+                }
+              ];
             };
 
             vm-bootstrap = inputs.nixos-generators.nixosGenerate {
