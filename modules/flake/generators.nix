@@ -1,9 +1,14 @@
-{ inputs, self, ... }:
+{
+  inputs,
+  self,
+  ...
+}:
 {
   perSystem =
     {
       lib,
       system,
+      pkgs,
       ...
     }@ctx:
     {
@@ -46,7 +51,14 @@
               ];
             };
 
-            oci-bootstrap = self.nixosConfigurations.oci-bootstrap.config.system.build.OCIImage;
+            oci-bootstrap-image =
+              let
+                img = self.nixosConfigurations.oci-bootstrap.config.system.build.OCIImage;
+              in
+              pkgs.runCommand "nixos-oci-image.qcow2" { } ''
+                # Use a glob to find the qcow2 file regardless of the date string in the name
+                cp ${img}/*.qcow2 $out
+              '';
           };
 
     };
