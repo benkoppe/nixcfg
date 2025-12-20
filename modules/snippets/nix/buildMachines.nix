@@ -22,7 +22,10 @@
               "big-parallel"
               "benchmark"
             ];
-            systems = [ "x86_64-linux" ];
+            systems = [
+              "x86_64-linux"
+              "aarch64-linux"
+            ];
             publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFFM25xRW9rR2wzNmgyNWp6VU1EOW4vUkUvSmx4T3FoaitZYldEcHYybWkgcm9vdEBuaXhvcwo=";
           }
         )

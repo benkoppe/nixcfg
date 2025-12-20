@@ -45,6 +45,8 @@
                 }
               ];
             };
+
+            oci-bootstrap = self.nixosConfigurations.oci-bootstrap.config.system.build.OCIImage;
           };
 
     };

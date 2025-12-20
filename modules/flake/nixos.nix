@@ -38,6 +38,8 @@
           "cloudflared-dray"
           "tailscale-dray"
           "vm-bootstrap"
+          "oci-bootstrap"
+          "bird"
         ]
         (
           host:
