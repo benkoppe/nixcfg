@@ -21,6 +21,7 @@
               "nixos-test"
               "big-parallel"
               "benchmark"
+              "kvm"
             ];
             systems = [
               "x86_64-linux"
