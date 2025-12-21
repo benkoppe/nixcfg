@@ -32,6 +32,7 @@
             "influxdb"
             "cloudflared-dray"
             "tailscale-dray"
+            "minio-dray"
           ]
           (host: {
             workdir = "terraform/${host}";

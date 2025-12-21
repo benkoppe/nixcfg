@@ -40,6 +40,7 @@
           "vm-bootstrap"
           "oci-bootstrap"
           "bird"
+          "minio-dray"
         ]
         (
           host:
