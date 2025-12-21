@@ -4,7 +4,7 @@ let
   compartment_id = lib.tfRef "var.compartment_ocid";
 in
 {
-  myTerranix.profiles.oracle.enable = true;
+  myTerranix.providers.oracle.enable = true;
 
   module.system-build = {
     source = "github.com/nix-community/nixos-anywhere//terraform/nix-build";

@@ -94,7 +94,7 @@ in
   };
 
   config = lib.mkIf config.myTerranix.profiles.proxmox-lxc.enable {
-    myTerranix.profiles.proxmox.enable = true;
+    myTerranix.providers.proxmox.enable = true;
 
     resource.proxmox_virtual_environment_container.${hostName} = {
       description = "Managed by Terranix";

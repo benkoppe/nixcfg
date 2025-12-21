@@ -4,9 +4,9 @@
   ...
 }:
 {
-  options.myTerranix.profiles.oracle.enable = lib.mkEnableOption "oracle cloud terraform provider";
+  options.myTerranix.providers.oracle.enable = lib.mkEnableOption "oracle cloud terraform provider";
 
-  config = lib.mkIf config.myTerranix.profiles.oracle.enable {
+  config = lib.mkIf config.myTerranix.providers.oracle.enable {
 
     terraform.required_providers.oci = {
       source = "oracle/oci";

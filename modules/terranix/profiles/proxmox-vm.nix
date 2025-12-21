@@ -100,7 +100,7 @@ in
       cfg = config.myTerranix.profiles.proxmox-vm;
     in
     lib.mkIf cfg.enable {
-      myTerranix.profiles.proxmox.enable = true;
+      myTerranix.providers.proxmox.enable = true;
 
       resource.proxmox_virtual_environment_vm.${hostName} = lib.mkMerge [
         {

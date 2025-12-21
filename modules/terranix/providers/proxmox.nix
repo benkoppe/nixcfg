@@ -4,9 +4,9 @@
   ...
 }:
 {
-  options.myTerranix.profiles.proxmox.enable = lib.mkEnableOption "proxmox terraform provider";
+  options.myTerranix.providers.proxmox.enable = lib.mkEnableOption "proxmox terraform provider";
 
-  config = lib.mkIf config.myTerranix.profiles.proxmox.enable {
+  config = lib.mkIf config.myTerranix.providers.proxmox.enable {
 
     terraform.required_providers.proxmox = {
       source = "bpg/proxmox";
