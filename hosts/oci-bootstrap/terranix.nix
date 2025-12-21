@@ -1,49 +1,10 @@
 { config, lib, ... }:
 let
-  var = name: lib.tfRef "var.${name}";
-
-  namespace = var "namespace";
-  region = var "region";
-  fingerprint = var "fingerprint";
-  private_key = var "private_key";
-
-  compartment_id = var "compartment_ocid";
-  tenancy_ocid = var "tenancy_ocid";
-  user_ocid = var "user_ocid";
+  namespace = lib.tfRef "var.namespace";
+  compartment_id = lib.tfRef "var.compartment_ocid";
 in
 {
-  terraform.required_providers.oci = {
-    source = "oracle/oci";
-    version = "7.29.0";
-  };
-
-  provider.oci = {
-    inherit
-      region
-      tenancy_ocid
-      user_ocid
-      fingerprint
-      private_key
-      ;
-  };
-
-  variable =
-    let
-      var = description: {
-        type = "string";
-        sensitive = true;
-        inherit description;
-      };
-    in
-    {
-      namespace = var "OCI Object Storage namespace";
-      user_ocid = var "OCI user OCID";
-      compartment_ocid = var "OCI compartment OCID";
-      tenancy_ocid = var "OCI tenancy OCID";
-      region = var "OCI region";
-      fingerprint = var "OCI key pair fingerprint";
-      private_key = var "OCI key pair private key";
-    };
+  myTerranix.profiles.oracle.enable = true;
 
   module.system-build = {
     source = "github.com/nix-community/nixos-anywhere//terraform/nix-build";
