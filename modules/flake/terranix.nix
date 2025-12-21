@@ -32,6 +32,7 @@
             "influxdb"
             "cloudflared-dray"
             "tailscale-dray"
+            "oci-bootstrap"
             "minio-dray"
           ]
           (host: {
