@@ -38,6 +38,7 @@
         btop
         sqlite
         cachix
+        watch
 
         dust
         sd
