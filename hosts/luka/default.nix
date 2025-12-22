@@ -10,6 +10,7 @@
     base.enable = true;
     server.enable = true;
   };
+  myNixOS.programs.nix.accessTokens.enable = true;
 
   imports = [
     ./hardware-configuration.nix
@@ -80,11 +81,12 @@
       "${inputs.secrets}/pve/colmena.pub"
     ];
     hashedPasswordFile = config.age.secrets.base-password.path;
+
+    packages = with pkgs; [ discord-screenaudio ];
   };
 
   age.secrets.base-password = {
     file = "${inputs.secrets}/passwords/server-main.age";
-    owner = "russ";
   };
 
   programs.steam = {
