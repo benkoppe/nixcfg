@@ -41,6 +41,7 @@
           "oci-bootstrap"
           "bird"
           "minio-dray"
+          "luka"
         ]
         (
           host:
