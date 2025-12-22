@@ -45,6 +45,8 @@
       };
     };
 
+  boot.kernelParams = [ "ip=dhcp" ];
+
   age.secrets.clevis-luka-boot = {
     file = "${inputs.secrets}/programs/clevis/luka-boot.age";
     path = "/etc/initrd-hostkey";
