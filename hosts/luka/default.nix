@@ -75,7 +75,7 @@
     openssh.authorizedKeys.keyFiles = [
       "${inputs.secrets}/pve/colmena.pub"
     ];
-    hashedPasswordFile = config.age.secrets.russ-user-password.path;
+    hashedPasswordFile = config.age.secrets.base-password.path;
   };
 
   age.secrets.base-password = {
