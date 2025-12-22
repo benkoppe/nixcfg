@@ -23,17 +23,18 @@
     powerManagement.enable = true;
   };
 
-  # environment.systemPackages = with pkgs; [
-  #   # kdePackages.konsole
-  #   # kdePackages.dolphin
-  #   # kdePackages.okular
-  #   # kdePackages.gwenview
-  #   # kdePackages.kate
-  #   # kdePackages.kcalc
-  #   # kdePackages.libksysguard
-  #   # kdePackages.konversation
-  #   # kdePackages.breeze-icons
-  # ];
+  environment.systemPackages = with pkgs; [
+    # kdePackages.konsole
+    # kdePackages.dolphin
+    # kdePackages.okular
+    # kdePackages.gwenview
+    # kdePackages.kate
+    # kdePackages.kcalc
+    # kdePackages.libksysguard
+    # kdePackages.konversation
+    # kdePackages.breeze-icons
+    chromium
+  ];
 
   programs.chromium = {
     enable = true;
