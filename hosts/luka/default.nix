@@ -67,6 +67,22 @@
   #   enableSSHSupport = true;
   # };
 
+  users.users.root.hashedPasswordFile = config.age.secrets.base-password.path;
+
+  users.users.luka = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keyFiles = [
+      "${inputs.secrets}/pve/colmena.pub"
+    ];
+    hashedPasswordFile = config.age.secrets.russ-user-password.path;
+  };
+
+  age.secrets.base-password = {
+    file = "${inputs.secrets}/passwords/server-main.age";
+    owner = "russ";
+  };
+
   programs.steam = {
     enable = true;
   };
