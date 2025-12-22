@@ -82,7 +82,7 @@
     ];
     hashedPasswordFile = config.age.secrets.base-password.path;
 
-    packages = with pkgs; [ discord-screenaudio ];
+    packages = with pkgs; [ discord ];
   };
 
   age.secrets.base-password = {
