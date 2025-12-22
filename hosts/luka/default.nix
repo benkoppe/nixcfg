@@ -2,6 +2,7 @@
   pkgs,
   config,
   inputs,
+  lib,
   ...
 }:
 {
@@ -67,7 +68,10 @@
   #   enableSSHSupport = true;
   # };
 
-  users.users.root.hashedPasswordFile = config.age.secrets.base-password.path;
+  users.users.root = {
+    hashedPassword = lib.mkForce null;
+    hashedPasswordFile = config.age.secrets.base-password.path;
+  };
 
   users.users.luka = {
     isNormalUser = true;
