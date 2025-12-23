@@ -76,6 +76,7 @@
 
   users.users.luka = {
     isNormalUser = true;
+    group = "luka";
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keyFiles = [
       "${inputs.secrets}/pve/colmena.pub"
@@ -84,6 +85,7 @@
 
     packages = with pkgs; [ discord ];
   };
+  users.groups.luka = { };
 
   age.secrets.base-password = {
     file = "${inputs.secrets}/passwords/server-main.age";
