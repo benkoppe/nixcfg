@@ -49,6 +49,9 @@
 
   boot.kernelParams = [ "ip=dhcp" ];
 
+  boot.kernel.sysctl."kernel.sysrq" = 502; # (safe REISUB + extras), use 510 to add 'C'
+  boot.crashDump.enable = true;
+
   age.secrets.clevis-luka-boot = {
     file = "${inputs.secrets}/programs/clevis/luka-boot.age";
     path = "/etc/initrd-hostkey";
