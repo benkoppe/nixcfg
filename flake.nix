@@ -1,50 +1,83 @@
 {
-  inputs.clan-core.url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
-  inputs.nixpkgs.follows = "clan-core/nixpkgs";
+  description = "Infrastructure dendritic clan configuration with flake-parts";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    clan-core = {
+      url = "git+https://git.clan.lol/clan/clan-core";
+      inputs.nixpkgs.follows = "nixpkgs"; # Avoid this if using nixpkgs stable.
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    systems.url = "github:nix-systems/default";
+  };
 
   outputs =
-    {
-      self,
-      clan-core,
-      nixpkgs,
-      ...
-    }@inputs:
-    let
-      # Usage see: https://docs.clan.lol
-      clan = clan-core.lib.clan {
-        inherit self;
-        imports = [ ./clan.nix ];
-        specialArgs = { inherit inputs; };
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      {
+        config,
+        ...
+      }:
+      {
+        imports = [
+          inputs.clan-core.flakeModules.default
+          inputs.treefmt-nix.flakeModule
+        ];
 
-        # Customize nixpkgs
-        # pkgsForSystem =
-        #   system:
-        #   import nixpkgs {
-        #     inherit system;
-        #     config = {
-        #       allowUnfree = true;
-        #     };
-        #     overlays = [];
-        #   };
-      };
-    in
-    {
-      inherit (clan.config) nixosConfigurations nixosModules clanInternals;
-      clan = clan.config;
-      # Add the Clan cli tool to the dev shell.
-      # Use "nix develop" to enter the dev shell.
-      devShells =
-        nixpkgs.lib.genAttrs
-          [
-            "x86_64-linux"
-            "aarch64-linux"
-            "aarch64-darwin"
-            "x86_64-darwin"
-          ]
-          (system: {
-            default = clan-core.inputs.nixpkgs.legacyPackages.${system}.mkShell {
-              packages = [ clan-core.packages.${system}.clan-cli ];
+        systems = import inputs.systems;
+
+        flake.clan = {
+          meta.name = "thekoppe";
+
+          specialArgs = {
+            modules = config.flake;
+          };
+
+          inventory = {
+            machines = { }; # TODO:
+
+            instances = { }; # TODO:
+          };
+        };
+
+        perSystem =
+          {
+            config,
+            system,
+            pkgs,
+            ...
+          }:
+          {
+            treefmt = {
+              projectRootFile = "flake.nix";
+              programs = {
+                nixfmt.enable = true;
+                statix.enable = true;
+                deadnix.enable = true;
+              };
             };
-          });
-    };
+
+            formatter = config.treefmt.build.wrapper;
+
+            devShells.default = pkgs.mkShell {
+              packages = [
+                inputs.clan-core.packages.${system}.clan-cli
+                config.treefmt.build.wrapper
+              ];
+            };
+          };
+      }
+    );
 }
