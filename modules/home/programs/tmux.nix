@@ -24,6 +24,7 @@
           focusEvents = true;
           # shell = "${pkgs.zsh}/bin/zsh";
           mouse = true;
+          aggressiveResize = true; # great for groups on multimonitor
           extraConfig = # bash
             ''
               # Enable full mouse support
@@ -76,6 +77,10 @@
               bind-key -T copy-mode-vi 'C-l' select-pane -R
               bind-key -T copy-mode-vi 'C-\' select-pane -l
 
+              # enable vim copy mode
+              setw -g mode-keys vi
+              # TODO: make vim copy mode usable by rebinding commands to match vim
+
               # tmux-sessionizer commands
               bind-key -r M-h run-shell "tmux-sessionizer -s 0"
             '';
@@ -88,14 +93,13 @@
             vim-tmux-navigator
             sensible
             yank
-            prefix-highlight
             session-wizard
             fuzzback
             cpu
             jump
-            extrakto
-            tmux-thumbs
-            pain-control
+            extrakto # fzf-style copy with <prefix> + tab
+            tmux-thumbs # flash-style copy with <prefix> + space
+            pain-control # panes control, ie move with hjkl
             tmux-which-key
             better-mouse-mode
             {
