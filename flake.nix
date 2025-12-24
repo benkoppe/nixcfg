@@ -58,9 +58,9 @@
 
         perSystem =
           {
-            config,
-            system,
             pkgs,
+            inputs',
+            config,
             ...
           }:
           {
@@ -77,10 +77,18 @@
 
             devShells.default = pkgs.mkShell {
               packages = [
-                inputs.clan-core.packages.${system}.clan-cli
+                inputs'.clan-core.packages.clan-cli
                 config.treefmt.build.wrapper
               ];
             };
+
+            # Customize nixpkgs
+            # _module.args.pkgs = import inputs.nixpkgs {
+            #   inherit system;
+            #   config.allowUnfree = true;
+            #   overlays = [ ];
+            # };
+            # clan.pkgs = pkgs;
           };
       }
     );
