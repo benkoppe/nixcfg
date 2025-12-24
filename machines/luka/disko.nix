@@ -5,8 +5,8 @@
 # ---
 # This file was automatically generated!
 # CHANGING this configuration requires wiping and reinstalling the machine
+{ config, ... }:
 {
-
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.grub.enable = true;
@@ -19,14 +19,9 @@
         content = {
           type = "gpt";
           partitions = {
-            "boot" = {
-              size = "1M";
-              type = "EF02"; # for grub MBR
-              priority = 1;
-            };
             ESP = {
+              size = "1G";
               type = "EF00";
-              size = "500M";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -37,9 +32,17 @@
             root = {
               size = "100%";
               content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
+                type = "luks";
+                name = "crypted";
+                passwordFile = config.clan.core.vars.generators.luks-password.files.password.path;
+                settings = {
+                  allowDiscards = true;
+                };
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/";
+                };
               };
             };
           };
