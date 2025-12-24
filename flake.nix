@@ -78,9 +78,10 @@
               };
             };
 
-            clan-cache-default = {
+            clan-cache = {
               module.name = "trusted-nix-caches";
               roles.default.tags.all = { };
+              extraModules = [ ];
             };
           };
         };
