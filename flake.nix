@@ -36,6 +36,7 @@
         imports = [
           inputs.clan-core.flakeModules.default
           inputs.treefmt-nix.flakeModule
+          (inputs.import-tree ./modules)
         ];
 
         systems = import inputs.systems;
@@ -81,7 +82,6 @@
               packages = [
                 inputs'.clan-core.packages.clan-cli
                 config.treefmt.build.wrapper
-                (inputs.import-tree ./modules)
               ];
             };
 
