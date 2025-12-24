@@ -7,9 +7,11 @@
 # CHANGING this configuration requires wiping and reinstalling the machine
 { config, ... }:
 {
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
-  boot.loader.grub.enable = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+
   disko.devices = {
     disk = {
       main = {
