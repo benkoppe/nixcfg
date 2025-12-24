@@ -15,6 +15,8 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    import-tree.url = "github:vic/import-tree";
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -79,6 +81,7 @@
               packages = [
                 inputs'.clan-core.packages.clan-cli
                 config.treefmt.build.wrapper
+                (inputs.import-tree ./modules)
               ];
             };
 

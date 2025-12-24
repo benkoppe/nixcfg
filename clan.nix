@@ -1,8 +1,4 @@
 {
-  # Ensure this is unique among all clans you want to use.
-  meta.name = "__CHANGE_ME__";
-  meta.domain = "changeme";
-
   inventory.machines = {
     # Define machines here.
     # jon = { };
@@ -45,14 +41,5 @@
     tor = {
       roles.server.tags.nixos = { };
     };
-  };
-
-  # Additional NixOS configuration can be added here.
-  # machines/jon/configuration.nix will be automatically imported.
-  # See: https://docs.clan.lol/guides/inventory/autoincludes/
-  machines = {
-    # jon = { config, ... }: {
-    #   environment.systemPackages = [ pkgs.asciinema ];
-    # };
   };
 }
