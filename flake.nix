@@ -46,6 +46,7 @@
         inventory = {
           machines = {
             luka = {
+              deploy.targetHost = "root@192.168.1.217";
               tags = [ "development" ];
             };
           };
@@ -75,6 +76,11 @@
                   "input"
                 ];
               };
+            };
+
+            clan-cache-default = {
+              module.name = "trusted-nix-caches";
+              roles.default.tags.all = { };
             };
           };
         };
