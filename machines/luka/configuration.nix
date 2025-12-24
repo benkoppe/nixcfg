@@ -11,6 +11,7 @@
     };
     files.password = {
       secret = true;
+      neededFor = "partitioning";
     };
 
     script = "cp $prompts/password $out/password";
