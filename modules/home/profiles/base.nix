@@ -4,7 +4,6 @@
   pkgs,
   self,
   inputs,
-  inputs',
   ...
 }:
 {
@@ -41,8 +40,6 @@
           # Monitoring and diagnostics
           htop
           iftop
-
-          inputs'.colmena.packages.colmena
         ];
 
         home.stateVersion = "25.05";
