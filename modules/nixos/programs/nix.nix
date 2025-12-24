@@ -10,7 +10,7 @@ let
   hostCfg =
     if lib.hasAttr hostName config.mySnippets.hosts then config.mySnippets.hosts.${hostName} else null;
 
-  ipv4 = if hostCfg != null then hostCfg.ipv4 else null;
+  ipv4 = if hostCfg != null then (hostCfg.ipv4 or null) else null;
 
   isBuildMachine =
     let
