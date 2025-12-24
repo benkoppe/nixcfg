@@ -47,6 +47,17 @@
           machines = { }; # TODO:
 
           instances = {
+            admin = {
+              roles.default.tags.all = { };
+              roles.default.settings = {
+                allowedKeys = {
+                  colmena = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJgiH4Iu1GUe9Hd40cSnQH94EHj0VmjXdbsaBED2WMHT colmena";
+                };
+                certificateSearchDomains = [ "thekoppe.com" ];
+                rsaHostKey.enable = true;
+              };
+            };
+
             user-ben = {
               module.name = "users";
 
