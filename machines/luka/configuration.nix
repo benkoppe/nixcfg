@@ -1,7 +1,6 @@
+{ modules, ... }:
 {
-  imports = [
-
+  imports = with modules.nixosModules; [
+    nix
   ];
-
-  # New machine!
 }
