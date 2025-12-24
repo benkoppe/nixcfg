@@ -27,84 +27,78 @@
 
   outputs =
     inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      {
-        config,
-        ...
-      }:
-      {
-        imports = [
-          inputs.clan-core.flakeModules.default
-          inputs.treefmt-nix.flakeModule
-          (inputs.import-tree ./modules)
-        ];
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.clan-core.flakeModules.default
+        inputs.treefmt-nix.flakeModule
+        (inputs.import-tree ./modules)
+      ];
 
-        systems = import inputs.systems;
+      systems = import inputs.systems;
 
-        flake.clan = {
-          meta = {
-            name = "infra";
-            domain = "thekoppe";
-            description = "Homelab";
-          };
+      flake.clan = {
+        meta = {
+          name = "infra";
+          domain = "thekoppe";
+          description = "Homelab";
+        };
 
-          inventory = {
-            machines = { }; # TODO:
+        inventory = {
+          machines = { }; # TODO:
 
-            instances = {
-              user-ben = {
-                module.name = "users";
+          instances = {
+            user-ben = {
+              module.name = "users";
 
-                roles.default.tags.ben = { };
-                roles.default.settings = {
-                  user = "ben";
-                  share = true;
-                  groups = [
-                    "wheel"
-                    "networkmanager"
-                    "video"
-                    "input"
-                  ];
-                };
+              roles.default.tags.ben = { };
+              roles.default.settings = {
+                user = "ben";
+                share = true;
+                groups = [
+                  "wheel"
+                  "networkmanager"
+                  "video"
+                  "input"
+                ];
               };
             };
           };
         };
+      };
 
-        perSystem =
-          {
-            pkgs,
-            inputs',
-            config,
-            ...
-          }:
-          {
-            treefmt = {
-              projectRootFile = "flake.nix";
-              programs = {
-                nixfmt.enable = true;
-                statix.enable = true;
-                deadnix.enable = true;
-              };
+      perSystem =
+        {
+          pkgs,
+          inputs',
+          config,
+          ...
+        }:
+        {
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs = {
+              nixfmt.enable = true;
+              statix.enable = true;
+              deadnix.enable = true;
             };
-
-            formatter = config.treefmt.build.wrapper;
-
-            devShells.default = pkgs.mkShell {
-              packages = [
-                inputs'.clan-core.packages.clan-cli
-                config.treefmt.build.wrapper
-              ];
-            };
-
-            # Customize nixpkgs
-            # _module.args.pkgs = import inputs.nixpkgs {
-            #   inherit system;
-            #   config.allowUnfree = true;
-            #   overlays = [ ];
-            # };
-            # clan.pkgs = pkgs;
           };
-      }
-    );
+
+          formatter = config.treefmt.build.wrapper;
+
+          devShells.default = pkgs.mkShell {
+            packages = [
+              inputs'.clan-core.packages.clan-cli
+              config.treefmt.build.wrapper
+            ];
+          };
+
+          # Customize nixpkgs
+          # _module.args.pkgs = import inputs.nixpkgs {
+          #   inherit system;
+          #   config.allowUnfree = true;
+          #   overlays = [ ];
+          # };
+          # clan.pkgs = pkgs;
+        };
+    };
 }
