@@ -1,6 +1,6 @@
-{ modules, ... }:
+{ self, ... }:
 {
-  imports = with modules.nixosModules; [
+  imports = with self.nixosModules; [
     nix
   ];
 }

@@ -48,14 +48,26 @@
             description = "Homelab";
           };
 
-          specialArgs = {
-            modules = config.flake;
-          };
-
           inventory = {
             machines = { }; # TODO:
 
-            instances = { }; # TODO:
+            instances = {
+              user-ben = {
+                module.name = "users";
+
+                roles.default.tags.ben = { };
+                roles.default.settings = {
+                  user = "ben";
+                  share = true;
+                  groups = [
+                    "wheel"
+                    "networkmanager"
+                    "video"
+                    "input"
+                  ];
+                };
+              };
+            };
           };
         };
 
