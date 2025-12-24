@@ -44,7 +44,11 @@
         };
 
         inventory = {
-          machines = { }; # TODO:
+          machines = {
+            luka = {
+              tags = [ "development" ];
+            };
+          };
 
           instances = {
             admin = {
@@ -54,14 +58,13 @@
                   colmena = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJgiH4Iu1GUe9Hd40cSnQH94EHj0VmjXdbsaBED2WMHT colmena";
                 };
                 certificateSearchDomains = [ "thekoppe.com" ];
-                rsaHostKey.enable = true;
               };
             };
 
-            user-ben = {
+            user-ben-dev = {
               module.name = "users";
 
-              roles.default.tags.ben = { };
+              roles.default.tags.development = { };
               roles.default.settings = {
                 user = "ben";
                 share = true;
