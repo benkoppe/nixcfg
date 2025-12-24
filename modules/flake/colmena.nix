@@ -43,6 +43,7 @@
             "cloudflared-dray"
             "tailscale-dray"
             "minio-dray"
+            "luka"
           ]
           (
             host:

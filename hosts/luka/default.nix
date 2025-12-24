@@ -12,9 +12,12 @@
   };
   myNixOS.programs.nix.accessTokens.enable = true;
 
+  mySnippets.primaryUser = "luka";
+
   imports = [
     ./hardware-configuration.nix
     ./display-config.nix
+    ./home.nix
   ];
 
   boot.loader = {
