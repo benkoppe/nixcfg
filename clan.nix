@@ -1,25 +1,6 @@
 {
-  inventory.machines = {
-    # Define machines here.
-    # jon = { };
-  };
-
   # Docs: See https://docs.clan.lol/services/definition/
   inventory.instances = {
-
-    # Docs: https://docs.clan.lol/services/official/admin/
-    # Admin service for managing machines
-    # This service adds a root password and SSH access.
-    admin = {
-      roles.default.tags.all = { };
-      roles.default.settings.allowedKeys = {
-        # Insert the public key that you want to use for SSH access.
-        # All keys will have ssh access to all machines ("tags.all" means 'all machines').
-        # Alternatively set 'users.users.root.openssh.authorizedKeys.keys' in each machine
-        "admin-machine-1" = "__YOUR_PUBLIC_KEY__";
-      };
-    };
-
     # Docs: https://docs.clan.lol/services/official/zerotier/
     # The lines below will define a zerotier network and add all machines as 'peer' to it.
     # !!! Manual steps required:
