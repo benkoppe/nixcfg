@@ -39,7 +39,11 @@
         systems = import inputs.systems;
 
         flake.clan = {
-          meta.name = "thekoppe";
+          meta = {
+            name = "infra";
+            domain = "thekoppe";
+            description = "Homelab";
+          };
 
           specialArgs = {
             modules = config.flake;
