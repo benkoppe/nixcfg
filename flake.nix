@@ -15,6 +15,11 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    terranix = {
+      url = "github:terranix/terranix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     import-tree.url = "github:vic/import-tree";
 
     treefmt-nix = {
@@ -31,6 +36,7 @@
       imports = [
         inputs.flake-parts.flakeModules.modules
         inputs.clan-core.flakeModules.default
+        inputs.terranix.flakeModule
         inputs.treefmt-nix.flakeModule
         (inputs.import-tree ./modules)
       ];
