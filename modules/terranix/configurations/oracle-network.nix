@@ -92,12 +92,11 @@ in
     {
       terranix.terranixConfigurations.oracle-network = self.terranixLib.mkTerranixConfig {
         inherit pkgs;
+        key = "oracle-network-main";
         modules = with self.modules.terranix; [
           networkModule
           oracle
           minio-backend
-          options
-          { my.key = "oracle-network-main"; }
         ];
       };
     };
