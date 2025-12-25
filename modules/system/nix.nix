@@ -1,6 +1,6 @@
 { inputs, lib, ... }:
 {
-  flake.nixosModules.nix = {
+  flake.modules.nixos.nix = {
     nix = {
       gc = {
         automatic = true;

@@ -29,6 +29,7 @@
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
+        inputs.flake-parts.flakeModules.modules
         inputs.clan-core.flakeModules.default
         inputs.treefmt-nix.flakeModule
         (inputs.import-tree ./modules)
