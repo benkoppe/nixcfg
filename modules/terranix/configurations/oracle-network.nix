@@ -1,9 +1,8 @@
-{ self, ... }:
 let
   networkModule =
-    { lib, ... }:
+    { lib, config, ... }:
     let
-      compartment_id = lib.tfRef "var.compartment_ocid";
+      compartment_id = config.data.external.compartment_ocid "result.secret";
     in
     {
       resource = {
@@ -87,16 +86,10 @@ let
     };
 in
 {
-  perSystem =
-    { pkgs, ... }:
-    {
-      terranix.terranixConfigurations.oracle-network = self.terranixLib.mkTerranixConfig {
-        inherit pkgs;
-        key = "oracle-network-main";
-        modules = with self.modules.terranix; [
-          networkModule
-          oracle
-        ];
-      };
-    };
+  my.terranix.oracle-network = {
+    modules = [
+      networkModule
+    ];
+    providers = [ "oracle" ];
+  };
 }
