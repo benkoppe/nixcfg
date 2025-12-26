@@ -6,38 +6,52 @@
       config,
       ...
     }:
-    (lib.mkMerge [
-      {
-        terraform.required_providers.oci = {
-          source = "oracle/oci";
-          version = "7.29.0";
-        };
-      }
-
-      (lib.genAttrs
-        [
-          "region"
-          "tenancy_ocid"
-          "user_ocid"
-          "fingerprint"
-          "private_key"
-        ]
-        (key: {
-          data.external.${key} = {
-            program = [
-              (lib.getExe (
-                pkgs.writeShellApplication {
-                  name = "get-clan-secret";
-                  text = ''
-                    jq -n --arg secret "$(clan secrets get oracle-${key})" '{"secret":$secret}'
-                  '';
-                }
-              ))
-            ];
+    (lib.mkMerge (
+      [
+        {
+          terraform.required_providers.oci = {
+            source = "oracle/oci";
           };
-          provider.oci.${key} = config.data.external.${key} "result.secret";
-        })
+        }
+      ]
+      ++ (
+        let
+          confKeys = [
+            "region"
+            "tenancy_ocid"
+            "user_ocid"
+            "fingerprint"
+            "private_key"
+          ];
+          secretKeys = confKeys ++ [ "compartment_ocid" ];
+        in
+        (
+          let
+            mkSecretData = key: {
+              data.external.${key} = {
+                program = [
+                  (lib.getExe (
+                    pkgs.writeShellApplication {
+                      name = "get-clan-secret";
+                      text = ''
+                        jq -n --arg secret "$(clan secrets get oracle-${key})" '{"secret":$secret}'
+                      '';
+                    }
+                  ))
+                ];
+              };
+            };
+          in
+          map mkSecretData secretKeys
+        )
+        ++ (
+          let
+            mkOracleConf = key: {
+              provider.oci.${key} = config.data.external.${key} "result.secret";
+            };
+          in
+          map mkOracleConf confKeys
+        )
       )
-    ]);
-
+    ));
 }
