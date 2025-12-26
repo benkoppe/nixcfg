@@ -117,6 +117,11 @@ let
         value = lib.tfRef "oci_identity_compartment.this.id";
         sensitive = true;
       };
+
+      output.nsg_id = {
+        value = lib.tfRef "oci_core_network_security_group.this.id";
+        sensitive = true;
+      };
     };
 in
 {
