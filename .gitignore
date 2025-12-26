@@ -1,5 +1,19 @@
-result
-.direnv/
+# secrets
+.envrc.private
 
+# nix
+.direnv
+result*
+
+# terraform
+.terraform
+*.tfstate.backup
+*.tfstate.lock.info
+.terraform-deploy-key
+.terraform.lock.hcl
+
+# terranix
+config.tf.json
+
+# macos
 **/.DS_Store
-terraform
