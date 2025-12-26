@@ -99,6 +99,13 @@ let
 
           display_name = lib.tfRef "oci_core_vcn.this.display_name";
         };
+
+        oci_core_network_security_group_security_rule.this = {
+          direction = "INGRESS";
+          network_security_group_id = lib.tfRef "oci_core_network_security_group.this.id";
+          protocol = "1"; # ICMP
+          source = "0.0.0.0/0";
+        };
       };
 
       output.subnet_id = {
