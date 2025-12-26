@@ -59,7 +59,12 @@ in
 
         terraformWrapper = {
           package = pkgs.opentofu.withPlugins (
-            p: [ p.hashicorp_external ] ++ lib.flatten (map (prov: providerPlugins.${prov} p) cfg.providers)
+            p:
+            [
+              p.hashicorp_external
+              p.hashicorp_random
+            ]
+            ++ lib.flatten (map (prov: providerPlugins.${prov} p) cfg.providers)
           );
 
           extraRuntimeInputs = [ inputs'.clan-core.packages.default ];
@@ -79,6 +84,11 @@ in
             }
             plan {
               method = method.aes_gcm.encryption_method
+            }
+            remote_state_data_sources {
+              default {
+                method = method.aes_gcm.encryption_method
+              }
             }
             EOF
             )
