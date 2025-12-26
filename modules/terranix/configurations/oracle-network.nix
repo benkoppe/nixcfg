@@ -105,6 +105,11 @@ let
         value = lib.tfRef "oci_core_subnet.this.id";
         sensitive = true;
       };
+
+      output.compartment_id = {
+        value = lib.tfRef "oci_identity_compartment.this.id";
+        sensitive = true;
+      };
     };
 in
 {
