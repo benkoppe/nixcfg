@@ -96,7 +96,6 @@ in
         modules = with self.modules.terranix; [
           networkModule
           oracle
-          minio-backend
         ];
       };
     };
