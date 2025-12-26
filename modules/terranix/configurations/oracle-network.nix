@@ -2,90 +2,107 @@ let
   networkModule =
     { lib, config, ... }:
     let
-      compartment_id = config.data.external.compartment_ocid "result.secret";
+      tenancy_ocid = config.data.external.tenancy_ocid "result.secret";
+      name = "terranix";
     in
     {
       resource = {
-        oci_core_virtual_network.main_vcn = {
-          cidr_block = "10.1.0.0/16";
-          inherit compartment_id;
-          display_name = "mainVCN";
-          dns_label = "mainvcn";
+        oci_identity_compartment.this = {
+          compartment_id = tenancy_ocid;
+          description = name;
+          name = builtins.replaceStrings [ " " ] [ "-" ] name;
+
+          enable_delete = true;
         };
 
-        oci_core_subnet.prod_subnet = {
-          cidr_block = "10.1.1.0/24";
-          display_name = "prodSubnet";
-          dns_label = "prodsubnet";
-          security_list_ids = [ (lib.tfRef "oci_core_security_list.prod_security_list.id") ];
-          inherit compartment_id;
-          vcn_id = lib.tfRef "oci_core_virtual_network.main_vcn.id";
-          route_table_id = lib.tfRef "oci_core_route_table.main_route_table.id";
-          dhcp_options_id = lib.tfRef "oci_core_virtual_network.main_vcn.default_dhcp_options_id";
+        oci_core_vcn.this = {
+          compartment_id = lib.tfRef "oci_identity_compartment.this.id";
+
+          cidr_blocks = [ "10.1.0.0/16" ];
+          display_name = name;
+          dns_label = "vcn";
         };
 
-        oci_core_internet_gateway.main_internet_gateway = {
-          inherit compartment_id;
-          display_name = "mainIG";
-          vcn_id = lib.tfRef "oci_core_virtual_network.main_vcn.id";
+        oci_core_internet_gateway.this = {
+          compartment_id = lib.tfRef "oci_identity_compartment.this.id";
+          vcn_id = lib.tfRef "oci_core_vcn.this.id";
+
+          display_name = lib.tfRef "oci_core_vcn.this.display_name";
         };
 
-        oci_core_route_table.main_route_table = {
-          inherit compartment_id;
-          vcn_id = lib.tfRef "oci_core_virtual_network.main_vcn.id";
-          display_name = "mainRouteTable";
+        oci_core_default_route_table.this = {
+          manage_default_resource_id = lib.tfRef "oci_core_vcn.this.default_route_table_id";
+
+          display_name = lib.tfRef "oci_core_vcn.this.display_name";
 
           route_rules = {
+            network_entity_id = lib.tfRef "oci_core_internet_gateway.this.id";
+
+            description = "Default route";
             destination = "0.0.0.0/0";
-            destination_type = "CIDR_BLOCK";
-            network_entity_id = lib.tfRef "oci_core_internet_gateway.main_internet_gateway.id";
           };
         };
 
-        oci_core_security_list.prod_security_list = {
-          inherit compartment_id;
-          vcn_id = lib.tfRef "oci_core_virtual_network.main_vcn.id";
-          display_name = "mainSecurityList";
-
-          egress_security_rules = {
-            protocol = "6";
-            destination = "0.0.0.0/0";
-          };
+        oci_core_default_security_list.this = {
+          manage_default_resource_id = lib.tfRef "oci_core_vcn.this.default_security_list_id";
 
           ingress_security_rules =
             let
-              mkRule = tcp_options: {
-                protocol = "6";
-                source = "0.0.0.0/0";
-                inherit tcp_options;
-              };
+              mkRule =
+                { port, description }:
+                {
+                  protocol = "6"; # TCP
+                  source = "0.0.0.0/0";
+                  inherit description;
+                  tcp_options = {
+                    max = toString port;
+                    min = toString port;
+                  };
+                };
             in
             [
               (mkRule {
-                max = "22";
-                min = "22";
+                port = 22;
+                description = "SSH traffic";
               })
 
               (mkRule {
-                max = "3000";
-                min = "3000";
+                port = 80;
+                description = "HTTP traffic";
               })
 
               (mkRule {
-                max = "3005";
-                min = "3005";
-              })
-
-              (mkRule {
-                max = "80";
-                min = "80";
+                port = 443;
+                description = "HTTPS traffic";
               })
             ];
+
+          egress_security_rules = {
+            destination = "0.0.0.0/0";
+            protocol = "all";
+            description = "All traffic to any destination";
+          };
+        };
+
+        oci_core_subnet.this = {
+          cidr_block = lib.tfRef "oci_core_vcn.this.cidr_blocks.0";
+          compartment_id = lib.tfRef "oci_identity_compartment.this.id";
+          vcn_id = lib.tfRef "oci_core_vcn.this.id";
+
+          display_name = lib.tfRef "oci_core_vcn.this.display_name";
+          dns_label = "subnet";
+        };
+
+        oci_core_network_security_group.this = {
+          compartment_id = lib.tfRef "oci_identity_compartment.this.id";
+          vcn_id = lib.tfRef "oci_core_vcn.this.id";
+
+          display_name = lib.tfRef "oci_core_vcn.this.display_name";
         };
       };
 
-      output.prod_subnet_id = {
-        value = lib.tfRef "oci_core_subnet.prod_subnet.id";
+      output.subnet_id = {
+        value = lib.tfRef "oci_core_subnet.this.id";
         sensitive = true;
       };
     };
