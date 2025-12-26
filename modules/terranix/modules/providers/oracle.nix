@@ -23,7 +23,6 @@
             "fingerprint"
             "private_key"
           ];
-          secretKeys = confKeys ++ [ "compartment_ocid" ];
         in
         (
           let
@@ -42,7 +41,7 @@
               };
             };
           in
-          map mkSecretData secretKeys
+          map mkSecretData confKeys
         )
         ++ (
           let
