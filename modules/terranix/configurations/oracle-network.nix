@@ -83,6 +83,11 @@ let
             ];
         };
       };
+
+      output.prod_subnet_id = {
+        value = lib.tfRef "oci_core_subnet.prod_subnet.id";
+        sensitive = true;
+      };
     };
 in
 {
