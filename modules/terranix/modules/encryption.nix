@@ -1,26 +1,18 @@
 {
-  flake.modules.terranix.encryption =
-    { lib, ... }:
-    {
-      variable.passphrase = {
-        sensitive = true;
-      };
+  # Merely enforces encryption, so no data is accidentally stored unencrypted.
+  # Actual encryption must be set using the env var in my-terranix.nix due to terranix constraints.
+  flake.modules.terranix.encryption = {
+    variable.passphrase = {
+      sensitive = true;
+    };
 
-      terraform.encryption = {
-        key_provider.pbkdf2.encryption_password = {
-          passphrase = lib.tfRef "var.passphrase";
-        };
-        method.aes_gcm.encryption_method = {
-          keys = lib.tfRef "key_provider.pbkdf2.encryption_password";
-        };
-        state = {
-          enforced = true;
-          method = lib.tfRef "method.aes_gcm.encryption_method";
-        };
-        plan = {
-          enforced = true;
-          method = lib.tfRef "method.aes_gcm.encryption_method";
-        };
+    terraform.encryption = {
+      state = {
+        enforced = true;
+      };
+      plan = {
+        enforced = true;
       };
     };
+  };
 }
