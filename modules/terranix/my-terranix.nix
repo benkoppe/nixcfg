@@ -55,7 +55,7 @@ in
       terranix.terranixConfigurations = lib.mapAttrs (name: cfg: {
         modules = cfg.modules ++ defaultModules ++ map (p: providerModules.${p}) cfg.providers;
 
-        workdir = "terraform/${cfg.key}";
+        workdir = "terraform-state/${cfg.key}";
 
         terraformWrapper = {
           package = pkgs.opentofu.withPlugins (
