@@ -56,6 +56,7 @@
               deploy.targetHost = "root@192.168.1.217";
               tags = [ "development" ];
             };
+            bird.deploy.targetHost = "root@165.1.75.12";
           };
 
           instances = {
