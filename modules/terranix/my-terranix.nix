@@ -52,7 +52,7 @@ in
       };
     in
     {
-      terranix.terranixConfigurations = lib.mapAttrs (name: cfg: {
+      terranix.terranixConfigurations = lib.mapAttrs (_name: cfg: {
         modules = cfg.modules ++ defaultModules ++ map (p: providerModules.${p}) cfg.providers;
 
         workdir = "terraform-state/${cfg.key}";
