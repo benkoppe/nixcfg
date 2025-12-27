@@ -25,6 +25,15 @@ in
     };
   };
 
+  # fix bitwarden client error on /api/tasks 404 return
+  # see https://github.com/dani-garcia/vaultwarden/pull/6557#issuecomment-3692818999
+  services.nginx.virtualHosts."${vHost}".locations."= /api/tasks" = {
+    return = "200 '{\"data\":[]}'";
+    extraConfig = ''
+      add_header Content-Type application/json;
+    '';
+  };
+
   environment.systemPackages = [
     pkgs.vaultwarden
   ];
