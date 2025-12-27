@@ -1,7 +1,7 @@
 # ---
 # schema = "single-disk"
 # [placeholders]
-# mainDisk = "/dev/disk/by-id/scsi-3603c09fe21444ba5aa89c3b3c205be03" 
+# mainDisk = "/dev/disk/by-id/scsi-3603c09fe21444ba5aa89c3b3c205be03"
 # ---
 # This file was automatically generated!
 # CHANGING this configuration requires wiping and reinstalling the machine
