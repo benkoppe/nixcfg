@@ -2,6 +2,9 @@
   "machines": {
     "luka": {
       "installedAt": 1766578309
+    },
+    "bird": {
+      "installedAt": 1766794932
     }
   }
 }
