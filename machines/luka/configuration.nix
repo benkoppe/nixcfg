@@ -88,6 +88,14 @@
     script = ''ssh-keygen -t ed25519 -N "" -f $out/ssh_host_ed25519_key'';
   };
 
+  services.udev.extraRules = ''
+    # Razer Viper Mini
+    SUBSYSTEM=="usb", ATTR{idVendor}=="1532", ATTR{idProduct}=="008a", GROUP="kvm"
+
+    # Keychron V6
+    SUBSYSTEM=="usb", ATTR{idVendor}=="3434", ATTR{idProduct}=="0361", GROUP="kvm"
+  '';
+
   microvm.vms = {
     jokic = {
       pkgs = import self.inputs.nixpkgs {
@@ -167,6 +175,16 @@
               # GPU HDMI/DP audio
               bus = "pci";
               path = "0000:01:00.1";
+            }
+            {
+              # Keychron V6 keyboard
+              bus = "usb";
+              path = "vendorid=0x3434,productid=0x0361";
+            }
+            {
+              # Razer Viper Mini mouse
+              bus = "usb";
+              path = "vendorid=0x1532,productid=0x008a";
             }
           ];
 
