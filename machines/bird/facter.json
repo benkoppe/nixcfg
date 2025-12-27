@@ -2167,8 +2167,8 @@
           "range": 16
         },
         "unix_device_names": [
-          "/dev/disk/by-id/scsi-360bbaac22fb54a5aab402df7f11618bf",
-          "/dev/disk/by-id/wwn-0x60bbaac22fb54a5aab402df7f11618bf",
+          "/dev/disk/by-id/scsi-3603c09fe21444ba5aa89c3b3c205be03",
+          "/dev/disk/by-id/wwn-0x603c09fe21444ba5aa89c3b3c205be03",
           "/dev/disk/by-path/pci-0000:18:00.0-scsi-0:0:0:1",
           "/dev/sda"
         ],
