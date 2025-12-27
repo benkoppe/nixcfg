@@ -1,7 +1,7 @@
 # ---
 # schema = "single-disk"
 # [placeholders]
-# mainDisk = "/dev/disk/by-id/scsi-360bbaac22fb54a5aab402df7f11618bf" 
+# mainDisk = "/dev/disk/by-id/scsi-3603c09fe21444ba5aa89c3b3c205be03" 
 # ---
 # This file was automatically generated!
 # CHANGING this configuration requires wiping and reinstalling the machine
@@ -13,8 +13,8 @@
   disko.devices = {
     disk = {
       main = {
-        name = "main-33ccdefecf6945beb041370e9e817cc8";
-        device = "/dev/disk/by-id/scsi-360bbaac22fb54a5aab402df7f11618bf";
+        name = "main-d885add9f7cc4474a10362ac2a8aa001";
+        device = "/dev/disk/by-id/scsi-3603c09fe21444ba5aa89c3b3c205be03";
         type = "disk";
         content = {
           type = "gpt";
