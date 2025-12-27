@@ -28,6 +28,8 @@
     "vfio_pci"
     "vfio"
     "vfio_iommu_type1"
+
+    "amdgpu"
   ];
   boot.kernelParams = [
     "amd_iommu=on"
@@ -39,6 +41,15 @@
     "nvidia"
     "nvidia_drm"
     "nvidia_modeset"
+  ];
+
+  virtualisation.libvirtd.enable = true;
+  boot.kernelModules = [ "kvm-amd" ];
+  users.users.microvm.extraGroups = [
+    "qemu-libvirtd"
+    "libvirtd"
+    "wheel"
+    "audio"
   ];
 
   networking.useNetworkd = true;
@@ -88,6 +99,19 @@
     script = ''ssh-keygen -t ed25519 -N "" -f $out/ssh_host_ed25519_key'';
   };
 
+  clan.core.vars.generators.gamer-password = {
+    prompts.password-input = {
+      description = "Password for the gamer user";
+      type = "hidden";
+      persist = false;
+    };
+    files.password-hash.secret = false;
+    script = ''
+      cat $prompts/password-input | mkpasswd -m sha-512 > $out/password-hash
+    '';
+    runtimeInputs = [ pkgs.mkpasswd ];
+  };
+
   services.udev.extraRules = ''
     # Razer Viper Mini
     SUBSYSTEM=="usb", ATTR{idVendor}=="1532", ATTR{idProduct}=="008a", GROUP="kvm"
@@ -120,25 +144,70 @@
             }
           ];
 
+          users.mutableUsers = false;
+          users.users.gamer = {
+            hashedPasswordFile = config.clan.core.vars.generators.gamer-password.files."password-hash".path;
+            group = "gamer";
+            isNormalUser = true;
+          };
+          users.groups.gamer = { };
+
           hardware.graphics.enable = true;
           services.xserver.videoDrivers = [ "nvidia" ];
           hardware.nvidia.open = true;
 
-          services.displayManager = {
+          boot.kernelParams = [ "nvidia-drm.modeset=1" ];
+
+          programs.steam = {
             enable = true;
-            sddm = {
-              enable = true;
-              wayland.enable = true;
+            gamescopeSession.enable = true;
+          };
+          programs.gamescope = {
+            enable = true;
+            capSysNice = true;
+          };
+          services.getty.autologinUser = "gamer";
+          environment = {
+            systemPackages = [ pkgs.mangohud ];
+            loginShellInit = ''
+              [[ "$(tty)" = "/dev/tty1" ]] && /etc/gs.sh
+            '';
+            etc."gs.sh" = {
+              mode = "0755";
+              text = ''
+                #!/usr/bin/env bash
+                set -xeuo pipefail
+
+                gamescopeArgs=(
+                  --adaptive-sync
+                  --hdr-enabled
+                  --mangoapp
+                  --rt
+                  --steam
+                )
+                steamArgs=(
+                  -pipewire-dmabuf
+                  -tenfoot
+                )
+                mangoConfig=(
+                  cpu_temp
+                  gpu_temp
+                  ram
+                  vram
+                )
+                mangoVars=(
+                  MANGOHUD=1
+                  MANGOHUD_CONFIG="$(IFS=,; echo "''${mangoConfig[*]}")"
+                )
+                export "''${mangoVars[@]}"
+                exec gamescope "''${gamescopeArgs[@]}" -- steam "''${steamArgs[@]}"
+              '';
             };
           };
-          services.desktopManager.plasma6.enable = true;
-          environment.plasma6.excludePackages = with pkgs.kdePackages; [
-            elisa
-            khelpcenter
-            krdp
-          ];
 
-          microvm.mem = 8192;
+          microvm.cpu = "host";
+          microvm.vcpu = 8;
+          microvm.mem = 16384;
 
           microvm.shares = [
             {
