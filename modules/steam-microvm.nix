@@ -136,7 +136,6 @@
               };
               services.seatd.enable = true;
 
-              services.getty.autologinUser = "gamer";
               environment = {
                 systemPackages = [ pkgs.mangohud ];
                 loginShellInit = ''
@@ -175,50 +174,23 @@
                 };
               };
 
-              microvm.graphics.enable = true;
-              microvm.graphics.backend = "nographic";
-
-              microvm.qemu.machineOpts = {
-                accel = "kvm:tcg";
-                acpi = "on";
-                "mem-merge" = "on";
-                kernel_irqchip = "on";
-              };
-
-              # microvm.cpu = "host";
               microvm.vcpu = 8;
               microvm.mem = 16384;
-              microvm.qemu.machine = "q35";
-              microvm.qemu.pcieRootPorts = [
-                {
-                  id = "pcie_root_port_0";
-                  chassis = 0;
-                  bus = "pcie.0";
-                }
-                {
-                  id = "pcie_root_port_1";
-                  chassis = 1;
-                  bus = "pcie.0";
-                }
-              ];
 
               nix.optimise.automatic = lib.mkForce false;
-              microvm.writableStoreOverlay = "/nix/.rw-store";
-              fileSystems."/nix/.rw-store" = {
-                fsType = "tmpfs";
-                options = [
-                  "mode=0755"
-                  "size=4G"
-                ];
-              };
+              # microvm.optimize.enable = false;
+              microvm.balloon = false;
+              microvm.storeOnDisk = true;
+              # microvm.writableStoreOverlay = "/nix/.rw-store";
+              # fileSystems."/nix/.rw-store" = {
+              #   fsType = "tmpfs";
+              #   options = [
+              #     "mode=0755"
+              #     "size=4G"
+              #   ];
+              # };
 
               microvm.shares = [
-                {
-                  source = "/nix/store";
-                  mountPoint = "/nix/.ro-store";
-                  tag = "ro-store";
-                  proto = "virtiofs";
-                }
                 {
                   source =
                     builtins.dirOf
@@ -245,17 +217,6 @@
                   ExecStart = "${pkgs.coreutils}/bin/chown -R gamer:gamer /home/gamer/.local/share";
                 };
               };
-              microvm.qemu = {
-                extraArgs = [
-                  "-serial"
-                  "unix:/var/lib/microvms/jokic/serial.sock,server,nowait"
-                ];
-                serialConsole = false;
-              };
-              boot.kernelParams = [
-                "console=ttyS0,38400n8"
-                "earlyprint=serial,ttyS0,38400n8"
-              ];
 
               microvm.interfaces = [
                 {
@@ -270,13 +231,11 @@
                   # RTX 4080
                   bus = "pci";
                   path = "0000:01:00.0";
-                  qemu.bus = "pcie_root_port_0";
                 }
                 {
                   # GPU HDMI/DP audio
                   bus = "pci";
                   path = "0000:01:00.1";
-                  qemu.bus = "pcie_root_port_1";
                 }
                 {
                   # Keychron V6 keyboard
