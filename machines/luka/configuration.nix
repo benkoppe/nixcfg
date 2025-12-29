@@ -7,8 +7,8 @@
 {
   imports = with self.modules.nixos; [
     nix
-    # self.inputs.microvm.nixosModules.host
-    # steam-microvm
+    self.inputs.microvm.nixosModules.host
+    steam-microvm
   ];
 
   clan.core.vars.generators.luks-password = {
@@ -107,14 +107,14 @@
   boot.kernelParams = [
     "ip=dhcp" # internet for tang
 
-    # "amd_iommu=on"
-    # "iommu=pt"
-    # "vfio-pci.ids=10de:2704,10de:22bb" # ensure vfio claims the 4080
+    "amd_iommu=on"
+    "iommu=pt"
+    "vfio-pci.ids=10de:2704,10de:22bb" # ensure vfio claims the 4080
   ];
-  # boot.blacklistedKernelModules = [
-  #   "nouveau"
-  #   "nvidia"
-  #   "nvidia_drm"
-  #   "nvidia_modeset"
-  # ];
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nvidia"
+    "nvidia_drm"
+    "nvidia_modeset"
+  ];
 }
