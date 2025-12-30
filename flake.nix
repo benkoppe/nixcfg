@@ -35,6 +35,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
+
     import-tree.url = "github:vic/import-tree";
 
     treefmt-nix = {

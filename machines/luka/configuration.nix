@@ -10,6 +10,7 @@
     self.inputs.nixos-vfio.nixosModules.vfio
     # self.inputs.microvm.nixosModules.host
     # steam-microvm
+    proxmox
   ];
 
   hardware.graphics.enable = true;
