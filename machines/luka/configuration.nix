@@ -1,13 +1,14 @@
 {
   self,
+  pkgs,
   ...
 }:
 {
   imports = with self.modules.nixos; [
-    nix
-    self.inputs.microvm.nixosModules.host
-    # steam-microvm
+    basics
     luks-encrypt
+    # self.inputs.microvm.nixosModules.host
+    # steam-microvm
   ];
 
   # hardware.graphics = {
