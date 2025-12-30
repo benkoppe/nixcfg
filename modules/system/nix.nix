@@ -3,6 +3,8 @@
   flake.modules.nixos.nix = {
     imports = [ inputs.determinate.nixosModules.default ];
 
+    nixpkgs.config.allowUnfree = true;
+
     nix = {
       gc = {
         automatic = true;

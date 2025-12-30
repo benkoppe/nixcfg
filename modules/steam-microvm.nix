@@ -94,7 +94,7 @@
             in
             {
               imports = with self.modules.nixos; [
-                nix
+                basics
               ];
               services.openssh.enable = true;
               services.openssh.hostKeys = [
@@ -116,8 +116,6 @@
                 ];
               };
               users.groups.gamer = { };
-
-              time.timeZone = lib.mkDefault "America/Los_Angeles";
 
               hardware.graphics.enable = true;
               services.xserver.videoDrivers = [ "nvidia" ];
