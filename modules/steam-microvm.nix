@@ -4,12 +4,8 @@
     { pkgs, config, ... }:
     {
       virtualisation.libvirtd.enable = true;
-      boot.kernelModules = [ "kvm-amd" ];
       users.users.microvm.extraGroups = [
         "qemu-libvirtd"
-        "libvirtd"
-        "wheel"
-        "audio"
       ];
 
       networking.useNetworkd = true;
@@ -82,10 +78,7 @@
 
       microvm.vms = {
         jokic = {
-          pkgs = import self.inputs.nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
+          pkgs = null;
 
           config =
             let
@@ -174,21 +167,28 @@
 
               microvm.vcpu = 8;
               microvm.mem = 16384;
+              microvm.hugepageMem = true;
 
               nix.optimise.automatic = lib.mkForce false;
               # microvm.optimize.enable = false;
               microvm.balloon = false;
-              microvm.storeOnDisk = true;
-              # microvm.writableStoreOverlay = "/nix/.rw-store";
-              # fileSystems."/nix/.rw-store" = {
-              #   fsType = "tmpfs";
-              #   options = [
-              #     "mode=0755"
-              #     "size=4G"
-              #   ];
-              # };
+              microvm.writableStoreOverlay = "/nix/.rw-store";
+              fileSystems."/nix/.rw-store" = {
+                fsType = "tmpfs";
+                options = [
+                  "mode=0755"
+                  "size=4G"
+                ];
+              };
 
+              # microvm.storeOnDisk = true;
               microvm.shares = [
+                {
+                  source = "/nix/store";
+                  mountPoint = "/nix/.ro-store";
+                  tag = "ro-store";
+                  proto = "virtiofs";
+                }
                 {
                   source =
                     builtins.dirOf
