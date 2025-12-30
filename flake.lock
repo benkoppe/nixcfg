@@ -197,6 +197,24 @@
     },
     "flake-parts_3": {
       "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1756770412,
+        "narHash": "sha256-+uWLQZccFHwqpGqr2Yt5VsW/PbeJVTn9Dk6SHWhNRPw=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "4524271976b625a4a605beefd893f270620fd751",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_4": {
+      "inputs": {
         "nixpkgs-lib": [
           "terranix",
           "nixpkgs"
@@ -333,6 +351,21 @@
         "url": "https://git.clan.lol/clan/nix-select/archive/main.tar.gz"
       }
     },
+    "nix-std": {
+      "locked": {
+        "lastModified": 1710870712,
+        "narHash": "sha256-e+7MJF2gsgTBuOWv4mCimSP0D9+naeFSw9a7N3yEmv4=",
+        "owner": "chessai",
+        "repo": "nix-std",
+        "rev": "31bbc925750cc9d8f828fe55cee1a2bd985e0c00",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chessai",
+        "repo": "nix-std",
+        "type": "github"
+      }
+    },
     "nixos-facter-modules": {
       "locked": {
         "lastModified": 1766558141,
@@ -345,6 +378,28 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixos-facter-modules",
+        "type": "github"
+      }
+    },
+    "nixos-vfio": {
+      "inputs": {
+        "flake-parts": "flake-parts_3",
+        "nix-std": "nix-std",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758101070,
+        "narHash": "sha256-oJ01wfI1YIvU+9MHN0C/eE3UX2odVoBm8DAPgy8Bkf8=",
+        "owner": "j-brn",
+        "repo": "nixos-vfio",
+        "rev": "bcbc23d59d6adc871fdd19d14420c26b98f4de93",
+        "type": "github"
+      },
+      "original": {
+        "owner": "j-brn",
+        "repo": "nixos-vfio",
         "type": "github"
       }
     },
@@ -375,6 +430,21 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "a62e6edd6d5e1fa0329b8653c801147986f8d446",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib": {
+      "locked": {
+        "lastModified": 1754788789,
+        "narHash": "sha256-x2rJ+Ovzq0sCMpgfgGaaqgBSwY+LST+WbZ6TytnT9Rk=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "a73b9c743612e4244d865a2fdee11865283c04e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
         "type": "github"
       }
     },
@@ -417,6 +487,7 @@
         "flake-parts": "flake-parts_2",
         "import-tree": "import-tree",
         "microvm": "microvm",
+        "nixos-vfio": "nixos-vfio",
         "nixpkgs": "nixpkgs_2",
         "systems": "systems_2",
         "terranix": "terranix",
@@ -507,7 +578,7 @@
     },
     "terranix": {
       "inputs": {
-        "flake-parts": "flake-parts_3",
+        "flake-parts": "flake-parts_4",
         "nixpkgs": [
           "nixpkgs"
         ],

@@ -30,6 +30,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-vfio = {
+      url = "github:j-brn/nixos-vfio";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     import-tree.url = "github:vic/import-tree";
 
     treefmt-nix = {
