@@ -65,13 +65,8 @@ in
           ];
           networkConfig = {
             # DNS servers no longer come from DHCP nor Router Advertisements.
-            # Perhaps you want to change the defaults:
             DNS = [
-              # Quad9.net
-              "9.9.9.9"
-              "149.112.112.112"
-              "2620:fe::fe"
-              "2620:fe::9"
+              "192.168.1.1"
             ];
           };
         };
