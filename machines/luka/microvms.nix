@@ -1,18 +1,13 @@
 { self, ... }:
 {
-  imports = [ self.modules.nixos.microvms_host ];
+  imports = with self.modules.nixos; [
+    microvms_host
+    microvms_host_service-vms
+  ];
 
-  microvm.vms = {
+  my.service-vms = {
     adguard = {
-      pkgs = null;
-
-      config = {
-        imports = with self.modules.nixos; [
-          microvms_client
-        ];
-
-        my.microvm.index = 1;
-      };
+      id = 1;
     };
   };
 }
