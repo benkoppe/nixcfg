@@ -16,10 +16,6 @@ in
     in
     {
       options.my.microvm = {
-        index = lib.mkOption {
-          type = lib.types.int;
-          description = "VM's unique identifier, used for networking";
-        };
         ipv4 = lib.mkOption {
           type = lib.types.str;
           default = "10.0.0.${toString cfg.index}";

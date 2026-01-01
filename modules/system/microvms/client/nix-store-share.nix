@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."microvms_client_nix_store_share" = {
+  flake.modules.nixos."microvms_client_nix-store-share" = {
     microvm.shares = [
       {
         source = "/nix/store";
