@@ -9,7 +9,7 @@ let
     if builtins.stringLength s == 1 then "0${s}" else s;
 in
 {
-  flake.modules.nixos."microvms_network-client" =
+  flake.modules.nixos."microvms_client_network" =
     { config, ... }:
     let
       cfg = config.my.microvm;

@@ -4,7 +4,7 @@ let
 in
 {
   # guided by hhttps://microvm-nix.github.io/microvm.nix/routed-network.html
-  flake.modules.nixos."microvms_network-host" = {
+  flake.modules.nixos."microvms_host_network" = {
     networking.useNetworkd = true;
 
     systemd.network.networks = builtins.listToAttrs (
