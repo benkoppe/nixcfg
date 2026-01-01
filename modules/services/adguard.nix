@@ -22,7 +22,7 @@ in
           };
           files.password-hash.secret = false;
           script = ''
-            cat $prompts/password-input | htpasswd -B -C 10 -n -b ${username} > $out/password-hash
+            cat $prompts/password-input | htpasswd -B -C 10 -n -i "${username}" > $out/password-hash
           '';
           runtimeInputs = [ pkgs.apacheHttpd ];
         };
