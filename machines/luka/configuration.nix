@@ -8,9 +8,9 @@
     basics
     luks-encrypt
     self.inputs.nixos-vfio.nixosModules.vfio
-    # self.inputs.microvm.nixosModules.host
-    # steam-microvm
     proxmox
+
+    ./microvms.nix
   ];
 
   hardware.graphics.enable = true;
