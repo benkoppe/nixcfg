@@ -47,6 +47,23 @@
     systems.url = "github:nix-systems/default";
   };
 
+  nixConfig = {
+    extra-substituters = [
+      # "https://cache.thekoppe.com?optional=1"
+      "https://nix-community.cachix.org"
+      "https://cache.nixos.org"
+      "https://install.determinate.systems"
+      "https://cache.saumon.network/proxmox-nixos"
+    ];
+    extra-trusted-public-keys = [
+      # "cache.thekoppe.com-1:wlGIiKGgTLSwbGKl/364Xw964bP81gYku7wi/BE2sRM="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+      "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
+    ];
+  };
+
   outputs =
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
