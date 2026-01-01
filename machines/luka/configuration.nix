@@ -85,4 +85,8 @@
     virtiofsd
     looking-glass-client
   ];
+  services.udev.packages = with pkgs; [
+    vial
+    via
+  ];
 }
