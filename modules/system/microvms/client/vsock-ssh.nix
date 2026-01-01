@@ -6,7 +6,7 @@
       users.mutableUsers = lib.mkDefault false;
       users.users.root.hashedPassword = "";
 
-      microvm.vsock.cid = lib.mkDefault (config.my.microvm.index + 100000);
+      microvm.vsock.cid = lib.mkDefault (config.my.microvm.id + 100000);
       microvm.vsock.ssh.enable = true;
 
       security.pam.services.sshd.allowNullPassword = true;

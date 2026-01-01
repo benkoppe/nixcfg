@@ -10,7 +10,7 @@
     ];
 
     options.my.microvm = {
-      index = lib.mkOption {
+      id = lib.mkOption {
         type = lib.types.int;
         description = "VM's unique identifier, used for networking";
       };

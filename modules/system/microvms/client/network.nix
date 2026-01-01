@@ -18,18 +18,18 @@ in
       options.my.microvm = {
         ipv4 = lib.mkOption {
           type = lib.types.str;
-          default = "10.0.0.${toString cfg.index}";
+          default = "10.0.0.${toString cfg.id}";
         };
         mac = lib.mkOption {
           type = lib.types.str;
-          default = "00:00:00:00:00:${twoDigits cfg.index}";
+          default = "00:00:00:00:00:${twoDigits cfg.id}";
         };
       };
 
       config = {
         microvm.interfaces = [
           {
-            id = "vm${toString cfg.index}";
+            id = "vm${toString cfg.id}";
             type = "tap";
             inherit (cfg) mac;
           }
@@ -42,7 +42,7 @@ in
           # Static IP configuration
           address = [
             "${cfg.ipv4}/32"
-            "fec0::${lib.toHexString cfg.index}/128"
+            "fec0::${lib.toHexString cfg.id}/128"
           ];
           routes = [
             {
