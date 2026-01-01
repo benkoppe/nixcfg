@@ -1,4 +1,3 @@
-{ self, ... }:
 let
   dnsPort = 53;
   home_ipv4 = "192.168.1.200";
@@ -9,10 +8,6 @@ in
   flake.modules.nixos.adguard =
     { pkgs, config, ... }:
     {
-      imports = with self.modules.nixos; [
-        microvms_host_service-vms
-      ];
-
       config = {
         clan.core.vars.generators.adguard-password = {
           prompts.password-input = {
