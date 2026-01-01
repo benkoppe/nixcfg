@@ -4,7 +4,7 @@
     imports = with self.modules.nixos; [
       inputs.microvm.nixosModules.host
 
-      microvms_network-host
+      microvms_host_network
     ];
   };
 }
