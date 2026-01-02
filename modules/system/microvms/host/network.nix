@@ -39,7 +39,7 @@ in
       enable = true;
       internalIPs = [ "10.0.0.0/24" ];
       # Change this to the interface with upstream Internet access
-      externalInterface = "vmbr0";
+      externalInterface = "enp6s0";
     };
   };
 }
