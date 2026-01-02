@@ -65,14 +65,7 @@
             systemd.services.tailscaled.serviceConfig.Environment = [
               "TS_DEBUG_FIREWALL_MODE=nftables"
             ];
-
             # -----
-
-            networking.nat = {
-              enable = true;
-              internalIPs = [ "10.0.0.0/24" ];
-              externalInterface = "tailscale0";
-            };
           }
         ];
     };
