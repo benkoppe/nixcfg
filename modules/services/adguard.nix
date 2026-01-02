@@ -12,12 +12,15 @@ in
         clan.core.vars.generators.adguard-password = {
           prompts.password-input = {
             description = "Password for the adguard user '${username}'";
-            type = "hidden";
+            # type = "hidden";
             persist = false;
           };
           files.password-hash.secret = false;
           script = ''
-            cat $prompts/password-input | htpasswd -B -C 10 -n -i "${username}" > $out/password-hash
+            cat $prompts/password-input \
+              | htpasswd -B -C 10 -n -i "${username}" \
+              | cut -d':' -f2- \
+              > $out/password-hash
           '';
           runtimeInputs = [ pkgs.apacheHttpd ];
         };
