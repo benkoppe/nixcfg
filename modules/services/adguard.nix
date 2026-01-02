@@ -12,7 +12,7 @@ in
         clan.core.vars.generators.adguard-password = {
           prompts.password-input = {
             description = "Password for the adguard user '${username}'";
-            # type = "hidden";
+            type = "hidden";
             persist = false;
           };
           files.password-hash.secret = false;
