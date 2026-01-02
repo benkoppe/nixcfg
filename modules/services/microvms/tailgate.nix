@@ -44,10 +44,35 @@
                 "--ssh"
                 "--advertise-exit-node"
                 "--advertise-routes=10.0.0.0/24"
+                "--accept-routes"
               ];
             };
 
             networking.firewall.allowedTCPPorts = [ 8088 ]; # tailscale web
+
+            # from https://wiki.nixos.org/wiki/Tailscale
+            networking.nftables.enable = true;
+            networking.firewall = {
+              enable = true;
+              # Always allow traffic from your Tailscale network
+              trustedInterfaces = [ "tailscale0" ];
+              # Allow the Tailscale UDP port through the firewall
+              allowedUDPPorts = [ config.services.tailscale.port ];
+            };
+
+            # 2. Force tailscaled to use nftables (Critical for clean nftables-only systems)
+            # This avoids the "iptables-compat" translation layer issues.
+            systemd.services.tailscaled.serviceConfig.Environment = [
+              "TS_DEBUG_FIREWALL_MODE=nftables"
+            ];
+
+            # -----
+
+            networking.nat = {
+              enable = true;
+              internalIPs = [ "10.0.0.0/24" ];
+              externalInterface = "tailscale0";
+            };
           }
         ];
     };

@@ -20,6 +20,11 @@ in
           # Setup routes to the VM
           routes = [
             {
+              # Route to legacy tailscale subnet
+              Destination = "10.192.168.0/24";
+              Gateway = "10.0.0.2";
+            }
+            {
               Destination = "10.0.0.${toString index}/32";
             }
             {
