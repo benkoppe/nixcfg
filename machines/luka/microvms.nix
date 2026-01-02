@@ -6,10 +6,12 @@
 
     adguard
     tailgate
+    vaultwarden
   ];
 
   my.service-vms = {
     adguard.id = 1;
     tailgate.id = 2;
+    vaultwarden.id = 3;
   };
 }
