@@ -27,6 +27,14 @@ in
 
         my.service-vms.adguard.modules = [
           {
+            microvm.volumes = [
+              {
+                image = "adguard-data.img";
+                mountPoint = "/var/lib/AdGuardHome/data";
+                size = 64;
+              }
+            ];
+
             services.resolved.enable = false;
 
             services.adguardhome = {
