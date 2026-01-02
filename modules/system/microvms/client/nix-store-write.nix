@@ -1,16 +1,18 @@
 { lib, ... }:
 {
-  flake.modules.nixos."microvms_client_nix-store-write" = {
-    nix.optimise.automatic = lib.mkForce false;
+  flake.modules.nixos."microvms_client_nix-store-write" =
+    { config, ... }:
+    {
+      nix.optimise.automatic = lib.mkForce false;
 
-    microvm.writableStoreOverlay = "/nix/.rw-store";
-    fileSystems."/nix/.rw-store" = {
-      fsType = "tmpfs";
-      options = [
-        "mode=0755"
-        "size=4G"
+      microvm.writableStoreOverlay = "/nix/.rw-store";
+      microvm.volumes = [
+        {
+          image = "nix-store-overlay.img";
+          mountPoint = config.microvm.writableStoreOverlay;
+          size = 4096;
+          fsType = "ext4";
+        }
       ];
     };
-
-  };
 }
