@@ -64,11 +64,11 @@
     blacklistNvidia = true;
     disableEFIfb = true;
   };
-  virtualisation.hugepages = {
-    enable = true;
-    pageSize = "1G";
-    numPages = 16; # match guest RAM
-  };
+  # virtualisation.hugepages = {
+  #   enable = true;
+  #   pageSize = "1G";
+  #   numPages = 16; # match guest RAM
+  # };
   virtualisation.kvmfr = {
     enable = true;
     devices = [
