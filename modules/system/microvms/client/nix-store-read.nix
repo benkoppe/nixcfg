@@ -1,4 +1,5 @@
 {
+  # implements https://microvm-nix.github.io/microvm.nix/shares.html#sharing-a-hosts-nixstore
   flake.modules.nixos."microvms_client_nix-store-read" = {
     microvm.shares = [
       {
