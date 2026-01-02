@@ -25,6 +25,13 @@
                 proto = "virtiofs";
               }
             ];
+            microvm.volumes = [
+              {
+                image = "tailscale-state.img";
+                mountPoint = "/var/lib/tailscale";
+                size = 64;
+              }
+            ];
 
             services.tailscale = {
               enable = true;
