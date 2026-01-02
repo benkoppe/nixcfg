@@ -1,14 +1,14 @@
 {
-  flake.modules.nixos."proxmox/vmbr1" = {
-    services.proxmox-ve.bridges = [ "vmbr1" ];
+  flake.modules.nixos."proxmox/virtnetwork" = {
+    services.proxmox-ve.bridges = [ "pvevirt" ];
 
-    systemd.network.netdevs."vmbr1".netdevConfig = {
+    systemd.network.netdevs."pvevirt".netdevConfig = {
       Kind = "bridge";
-      Name = "vmbr1";
+      Name = "pvevirt";
     };
 
     systemd.network.networks."11-lan" = {
-      matchConfig.Name = "vmbr1";
+      matchConfig.Name = "pvevirt";
       networkConfig = {
         DHCPServer = true;
         IPv6SendRA = true;
@@ -37,10 +37,8 @@
       # 2000::/3 you should route that and remove this setting:
       enableIPv6 = true;
 
-      # Change this to the interface with upstream Internet access
-      externalInterface = "enp6s0";
-      # The bridge where you want to provide Internet access
-      internalInterfaces = [ "vmbr1" ];
+      externalInterface = "enp6s0"; # upstream
+      internalInterfaces = [ "pvevirt" ]; # downstream
     };
   };
 }

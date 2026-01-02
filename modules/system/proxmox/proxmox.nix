@@ -10,8 +10,7 @@
     {
       imports = [
         inputs.proxmox-nixos.nixosModules.proxmox-ve
-        # self.modules.nixos."proxmox/vmbr1"
-        self.modules.nixos."proxmox/vmbr0"
+        self.modules.nixos."proxmox/virtnetwork"
       ];
 
       nixpkgs.overlays = [
