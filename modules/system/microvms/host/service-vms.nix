@@ -27,6 +27,9 @@ in
       config = {
         microvm.vms = lib.mapAttrs (_name: cfg: {
           pkgs = null;
+          specialArgs = {
+            hostConfig = config;
+          };
 
           config = {
             imports =
