@@ -37,6 +37,11 @@ in
 
             services.resolved.enable = false;
 
+            networking.firewall = {
+              allowedTCPPorts = [ dnsPort ];
+              allowedUDPPorts = [ dnsPort ];
+            };
+
             services.adguardhome = {
               enable = true;
               port = 3000;
