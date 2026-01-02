@@ -15,7 +15,9 @@ in
           };
           files.password-hash.secret = true;
           files.password-hash.owner = "microvm";
-          script = ''cat $prompts/password-input | argon2 "$(openssl rand -base64 32)" -e -id -k 65540 -t 3 -p 4 > $out/password-hash'';
+          script = ''
+            cat $prompts/password-input | argon2 "$(openssl rand -base64 32)" -e -id -k 65540 -t 3 -p 4 > $out/password-hash
+          '';
           share = true;
           runtimeInputs = with pkgs; [
             openssl
