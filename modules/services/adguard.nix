@@ -30,7 +30,7 @@ in
             microvm.volumes = [
               {
                 image = "adguard-data.img";
-                mountPoint = "/var/lib/private/AdGuardHome/data";
+                mountPoint = "/var/lib/private/AdGuardHome";
                 size = 64;
               }
             ];
