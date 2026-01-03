@@ -7,6 +7,7 @@
         mountPoint = "/nix/.ro-store";
         tag = "ro-store";
         proto = "virtiofs";
+        readOnly = true;
       }
     ];
   };
