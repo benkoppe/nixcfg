@@ -28,7 +28,6 @@ in
         {
           imports = with self.modules.nixos; [
             caddy
-            vaultwarden-snapshot
           ];
 
           my.caddy.virtualHosts = [
