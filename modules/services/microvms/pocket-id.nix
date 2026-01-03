@@ -57,7 +57,7 @@ in
             microvm.credentialFiles = {
               SMTP_PASS = hostConfig.clan.core.vars.generators.smtp-koppe-development.files.password.path;
               LDAP_PASS = hostConfig.clan.core.vars.generators.pocket-ldap-pass.files.value.path;
-              ENCRYPTION_KEY = hostConfig.clan.core.vars.generators.pocket-encryption-key.files.values.path;
+              ENCRYPTION_KEY = hostConfig.clan.core.vars.generators.pocket-encryption-key.files.value.path;
             };
 
             systemd.services.pocket-id = {
