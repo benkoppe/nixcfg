@@ -4,6 +4,8 @@
     microvms_host
     microvms_host_service-vms
 
+    cloudflare-api
+
     adguard
     tailgate
     vaultwarden

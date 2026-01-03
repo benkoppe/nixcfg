@@ -8,7 +8,6 @@ in
   flake.modules.nixos.vaultwarden =
     { pkgs, ... }:
     {
-      imports = [ self.modules.nixos.cloudflare-api ];
 
       clan.core.vars.generators = {
         vaultwarden-admin = {
