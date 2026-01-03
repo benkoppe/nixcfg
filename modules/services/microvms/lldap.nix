@@ -37,6 +37,14 @@ in
             }
           ];
 
+          microvm.volumes = [
+            {
+              image = "lldap-data.img";
+              mountPoint = "/var/lib/private/lldap";
+              size = 64;
+            }
+          ];
+
           microvm.credentialFiles =
             let
               getSecret = name: hostConfig.clan.core.vars.generators.${name}.files.value.path;
