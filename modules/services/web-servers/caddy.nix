@@ -69,6 +69,14 @@
             }
           ];
 
+          microvm.volumes = [
+            {
+              image = "caddy-data.img";
+              mountPoint = config.services.caddy.dataDir;
+              size = 64;
+            }
+          ];
+
           networking.firewall.allowedTCPPorts = [ 443 ];
 
           services.caddy = {
