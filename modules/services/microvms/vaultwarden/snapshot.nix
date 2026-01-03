@@ -13,6 +13,14 @@ in
       group = config.users.groups.vaultwarden.name;
     in
     {
+      microvm.volumes = [
+        {
+          image = "vaultwarden-snapshot.img";
+          mountPoint = snapDir;
+          size = 64;
+        }
+      ];
+
       systemd = {
         services.vaultwarden-snapshot = {
           description = "Take a snapshot of the current Vaultwarden state";
