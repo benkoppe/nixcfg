@@ -2,7 +2,7 @@
 let
   dataDir = "/var/lib/vaultwarden/data";
 
-  vHost = "vault2.thekoppe.com";
+  vHost = "vault3.thekoppe.com";
 in
 {
   flake.modules.nixos.vaultwarden =
