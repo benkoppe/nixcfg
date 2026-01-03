@@ -51,6 +51,8 @@ in
       LDAP_SOFT_DELETE_USERS = false;
       LDAP_BIND_PASSWORD_FILE = config.age.secrets.pocket-ldap-pass.path;
 
+      LDAP_ENCRYPTION_KEY_FILE = config.age.secrets.pocket-encryption-key.path;
+
       LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER = "uuid";
       LDAP_ATTRIBUTE_USER_USERNAME = "uid";
       LDAP_ATTRIBUTE_USER_EMAIL = "mail";
@@ -76,6 +78,7 @@ in
     {
       pocket-smtp-pass = common "${inputs.secrets}/services/smtp/koppe-development-password.age";
       pocket-ldap-pass = common "${inputs.secrets}/services/pocket-id/ldap-bind-password.age";
+      pocket-encryption-key = common "${inputs.secrets}/services/pocket-id/encryption-key.age";
     };
 
   networking.firewall.interfaces =
