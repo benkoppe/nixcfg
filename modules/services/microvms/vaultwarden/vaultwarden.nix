@@ -43,15 +43,26 @@ in
           { config, hostConfig, ... }:
           {
             imports = with self.modules.nixos; [
-              nginx
+              caddy
               vaultwarden-snapshot
             ];
 
-            my.nginx = {
-              inherit vHost;
-              port = config.services.vaultwarden.config.ROCKET_PORT;
-              proxyWebsockets = true;
-            };
+            # my.nginx = {
+            #   inherit vHost;
+            #   port = config.services.vaultwarden.config.ROCKET_PORT;
+            #   proxyWebsockets = true;
+            # };
+            my.caddy.virtualHosts = [
+              {
+                inherit vHost;
+                port = config.services.vaultwarden.config.ROCKET_PORT;
+                extraConfig = [
+                  ''
+                    respond /api/tasks {"data":[]} 200
+                  ''
+                ];
+              }
+            ];
 
             microvm.volumes = [
               {
