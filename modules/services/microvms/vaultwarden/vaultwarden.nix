@@ -47,11 +47,6 @@ in
               vaultwarden-snapshot
             ];
 
-            # my.nginx = {
-            #   inherit vHost;
-            #   port = config.services.vaultwarden.config.ROCKET_PORT;
-            #   proxyWebsockets = true;
-            # };
             my.caddy.virtualHosts = [
               {
                 inherit vHost;
