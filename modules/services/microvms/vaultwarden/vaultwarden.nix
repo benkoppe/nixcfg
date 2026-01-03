@@ -42,7 +42,10 @@ in
         (
           { config, hostConfig, ... }:
           {
-            imports = with self.modules.nixos; [ nginx ];
+            imports = with self.modules.nixos; [
+              nginx
+              vaultwarden-snapshot
+            ];
 
             my.nginx = {
               inherit vHost;
