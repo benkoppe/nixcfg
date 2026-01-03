@@ -50,6 +50,9 @@ in
               {
                 inherit vHost;
                 port = config.services.vaultwarden.config.ROCKET_PORT;
+
+                # fix bitwarden client error on /api/tasks 404 return
+                # see https://github.com/dani-garcia/vaultwarden/pull/6557#issuecomment-3692818999
                 extraConfig = [
                   ''
                     respond /api/tasks {"data":[]} 200
