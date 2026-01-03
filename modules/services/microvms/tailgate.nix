@@ -43,7 +43,7 @@
               extraSetFlags = [
                 "--ssh"
                 "--advertise-exit-node"
-                "--advertise-routes=10.0.0.0/24"
+                "--advertise-routes=${config.my.microvms.network.subnet}.0/24"
                 "--accept-routes"
               ];
             };

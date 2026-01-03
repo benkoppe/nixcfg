@@ -10,15 +10,16 @@ let
 in
 {
   flake.modules.nixos."microvms_client_network" =
-    { config, ... }:
+    { config, hostConfig, ... }:
     let
       cfg = config.my.microvm;
+      inherit (hostConfig.my.microvms) network;
     in
     {
       options.my.microvm = {
         ipv4 = lib.mkOption {
           type = lib.types.str;
-          default = "10.0.0.${toString cfg.id}";
+          default = "${network.subnet}.${toString cfg.id}";
         };
         mac = lib.mkOption {
           type = lib.types.str;
@@ -47,13 +48,13 @@ in
           routes = [
             {
               # A route to the host
-              Destination = "10.0.0.0/32";
+              Destination = "${network.gateway}/32";
               GatewayOnLink = true;
             }
             {
               # Default route
               Destination = "0.0.0.0/0";
-              Gateway = "10.0.0.0";
+              Gateway = "${network.gateway}";
               GatewayOnLink = true;
             }
             {
