@@ -9,32 +9,21 @@ in
     { pkgs, ... }:
     {
 
-      clan.core.vars.generators = {
-        vaultwarden-admin = {
-          prompts.password-input = {
-            description = "Password for the vaultwarden admin";
-            type = "hidden";
-          };
-          files.password-hash.secret = true;
-          files.password-hash.owner = "microvm";
-          script = ''
-            cat $prompts/password-input | argon2 "$(openssl rand -base64 32)" -e -id -k 65540 -t 3 -p 4 > $out/password-hash
-          '';
-          share = true;
-          runtimeInputs = with pkgs; [
-            openssl
-            libargon2
-          ];
+      clan.core.vars.generators.vaultwarden-admin = {
+        prompts.password-input = {
+          description = "Password for the vaultwarden admin";
+          type = "hidden";
         };
-        koppe-development-smtp = {
-          prompts.password = {
-            description = "SMTP password for koppe.development@gmail.com";
-            persist = true;
-            type = "hidden";
-          };
-          files.password.owner = "microvm";
-          share = true;
-        };
+        files.password-hash.secret = true;
+        files.password-hash.owner = "microvm";
+        script = ''
+          cat $prompts/password-input | argon2 "$(openssl rand -base64 32)" -e -id -k 65540 -t 3 -p 4 > $out/password-hash
+        '';
+        share = true;
+        runtimeInputs = with pkgs; [
+          openssl
+          libargon2
+        ];
       };
 
       my.service-vms.vaultwarden.modules = [
@@ -70,7 +59,7 @@ in
             ];
             microvm.credentialFiles = {
               ADMIN_TOKEN = hostConfig.clan.core.vars.generators.vaultwarden-admin.files.password-hash.path;
-              SMTP_PASS = hostConfig.clan.core.vars.generators.koppe-development-smtp.files.password.path;
+              SMTP_PASS = hostConfig.clan.core.vars.generators.smtp-koppe-development.files.password.path;
             };
 
             systemd.services.vaultwarden = {

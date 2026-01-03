@@ -5,6 +5,7 @@
     microvms_host_service-vms
 
     cloudflare-api
+    smtp-koppe-development
 
     adguard
     tailgate
