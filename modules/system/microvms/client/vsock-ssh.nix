@@ -1,24 +1,25 @@
-{ lib, ... }:
+{ lib, self, ... }:
 {
   flake.modules.nixos."microvms_client_vsock-ssh" =
     { config, ... }:
     {
       users.mutableUsers = lib.mkDefault false;
-      users.users.root.hashedPassword = "";
 
       microvm.vsock.cid = lib.mkDefault (config.my.microvm.id + 100000);
       microvm.vsock.ssh.enable = true;
 
-      security.pam.services.sshd.allowNullPassword = true;
+      users.users.root.openssh.authorizedKeys.keyFiles = [
+        "${self}/vars/per-machine/luka/openssh/ssh.id_ed25519.pub/value"
+      ];
 
       services.openssh = {
-        listenAddresses = [ ];
         openFirewall = false;
+        listenAddresses = [ ];
 
         settings = {
-          PermitRootLogin = "yes";
-          PermitEmptyPasswords = "yes";
-          PasswordAuthentication = lib.mkForce true;
+          PermitRootLogin = "prohibit-password";
+          PermitEmptyPasswords = false;
+          PasswordAuthentication = false;
         };
       };
     };
