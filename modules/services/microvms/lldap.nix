@@ -9,6 +9,8 @@ in
       imports = with self.modules.nixos; [
         microvms_client
         caddy
+
+        backup-b2
       ];
 
       my.caddy.virtualHosts = [
@@ -17,6 +19,11 @@ in
           port = config.services.lldap.settings.http_port;
         }
       ];
+
+      my.backup-b2.lldap = {
+        paths = [ "/var/lib/private/lldap" ];
+        restartServices = [ "lldap" ];
+      };
 
       microvm.volumes = [
         {
