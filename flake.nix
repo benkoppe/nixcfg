@@ -37,6 +37,11 @@
 
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
+    github2forgejo = {
+      url = "github:RGBCube/GitHub2Forgejo";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     import-tree.url = "github:vic/import-tree";
 
     treefmt-nix = {
