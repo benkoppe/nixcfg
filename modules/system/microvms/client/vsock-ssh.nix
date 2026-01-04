@@ -13,7 +13,7 @@
 
       services.openssh = {
         listenAddresses = [ ];
-        openFirewall = true;
+        openFirewall = false;
 
         settings = {
           PermitRootLogin = "yes";
