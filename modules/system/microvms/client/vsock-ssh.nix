@@ -11,10 +11,15 @@
 
       security.pam.services.sshd.allowNullPassword = true;
 
-      services.openssh.settings = {
-        PermitRootLogin = "yes";
-        PermitEmptyPasswords = "yes";
-        PasswordAuthentication = true;
+      services.openssh = {
+        listenAddresses = [ ];
+        openFirewall = false;
+
+        settings = {
+          PermitRootLogin = "yes";
+          PermitEmptyPasswords = "yes";
+          PasswordAuthentication = lib.mkForce true;
+        };
       };
     };
 }
