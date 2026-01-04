@@ -13,7 +13,8 @@ in
 
         caddy
         smtp-koppe-development
-        vaultwarden-snapshot
+
+        backup-b2
       ];
 
       my.caddy.virtualHosts = [
@@ -30,6 +31,11 @@ in
           ];
         }
       ];
+
+      my.backup-b2.vaultwarden = {
+        paths = [ dataDir ];
+        restartServices = [ "vaultwarden" ];
+      };
 
       microvm.volumes = [
         {
