@@ -11,5 +11,6 @@
     vaultwarden.id = 3;
     lldap.id = 4;
     pocket-id.id = 5;
+    cloudflared-luka.id = 6;
   };
 }
