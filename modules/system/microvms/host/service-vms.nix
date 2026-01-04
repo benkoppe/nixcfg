@@ -8,40 +8,74 @@ in
     {
       options.my.service-vms = mkOption {
         type = types.attrsOf (
-          types.submodule {
-            options = {
-              id = mkOption {
-                type = types.int;
-                description = "Unique VM identifier";
+          types.submodule (
+            { name, ... }:
+            {
+              options = {
+                id = mkOption {
+                  type = types.int;
+                  description = "Unique VM identifier";
+                };
+                modules = mkOption {
+                  type = types.listOf types.anything;
+                  default = [ ];
+                  description = "List of nixos modules to include in the vm.";
+                };
+                name = mkOption {
+                  type = types.str;
+                  description = "Name for the VM";
+                  default = name;
+                };
               };
-              modules = mkOption {
-                type = types.listOf types.anything;
-                default = [ ];
-                description = "List of nixos modules to include in the vm.";
-              };
-            };
-          }
+            }
+          )
         );
       };
 
-      config = {
-        microvm.vms = lib.mapAttrs (_name: cfg: {
-          pkgs = null;
-          specialArgs = {
-            hostConfig = config;
-          };
+      config =
+        let
+          vms = config.my.service-vms;
+        in
+        {
+          sops.secrets = lib.mapAttrs' (name: _: {
+            name = "age-keys/${name}/key.txt";
+            value = {
+              owner = "microvm";
+              sopsFile = config.clan.core.settings.directory + "/sops/secrets/vm-${name}-age.key/secret";
+              format = "binary";
+            };
+          }) vms;
 
-          config = {
-            imports =
-              with self.modules.nixos;
-              [
-                microvms_client
-              ]
-              ++ cfg.modules;
+          microvm.vms = lib.mapAttrs' (name: cfg: {
+            inherit (cfg) name;
+            value = {
+              pkgs = null;
+              specialArgs = {
+                hostConfig = config;
+              };
 
-            my.microvm.id = cfg.id;
-          };
-        }) config.my.service-vms;
-      };
+              config = {
+                imports = [ self.outputs.clan.outputs.moduleForMachine."vm-${name}" ] ++ cfg.modules;
+
+                my.microvm.id = cfg.id;
+
+                networking.hostName = lib.mkForce cfg.name;
+
+                sops.age.keyFile = "/var/lib/sops-nix-mnt/key.txt";
+
+                microvm.shares = [
+                  {
+                    source = "/run/secrets/age-keys/${name}";
+                    mountPoint = "/var/lib/sops-nix-mnt";
+                    tag = "age-mnt-${name}";
+                    proto = "virtiofs";
+                    readOnly = true;
+                  }
+                ];
+                fileSystems."/var/lib/sops-nix-mnt".neededForBoot = true;
+              };
+            };
+          }) vms;
+        };
     };
 }
