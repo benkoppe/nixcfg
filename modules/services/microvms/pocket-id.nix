@@ -11,6 +11,8 @@ in
 
         caddy
         smtp-koppe-development
+
+        backup-b2
       ];
 
       my.caddy.virtualHosts = [
@@ -19,6 +21,11 @@ in
           port = config.services.pocket-id.settings.PORT;
         }
       ];
+
+      my.backup-b2.pocket-id = {
+        paths = [ config.services.pocket-id.dataDir ];
+        restartServices = [ "pocket-id" ];
+      };
 
       microvm.volumes = [
         {
