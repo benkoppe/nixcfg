@@ -27,6 +27,11 @@
                   type = lib.types.listOf lib.types.str;
                   default = [ ];
                 };
+                preStartServices = lib.mkOption {
+                  description = "Systemd services to start before backup (one-shot services)";
+                  type = lib.types.listOf lib.types.str;
+                  default = [ ];
+                };
               };
             }
           )
@@ -69,7 +74,10 @@
             repository = "s3:s3.us-west-004.backblazeb2.com/resticblaze/${cfg.repository}";
             inherit (cfg) paths;
 
-            backupPrepareCommand = mkStopCmd cfg.restartServices;
+            backupPrepareCommand = lib.concatStringsSep "\n" [
+              (mkStartCmd cfg.preStartServices)
+              (mkStopCmd cfg.restartServices)
+            ];
             backupCleanupCommand = mkStartCmd cfg.restartServices;
 
             inhibitsSleep = true;

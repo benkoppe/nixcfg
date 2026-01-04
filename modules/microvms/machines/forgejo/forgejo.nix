@@ -21,6 +21,8 @@ in
         backup-b2
       ];
 
+      microvm.mem = 2048; # 2 GiB
+
       my.caddy.virtualHosts = [
         {
           inherit vHost;
@@ -29,8 +31,9 @@ in
       ];
 
       my.backup-b2.forgejo = {
-        paths = [ dataDir ];
+        paths = [ config.services.forgejo.dump.backupDir ];
         restartServices = [ "forgejo" ];
+        preStartServices = [ "forgejo-dump" ];
       };
 
       microvm.volumes = [
@@ -79,10 +82,11 @@ in
 
         dump = {
           enable = true;
-          interval = "04:31";
           file = "forgejo-dump";
-          type = "zip";
+          type = "tar.gz";
           backupDir = "${config.services.forgejo.stateDir}/dump";
+          interval = "04:31"; # default
+          age = "4w"; # default
         };
 
         lfs = {
