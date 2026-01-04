@@ -21,7 +21,8 @@ fi
 
 # Copy all non-db.* files/dirs if they exist
 shopt -s nullglob
-files=("$DATA_FOLDER"/!(db.*))
+# ignore lost+found file (autoincluded in microVM volumes)
+files=("$DATA_FOLDER"/!(db.*|lost+found))
 shopt -u nullglob
 
 if ((${#files[@]})); then
