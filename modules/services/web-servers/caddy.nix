@@ -1,13 +1,14 @@
-{ lib, ... }:
+{ lib, self, ... }:
 {
   flake.modules.nixos.caddy =
     {
       pkgs,
       config,
-      hostConfig,
       ...
     }:
     {
+      imports = with self.modules.nixos; [ cloudflare-api ];
+
       options.my.caddy = {
         virtualHosts = lib.mkOption {
           type = lib.types.listOf (
@@ -57,18 +58,8 @@
       config =
         let
           cfg = config.my.caddy;
-          cloudflareDnsMnt = "/run/secrets/cloudflare-dns";
         in
         {
-          microvm.shares = [
-            {
-              source = builtins.dirOf hostConfig.clan.core.vars.generators.cloudflare.files.api-token.path;
-              mountPoint = cloudflareDnsMnt;
-              tag = "authKey";
-              proto = "virtiofs";
-            }
-          ];
-
           microvm.volumes = [
             {
               image = "caddy-data.img";
@@ -117,7 +108,7 @@
               }) cfg.virtualHosts
             );
 
-            environmentFile = "${cloudflareDnsMnt}/api-token";
+            environmentFile = config.clan.core.vars.generators.cloudflare.files.api-token.path;
           };
         };
     };

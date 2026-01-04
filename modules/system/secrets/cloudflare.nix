@@ -6,7 +6,6 @@
         type = "hidden";
         persist = true;
       };
-      files.api-token.owner = "microvm";
       share = true;
     };
   };

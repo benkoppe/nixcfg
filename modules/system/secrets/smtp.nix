@@ -6,7 +6,6 @@
         type = "hidden";
         persist = true;
       };
-      files.password.owner = "microvm";
       share = true;
     };
   };

@@ -9,6 +9,8 @@
 
       microvms_client_nix-store-read
       microvms_client_nix-store-write
+
+      self.inputs.microvm.nixosModules.microvm
     ];
 
     options.my.microvm = {
@@ -20,6 +22,10 @@
 
     config = {
       system.stateVersion = "26.05";
+
+      nixpkgs.hostPlatform = "x86_64-linux";
+
+      users.users.root.hashedPasswordFile = lib.mkForce null;
     };
   };
 }
