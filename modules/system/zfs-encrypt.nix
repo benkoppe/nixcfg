@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.luks-encrypt =
+  flake.modules.nixos.zfs-encrypt =
     { pkgs, config, ... }:
     {
       # options.my.luks.ethernetDriver
