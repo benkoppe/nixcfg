@@ -1084,7 +1084,7 @@
         "fpu_exception": false,
         "cpuid_level": 22,
         "write_protect": false,
-        "tlb_size": 32767,
+        "tlb_size": 32764,
         "clflush_size": 64,
         "cache_alignment": 64,
         "address_sizes": {
@@ -1278,7 +1278,7 @@
         "model": "Disk",
         "sysfs_id": "/class/block/zd0",
         "unix_device_names": [
-          "/dev/disk/by-uuid/5d3d417a-a354-4c1e-a973-c67f9ddc8021",
+          "/dev/disk/by-uuid/09686222-9bbf-403f-87be-ced5ff39bda6",
           "/dev/zd0",
           "/dev/zvol/boot/root/swap"
         ],
