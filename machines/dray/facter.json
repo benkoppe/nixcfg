@@ -1084,7 +1084,7 @@
         "fpu_exception": false,
         "cpuid_level": 22,
         "write_protect": false,
-        "tlb_size": 32688,
+        "tlb_size": 32604,
         "clflush_size": 64,
         "cache_alignment": 64,
         "address_sizes": {
@@ -1278,7 +1278,7 @@
         "model": "Disk",
         "sysfs_id": "/class/block/zd0",
         "unix_device_names": [
-          "/dev/disk/by-uuid/d77d66eb-a337-4b74-819d-0d716368b770",
+          "/dev/disk/by-uuid/6567aff2-b93f-4155-a100-f048314be611",
           "/dev/zd0",
           "/dev/zvol/boot/root/swap"
         ],
@@ -1805,7 +1805,7 @@
     ],
     "hub": [
       {
-        "index": 144,
+        "index": 145,
         "attached_to": 123,
         "class_list": [
           "usb",
@@ -1972,7 +1972,7 @@
     "keyboard": [
       {
         "index": 143,
-        "attached_to": 144,
+        "attached_to": 145,
         "class_list": [
           "keyboard",
           "usb"
@@ -2013,12 +2013,12 @@
         },
         "serial": "vial:f64c2b3c",
         "model": "Keychron V6",
-        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-14/1-14:1.0",
-        "sysfs_bus_id": "1-14:1.0",
+        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-10/1-10:1.0",
+        "sysfs_bus_id": "1-10:1.0",
         "unix_device_names": [
           "/dev/input/by-id/usb-Keychron_Keychron_V6_vial:f64c2b3c-event-kbd",
-          "/dev/input/by-path/pci-0000:00:14.0-usb-0:14:1.0-event-kbd",
-          "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:14:1.0-event-kbd",
+          "/dev/input/by-path/pci-0000:00:14.0-usb-0:10:1.0-event-kbd",
+          "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:10:1.0-event-kbd",
           "/dev/input/event0"
         ],
         "resources": [
@@ -2287,7 +2287,7 @@
     "mouse": [
       {
         "index": 142,
-        "attached_to": 144,
+        "attached_to": 145,
         "class_list": [
           "mouse",
           "usb"
@@ -2330,8 +2330,8 @@
         "compat_vendor": "Unknown",
         "compat_device": "Generic USB Mouse",
         "model": "Keychron V6",
-        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-14/1-14:1.2",
-        "sysfs_bus_id": "1-14:1.2",
+        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-10/1-10:1.2",
+        "sysfs_bus_id": "1-10:1.2",
         "unix_device_names": [
           "/dev/input/mice"
         ],
@@ -8760,8 +8760,8 @@
     ],
     "usb": [
       {
-        "index": 145,
-        "attached_to": 144,
+        "index": 144,
+        "attached_to": 145,
         "class_list": [
           "usb",
           "unknown"
@@ -8802,8 +8802,8 @@
         },
         "serial": "vial:f64c2b3c",
         "model": "Keychron V6",
-        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-14/1-14:1.1",
-        "sysfs_bus_id": "1-14:1.1",
+        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-10/1-10:1.1",
+        "sysfs_bus_id": "1-10:1.1",
         "resources": [
           {
             "type": "baud",
@@ -8853,7 +8853,7 @@
       },
       {
         "index": 146,
-        "attached_to": 144,
+        "attached_to": 145,
         "class_list": [
           "usb",
           "unknown"
@@ -8945,7 +8945,7 @@
       },
       {
         "index": 148,
-        "attached_to": 144,
+        "attached_to": 145,
         "class_list": [
           "usb",
           "unknown"
