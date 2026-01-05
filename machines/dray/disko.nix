@@ -67,8 +67,8 @@
         };
       in
       {
-        mirror1 = mirrorDisk "nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130025H" "boot1";
-        mirror2 = mirrorDisk "nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130001T" "boot2";
+        mirror1 = mirrorDisk "nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130025H" "/boot1";
+        mirror2 = mirrorDisk "nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130001T" "/boot2";
 
         data1 = dataDisk "nvme-INTEL_SSDPE2KX020T8_BTLJ91260J192P0BGN";
         data2 = dataDisk "nvme-INTEL_SSDPE2KX020T8_PHLJ152202EQ2P0BGN";
