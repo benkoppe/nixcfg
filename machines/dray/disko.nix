@@ -168,7 +168,7 @@
               mountpoint = "/tank0";
               encryption = "aes-256-gcm";
               keyformat = "passphrase";
-              keylocation = "file://${config.clan.core.vars.generators.zfs-encrypt.files.password.path}";
+              keylocation = "prompt";
             };
             mountpoint = "/tank0";
           };
