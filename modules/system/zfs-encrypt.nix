@@ -5,11 +5,6 @@
       # options.my.luks.ethernetDriver
 
       clan.core.vars.generators.zfs-encrypt = {
-        prompts.password = {
-          description = "ZFS encryption password";
-          type = "hidden";
-          persist = true;
-        };
         files.password.neededFor = "partitioning";
         prompts.initrd-password = {
           description = "ZFS password encrypted with clevis for initrd unlocking";
