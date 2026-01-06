@@ -13,7 +13,6 @@
     self.inputs.vgpu4nixos.nixosModules.host
 
     ./microvms.nix
-    # ./vgpu.nix
   ];
 
   clan.core.vars.generators.zfs-encrypt-tank0 = {
@@ -32,17 +31,29 @@
   # services.xserver.videoDrivers = [ "nvidia" ];
   # hardware.nvidia.open = false;
 
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.vgpu_17_3.overrideAttrs (old: {
-  #   postUnpack = ''
-  #     cp ${./path/to/your/custom-vgpuConfig.xml} $sourceRoot/vgpuConfig.xml
-  #   '';
-  # });
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.vgpu_16_5;
 
   hardware.nvidia.vgpu.patcher = {
     enable = true;
     copyVGPUProfiles = {
       "1BB0:0000" = "1B38:0";
+    };
+    profileOverrides = {
+      # nvidia-49
+      #   Available instances: 6
+      #   Device API: vfio-pci
+      #   Name: GRID P40-4Q
+      #   Description: num_heads=4, frl_config=60, framebuffer=4096M, max_resolution=7680x4320, max_instance=6
+      "49" = {
+        heads = 1;
+        enableCuda = true;
+        display.width = 1920;
+        display.height = 1080;
+        framerateLimit = 144;
+        xmlConfig = {
+          vgpu_type = "NVS";
+        };
+      };
     };
   };
 
