@@ -2,6 +2,7 @@
   self,
   pkgs,
   config,
+  lib,
   ...
 }:
 {
@@ -12,6 +13,7 @@
     self.inputs.vgpu4nixos.nixosModules.host
 
     ./microvms.nix
+    # ./vgpu.nix
   ];
 
   clan.core.vars.generators.zfs-encrypt-tank0 = {
@@ -27,15 +29,20 @@
     ];
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = false;
+  # services.xserver.videoDrivers = [ "nvidia" ];
+  # hardware.nvidia.open = false;
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.vgpu_17_3;
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.vgpu_17_3.overrideAttrs (old: {
+  #   postUnpack = ''
+  #     cp ${./path/to/your/custom-vgpuConfig.xml} $sourceRoot/vgpuConfig.xml
+  #   '';
+  # });
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.vgpu_16_5;
 
   hardware.nvidia.vgpu.patcher = {
     enable = true;
     copyVGPUProfiles = {
-      "1B38:0000" = "1BB0:0000";
+      "1BB0:0000" = "1B38:0";
     };
   };
 
@@ -50,4 +57,6 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_6_6;
+
+  programs.mdevctl.enable = true;
 }
