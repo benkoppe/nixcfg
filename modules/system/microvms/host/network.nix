@@ -21,6 +21,11 @@ in
           description = "Gateway for the microvm network, i.e. 10.0.0.0";
           default = "${cfg.subnet}.0";
         };
+        externalInterface = lib.mkOption {
+          type = lib.types.str;
+          description = "External network interface for NAT";
+          default = "enp6s0";
+        };
       };
 
       config = {
@@ -63,7 +68,7 @@ in
           enable = true;
           internalIPs = [ "${cfg.subnet}.0/24" ];
           # Change this to the interface with upstream Internet access
-          externalInterface = "enp6s0";
+          inherit (cfg) externalInterface;
         };
       };
     };

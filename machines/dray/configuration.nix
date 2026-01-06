@@ -10,6 +10,8 @@
     zfs-encrypt
 
     self.inputs.vgpu4nixos.nixosModules.host
+
+    ./microvms.nix
   ];
 
   clan.core.vars.generators.zfs-encrypt-tank0 = {
