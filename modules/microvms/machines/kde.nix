@@ -5,12 +5,11 @@
     {
       imports = [
         self.inputs.vgpu4nixos.nixosModules.guest
-
-        self.inputs.nixos-generators.nixosModules.all-formats
-        self.inputs.nixos-generators.nixosModules.qcow-efi
       ];
 
       # ----------- VM CLIENT -------------
+
+      clan.core.deployment.requireExplicitUpdate = true;
 
       system.stateVersion = "26.05";
 
