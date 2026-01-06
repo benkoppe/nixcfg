@@ -30,11 +30,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    NixVirt = {
-      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixos-vfio = {
       url = "github:j-brn/nixos-vfio";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,11 +41,6 @@
 
     github2forgejo = {
       url = "github:RGBCube/GitHub2Forgejo";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
