@@ -35,6 +35,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vgpu4nixos.url = "github:mrzenc/vgpu4nixos";
+
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
     github2forgejo = {
