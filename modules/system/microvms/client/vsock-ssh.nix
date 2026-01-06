@@ -1,7 +1,7 @@
 { lib, self, ... }:
 {
   flake.modules.nixos."microvms_client_vsock-ssh" =
-    { config, ... }:
+    { config, hostConfig, ... }:
     {
       users.mutableUsers = lib.mkDefault false;
 
@@ -9,7 +9,7 @@
       microvm.vsock.ssh.enable = true;
 
       users.users.root.openssh.authorizedKeys.keys = [
-        (builtins.readFile "${self}/vars/per-machine/luka/openssh/ssh.id_ed25519.pub/value")
+        (builtins.readFile "${self}/vars/per-machine/${hostConfig.networking.hostName}/openssh/ssh.id_ed25519.pub/value")
       ];
 
       services.openssh = {
