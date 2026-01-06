@@ -5,11 +5,17 @@
       # options.my.luks.ethernetDriver
 
       clan.core.vars.generators.zfs-encrypt = {
+        prompts.password = {
+          description = "ZFS root drive encryption password";
+          type = "hidden";
+          persist = true;
+        };
         prompts.initrd-password = {
           description = "ZFS password encrypted with clevis for initrd unlocking";
           type = "hidden";
           persist = true;
         };
+        files.password.neededFor = "partitioning";
         files.initrd-password.neededFor = "activation";
       };
 
@@ -28,12 +34,11 @@
       };
 
       boot.initrd = {
-        # clevis = {
-        #   enable = true;
-        #   useTang = true;
-        #   devices."boot/root".secretFile =
-        #     config.clan.core.vars.generators.zfs-encrypt.files.initrd-password.path;
-        # };
+        clevis = {
+          enable = true;
+          useTang = true;
+          devices."boot".secretFile = config.clan.core.vars.generators.zfs-encrypt.files.initrd-password.path;
+        };
 
         availableKernelModules = [
           "xhci_pci" # taken from clan guide for ssh

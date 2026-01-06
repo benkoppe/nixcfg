@@ -21,6 +21,9 @@
     ];
   };
 
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.extraPools = [ "tank0" ];
+
   disko.devices = {
     disk =
       let
@@ -80,46 +83,53 @@
       boot = {
         type = "zpool";
         mode = "mirror";
-        rootFsOptions = {
-          compression = "lz4";
-          acltype = "posixacl";
-          xattr = "sa";
-          "com.sun:auto-snapshot" = "true";
-          mountpoint = "none";
-        };
         options = {
           ashift = "12";
           autotrim = "on";
         };
+        rootFsOptions = {
+          encryption = "aes-256-gcm";
+          keyformat = "passphrase";
+          keylocation = "file://${config.clan.core.vars.generators.zfs-encrypt.files.password.path}";
+
+          compression = "lz4";
+          canmount = "off";
+          xattr = "sa";
+          acltype = "posixacl";
+          "com.sun:auto-snapshot" = "false";
+        };
+        # FROM https://github.com/ibizaman/skarabox/blob/main/modules%2Fdisks.nix ----
+        # Need to use another variable name otherwise I get SC2030 and SC2031 errors.
+        preCreateHook = ''
+          pname=$name
+        '';
+        # Needed to get back a prompt on next boot.
+        # See https://github.com/nix-community/nixos-anywhere/issues/161#issuecomment-1642158475
+        postCreateHook = ''
+          zfs set keylocation="prompt" $pname
+        '';
+        # ------------
         datasets = {
-          "root" = {
+          "reserved" = {
             type = "zfs_fs";
             options = {
+              canmount = "off";
               mountpoint = "none";
-              encryption = "aes-256-gcm";
-              keyformat = "passphrase";
-              keylocation = "prompt";
+              reservation = "50G";
             };
           };
-          "root/root" = {
+          "local/root" = {
             type = "zfs_fs";
             options.mountpoint = "/";
             mountpoint = "/";
+            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^boot/local/root@blank$' || zfs snapshot boot/local/root@blank";
           };
-          "root/nix" = {
+          "local/nix" = {
             type = "zfs_fs";
-            options = {
-              mountpoint = "/nix";
-              "com.sun:auto-snapshot" = "false";
-            };
+            options.mountpoint = "/nix";
             mountpoint = "/nix";
           };
-          "root/home" = {
-            type = "zfs_fs";
-            options.mountpoint = "/home";
-            mountpoint = "/home";
-          };
-          "root/tmp" = {
+          "local/tmp" = {
             type = "zfs_fs";
             mountpoint = "/tmp";
             options = {
@@ -127,9 +137,23 @@
               sync = "disabled";
             };
           };
+          "safe/home" = {
+            type = "zfs_fs";
+            options.mountpoint = "/home";
+            mountpoint = "/home";
+          };
+          "safe/persist" = {
+            type = "zfs_fs";
+            mountpoint = "/persist";
+            # It's prefixed by /mnt because we're installing and everything is mounted under /mnt.
+            options.mountpoint = "legacy";
+            postMountHook = ''
+              cp ${config.clan.core.vars.generators.zfs-encrypt-tank0.files.password.path} /mnt/persist/tank0-key
+            '';
+          };
           # README MORE: https://wiki.archlinux.org/title/ZFS#Swap_volume
           # taken from https://github.com/nix-community/disko/blob/916506443ecd0d0b4a0f4cf9d40a3c22ce39b378/example/zfs-encrypted-root.nix#L61
-          "root/swap" = {
+          "local/swap" = {
             type = "zfs_volume";
             size = "16G";
             content = {
@@ -142,7 +166,6 @@
               sync = "always";
               primarycache = "metadata";
               secondarycache = "none";
-              "com.sun:auto-snapshot" = "false";
             };
           };
         };
@@ -150,34 +173,43 @@
       tank0 = {
         type = "zpool";
         mode = "raidz2";
-        rootFsOptions = {
-          compression = "lz4";
-          acltype = "posixacl";
-          xattr = "sa";
-          "com.sun:auto-snapshot" = "true";
-          mountpoint = "none";
-        };
         options = {
           ashift = "12";
           autotrim = "on";
         };
+        rootFsOptions = {
+          encryption = "aes-256-gcm";
+          keyformat = "passphrase";
+          keylocation = "file://${config.clan.core.vars.generators.zfs-encrypt-tank0.files.password.path}";
+
+          compression = "lz4";
+          acltype = "posixacl";
+          xattr = "sa";
+          "com.sun:auto-snapshot" = "false";
+          mountpoint = "none";
+        };
+        # Need to use another variable name otherwise I get SC2030 and SC2031 errors.
+        preCreateHook = ''
+          pname=$name
+        '';
+        postCreateHook = ''
+          zfs set keylocation="file:///persist/tank0-key" $pname;
+        '';
         datasets = {
-          "root" = {
+          "reserved" = {
             type = "zfs_fs";
             options = {
-              mountpoint = "/tank0";
-              encryption = "aes-256-gcm";
-              keyformat = "passphrase";
-              keylocation = "prompt";
+              canmount = "off";
+              mountpoint = "none";
+              reservation = "300G";
             };
-            mountpoint = "/tank0";
           };
-          "root/files" = {
+          "data/files" = {
             type = "zfs_fs";
             options.mountpoint = "/tank0/files";
             mountpoint = "/tank0/files";
           };
-          "root/backups" = {
+          "data/backups" = {
             type = "zfs_fs";
             options.mountpoint = "/tank0/backups";
             mountpoint = "/tank0/backups";
