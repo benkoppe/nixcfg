@@ -1084,7 +1084,7 @@
         "fpu_exception": false,
         "cpuid_level": 22,
         "write_protect": false,
-        "tlb_size": 32764,
+        "tlb_size": 32765,
         "clflush_size": 64,
         "cache_alignment": 64,
         "address_sizes": {
@@ -1096,7 +1096,7 @@
     "disk": [
       {
         "index": 133,
-        "attached_to": 91,
+        "attached_to": 75,
         "class_list": [
           "disk",
           "block_device",
@@ -1138,16 +1138,16 @@
           "hex": "a801",
           "value": 43009
         },
-        "serial": "S7U5NJ0Y130025H",
+        "serial": "S7U5NJ0Y130001T",
         "model": "Samsung SSD 990 EVO Plus 1TB",
         "sysfs_id": "/class/block/nvme0n1",
         "sysfs_bus_id": "nvme0",
-        "sysfs_device_link": "/devices/pci0000:16/0000:16:02.0/0000:17:00.0/nvme/nvme0",
+        "sysfs_device_link": "/devices/pci0000:16/0000:16:03.0/0000:18:00.0/nvme/nvme0",
         "unix_device_names": [
-          "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130025H",
-          "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130025H_1",
-          "/dev/disk/by-id/nvme-eui.0025385151426fd9",
-          "/dev/disk/by-path/pci-0000:17:00.0-nvme-1",
+          "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130001T",
+          "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130001T_1",
+          "/dev/disk/by-id/nvme-eui.0025385151426fc1",
+          "/dev/disk/by-path/pci-0000:18:00.0-nvme-1",
           "/dev/nvme0n1"
         ],
         "resources": [
@@ -1278,9 +1278,9 @@
         "model": "Disk",
         "sysfs_id": "/class/block/zd0",
         "unix_device_names": [
-          "/dev/disk/by-uuid/09686222-9bbf-403f-87be-ced5ff39bda6",
+          "/dev/disk/by-uuid/dbd90171-a4b5-414a-8f44-4b26c1484ab9",
           "/dev/zd0",
-          "/dev/zvol/boot/root/swap"
+          "/dev/zvol/boot/local/swap"
         ],
         "resources": [
           {
@@ -1467,7 +1467,7 @@
       },
       {
         "index": 139,
-        "attached_to": 75,
+        "attached_to": 91,
         "class_list": [
           "disk",
           "block_device",
@@ -1509,16 +1509,16 @@
           "hex": "a801",
           "value": 43009
         },
-        "serial": "S7U5NJ0Y130001T",
+        "serial": "S7U5NJ0Y130025H",
         "model": "Samsung SSD 990 EVO Plus 1TB",
         "sysfs_id": "/class/block/nvme1n1",
         "sysfs_bus_id": "nvme1",
-        "sysfs_device_link": "/devices/pci0000:16/0000:16:03.0/0000:18:00.0/nvme/nvme1",
+        "sysfs_device_link": "/devices/pci0000:16/0000:16:02.0/0000:17:00.0/nvme/nvme1",
         "unix_device_names": [
-          "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130001T",
-          "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130001T_1",
-          "/dev/disk/by-id/nvme-eui.0025385151426fc1",
-          "/dev/disk/by-path/pci-0000:18:00.0-nvme-1",
+          "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130025H",
+          "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y130025H_1",
+          "/dev/disk/by-id/nvme-eui.0025385151426fd9",
+          "/dev/disk/by-path/pci-0000:17:00.0-nvme-1",
           "/dev/nvme1n1"
         ],
         "resources": [
