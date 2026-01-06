@@ -39,8 +39,8 @@
         krdp
       ];
 
-      services.xserver.videoDrivers = [ "nvidia" ];
-      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.grid_16_5;
+      # services.xserver.videoDrivers = [ "nvidia" ];
+      # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.grid_16_5;
 
       boot.kernelPackages = pkgs.linuxPackages_6_6;
     };
