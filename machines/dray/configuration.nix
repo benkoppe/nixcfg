@@ -8,11 +8,14 @@
   imports = with self.modules.nixos; [
     basics
     zfs-encrypt
+    proxmox
 
     self.inputs.vgpu4nixos.nixosModules.host
 
     ./microvms.nix
   ];
+
+  programs.ssh.startAgent = true;
 
   clan.core.vars.generators.zfs-encrypt-tank0 = {
     files.password = {
@@ -27,8 +30,38 @@
     ];
   };
 
+  users.users.ben.extraGroups = [ "libvirtd" ];
+  environment.systemPackages = with pkgs; [
+    dnsmasq
+  ];
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
+  my.proxmox = {
+    id = 1;
+    network = {
+      subnet = "10.1.1";
+      externalInterface = "eno1";
+    };
+  };
+
+  services.proxmox-ve = {
+    enable = true;
+    ipAddress = "192.168.1.24";
+  };
+
+  # hardware.graphics.enable = true;
   # services.xserver.videoDrivers = [ "nvidia" ];
-  # hardware.nvidia.open = false;
+  #
+  # services.xserver.enable = true;
+  # services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = true;
+  # services.desktopManager.plasma6.enable = true;
+  # environment.plasma6.excludePackages = with pkgs.kdePackages; [
+  #   elisa
+  #   khelpcenter
+  #   krdp
+  # ];
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.vgpu_16_5;
 
