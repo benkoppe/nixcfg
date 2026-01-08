@@ -10,7 +10,8 @@
     {
       imports = [
         inputs.proxmox-nixos.nixosModules.proxmox-ve
-        self.modules.nixos."proxmox/virtnetwork"
+        self.modules.nixos."proxmox/network-pvevirt"
+        self.modules.nixos."proxmox/network-cluster0"
       ];
 
       nixpkgs.overlays = [
@@ -19,7 +20,7 @@
 
       services.proxmox-ve = {
         enable = true;
-        ipAddress = "192.168.1.217";
+        ipAddress = lib.mkDefault "192.168.1.217";
       };
 
       # cdrkit needed to create cloudinit drives
