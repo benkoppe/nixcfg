@@ -27,6 +27,8 @@
         };
       };
 
+      time.timeZone = "America/Los_Angeles";
+
       # ---------------------------------
 
       services.xserver.enable = true;
