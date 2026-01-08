@@ -1,7 +1,7 @@
 { self, ... }:
 {
   flake.clan.machines.vm-kde =
-    { pkgs, config, ... }:
+    { pkgs, ... }:
     {
       imports = [
         self.inputs.vgpu4nixos.nixosModules.guest
