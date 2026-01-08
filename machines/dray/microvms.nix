@@ -11,6 +11,6 @@
   };
 
   my.service-vms = {
-    kde.id = 1;
+    # kde.id = 1;
   };
 }

@@ -13,6 +13,8 @@
     ./microvms.nix
   ];
 
+  my.proxmox.id = 2;
+
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
