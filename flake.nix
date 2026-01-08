@@ -102,6 +102,7 @@
               deploy.targetHost = "root@192.168.1.24";
               tags = [ "development" ];
             };
+            vm-kde.tags = [ "development" ];
           };
 
           instances = {
