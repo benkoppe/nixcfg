@@ -11,6 +11,15 @@ in
     {
       imports = with self.modules.nixos; [
         microvms_client
+
+        caddy
+      ];
+
+      my.caddy.virtualHosts = [
+        {
+          inherit vHost;
+          inherit (config.services.adguardhome) port;
+        }
       ];
 
       clan.core.vars.generators.adguard-password = {
