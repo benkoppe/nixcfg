@@ -104,7 +104,7 @@
             };
             bird.deploy.targetHost = "root@165.1.75.12";
             dray = {
-              deploy.targetHost = "root@192.168.1.24";
+              deploy.targetHost = "root@dray";
               tags = [ "development" ];
             };
           };
