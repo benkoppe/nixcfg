@@ -26,11 +26,11 @@
 
     my.cloudflared.ingress = {
       "pocket.thekoppe.com" = {
-        service = "https://10.0.0.5";
+        service = "https://10.1.0.5";
         originRequest.originServerName = "pocket.thekoppe.com";
       };
       "git.thekoppe.com" = {
-        service = "https://10.0.0.8";
+        service = "https://10.1.0.8";
         originRequest.originServerName = "git.thekoppe.com";
       };
     };
