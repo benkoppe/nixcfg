@@ -84,7 +84,8 @@
             initialize = true;
 
             timerConfig = {
-              OnCalendar = "daily";
+              OnCalendar = "*-*-* 03:00:00"; # daily at 3am PST
+              RandomizedDelaySec = "1h";
               Persistent = true;
             };
 
