@@ -2,7 +2,7 @@
 let
   dataDir = "/var/lib/vaultwarden/data";
 
-  vHost = "vault3.thekoppe.com";
+  vHost = "vault.thekoppe.com";
 in
 {
   flake.clan.machines.vm-vaultwarden =
