@@ -31,9 +31,8 @@ in
       ];
 
       my.backup-b2.forgejo = {
-        paths = [ config.services.forgejo.dump.backupDir ];
+        paths = [ config.services.forgejo.stateDir ];
         restartServices = [ "forgejo" ];
-        preStartServices = [ "forgejo-dump" ];
       };
 
       microvm.volumes = [
@@ -78,15 +77,6 @@ in
         database = {
           type = "sqlite3";
           path = "${config.services.forgejo.stateDir}/data/forgejo.db";
-        };
-
-        dump = {
-          enable = true;
-          file = "forgejo-dump";
-          type = "tar.gz";
-          backupDir = "${config.services.forgejo.stateDir}/dump";
-          interval = "04:31"; # default
-          age = "4w"; # default
         };
 
         lfs = {
