@@ -1,6 +1,6 @@
 { self, ... }:
 let
-  vHost = "lldap2.thekoppe.com";
+  vHost = "lldap.thekoppe.com";
 in
 {
   flake.clan.machines.vm-lldap =
