@@ -37,6 +37,11 @@
 
     vgpu4nixos.url = "github:mrzenc/vgpu4nixos";
 
+    fastapi-dls-nixos = {
+      url = "github:mrzenc/fastapi-dls-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
     github2forgejo = {
