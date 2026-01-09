@@ -16,10 +16,10 @@ in
                   type = types.int;
                   description = "Unique VM identifier";
                 };
-                modules = mkOption {
-                  type = types.listOf types.anything;
-                  default = [ ];
-                  description = "List of nixos modules to include in the vm.";
+                config = mkOption {
+                  type = types.anything;
+                  default = { };
+                  description = "Nixos config to include in the vm.";
                 };
                 name = mkOption {
                   type = types.str;
@@ -55,7 +55,10 @@ in
               };
 
               config = {
-                imports = [ self.outputs.clan.outputs.moduleForMachine."vm-${name}" ] ++ cfg.modules;
+                imports = [
+                  self.outputs.clan.outputs.moduleForMachine."vm-${name}"
+                  cfg.config
+                ];
 
                 my.microvm.id = cfg.id;
 
