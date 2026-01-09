@@ -9,11 +9,17 @@
     basics
     zfs-encrypt
     proxmox
+    tailgate
 
     self.inputs.vgpu4nixos.nixosModules.host
     # self.inputs.nixos-vfio.nixosModules.vfio
 
     ./microvms.nix
+  ];
+
+  my.tailgate.routes = [
+    "10.1.0.0/24"
+    "10.1.1.0/24"
   ];
 
   programs.ssh.startAgent = true;

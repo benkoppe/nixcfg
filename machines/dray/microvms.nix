@@ -12,15 +12,12 @@
 
   my.service-vms = {
     # kde.id = 1;
-    tailgate = {
-      id = 1;
-      config = {
-        my.tailgate.routes = [
-          "10.1.0.0/24"
-          "10.1.1.0/24"
-        ];
-      };
-    };
     fastapi-dls.id = 2;
+    vaultwarden.id = 3;
+    lldap.id = 4;
+    pocket-id.id = 5;
+    cloudflared-dray.id = 6;
+    garage.id = 7;
+    forgejo.id = 8;
   };
 }

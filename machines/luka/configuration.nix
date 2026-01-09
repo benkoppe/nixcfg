@@ -9,11 +9,14 @@
     luks-encrypt
     self.inputs.nixos-vfio.nixosModules.vfio
     proxmox
+    tailgate
 
     ./microvms.nix
   ];
 
   my.proxmox.id = 2;
+
+  my.tailgate.routes = [ "10.0.0.0/24" ];
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
