@@ -34,9 +34,19 @@
       # persistent systemctl logs
       microvm.volumes = [
         {
-          image = "journal-data.img";
-          mountPoint = "/var/log/journal";
+          image = "log.img";
+          mountPoint = "/var/log";
           size = 1024; # 1 GiB
+        }
+        {
+          image = "systemd-timers.img";
+          mountPoint = "/var/lib/systemd/timers";
+          size = 256; # 256 MiB
+        }
+        {
+          image = "systemd-coredump.img";
+          mountPoint = "/var/lib/systemd/coredump";
+          size = 512; # 512 MiB
         }
       ];
     };
