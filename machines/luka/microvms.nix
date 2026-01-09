@@ -7,11 +7,11 @@
 
   my.service-vms = {
     adguard.id = 1;
-    vaultwarden.id = 3;
-    lldap.id = 4;
-    pocket-id.id = 5;
+    # vaultwarden.id = 3;
+    # lldap.id = 4;
+    # pocket-id.id = 5;
     cloudflared-luka.id = 6;
-    garage.id = 7;
-    forgejo.id = 8;
+    # garage.id = 7;
+    # forgejo.id = 8;
   };
 }
