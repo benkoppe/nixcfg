@@ -6,7 +6,7 @@
   ];
 
   my.service-vms = {
-    adguard.id = 1;
+    # adguard.id = 1;
     # vaultwarden.id = 3;
     # lldap.id = 4;
     # pocket-id.id = 5;

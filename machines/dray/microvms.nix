@@ -11,7 +11,7 @@
   };
 
   my.service-vms = {
-    # kde.id = 1;
+    adguard.id = 1;
     fastapi-dls.id = 2;
     vaultwarden.id = 3;
     lldap.id = 4;
