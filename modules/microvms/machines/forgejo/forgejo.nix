@@ -21,7 +21,7 @@ in
         backup-b2
       ];
 
-      microvm.mem = 2048; # 2 GiB
+      microvm.mem = 4096; # 2 GiB
 
       my.caddy.virtualHosts = [
         {
