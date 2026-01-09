@@ -14,6 +14,7 @@ let
     admin = "garage-admin";
   };
   mntDir = "/var/lib/garage";
+  mntDirNoSymlink = "/var/lib/private/garage";
 in
 {
   flake.clan.machines.vm-garage =
@@ -34,14 +35,14 @@ in
       ];
 
       my.backup-b2.garage = {
-        paths = [ mntDir ];
+        paths = [ mntDirNoSymlink ];
         restartServices = [ "garage" ];
       };
 
       microvm.volumes = [
         {
           image = "garage-data.img";
-          mountPoint = "/var/lib/private/garage";
+          mountPoint = mntDirNoSymlink;
           size = 1024 * 50; # 50 GiB
         }
       ];
