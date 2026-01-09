@@ -11,6 +11,7 @@
     proxmox
 
     self.inputs.vgpu4nixos.nixosModules.host
+    # self.inputs.nixos-vfio.nixosModules.vfio
 
     ./microvms.nix
   ];
@@ -88,6 +89,28 @@
       };
     };
   };
+
+  # virtualisation.vfio = {
+  #   enable = true;
+  #   IOMMUType = "intel";
+  #   devices = [
+  #     "10de:1bb0" # Quadro P5000 GPU
+  #     "10de:10f0" # HDMI/DP audio
+  #   ];
+  #   # blacklistNvidia = true;
+  #   # disableEFIfb = true;
+  # };
+  boot.initrd.kernelModules = [
+    "vfio_pci"
+    "vfio"
+    "vfio_iommu_type1"
+
+    "nvidia" # replace or remove with your device's driver as needed
+  ];
+  boot.kernelParams = [
+    "intel_iommu=on"
+    "vfio-pci.ids=10de:1bb0,10de:10f0"
+  ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     stable = import self.inputs.nixpkgs-stable {
