@@ -33,7 +33,7 @@
 
       # fix problems where microvms would start pulling 'stale file handle' errors
       # from the virtiofs mounts after running for ~12 hours
-      microvm.virtiofsd.inodeFileHandles = "prefer";
+      microvm.virtiofsd.inodeFileHandles = "never";
 
       # persistent systemctl logs
       microvm.volumes = [
