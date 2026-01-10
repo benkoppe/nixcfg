@@ -17,23 +17,34 @@
       nixpkgs.overlays = [
         inputs.proxmox-nixos.overlays.x86_64-linux
 
-        (final: prev: rec {
-          pve-qemu-server = prev.pve-qemu-server.overrideAttrs (old: {
-            postFixup = old.postFixup + ''
-              find $out/lib $out/libexec -type f | xargs sed -i \
-                -e "s|/usr/libexec/virtiofsd|${final.virtiofsd}/libexec/virtiofsd|g"
-            '';
-          });
+        (
+          final: prev:
+          let
+            # Patch virtiofsd path in pve-qemu-server
+            pve-qemu-server' = prev.pve-qemu-server.overrideAttrs (old: {
+              buildInputs = (old.buildInputs or [ ]) ++ [ final.virtiofsd ];
+              postFixup = (old.postFixup or "") + ''
+                find $out/lib $out/libexec -type f -print0 | xargs -0 sed -i \
+                  -e "s|/usr/libexec/virtiofsd|${final.virtiofsd}/libexec/virtiofsd|g"
+              '';
+            });
 
-          pve-ha-manager = prev.pve-ha-manager.override {
-            inherit pve-qemu-server;
-          };
-
-          proxmox-ve = prev.proxmox-ve.override {
-            inherit pve-qemu-server;
-            inherit pve-ha-manager;
-          };
-        })
+            # Thread the patched server through the remaining packages
+            pve-ha-manager' = prev.pve-ha-manager.override { pve-qemu-server = pve-qemu-server'; };
+            pve-manager' = prev.pve-manager.override { pve-ha-manager = pve-ha-manager'; };
+            proxmox-ve' = prev.proxmox-ve.override {
+              pve-qemu-server = pve-qemu-server';
+              pve-ha-manager = pve-ha-manager';
+              pve-manager = pve-manager';
+            };
+          in
+          {
+            pve-qemu-server = pve-qemu-server';
+            pve-ha-manager = pve-ha-manager';
+            pve-manager = pve-manager';
+            proxmox-ve = proxmox-ve';
+          }
+        )
       ];
 
       services.proxmox-ve = {
