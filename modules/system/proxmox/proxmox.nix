@@ -16,6 +16,24 @@
 
       nixpkgs.overlays = [
         inputs.proxmox-nixos.overlays.x86_64-linux
+
+        (final: prev: rec {
+          pve-qemu-server = prev.pve-qemu-server.overrideAttrs (old: {
+            postFixup = old.postFixup + ''
+              find $out/lib $out/libexec -type f | xargs sed -i \
+                -e "s|/usr/libexec/virtiofsd|${final.virtiofsd}/libexec/virtiofsd|g"
+            '';
+          });
+
+          pve-ha-manager = prev.pve-ha-manager.override {
+            inherit pve-qemu-server;
+          };
+
+          proxmox-ve = prev.proxmox-ve.override {
+            inherit pve-qemu-server;
+            inherit pve-ha-manager;
+          };
+        })
       ];
 
       services.proxmox-ve = {
@@ -23,9 +41,8 @@
         ipAddress = lib.mkDefault "192.168.1.217";
       };
 
-      # cdrkit needed to create cloudinit drives
       environment.systemPackages = with pkgs; [
-        cdrkit
+        cdrkit # needed to create cloudinit drives
       ];
 
       services.openssh = {

@@ -31,6 +31,10 @@
       # this resolves conflict between microvm.nix and zfs.nix
       networking.hostId = "8425e349";
 
+      # fix problems where microvms would start pulling 'stale file handle' errors
+      # from the virtiofs mounts after running for ~12 hours
+      microvm.virtiofsd.inodeFileHandles = "prefer";
+
       # persistent systemctl logs
       microvm.volumes = [
         {
