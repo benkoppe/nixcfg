@@ -25,7 +25,7 @@
               buildInputs = (old.buildInputs or [ ]) ++ [ final.virtiofsd ];
               postFixup = (old.postFixup or "") + ''
                 find $out/lib $out/libexec -type f -print0 | xargs -0 sed -i \
-                  -e "s|/usr/libexec/virtiofsd|${final.virtiofsd}/libexec/virtiofsd|g"
+                  -e "s|/usr/libexec/virtiofsd|${final.virtiofsd}/bin/virtiofsd|g"
               '';
             });
 
