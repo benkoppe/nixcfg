@@ -39,9 +39,9 @@ in
 
       microvm.volumes = [
         {
-          image = "vaultwarden-data.img";
+          image = "/tank0/microvms/vaultwarden/vaultwarden-data.img";
           mountPoint = config.services.vaultwarden.config.DATA_FOLDER;
-          size = 1024; # 1 GiB
+          size = 1024 * 5; # 5 GiB
         }
       ];
 
