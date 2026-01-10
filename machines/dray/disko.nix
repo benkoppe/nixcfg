@@ -214,6 +214,11 @@
             options.mountpoint = "/tank0/backups";
             mountpoint = "/tank0/backups";
           };
+          "data/microvms" = {
+            type = "zfs_fs";
+            options.mountpoint = "/tank0/microvms";
+            mountpoint = "/tank0/microvms";
+          };
         };
       };
     };
