@@ -24,6 +24,8 @@
   boot.zfs.forceImportRoot = false;
   boot.zfs.extraPools = [ "tank0" ];
 
+  boot.kernelParams = [ "zfs.zfs_arc_max=8589934592" ]; # 8 GiB
+
   disko.devices = {
     disk =
       let
@@ -218,6 +220,14 @@
             type = "zfs_fs";
             options.mountpoint = "/tank0/microvms";
             mountpoint = "/tank0/microvms";
+          };
+          "data/proxmox" = {
+            type = "zfs_fs";
+          };
+          "data/proxmox/backups" = {
+            type = "zfs_fs";
+            options.mountpoint = "/tank0/proxmox-backups";
+            mountpoint = "/tank0/proxmox-backups";
           };
         };
       };
