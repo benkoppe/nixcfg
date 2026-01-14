@@ -35,6 +35,16 @@
       # from the virtiofs mounts after running for ~12 hours
       microvm.virtiofsd.inodeFileHandles = "never";
 
+      # chatgpt said this might help with the above virtiofs issue
+      # fileSystems."/etc" = {
+      #   fsType = "tmpfs";
+      #   device = "tmpfs";
+      #   options = [ "mode=0755" ];
+      # };
+
+      nix.optimise.automatic = lib.mkForce false;
+      nix.gc.automatic = lib.mkForce false;
+
       # persistent systemctl logs
       microvm.volumes = [
         {
