@@ -51,6 +51,11 @@
               ipv6PrefixConfig.Prefix = "fd12:4567:789a::/64";
             }
           ];
+          # Enable routing
+          networkConfig = {
+            IPv4Forwarding = true;
+            IPv6Forwarding = true;
+          };
         };
 
         # Allow inbound traffic for the DHCP server
