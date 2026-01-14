@@ -1,6 +1,7 @@
 {
   self,
   pkgs,
+  config,
   ...
 }:
 {
@@ -13,6 +14,57 @@
 
     ./microvms.nix
   ];
+
+  clan.core.vars.generators = {
+    ups-primary-password = {
+      files.value.secret = true;
+      script = ''openssl rand -base64 48 > $out/value'';
+      runtimeInputs = with pkgs; [
+        openssl
+      ];
+      share = true;
+    };
+    ups-secondary-password = {
+      files.value.secret = true;
+      script = ''openssl rand -base64 48 > $out/value'';
+      runtimeInputs = with pkgs; [
+        openssl
+      ];
+      share = true;
+    };
+  };
+
+  power.ups = {
+    enable = true;
+
+    ups."apc-smart-620" = {
+      driver = "apcsmart";
+      port = "/dev/ttyUSB0";
+      description = "USB UPS";
+      # directives = [
+      #   "vendorid = 4234" # Result from `lsusb`
+      #   "productid = 0001" # Result from `lsusb`
+      # ];
+      # summary = ''
+      #   override.battery.charge.low = 33
+      # '';
+    };
+
+    users = {
+      primary-client = {
+        passwordFile = config.clan.core.vars.generators.ups-primary-password.files.value.path;
+        upsmon = "primary";
+      };
+      secondary-client = {
+        passwordFile = config.clan.core.vars.generators.ups-secondary-password.files.value.path;
+        upsmon = "secondary";
+      };
+    };
+
+    upsmon.monitor."apc-smart-620".user = "primary-client";
+  };
+
+  users.users.nutmon.extraGroups = [ "dialout" ];
 
   my.proxmox.id = 2;
 
