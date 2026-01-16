@@ -19,5 +19,6 @@
     cloudflared-dray.id = 6;
     garage.id = 7;
     forgejo.id = 8;
+    komodo.id = 9;
   };
 }
