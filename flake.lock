@@ -330,6 +330,21 @@
         "type": "github"
       }
     },
+    "lancache-nix": {
+      "locked": {
+        "lastModified": 1741876714,
+        "narHash": "sha256-DnsK7a1b2MKOgHqRzaUChXSIavkBmv7+TrAd+WX8/lo=",
+        "owner": "menixator",
+        "repo": "lancache.nix",
+        "rev": "2df456815921c8dc8767d3abff07c086a9528634",
+        "type": "github"
+      },
+      "original": {
+        "owner": "menixator",
+        "repo": "lancache.nix",
+        "type": "github"
+      }
+    },
     "microvm": {
       "inputs": {
         "nixpkgs": [
@@ -612,6 +627,7 @@
         "flake-parts": "flake-parts_2",
         "github2forgejo": "github2forgejo",
         "import-tree": "import-tree",
+        "lancache-nix": "lancache-nix",
         "microvm": "microvm",
         "nixos-vfio": "nixos-vfio",
         "nixpkgs": "nixpkgs_2",

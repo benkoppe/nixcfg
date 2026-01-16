@@ -49,6 +49,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lancache-nix.url = "github:menixator/lancache.nix";
+
     import-tree.url = "github:vic/import-tree";
 
     treefmt-nix = {
