@@ -13,13 +13,16 @@
       }
     ];
 
-    networking.firewall.allowedTCPPorts = [ 80 ];
+    networking.firewall.allowedTCPPorts = [ 8765 ];
 
     services.tang = {
       enable = true;
 
-      listenStream = [ "80" ];
-      ipAddressAllow = [ "10.1.0.0/8" ];
+      listenStream = [ "8765" ];
+      ipAddressAllow = [
+        "10.1.0.0/8"
+        "192.168.1.0/24"
+      ];
     };
   };
 }

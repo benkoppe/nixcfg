@@ -15,6 +15,15 @@
     ./microvms.nix
   ];
 
+  networking.nat.forwardPorts = [
+    {
+      proto = "tcp";
+      sourcePort = 8765;
+      destination = "10.0.0.50";
+    }
+  ];
+  networking.firewall.allowedTCPPorts = [ 8765 ];
+
   clan.core.vars.generators = {
     ups-primary-password = {
       files.value.secret = true;

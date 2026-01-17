@@ -27,6 +27,15 @@
 
   nix.optimise.automatic = lib.mkForce false;
 
+  networking.nat.forwardPorts = [
+    {
+      proto = "tcp";
+      sourcePort = 8765;
+      destination = "10.1.0.50";
+    }
+  ];
+  networking.firewall.allowedTCPPorts = [ 8765 ];
+
   clan.core.vars.generators.zfs-encrypt-tank0 = {
     files.password = {
       secret = true;
