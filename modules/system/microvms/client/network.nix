@@ -1,12 +1,11 @@
 { lib, ... }:
 let
-  # make a two-digit string, e.g. 1 becomes "01" and 10 becomes "10"
-  twoDigits =
+  hexByte =
     n:
     let
-      s = builtins.toString n;
+      h = lib.toHexString n;
     in
-    if builtins.stringLength s == 1 then "0${s}" else s;
+    if builtins.stringLength h == 1 then "0${h}" else h;
 in
 {
   flake.modules.nixos."microvms_client_network" =
@@ -23,7 +22,7 @@ in
         };
         mac = lib.mkOption {
           type = lib.types.str;
-          default = "00:00:00:00:00:${twoDigits cfg.id}";
+          default = "02:00:00:00:00:${hexByte cfg.id}";
         };
       };
 
