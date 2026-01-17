@@ -23,8 +23,8 @@
     },
     "bluetooth": [
       {
-        "index": 30,
-        "attached_to": 32,
+        "index": 31,
+        "attached_to": 33,
         "class_list": [
           "usb",
           "bluetooth"
@@ -107,8 +107,8 @@
         "module_alias": "usb:v8087p0AAAd0002dcE0dsc01dp01icE0isc01ip01in00"
       },
       {
-        "index": 33,
-        "attached_to": 32,
+        "index": 34,
+        "attached_to": 33,
         "class_list": [
           "usb",
           "bluetooth"
@@ -550,7 +550,7 @@
         "fpu_exception": false,
         "cpuid_level": 22,
         "write_protect": false,
-        "tlb_size": 32767,
+        "tlb_size": 32557,
         "clflush_size": 64,
         "cache_alignment": 64,
         "address_sizes": {
@@ -643,6 +643,47 @@
       },
       {
         "index": 29,
+        "attached_to": 0,
+        "class_list": [
+          "disk",
+          "block_device"
+        ],
+        "base_class": {
+          "hex": "0106",
+          "name": "Mass Storage Device",
+          "value": 262
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Disk",
+          "value": 0
+        },
+        "model": "Disk",
+        "sysfs_id": "/class/block/zd0",
+        "unix_device_names": [
+          "/dev/disk/by-uuid/53400a50-06c2-4a4e-b7eb-57b754e24c9e",
+          "/dev/zd0",
+          "/dev/zvol/boot/local/swap"
+        ],
+        "resources": [
+          {
+            "type": "disk_geo",
+            "cylinders": 33288,
+            "heads": 16,
+            "sectors": 63,
+            "size": "0x0",
+            "geo_type": "logical"
+          },
+          {
+            "type": "size",
+            "unit": "sectors",
+            "value_1": 33554432,
+            "value_2": 512
+          }
+        ]
+      },
+      {
+        "index": 30,
         "attached_to": 24,
         "class_list": [
           "disk",
@@ -814,7 +855,7 @@
     ],
     "hub": [
       {
-        "index": 32,
+        "index": 33,
         "attached_to": 24,
         "class_list": [
           "usb",
@@ -901,7 +942,7 @@
         "module_alias": "usb:v1D6Bp0002d0618dc09dsc00dp01ic09isc00ip00in00"
       },
       {
-        "index": 36,
+        "index": 37,
         "attached_to": 24,
         "class_list": [
           "usb",
@@ -980,8 +1021,8 @@
     ],
     "keyboard": [
       {
-        "index": 35,
-        "attached_to": 32,
+        "index": 36,
+        "attached_to": 33,
         "class_list": [
           "keyboard",
           "usb"
@@ -1295,8 +1336,8 @@
     ],
     "mouse": [
       {
-        "index": 34,
-        "attached_to": 32,
+        "index": 35,
+        "attached_to": 33,
         "class_list": [
           "mouse",
           "usb"
@@ -1463,7 +1504,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 54
+            "address": 50
           },
           {
             "type": "phwaddr",
@@ -1654,7 +1695,7 @@
     ],
     "network_interface": [
       {
-        "index": 38,
+        "index": 39,
         "attached_to": 12,
         "class_list": [
           "network_interface"
@@ -1678,7 +1719,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 54
+            "address": 50
           },
           {
             "type": "phwaddr",
@@ -1695,7 +1736,7 @@
         ]
       },
       {
-        "index": 39,
+        "index": 40,
         "attached_to": 0,
         "class_list": [
           "network_interface"
@@ -1717,7 +1758,7 @@
         ]
       },
       {
-        "index": 40,
+        "index": 41,
         "attached_to": 22,
         "class_list": [
           "network_interface"
@@ -2451,8 +2492,8 @@
     ],
     "usb": [
       {
-        "index": 31,
-        "attached_to": 32,
+        "index": 32,
+        "attached_to": 33,
         "class_list": [
           "usb",
           "unknown"
