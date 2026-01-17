@@ -1,6 +1,6 @@
 { self, ... }:
 let
-  vHost = "komodo2.thekoppe.com";
+  vHost = "komodo.thekoppe.com";
   port = 9120;
   rootDirectory = "/var/lib/komodo";
 in
@@ -189,7 +189,7 @@ in
                   "/proc:/proc"
                   "${rootDirectory}:${rootDirectory}"
                   "${getSecret "komodo-periphery-mounted-config"}:/config/config.toml"
-                  "${getSecret "komodo-periphery-syncs-local"}:/config/komodo-syncs"
+                  "${getSecret "komodo-periphery-syncs-key"}:/config/komodo-syncs"
                 ];
                 cmd = [
                   "periphery"

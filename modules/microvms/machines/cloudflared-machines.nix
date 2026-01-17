@@ -33,7 +33,7 @@
         service = "https://10.1.0.8";
         originRequest.originServerName = "git.thekoppe.com";
       };
-      "komodo2.thekoppe.com" = {
+      "komodo.thekoppe.com" = {
         service = "https://10.1.0.9";
         originRequest.originServerName = "komodo2.thekoppe.com";
       };
