@@ -35,7 +35,7 @@
       };
       "komodo.thekoppe.com" = {
         service = "https://10.1.0.9";
-        originRequest.originServerName = "komodo2.thekoppe.com";
+        originRequest.originServerName = "komodo.thekoppe.com";
       };
     };
   };
