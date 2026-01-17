@@ -61,13 +61,14 @@ in
             description:
             {
               type ? "multiline-hidden",
+              share ? true,
             }:
             {
               prompts.value = {
                 inherit description type;
                 persist = true;
               };
-              share = true;
+              inherit share;
             };
         in
         {
@@ -75,10 +76,11 @@ in
           komodo-periphery-env = mkSecret "Environment config for core + periphery" { };
 
           komodo-core-mounted-config = mkSecret "Mounted config values for core" { };
-          komodo-periphery-mounted-config = mkSecret "Mounted config values for periphery" { };
+          komodo-periphery-mounted-config = mkSecret "Mounted config values for periphery" { share = false; };
 
-          komodo-periphery-syncs-local = mkSecret "Syncs decryption key for 'local' periphery" {
+          komodo-periphery-syncs-key = mkSecret "Syncs decryption key for 'local' periphery" {
             type = "hidden";
+            share = false;
           };
         };
 
