@@ -243,26 +243,6 @@ in
                 domain = "${vHost}";
                 answer = "${home_ipv4}";
               }
-              {
-                domain = "tang.home";
-                answer = "192.168.1.104";
-              }
-              {
-                domain = "tang-2.home";
-                answer = "192.168.1.112";
-              }
-              {
-                domain = "fileserver.thekoppe.com";
-                answer = "192.168.1.61";
-              }
-              {
-                domain = "pve.local";
-                answer = "192.168.1.100";
-              }
-              {
-                domain = "tang-1.home";
-                answer = "192.168.1.104";
-              }
             ];
             safe_fs_patterns = [ "/opt/AdGuardHome/userfilters/*" ];
             safebrowsing_cache_size = 1048576;
