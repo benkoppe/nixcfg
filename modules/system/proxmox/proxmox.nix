@@ -49,7 +49,7 @@
 
       services.proxmox-ve = {
         enable = true;
-        ipAddress = lib.mkDefault "192.168.1.217";
+        ipAddress = lib.mkDefault "192.168.1.101";
       };
 
       environment.systemPackages = with pkgs; [

@@ -66,7 +66,7 @@
 
   services.proxmox-ve = {
     enable = true;
-    ipAddress = "192.168.1.24";
+    ipAddress = "192.168.1.100";
   };
 
   # hardware.graphics.enable = true;
