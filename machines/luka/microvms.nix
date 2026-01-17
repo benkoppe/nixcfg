@@ -13,5 +13,7 @@
     cloudflared-luka.id = 6;
     # garage.id = 7;
     # forgejo.id = 8;
+
+    tang.id = 50;
   };
 }
