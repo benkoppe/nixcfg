@@ -109,6 +109,10 @@
               deploy.targetHost = "root@dray";
               tags = [ "development" ];
             };
+            shai = {
+              deploy.targetHost = "root@shai";
+              tags = [ "development" ];
+            };
           };
 
           instances = {
