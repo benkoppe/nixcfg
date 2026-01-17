@@ -45,5 +45,7 @@
     komodo.id = 9;
     lancache.id = 10;
     resilio.id = 11;
+
+    tang.id = 50;
   };
 }
