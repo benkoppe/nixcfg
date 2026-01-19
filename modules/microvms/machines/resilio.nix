@@ -30,7 +30,7 @@ in
         {
           proto = "virtiofs";
           tag = "resilio-files";
-          source = "/tank0/files";
+          source = "/tank0/files/resilio";
           mountPoint = "/mnt/files";
         }
       ];
