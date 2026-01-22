@@ -11,6 +11,7 @@
     zfs-encrypt
     proxmox
     tailgate
+    copyparty
 
     self.inputs.vgpu4nixos.nixosModules.host
     # self.inputs.nixos-vfio.nixosModules.vfio
@@ -26,6 +27,8 @@
   programs.ssh.startAgent = true;
 
   nix.optimise.automatic = lib.mkForce false;
+
+  services.vnstat.enable = true;
 
   networking.nat.forwardPorts = [
     {
