@@ -44,6 +44,8 @@
 
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
+    copyparty.url = "github:9001/copyparty";
+
     github2forgejo = {
       url = "github:RGBCube/GitHub2Forgejo";
       inputs.nixpkgs.follows = "nixpkgs";
