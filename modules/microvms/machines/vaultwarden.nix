@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, lib, ... }:
 let
   dataDir = "/var/lib/vaultwarden/data";
 
@@ -64,6 +64,8 @@ in
         ];
       };
       clan.core.vars.generators.smtp-koppe-development.files.password.owner = "vaultwarden";
+
+      services.restic.backups.vaultwarden.timerConfig.OnCalendar = lib.mkForce "*-*-* *:0/15";
 
       services.vaultwarden = {
         enable = true;
