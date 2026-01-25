@@ -65,7 +65,7 @@ in
       };
       clan.core.vars.generators.smtp-koppe-development.files.password.owner = "vaultwarden";
 
-      services.restic.backups.vaultwarden.timerConfig.OnCalendar = lib.mkForce "*-*-* *:0/15";
+      services.restic.backups.vaultwarden.timerConfig.OnCalendar = lib.mkForce "*-*-* *:0";
 
       services.vaultwarden = {
         enable = true;
