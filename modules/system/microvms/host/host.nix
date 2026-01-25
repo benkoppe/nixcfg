@@ -1,4 +1,9 @@
-{ self, inputs, ... }:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
 {
   flake.modules.nixos."microvms_host" =
     { config, ... }:
@@ -8,6 +13,9 @@
 
         microvms_host_network
       ];
+
+      # fixes daily crash issue with shared nix store
+      nix.optimise.automatic = lib.mkForce false;
 
       programs.bash.interactiveShellInit = ''
         enter() {

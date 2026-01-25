@@ -2,7 +2,6 @@
   self,
   pkgs,
   config,
-  lib,
   ...
 }:
 {
@@ -25,8 +24,6 @@
   ];
 
   programs.ssh.startAgent = true;
-
-  nix.optimise.automatic = lib.mkForce false;
 
   services.vnstat.enable = true;
 
