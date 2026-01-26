@@ -55,7 +55,7 @@ in
               secret = true;
               inherit owner;
             };
-            script = ''openssl rand -base64 32 > $out/value'';
+            script = "openssl rand -base64 32 > $out/value";
             runtimeInputs = with pkgs; [
               openssl
             ];
@@ -85,6 +85,8 @@ in
           ANALYTICS_DISABLED = true;
 
           UI_CONFIG_DISABLED = true;
+
+          HOME_PAGE_URL = "/settings/apps";
 
           SMTP_HOST = "smtp.gmail.com";
           SMTP_PORT = 587;
