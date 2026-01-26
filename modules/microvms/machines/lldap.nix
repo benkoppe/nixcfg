@@ -63,9 +63,9 @@ in
         in
         {
           serviceConfig.LoadCredential = [
-            ''key-seed:${getSecret "lldap-key-seed"}''
-            ''jwt-secret:${getSecret "lldap-jwt-secret"}''
-            ''user-pass:${getSecret "lldap-user-pass"}''
+            "key-seed:${getSecret "lldap-key-seed"}"
+            "jwt-secret:${getSecret "lldap-jwt-secret"}"
+            "user-pass:${getSecret "lldap-user-pass"}"
           ];
         };
       services.lldap = {

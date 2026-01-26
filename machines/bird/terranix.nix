@@ -63,7 +63,7 @@
             };
 
             source_details = {
-              source_id = lib.tfRef ''data.oci_core_images.this.images.0.id'';
+              source_id = lib.tfRef "data.oci_core_images.this.images.0.id";
               source_type = "image";
             };
 

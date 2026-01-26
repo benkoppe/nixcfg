@@ -49,7 +49,7 @@
         };
         clan.core.vars.generators.restic-password = {
           files.value.secret = true;
-          script = ''openssl rand -base64 48 > $out/value'';
+          script = "openssl rand -base64 48 > $out/value";
           runtimeInputs = with pkgs; [
             openssl
           ];

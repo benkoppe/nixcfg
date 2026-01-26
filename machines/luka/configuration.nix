@@ -27,7 +27,7 @@
   clan.core.vars.generators = {
     ups-primary-password = {
       files.value.secret = true;
-      script = ''openssl rand -base64 48 > $out/value'';
+      script = "openssl rand -base64 48 > $out/value";
       runtimeInputs = with pkgs; [
         openssl
       ];
@@ -35,7 +35,7 @@
     };
     ups-secondary-password = {
       files.value.secret = true;
-      script = ''openssl rand -base64 48 > $out/value'';
+      script = "openssl rand -base64 48 > $out/value";
       runtimeInputs = with pkgs; [
         openssl
       ];
