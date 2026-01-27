@@ -11,4 +11,6 @@
   my.tailgate.routes = [
     "10.2.0.0/24"
   ];
+
+  services.vnstat.enable = true;
 }

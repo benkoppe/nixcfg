@@ -24,6 +24,8 @@
   ];
   networking.firewall.allowedTCPPorts = [ 8765 ];
 
+  services.vnstat.enable = true;
+
   clan.core.vars.generators = {
     ups-primary-password = {
       files.value.secret = true;
