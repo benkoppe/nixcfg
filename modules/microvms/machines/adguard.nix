@@ -248,7 +248,15 @@ in
                   domain = "${config.my.adguard.vHost}";
                   answer = "${config.my.microvm.ipv4}";
                 }
-              ];
+              ]
+              ++ (lib.pipe self.clan.nixosConfigurations.vm-lancache.config.services.lancache.domainIndex [
+                (map (entry: entry.domains))
+                lib.flatten
+                (map (domain: {
+                  inherit domain;
+                  answer = "10.1.0.10";
+                }))
+              ]);
               safe_fs_patterns = [ "/opt/AdGuardHome/userfilters/*" ];
               safebrowsing_cache_size = 1048576;
               safesearch_cache_size = 1048576;

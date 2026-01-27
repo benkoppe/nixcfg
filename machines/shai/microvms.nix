@@ -1,6 +1,5 @@
 {
   self,
-  lib,
   ...
 }:
 {
@@ -19,18 +18,6 @@
       id = 1;
       config = {
         my.adguard.vHost = "shai.adguard.thekoppe.com";
-
-        services.adguardhome.settings.filtering.rewrites =
-          lib.pipe
-            self.clan.nixosConfigurations.dray.config.microvm.vms.lancache.config.config.services.lancache.domainIndex
-            [
-              (map (entry: entry.domains))
-              lib.flatten
-              (map (domain: {
-                inherit domain;
-                answer = "10.1.0.10";
-              }))
-            ];
       };
     };
 
