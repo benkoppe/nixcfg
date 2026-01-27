@@ -96,7 +96,7 @@
       flake.clan = {
         meta = {
           name = "infra";
-          domain = "thekoppe";
+          domain = "thekoppe.com";
           description = "Homelab";
         };
 
