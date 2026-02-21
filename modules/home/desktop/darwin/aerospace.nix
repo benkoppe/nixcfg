@@ -71,7 +71,7 @@
               end
 
               function aerospaceSwipe(cmd)
-                local command = string.format([[ %s workspace "$(%s list-workspaces --monitor mouse --visible)" && %s workspace --no-stdin %s ]], AEROSPACE, AEROSPACE, AEROSPACE, cmd)
+                local command = string.format([[ %s list-workspaces --monitor mouse --empty no | %s workspace --stdin %s ]], AEROSPACE, AEROSPACE, cmd)
                 os.execute(command)
               end
 
