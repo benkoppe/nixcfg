@@ -18,7 +18,7 @@
         }
         #{ app = "Users/ben/Applications/Home Manager Apps/Ghostty.app"; }
         { app = "${pkgs.ghostty-bin}/Applications/Ghostty.app"; }
-        { app = "/Applications/Xcode.app"; }
+        { app = "/Volumes/T7 Apps/Manual/Xcode.app"; }
         {
           spacer = {
             small = false;
