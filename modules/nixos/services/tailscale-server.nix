@@ -21,6 +21,7 @@
         "--ssh"
         "--advertise-exit-node"
         "--advertise-routes=10.192.168.0/24"
+        "--accept-routes"
       ];
     };
 
