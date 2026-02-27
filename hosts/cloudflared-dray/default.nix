@@ -20,11 +20,11 @@ in
           address = "10.1.1.55";
           port = 3000;
         }
-        {
-          vHost = "pocket.thekoppe.com";
-          address = "10.1.1.21";
-          port = 1411;
-        }
+        # {
+        #   vHost = "pocket.thekoppe.com";
+        #   address = "10.1.1.21";
+        #   port = 1411;
+        # }
         {
           vHost = "komodo2.thekoppe.com";
           address = "10.192.168.90";
