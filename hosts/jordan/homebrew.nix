@@ -17,6 +17,7 @@
         # "docker"
         (greedy "visual-studio-code")
         (greedy "xcodes-app")
+        (greedy "arduino-ide")
 
         (greedy "figma")
         # (greedy "figma-agent")
@@ -57,6 +58,7 @@
 
         # Work tools
         (greedy "microsoft-powerpoint")
+        (greedy "obsidian")
 
         (greedy "macfuse")
       ];
