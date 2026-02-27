@@ -6,30 +6,30 @@
       description = "List of default nix build machines.";
 
       default = [
-        (
-          let
-            inherit (config.mySnippets.hosts) nix-builder;
-          in
-          {
-            hostName = nix-builder.ipv4;
-            maxJobs = 10;
-            protocol = "ssh-ng";
-            speedFactor = 2;
-            sshKey = "${config.mySnippets.primaryHome}/.ssh/pve/nix-builder";
-            sshUser = "builder";
-            supportedFeatures = [
-              "nixos-test"
-              "big-parallel"
-              "benchmark"
-              "kvm"
-            ];
-            systems = [
-              "x86_64-linux"
-              "aarch64-linux"
-            ];
-            publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFFM25xRW9rR2wzNmgyNWp6VU1EOW4vUkUvSmx4T3FoaitZYldEcHYybWkgcm9vdEBuaXhvcwo=";
-          }
-        )
+        # (
+        #   let
+        #     inherit (config.mySnippets.hosts) nix-builder;
+        #   in
+        #   {
+        #     hostName = nix-builder.ipv4;
+        #     maxJobs = 10;
+        #     protocol = "ssh-ng";
+        #     speedFactor = 2;
+        #     sshKey = "${config.mySnippets.primaryHome}/.ssh/pve/nix-builder";
+        #     sshUser = "builder";
+        #     supportedFeatures = [
+        #       "nixos-test"
+        #       "big-parallel"
+        #       "benchmark"
+        #       "kvm"
+        #     ];
+        #     systems = [
+        #       "x86_64-linux"
+        #       "aarch64-linux"
+        #     ];
+        #     publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFFM25xRW9rR2wzNmgyNWp6VU1EOW4vUkUvSmx4T3FoaitZYldEcHYybWkgcm9vdEBuaXhvcwo=";
+        #   }
+        # )
       ];
     };
   };
