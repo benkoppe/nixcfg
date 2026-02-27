@@ -16,8 +16,7 @@
         webroot = null;
         email = "koppe.development@gmail.com";
         dnsProvider = "cloudflare";
-        dnsResolver = "1.1.1.1:53";
-        dnsPropagationCheck = true;
+        dnsPropagationCheck = false;
         environmentFile = config.age.secrets.cloudflare-api.path;
       };
     };
