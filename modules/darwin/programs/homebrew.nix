@@ -16,6 +16,9 @@
         upgrade = true;
         cleanup = "zap";
       };
+      caskArgs = {
+        appdir = "/Volumes/T7 Apps/Homebrew";
+      };
     };
 
     nix-homebrew = {
