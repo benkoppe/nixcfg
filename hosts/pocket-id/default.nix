@@ -24,6 +24,8 @@ in
 
       UI_CONFIG_DISABLED = true;
 
+      ENCRYPTION_KEY_FILE = config.age.secrets.pocket-encryption-key.path;
+
       SMTP_HOST = "smtp.gmail.com";
       SMTP_PORT = 587;
       SMTP_USER = "koppe.development@gmail.com";
@@ -50,8 +52,6 @@ in
       LDAP_SKIP_CERT_VERIFY = false;
       LDAP_SOFT_DELETE_USERS = false;
       LDAP_BIND_PASSWORD_FILE = config.age.secrets.pocket-ldap-pass.path;
-
-      LDAP_ENCRYPTION_KEY_FILE = config.age.secrets.pocket-encryption-key.path;
 
       LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER = "uuid";
       LDAP_ATTRIBUTE_USER_USERNAME = "uid";
