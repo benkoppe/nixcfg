@@ -104,6 +104,9 @@
 
         inventory = {
           machines = {
+            butler = {
+              tags = [ "development" ];
+            };
             luka = {
               deploy.targetHost = "root@luka";
               tags = [ "development" ];
