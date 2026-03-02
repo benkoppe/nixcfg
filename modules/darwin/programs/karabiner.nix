@@ -55,6 +55,26 @@ let
       ];
     }
 
+    {
+      description = "Let mouse control aerospace";
+      manipulators =
+        let
+          mkAerospaceCmd = direction: ''
+            export aerospace='/Users/ben/.nix-profile/bin/aerospace';
+            $aerospace list-workspaces --monitor mouse --empty no | $aerospace workspace --stdin --wrap-around ${direction}
+          '';
+        in
+        allBasic [
+          {
+            from.key_code = "f17";
+            to = [ { shell_command = mkAerospaceCmd "next"; } ];
+          }
+          {
+            from.key_code = "f18";
+            to = [ { shell_command = mkAerospaceCmd "prev"; } ];
+          }
+        ];
+    }
   ];
 in
 {
