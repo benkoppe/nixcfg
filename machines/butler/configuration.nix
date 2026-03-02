@@ -7,6 +7,8 @@
 {
   imports = with self.modules.nixos; [
     basics
+    development
+
     niri
 
     "${modulesPath}/virtualisation/vmware-guest.nix"
@@ -22,7 +24,6 @@
   nixpkgs.config.allowUnsupportedSystem = true;
 
   # Share our host filesystem
-  system.fsPackages = [ pkgs.open-vm-tools ];
   fileSystems."/host" = {
     fsType = "fuse./run/current-system/sw/bin/vmhgfs-fuse";
     device = ".host:/";
@@ -33,7 +34,6 @@
       "allow_other"
       "auto_unmount"
       "defaults"
-      "x-systemd.automount"
     ];
   };
 
