@@ -53,6 +53,8 @@
 
     lancache-nix.url = "github:menixator/lancache.nix";
 
+    niri-flake.url = "github:sodiboo/niri-flake";
+
     import-tree.url = "github:vic/import-tree";
 
     treefmt-nix = {
