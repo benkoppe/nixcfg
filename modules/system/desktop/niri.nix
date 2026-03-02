@@ -10,11 +10,23 @@
         inputs.niri-flake.overlays.niri
       ];
 
+      environment.systemPackages = with pkgs; [ alacritty ];
+
+      services.displayManager = {
+        enable = true;
+        defaultSession = "niri";
+
+        autoLogin = {
+          enable = true;
+          user = "ben";
+        };
+
+        ly.enable = true;
+      };
+
       programs.niri = {
         enable = true;
       };
-
-      environment.systemPackages = with pkgs; [ alacritty ];
 
       # services.xserver = {
       #   enable = true;
