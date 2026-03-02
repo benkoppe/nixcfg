@@ -35,9 +35,26 @@ let
               lazy = true;
             }
           ];
+
+    {
+      description = "Disable CMD + H";
+      manipulators = allBasic [
+        {
+          from = {
+            key_code = "h";
+            modifiers.mandatory = [ "command" ];
+          };
+          to = [ ];
+          conditions = [
+            {
+              type = "frontmost_application_unless";
+              bundle_identifiers = [ "^com\\.vmware\\.fusion$" ];
+            }
+          ];
         }
       ];
     }
+
   ];
 in
 {

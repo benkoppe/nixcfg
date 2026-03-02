@@ -44,19 +44,6 @@
           AppWindowGroupingBehavior = false; # Show them one at a time.
         };
       }
-      (lib.mkIf config.myDarwin.programs.hammerspoon.enable {
-        # Disable cmd+h and cmd+shift+h annoying hide commands
-        home-manager.sharedModules = [
-          {
-            xdg.configFile."hammerspoon/init.lua".text =
-              lib.mkAfter # lua
-                ''
-                  hs.hotkey.bind({"cmd"}, "h", function() end)
-                  hs.hotkey.bind({"cmd", "shift"}, "h", function() end)
-                '';
-          }
-        ];
-      })
     ]
   );
 }
