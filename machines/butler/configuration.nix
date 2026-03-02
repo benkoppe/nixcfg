@@ -7,6 +7,7 @@
 {
   imports = with self.modules.nixos; [
     basics
+    i3
 
     "${modulesPath}/virtualisation/vmware-guest.nix"
   ];
