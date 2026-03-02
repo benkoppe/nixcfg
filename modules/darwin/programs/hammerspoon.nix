@@ -125,6 +125,10 @@
                 bundleID = 'com.hammerandchisel.discord',
                 hyper_key = 'd',
               },
+              ['VMWare'] = {
+                bundleID = 'com.vmware.fusion',
+                hyper_key = '\\',
+              },
             }
 
             hyper = require('hyper')
