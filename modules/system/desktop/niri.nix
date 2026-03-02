@@ -10,7 +10,11 @@
         inputs.niri-flake.overlays.niri
       ];
 
-      programs.niri = { };
+      programs.niri = {
+        enable = true;
+      };
+
+      environment.systemPackages = with pkgs; [ alacritty ];
 
       # services.xserver = {
       #   enable = true;
