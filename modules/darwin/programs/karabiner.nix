@@ -20,6 +20,14 @@ let
               lazy = true;
             }
           ];
+          conditions = [
+            {
+              type = "frontmost_application_unless";
+              bundle_identifiers = [
+                "^com\\.moonlight-stream\\.Moonlight$"
+              ];
+            }
+          ];
         }
       ];
     }
@@ -35,6 +43,17 @@ let
               lazy = true;
             }
           ];
+          conditions = [
+            {
+              type = "frontmost_application_unless";
+              bundle_identifiers = [
+                "^com\\.moonlight-stream\\.Moonlight$"
+              ];
+            }
+          ];
+        }
+      ];
+    }
 
     {
       description = "Disable CMD + H";
