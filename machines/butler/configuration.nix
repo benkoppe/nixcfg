@@ -7,7 +7,7 @@
 {
   imports = with self.modules.nixos; [
     basics
-    "./hardware.nix"
+    ./hardware.nix
 
     "${modulesPath}/virtualisation/vmware-guest.nix"
     "${modulesPath}/virtualisation/vmware-image.nix"
