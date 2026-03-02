@@ -3,7 +3,7 @@
   flake.modules.nixos.niri =
     { pkgs, ... }:
     {
-      inputs = [
+      imports = [
         inputs.niri-flake.nixosModules.niri
       ];
       nixpkgs.overlays = [
