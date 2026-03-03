@@ -5,6 +5,8 @@
 
     home-manager.users.ben = {
       imports = with self.modules.home; [ ben ];
+
+      home.stateVersion = "25.05";
     };
   };
 
