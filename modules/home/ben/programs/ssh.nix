@@ -1,20 +1,23 @@
 {
-  flake.modules.nixos."ben_ssh_secrets" = {
-    clan.core.vars.generators."github-ssh-key" = {
-      files."key" = {
-        secret = true;
-        owner = "ben";
+  flake.modules.nixos."ben_ssh_secrets" =
+    { pkgs, ... }:
+    {
+      clan.core.vars.generators."github-ssh-key" = {
+        files."key" = {
+          secret = true;
+          owner = "ben";
+        };
+        files."key.pub" = {
+          secret = true;
+          owner = "ben";
+        };
+        runtimeInputs = [ pkgs.openssh ];
+        script = ''
+          ssh-keygen -t ed25519 -N "" -C "" -f "$out"/key
+        '';
+        share = true;
       };
-      files."key.pub" = {
-        secret = true;
-        owner = "ben";
-      };
-      script = ''
-        ssh-keygen -t ed25519 -N "" -C "" -f "$out"/key
-      '';
-      share = true;
     };
-  };
 
   flake.modules.homeManager."ben_ssh" =
     { osConfig, ... }:
