@@ -1,7 +1,39 @@
 { lib, ... }:
 {
+  flake.modules.nixos."ben_git_secrets" = {
+    clan.core.vars.generators."github-signing-key" = {
+      files."key" = {
+        secret = true;
+        owner = "ben";
+      };
+      files."key.pub" = {
+        secret = true;
+        owner = "ben";
+      };
+      script = ''
+        ssh-keygen -t ed25519 -N "" -C "" -f "$out"/key
+      '';
+      share = true;
+    };
+
+    clan.core.vars.generators."forgejo-ssh-key" = {
+      files."key" = {
+        secret = true;
+        owner = "ben";
+      };
+      files."key.pub" = {
+        secret = true;
+        owner = "ben";
+      };
+      script = ''
+        ssh-keygen -t ed25519 -N "" -C "" -f "$out"/key
+      '';
+      share = true;
+    };
+  };
+
   flake.modules.homeManager."ben_git" =
-    { config, ... }:
+    { config, osConfig, ... }:
     {
       options.my.home.git = {
         signingKey.enable = lib.mkEnableOption "use github signing key for commits";
@@ -60,29 +92,15 @@
             programs.git.settings = {
               commit.gpgsign = true;
               gpg.format = "ssh";
-              user.signingKey = config.clan.core.vars.generators."github-signing-key".files."key".path;
+              user.signingKey = osConfig.clan.core.vars.generators."github-signing-key".files."key".path;
             };
 
-            clan.core.vars.generators."github-signing-key" = {
-              files."key" = {
-                secret = true;
-                owner = "ben";
-              };
-              files."key.pub" = {
-                secret = true;
-                owner = "ben";
-              };
-              script = ''
-                ssh-keygen -t ed25519 -N "" -C "" -f "$out"/key
-              '';
-              share = true;
-            };
           }
         ))
 
         (lib.mkIf config.my.home.git.forgejo.enable (
           let
-            sshKeyPath = config.clan.core.vars.generators."forgejo-ssh-key".files."key".path;
+            sshKeyPath = osConfig.clan.core.vars.generators."forgejo-ssh-key".files."key".path;
           in
           {
             programs.git = {
@@ -110,20 +128,6 @@
               ];
             };
 
-            clan.core.vars.generators."forgejo-ssh-key" = {
-              files."key" = {
-                secret = true;
-                owner = "ben";
-              };
-              files."key.pub" = {
-                secret = true;
-                owner = "ben";
-              };
-              script = ''
-                ssh-keygen -t ed25519 -N "" -C "" -f "$out"/key
-              '';
-              share = true;
-            };
           }
         ))
       ];

@@ -1,22 +1,24 @@
 {
-  flake.modules.homeManager."ben_ssh" =
-    { config, ... }:
-    {
-      clan.core.vars.generators."github-ssh-key" = {
-        files."key" = {
-          secret = true;
-          owner = "ben";
-        };
-        files."key.pub" = {
-          secret = true;
-          owner = "ben";
-        };
-        script = ''
-          ssh-keygen -t ed25519 -N "" -C "" -f "$out"/key
-        '';
-        share = true;
+  flake.modules.nixos."ben_ssh_secrets" = {
+    clan.core.vars.generators."github-ssh-key" = {
+      files."key" = {
+        secret = true;
+        owner = "ben";
       };
+      files."key.pub" = {
+        secret = true;
+        owner = "ben";
+      };
+      script = ''
+        ssh-keygen -t ed25519 -N "" -C "" -f "$out"/key
+      '';
+      share = true;
+    };
+  };
 
+  flake.modules.homeManager."ben_ssh" =
+    { osConfig, ... }:
+    {
       programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
@@ -25,7 +27,7 @@
           "github.com" = {
             identitiesOnly = true;
             identityFile = [
-              config.clan.core.vars.generators."github-ssh-key".files."key".path
+              osConfig.clan.core.vars.generators."github-ssh-key".files."key".path
             ];
           };
         };
