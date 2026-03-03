@@ -16,6 +16,8 @@
 
   flake.modules.homeManager.ben = {
     imports = with self.modules.homeManager; [
+      ben_ghostty
+
       ben_git
       ben_ssh
     ];
