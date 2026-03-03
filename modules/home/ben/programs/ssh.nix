@@ -1,5 +1,5 @@
 {
-  flake.modules.home."ben/ssh" =
+  flake.modules.homeManager."ben_ssh" =
     { config, ... }:
     {
       clan.core.vars.generators."github-ssh-key" = {

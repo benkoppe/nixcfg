@@ -4,16 +4,16 @@
     imports = [ inputs.home-manager.nixosModules.home-manager ];
 
     home-manager.users.ben = {
-      imports = with self.modules.home; [ ben ];
+      imports = with self.modules.homeManager; [ ben ];
 
       home.stateVersion = "25.05";
     };
   };
 
-  flake.modules.home.ben = {
-    imports = with self.modules.home; [
-      git
-      ssh
+  flake.modules.homeManager.ben = {
+    imports = with self.modules.homeManager; [
+      ben_git
+      ben_ssh
     ];
   };
 }

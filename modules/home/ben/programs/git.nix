@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  flake.modules.home."ben/git" =
+  flake.modules.homeManager."ben_git" =
     { config, ... }:
     {
       options.my.home.git = {
