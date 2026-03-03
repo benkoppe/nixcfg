@@ -349,6 +349,27 @@
         "type": "github"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772380461,
+        "narHash": "sha256-O3ukj3Bb3V0Tiy/4LUfLlBpWypJ9P0JeUgsKl2nmZZY=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "f140aa04d7d14f8a50ab27f3691b5766b17ae961",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "import-tree": {
       "locked": {
         "lastModified": 1763762820,
@@ -750,6 +771,7 @@
         "fastapi-dls-nixos": "fastapi-dls-nixos",
         "flake-parts": "flake-parts_2",
         "github2forgejo": "github2forgejo",
+        "home-manager": "home-manager",
         "import-tree": "import-tree",
         "lancache-nix": "lancache-nix",
         "microvm": "microvm",

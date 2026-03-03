@@ -20,6 +20,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     terranix = {
       url = "github:terranix/terranix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -151,6 +156,12 @@
                   "input"
                 ];
               };
+
+              perMachine.nixosModule =
+                { self, ... }:
+                {
+                  imports = with self.modules.nixos; [ development ];
+                };
             };
 
             clan-cache = {
