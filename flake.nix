@@ -66,7 +66,7 @@
     };
 
     opencode = {
-      url = "github:sst/opencode";
+      url = "github:sst/opencode?ref=production";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
