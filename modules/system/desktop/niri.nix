@@ -10,6 +10,14 @@
         inputs.niri-flake.overlays.niri
       ];
 
+      # We need an XDG portal for various applications to work properly,
+      # such as Flatpak applications.
+      xdg.portal = {
+        enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        config.common.default = "*";
+      };
+
       environment.systemPackages = with pkgs; [ alacritty ];
 
       services.displayManager = {
