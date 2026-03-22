@@ -32,6 +32,11 @@
                   type = lib.types.listOf lib.types.str;
                   default = [ ];
                 };
+                onCalendar = lib.mkOption {
+                  description = "OnCalendar value for the backup timer";
+                  type = lib.types.str;
+                  default = "*-*-* 03:00:00"; # daily at 3am PST
+                };
               };
             }
           )
@@ -68,7 +73,7 @@
               services:
               lib.optionalString (
                 services != [ ]
-              ) "${pkgs.systemd}/bin/systemctl start ${lib.concatStringsSep " " services}";
+              ) "${pkgs.systemd}/bin/systemctl start --wait ${lib.concatStringsSep " " services}";
           in
           lib.mapAttrs (_name: cfg: {
             repository = "s3:s3.us-west-004.backblazeb2.com/resticblaze/${cfg.repository}";
@@ -84,7 +89,7 @@
             initialize = true;
 
             timerConfig = {
-              OnCalendar = "*-*-* 03:00:00"; # daily at 3am PST
+              OnCalendar = cfg.onCalendar;
               RandomizedDelaySec = "1h";
               Persistent = true;
             };

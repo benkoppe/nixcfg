@@ -23,6 +23,7 @@ in
       my.backup-b2.lldap = {
         paths = [ "/var/lib/private/lldap" ];
         restartServices = [ "lldap" ];
+        onCalendar = "*-*-* 01:00:00";
       };
 
       microvm.volumes = [
