@@ -16,6 +16,8 @@
       enable = true;
       autocd = false;
       cdpath = [ "~/Projects" ];
+      dotDir = "${config.xdg.configHome}/zsh";
+
       plugins = [
         {
           name = "powerlevel10k";
