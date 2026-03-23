@@ -114,9 +114,6 @@
 
           alt-tab-macos
 
-          # docker daemon without docker desktop
-          colima
-
           raycast
         ]
       );
