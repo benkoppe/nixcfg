@@ -63,8 +63,8 @@
         ffmpeg
         font-awesome
         hack-font
-        noto-fonts
-        noto-fonts-color-emoji
+        # noto-fonts
+        # noto-fonts-color-emoji
         jetbrains-mono
         meslo-lgs-nf
 
@@ -77,6 +77,8 @@
         # Node.js dev tools
         nodejs_24
         pnpm
+        bun
+        deno
 
         # Python
         python3
