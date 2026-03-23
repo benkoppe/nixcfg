@@ -45,6 +45,7 @@
         # "slack"
         # "telegram"
         (greedy "zoom")
+        (greedy "spotify")
 
         # Utility Tools - Examples (uncomment as needed)
         # "syncthing"
@@ -68,5 +69,9 @@
       Tailscale = 1475387142;
       Bitwarden = 1352778147;
     };
+
+    brews = [
+      "blacktop/tap/ipsw"
+    ];
   };
 }
