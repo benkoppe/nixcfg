@@ -17,7 +17,7 @@
         cleanup = "zap";
       };
       caskArgs = {
-        appdir = "/Volumes/T7 Apps/Homebrew";
+        appdir = "/Volumes/Apps/Homebrew";
       };
     };
 
