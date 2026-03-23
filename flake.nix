@@ -94,6 +94,11 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    blacktop-homebrew = {
+      # for ipsw on macos
+      url = "github:blacktop/homebrew-tap";
+      flake = false;
+    };
 
     secrets = {
       url = "github:/benkoppe/nix-secrets";

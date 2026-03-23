@@ -30,6 +30,7 @@
         "homebrew/homebrew-core" = inputs.homebrew-core;
         "homebrew/homebrew-cask" = inputs.homebrew-cask;
         "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+        "blacktop/homebrew-tap" = inputs.blacktop-homebrew;
       };
 
       user = config.mySnippets.primaryUser;
