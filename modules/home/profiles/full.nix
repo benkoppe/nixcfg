@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs',
   ...
 }:
 {
@@ -40,7 +39,6 @@
         sqlite
         cachix
         watch
-        inputs'.colmena.packages.colmena
 
         dust
         sd

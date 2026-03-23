@@ -21,13 +21,6 @@
       };
     };
 
-    colmena.url = "github:zhaofengli/colmena";
-
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     determinate-nix.url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
 
@@ -45,21 +38,6 @@
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    terranix = {
-      url = "github:terranix/terranix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    github2forgejo = {
-      url = "github:RGBCube/GitHub2Forgejo";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hercules-ci-effects = {
       url = "github:hercules-ci/hercules-ci-effects";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,12 +46,6 @@
     opencode = {
       url = "github:sst/opencode?ref=production";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
 
     nvim-flake = {
@@ -159,7 +131,6 @@
       imports = [
         ./modules/flake
         inputs.home-manager.flakeModules.home-manager
-        inputs.terranix.flakeModule
         inputs.hercules-ci-effects.flakeModule
       ];
     };
