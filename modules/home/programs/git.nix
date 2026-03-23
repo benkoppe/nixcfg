@@ -52,7 +52,7 @@
               receive.fsckObjects = true;
               transfer.fsckobjects = true;
 
-              url."ssh://git@github.com/".insteadOf = "https://github.com/";
+              # url."ssh://git@github.com/".insteadOf = "https://github.com/";
             };
           };
         };
@@ -87,10 +87,10 @@
         in
         {
           programs.git = {
-            settings = {
-              url."ssh://forgejo@${config.mySnippets.hosts.forgejo.ipv4}/".insteadOf =
-                "https://git.thekoppe.com/";
-            };
+            # settings = {
+            #   url."ssh://forgejo@${config.mySnippets.hosts.forgejo.ipv4}/".insteadOf =
+            #     "https://git.thekoppe.com/";
+            # };
 
             includes = [
               {

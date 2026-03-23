@@ -48,42 +48,17 @@
 
       (lib.mkIf config.myHome.programs.ssh.enableServers {
         programs.ssh = {
-          matchBlocks =
-            let
-              inherit (config.mySnippets) hosts;
-            in
-            {
-              "russ" = {
-                hostname = hosts.russ.ipv4;
-                user = "root";
-                identitiesOnly = true;
-                identityFile = config.age.secrets.ssh-russ.path;
-              };
-
-              "nix-builder" = {
-                hostname = hosts.nix-builder.ipv4;
-                user = "builder";
-                identitiesOnly = true;
-                identityFile = config.age.secrets.ssh-nix-builder.path;
-              };
-
-              "nix-builder-root" = {
-                hostname = hosts.nix-builder.ipv4;
-                user = "root";
-                identitiesOnly = true;
-                identityFile = config.age.secrets.ssh-nix-builder-root.path;
-              };
-
-              "*" = {
-                host = "*";
-                user = "root";
-                identitiesOnly = true;
-                identityFile = [
-                  config.age.secrets.ssh-colmena.path
-                  config.age.secrets.ssh-lxc-bootstrap.path
-                ];
-              };
+          matchBlocks = {
+            "*" = {
+              host = "*";
+              user = "root";
+              identitiesOnly = true;
+              identityFile = [
+                config.age.secrets.ssh-colmena.path
+                config.age.secrets.ssh-lxc-bootstrap.path
+              ];
             };
+          };
         };
 
         age.secrets = {
