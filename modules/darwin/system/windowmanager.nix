@@ -41,7 +41,9 @@
         };
 
         system.defaults.WindowManager = {
-          AppWindowGroupingBehavior = false; # Show them one at a time.
+          AppWindowGroupingBehavior = true; # Group windows of the same app together.
+
+          EnableTiledWindowMargins = false; # Don't add margins to tiled windows.
         };
       }
     ]
