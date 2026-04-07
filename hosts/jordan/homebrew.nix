@@ -66,7 +66,7 @@
 
     masApps = {
       # "wireguard" = 1451685025;
-      Tailscale = 1475387142;
+      # Tailscale = 1475387142;
       Bitwarden = 1352778147;
     };
 
