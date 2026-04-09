@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   flake.modules.nixos.niri =
     { pkgs, ... }:
@@ -34,6 +34,11 @@
 
       programs.niri = {
         enable = true;
+
+        # settings.xwayland-satellite = {
+        #   enable = true;
+        #   path = lib.getExe pkgs.xwayland-satellite-unstable;
+        # };
       };
 
       # services.xserver = {
