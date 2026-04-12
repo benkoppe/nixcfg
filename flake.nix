@@ -76,7 +76,7 @@
       "https://nix-community.cachix.org"
       "https://cache.nixos.org"
       "https://install.determinate.systems"
-      # "https://cache.saumon.network/proxmox-nixos"
+      "https://cache.saumon.network/proxmox-nixos"
       "https://niri-flake-benkoppe.cachix.org"
       "https://niri.cachix.org"
     ];
@@ -85,7 +85,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
-      # "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
+      "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
       "niri-flake-benkoppe.cachix.org-1:wMG1r1sgn0hQN1esSnSRTnLUB0fQegCEUhA2TDlRwzI="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
     ];
