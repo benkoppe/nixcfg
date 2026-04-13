@@ -13,6 +13,8 @@
         };
       in
       [
+        (greedy "tailscale-app")
+
         # Development Tools
         # "docker"
         (greedy "visual-studio-code")
@@ -32,6 +34,7 @@
         (greedy "alfred")
         (greedy "jordanbaird-ice")
         (greedy "bettertouchtool")
+        (greedy "keyboardcleantool")
 
         # Remote desktop
         # "vnc-viewer"
