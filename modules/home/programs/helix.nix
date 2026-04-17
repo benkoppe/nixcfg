@@ -138,7 +138,7 @@ in
             select = "underline";
           };
 
-    statusline.mode = {
+          statusline.mode = {
             insert = "INSERT";
             normal = "NORMAL";
             select = "SELECT";
