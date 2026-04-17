@@ -23,6 +23,7 @@
 
         (greedy "figma")
         # (greedy "figma-agent")
+        (greedy "calibre")
 
         # Cybersecurity tools
         (greedy "proxyman")
