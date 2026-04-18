@@ -73,7 +73,12 @@ in
         in
         {
           komodo-mongo-env = mkSecret "Environment config for core + mongo" { };
-          komodo-periphery-env = mkSecret "Environment config for core + periphery" { };
+
+          komodo-core-key = mkSecret "Private key for core" { };
+          komodo-core-pub = mkSecret "Public key for core" { };
+
+          komodo-periphery-key = mkSecret "Private key for periphery" { };
+          komodo-periphery-pub = mkSecret "Public key for periphery" { };
 
           komodo-core-mounted-config = mkSecret "Mounted config values for core" { };
           komodo-periphery-mounted-config = mkSecret "Mounted config values for periphery" { share = false; };
@@ -114,21 +119,22 @@ in
               };
 
               komodo-core = {
-                image = "ghcr.io/moghtech/komodo-core:latest";
+                image = "ghcr.io/moghtech/komodo-core:2";
                 pull = "always";
                 labels = {
                   "komodo.skip" = "";
                 };
                 dependsOn = [ "mongo" ];
                 ports = [ "${toString port}:9120" ];
+                extraOptions = [ "--init" ];
                 environmentFiles = [
                   (getSecret "komodo-mongo-env")
-                  (getSecret "komodo-periphery-env")
                 ];
                 environment = {
                   KOMODO_HOST = "https://${vHost}";
                   KOMODO_TITLE = "Komodo";
-                  KOMODO_FIRST_SERVER = "https://komodo-periphery:8120";
+                  KOMODO_FIRST_SERVER_NAME = "Local";
+                  KOMODO_FIRST_SERVER_ADDRESS = "https://komodo-periphery:8120";
                   KOMODO_DISABLE_CONFIRM_DIALOG = "true";
 
                   KOMODO_DATABASE_ADDRESS = "mongo:27017";
@@ -155,23 +161,26 @@ in
 
                   # KOMODO_AWS_ACCESS_KEY_ID_FILE = "";
                   # KOMODO_AWS_SECRET_ACCESS_KEY_FILE = "";
+
+                  KOMODO_PRIVATE_KEY = "file:/config/keys/core.key";
+                  KOMODO_PERIPHERY_PUBLIC_KEY = "file:/config/keys/periphery.pub";
                 };
                 volumes = [
                   "${rootDirectory}/backups:/backups"
                   "${getSecret "komodo-core-mounted-config"}:/config/config.toml"
+                  "${getSecret "komodo-core-key"}:/config/keys/core.key"
+                  "${getSecret "komodo-periphery-pub"}:/config/keys/periphery.pub"
                 ];
                 networks = [ "komodo-net" ];
               };
 
               komodo-periphery = {
-                image = "ghcr.io/moghtech/komodo-periphery:latest";
+                image = "ghcr.io/moghtech/komodo-periphery:2";
                 pull = "always";
                 labels = {
                   "komodo.skip" = "";
                 };
-                environmentFiles = [
-                  (getSecret "komodo-periphery-env")
-                ];
+                extraOptions = [ "--init" ];
                 environment = {
                   PERIPHERY_ROOT_DIRECTORY = rootDirectory;
                   PERIPHERY_DISABLE_TERMINALS = "false";
@@ -182,6 +191,9 @@ in
 
                   PERIPHERY_LOGGING_PRETTY = "true";
                   PERIPHERY_PRETTY_STARTUP_CONFIG = "true";
+
+                  PERIPHERY_PRIVATE_KEY = "file:/config/keys/periphery.key";
+                  PERIPHERY_CORE_PUBLIC_KEYS = "file:/config/keys/core.pub";
                 };
                 privileged = true;
                 volumes = [
@@ -189,6 +201,8 @@ in
                   "/proc:/proc"
                   "${rootDirectory}:${rootDirectory}"
                   "${getSecret "komodo-periphery-mounted-config"}:/config/config.toml"
+                  "${getSecret "komodo-periphery-key"}:/config/keys/periphery.key"
+                  "${getSecret "komodo-core-pub"}:/config/keys/core.pub"
                   "${getSecret "komodo-periphery-syncs-key"}:/config/komodo-syncs"
                 ];
                 cmd = [

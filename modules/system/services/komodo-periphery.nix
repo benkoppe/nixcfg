@@ -32,7 +32,8 @@
               };
           in
           {
-            komodo-periphery-env = mkSecret "Environment config for core + periphery" { share = true; };
+            komodo-core-pub = mkSecret "Public key for core" { };
+            komodo-periphery-key = mkSecret "Private key for periphery" { };
 
             komodo-periphery-mounted-config = mkSecret "Mounted config values for periphery" { };
             komodo-periphery-syncs-key = mkSecret "Syncs decryption key for periphery" { type = "hidden"; };
@@ -49,14 +50,12 @@
               backend = "docker";
               containers = {
                 komodo-periphery = {
-                  image = "ghcr.io/moghtech/komodo-periphery:latest";
+                  image = "ghcr.io/moghtech/komodo-periphery:2";
                   pull = "always";
                   labels = {
                     "komodo.skip" = "";
                   };
-                  environmentFiles = [
-                    (getSecret "komodo-periphery-env")
-                  ];
+                  extraOptions = [ "--init" ];
                   environment = {
                     # PERIPHERY_BIND_IP = "";
                     PERIPHERY_PORT = "8120";
@@ -70,6 +69,9 @@
 
                     PERIPHERY_LOGGING_PRETTY = "true";
                     PERIPHERY_PRETTY_STARTUP_CONFIG = "true";
+
+                    PERIPHERY_PRIVATE_KEY = "file:/config/keys/periphery.key";
+                    PERIPHERY_CORE_PUBLIC_KEYS = "file:/config/keys/core.pub";
                   };
                   privileged = true;
                   volumes = [
@@ -77,6 +79,8 @@
                     "/proc:/proc"
                     "${cfg.rootDirectory}:${cfg.rootDirectory}"
                     "${getSecret "komodo-periphery-mounted-config"}:/config/config.toml"
+                    "${getSecret "komodo-periphery-key"}:/config/keys/periphery.key"
+                    "${getSecret "komodo-core-pub"}:/config/keys/core.pub"
                     "${getSecret "komodo-periphery-syncs-key"}:/config/komodo-syncs"
                   ];
                   cmd = [
