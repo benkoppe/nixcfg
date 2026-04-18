@@ -54,7 +54,7 @@ in
       networking.firewall.allowedTCPPorts = [ 17170 ];
 
       networking.firewall.extraCommands = ''
-        iptables -A INPUT -p tcp --dport 3890 -s 10.0.0.5 -j ACCEPT
+        iptables -A INPUT -p tcp --dport 3890 -s 10.1.0.5 -j ACCEPT
         iptables -A INPUT -p tcp --dport 3890 -j DROP
       '';
 

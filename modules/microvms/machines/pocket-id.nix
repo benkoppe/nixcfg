@@ -31,7 +31,7 @@ in
         {
           image = "pocket-id-data.img";
           mountPoint = config.services.pocket-id.dataDir;
-          size = 64;
+          size = 10240; # 10GB
         }
       ];
 
@@ -62,6 +62,7 @@ in
             share = true;
           };
           smtp-koppe-development.files.password.owner = owner;
+          pocket-maxmind-license = mkSecret "License key for MaxMind GeoIP database used by pocket-id";
         };
 
       services.pocket-id = {
@@ -77,6 +78,7 @@ in
             ENCRYPTION_KEY = (getSecret "pocket-encryption-key").value.path;
             LDAP_BIND_PASSWORD = (getSecret "pocket-ldap-pass").value.path;
             SMTP_PASSWORD = (getSecret "smtp-koppe-development").password.path;
+            MAXMIND_LICENSE_KEY = (getSecret "pocket-maxmind-license").value.path;
           };
 
         settings = {
@@ -102,7 +104,7 @@ in
           EMAIL_ONE_TIME_ACCESS_AS_UNAUTHENTICATED_ENABLED = false;
 
           LDAP_ENABLED = true;
-          LDAP_URL = "ldap://lldap2.thekoppe.com:${toString 3890}";
+          LDAP_URL = "ldap://lldap.thekoppe.com:${toString 3890}";
           LDAP_BIND_DN = "uid=pocketid,ou=people,dc=thekoppe,dc=com";
           LDAP_BASE = "dc=thekoppe,dc=com";
           LDAP_USER_SEARCH_FILTER = "(&(objectClass=person)(|(memberof=cn=pocket_user,ou=groups,dc=thekoppe,dc=com)(memberof=cn=pocket_admin,ou=groups,dc=thekoppe,dc=com)))";
