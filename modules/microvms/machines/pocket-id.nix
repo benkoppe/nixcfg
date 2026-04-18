@@ -83,6 +83,7 @@ in
           APP_URL = "https://${vHost}";
           PORT = 1411;
           ANALYTICS_DISABLED = true;
+          TRUSTED_PLATFORM = "CF-Connecting-IP";
 
           UI_CONFIG_DISABLED = true;
 
