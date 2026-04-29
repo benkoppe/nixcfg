@@ -113,6 +113,10 @@
                 bundleID = 'com.brave.Browser',
                 hyper_key = 'b',
               },
+              ['Helium'] = {
+                bundleID = 'net.imput.helium',
+                hyper_key = 'n',
+              },
               ['Ghostty'] = {
                 bundleID = 'com.mitchellh.ghostty',
                 hyper_key = 'return',

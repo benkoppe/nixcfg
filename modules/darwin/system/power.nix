@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  self,
   ...
 }:
 {
@@ -20,6 +19,7 @@
     power.sleep = {
       computer = 60;
       display = 30;
+      harddisk = "never";
     };
 
     # system.activationScripts.pmset.text = ''

@@ -169,9 +169,9 @@
 
               -- WORKSPACE SWITCH
               hyper:bind({}, "right", nil, function() aerospaceSwipe("--wrap-around next") end)
-              hyper:bind({}, "n", nil, function() aerospaceSwipe("--wrap-around next") end)
+              -- hyper:bind({}, "n", nil, function() aerospaceSwipe("--wrap-around next") end)
               hyper:bind({}, "left", nil, function() aerospaceSwipe("--wrap-around prev") end)
-              hyper:bind({}, "p", nil, function() aerospaceSwipe("--wrap-around prev") end)
+              -- hyper:bind({}, "p", nil, function() aerospaceSwipe("--wrap-around prev") end)
             '';
       })
     ]
