@@ -78,4 +78,8 @@
       "blacktop/tap/ipsw"
     ];
   };
+
+  launchd.user.envVariables = {
+    SSH_AUTH_SOCK = "/Users/ben/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock";
+  };
 }
