@@ -220,6 +220,7 @@
             packages = [
               inputs'.clan-core.packages.clan-cli
               config.treefmt.build.wrapper
+              pkgs.nh
             ];
           };
 
