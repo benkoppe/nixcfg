@@ -1,4 +1,9 @@
 { inputs, lib, ... }:
+let
+  registryMap = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
+
+  registry = lib.mapAttrs (_: flake: { inherit flake; }) registryMap;
+in
 {
   flake.modules.nixos.nix = {
     imports = [ inputs.determinate.nixosModules.default ];
@@ -26,15 +31,22 @@
       };
 
     }
-    // (
-      let
-        registryMap = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
-      in
-      {
-        channel.enable = false;
-        registry = lib.mapAttrs (_: flake: { inherit flake; }) registryMap;
-        nixPath = lib.mapAttrsToList (name: flake: "${name}=${flake.outPath}") registryMap;
-      }
-    );
+    // {
+      channel.enable = false;
+      inherit registry;
+      nixPath = lib.mapAttrsToList (name: flake: "${name}=${flake.outPath}") registryMap;
+    };
+  };
+
+  flake.modules.darwin.nix = {
+    imports = [ inputs.determinate.darwinModules.default ];
+
+    nix.enable = false;
+
+    determinateNix = {
+      enable = true;
+
+      inherit registry;
+    };
   };
 }
