@@ -79,7 +79,10 @@
 
   my.proxmox.id = 2;
 
-  my.tailgate.routes = [ "10.0.0.0/24" ];
+  my.tailgate.routes = [
+    "10.0.0.0/24"
+    "10.0.1.0/24"
+  ];
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
