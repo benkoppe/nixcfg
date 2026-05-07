@@ -126,6 +126,10 @@
                 deploy.targetHost = "root@shai";
                 tags = [ "development" ];
               };
+
+              jordan = {
+                machineClass = "darwin";
+              };
             };
 
             instances = {
