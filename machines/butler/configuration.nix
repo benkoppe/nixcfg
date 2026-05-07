@@ -10,7 +10,6 @@
     development
 
     niri
-    ben
 
     "${modulesPath}/virtualisation/vmware-guest.nix"
   ];
