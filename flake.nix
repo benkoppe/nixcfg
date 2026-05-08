@@ -9,15 +9,27 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     clan-core = {
       url = "git+https://git.clan.lol/clan/clan-core";
       inputs.nixpkgs.follows = "nixpkgs"; # Avoid this if using nixpkgs stable.
+      inputs.nix-darwin.follows = "nix-darwin";
       inputs.flake-parts.follows = "flake-parts";
     };
 
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hjem = {
+      url = "github:feel-co/hjem";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-darwin.follows = "nix-darwin";
     };
 
     terranix = {
@@ -63,6 +75,23 @@
     };
 
     systems.url = "github:nix-systems/default";
+
+    # darwin inputs
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+
+    # non-flake darwin inputs
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
   };
 
   nixConfig = {
