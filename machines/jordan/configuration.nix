@@ -11,6 +11,8 @@
     macos-defaults
 
     hjem
+
+    ./apps.nix
   ];
 
   hjem.extraModules = with self.modules.hjem; [
