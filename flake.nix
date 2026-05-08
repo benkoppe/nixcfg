@@ -81,6 +81,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvim-flake = {
+      url = "github:benkoppe/nvim-flake";
+    };
+
     systems.url = "github:nix-systems/default";
 
     # darwin inputs

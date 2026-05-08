@@ -24,6 +24,8 @@
     git
     gh
     lazygit
+
+    nvim
   ];
 
   hjem.users.ben = {
