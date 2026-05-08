@@ -80,10 +80,6 @@
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     # non-flake darwin inputs
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
