@@ -51,7 +51,7 @@
         # Productivity Tools
         # "raycast"
         (greedy "alfred")
-        (greedy "jordanbaird-ice")
+        # (greedy "jordanbaird-ice")
         (greedy "bettertouchtool")
         (greedy "keyboardcleantool")
 
