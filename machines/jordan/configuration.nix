@@ -5,6 +5,8 @@
     homebrew
     karabiner
 
+    macos-defaults
+
     hjem
   ];
 

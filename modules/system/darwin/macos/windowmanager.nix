@@ -1,0 +1,38 @@
+{
+  flake.modules.darwin.windowmanager = {
+    system.defaults.NSGlobalDomain = {
+      _HIHideMenuBar = false; # Only hide menubar on fullscreen.
+
+      AppleInterfaceStyle = "Dark";
+
+      AppleScrollerPagingBehavior = true; # Jump to the spot that was pressed in the scrollbar.
+      AppleShowScrollBars = "WhenScrolling";
+
+      NSWindowShouldDragOnGesture = true; # CMD + CTRL click to drag window.
+      AppleEnableMouseSwipeNavigateWithScrolls = true; # swipe back to go back
+      AppleEnableSwipeNavigateWithScrolls = true;
+
+      AppleWindowTabbingMode = "always"; # Always prefer tabs for new windows.
+
+      NSScrollAnimationEnabled = true;
+      NSWindowResizeTime = 0.003;
+
+      NSNavPanelExpandedStateForSaveMode = true; # Expand save panel by default.
+      PMPrintingExpandedStateForPrint = true; # Expand print panel by default.
+
+      AppleSpacesSwitchOnActivate = false; # Do not switch workspaces implicitly.
+    };
+
+    system.defaults.CustomSystemPreferences."com.apple.dock" = {
+      workspaces-auto-swoosh = false; # Don't switch my workspaces for me
+
+      workspaces-edge-delay = 0.0; # Disable opening spaces picker with the upper edge
+    };
+
+    system.defaults.WindowManager = {
+      AppWindowGroupingBehavior = true; # Group windows of the same app together.
+
+      EnableTiledWindowMargins = false; # Don't add margins to tiled windows.
+    };
+  };
+}
