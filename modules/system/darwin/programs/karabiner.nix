@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, self, ... }:
 let
   allBasic = map (x: x // { type = "basic"; });
 
@@ -58,6 +58,10 @@ in
         name = "karabiner-elements";
         greedy = true;
       }
+    ];
+
+    hjem.extraModules = with self.modules.hjem; [
+      karabiner
     ];
   };
 
