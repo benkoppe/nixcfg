@@ -3,7 +3,10 @@
   imports = with self.modules.darwin; [
     basics
     homebrew
+
     karabiner
+    hammerspoon
+    browsers
 
     macos-defaults
 
