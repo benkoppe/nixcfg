@@ -17,6 +17,7 @@
 
   hjem.extraModules = with self.modules.hjem; [
     ghostty
+    zsh
   ];
 
   hjem.users.ben = {
