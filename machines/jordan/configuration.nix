@@ -23,6 +23,7 @@
 
     git
     gh
+    lazygit
   ];
 
   hjem.users.ben = {
