@@ -8,6 +8,10 @@
     hjem
   ];
 
+  hjem.extraModules = with self.modules.hjem; [
+    ghostty
+  ];
+
   hjem.users.ben = {
     user = "ben";
     directory = "/Users/ben";
