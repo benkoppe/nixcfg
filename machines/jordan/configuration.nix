@@ -17,8 +17,12 @@
 
   hjem.extraModules = with self.modules.hjem; [
     ghostty
+
     zsh
     direnv
+
+    git
+    gh
   ];
 
   hjem.users.ben = {
