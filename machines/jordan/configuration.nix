@@ -3,8 +3,19 @@
   imports = with self.modules.darwin; [
     basics
     homebrew
-    karabiner
+    # karabiner
+
+    hjem
   ];
+
+  hjem.extraModules = with self.modules.hjem; [
+    # karabiner
+  ];
+
+  hjem.users.ben = {
+    user = "ben";
+    directory = "/Users/ben";
+  };
 
   system.primaryUser = "ben";
 
