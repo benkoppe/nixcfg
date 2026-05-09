@@ -21,6 +21,7 @@
     zsh
     direnv
     atuin
+    tmux-full
 
     git
     gh
