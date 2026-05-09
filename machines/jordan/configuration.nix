@@ -20,6 +20,7 @@
 
     zsh
     direnv
+    atuin
 
     git
     gh
