@@ -163,7 +163,7 @@
                 tags = [ "development" ];
               };
 
-              jordan = {
+              ant = {
                 machineClass = "darwin";
               };
             };

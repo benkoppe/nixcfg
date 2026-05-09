@@ -16,6 +16,8 @@
   ];
 
   hjem.extraModules = with self.modules.hjem; [
+    development
+
     ghostty
 
     zsh
@@ -35,6 +37,17 @@
     user = "ben";
     directory = "/Users/ben";
   };
+
+  networking =
+    let
+      hostName = "ant";
+    in
+    {
+      computerName = hostName;
+      localHostName = hostName;
+
+      applicationFirewall.enable = true;
+    };
 
   system.primaryUser = "ben";
 
