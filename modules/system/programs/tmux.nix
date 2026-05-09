@@ -29,6 +29,8 @@
         bind -N "Send the prefix key through to the application" \
           C-space send-prefix
 
+        set -g cursor-style bar
+
         set  -g mouse             on
         set  -g focus-events      on
         setw -g aggressive-resize on
@@ -137,7 +139,9 @@
         '';
     in
     {
-      xdg.config.files."tmux/tmux.conf".text = lib.mkBefore (tmuxPluginConfig plugins);
+      xdg.config.files."tmux/tmux.conf".text = lib.mkBefore ''
+        ${tmuxPluginConfig plugins}
+      '';
     };
 
   flake.modules.hjem.tmux-sessionizer =
