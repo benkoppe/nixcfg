@@ -16,19 +16,7 @@
   ];
 
   hjem.extraModules = with self.modules.hjem; [
-    ghostty
-
-    zsh
-    direnv
-    atuin
-    tmux-full
-    ssh
-
-    git
-    gh
-    lazygit
-
-    nvim
+    profile-full
   ];
 
   hjem.users.ben = {

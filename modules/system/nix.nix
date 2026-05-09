@@ -41,6 +41,8 @@ in
   flake.modules.darwin.nix = {
     imports = [ inputs.determinate.darwinModules.default ];
 
+    nixpkgs.config.allowUnfree = true;
+
     nix.enable = false;
 
     determinateNix = {
