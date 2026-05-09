@@ -16,8 +16,6 @@
   ];
 
   hjem.extraModules = with self.modules.hjem; [
-    development
-
     ghostty
 
     zsh
