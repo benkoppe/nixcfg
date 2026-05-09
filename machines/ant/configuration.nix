@@ -17,6 +17,8 @@
 
   hjem.extraModules = with self.modules.hjem; [
     profile-full
+
+    colima
   ];
 
   environment.systemPackages = with pkgs; [
