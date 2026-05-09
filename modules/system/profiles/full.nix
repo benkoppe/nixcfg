@@ -1,7 +1,7 @@
 { self, ... }:
 {
   flake.modules.hjem.profile-full =
-    { pkgs, ... }:
+    { pkgs, osConfig, ... }:
     {
       imports = with self.modules.hjem; [
         ghostty
@@ -19,78 +19,70 @@
         nvim
       ];
 
-      packages =
-        with pkgs;
-        [
-          cachix
-          sqlite
+      packages = with pkgs; [
+        cachix
+        sqlite
 
-          # text/files
-          aspell
-          aspellDicts.en
-          ripgrep
-          fd
-          tree
-          jq
-          bat
-          sd
+        # text/files
+        aspell
+        aspellDicts.en
+        ripgrep
+        fd
+        tree
+        jq
+        bat
+        sd
 
-          # system
-          btop
-          dust
-          watch
+        # system
+        btop
+        dust
+        watch
 
-          # SDKs
-          docker
-          docker-compose
+        # SDKs
+        docker
+        docker-compose
 
-          # fonts # UI
-          meslo-lgs-nf
+        # fonts # UI
+        meslo-lgs-nf
 
-          # media
-          ffmpeg
-          unrar
-          hunspell
+        # media
+        ffmpeg
+        unrar
+        hunspell
 
-          # node
-          nodejs
-          pnpm
-          bun
-          deno
+        # node
+        nodejs
+        pnpm
+        bun
+        deno
 
-          # python
-          python3
-          virtualenv
-          uv
+        # python
+        python3
+        virtualenv
+        uv
 
-          go
+        go
 
-          # rust
-          cargo-deny
-          cargo-expand
-          cargo-fuzz
-          cargo-nextest
-          evcxr
-          taplo
-          cargo
-          clippy
-          rustc
-          rustfmt
+        # rust
+        cargo-deny
+        cargo-expand
+        cargo-fuzz
+        cargo-nextest
+        evcxr
+        taplo
+        cargo
+        clippy
+        rustc
+        rustfmt
 
-          # security
-          gnupg
-          age
-          age-plugin-yubikey
-          libfido2
+        # security
+        gnupg
+        age
+        age-plugin-yubikey
+        libfido2
 
-          # other
-          fastfetch
-        ]
-        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
-          with pkgs;
-          [
-            alt-tab-macos
-          ]
-        );
+        # other
+        fastfetch
+      ];
     };
 }

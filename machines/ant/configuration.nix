@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, pkgs, ... }:
 {
   imports = with self.modules.darwin; [
     basics
@@ -17,6 +17,10 @@
 
   hjem.extraModules = with self.modules.hjem; [
     profile-full
+  ];
+
+  environment.systemPackages = with pkgs; [
+    alt-tab-macos
   ];
 
   hjem.users.ben = {
