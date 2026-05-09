@@ -28,7 +28,13 @@
 
           window-decoration = isDarwin;
           macos-titlebar-style = "tabs";
+
+          cursor-style = "bar";
+          cursor-style-blink = true;
         };
       };
+
+      rum.programs.zsh.plugins.ghostty-integration.source =
+        "${pkgs.ghostty-bin}/Applications/Ghostty.app/Contents/Resources/ghostty/shell-integration/zsh/ghostty-integration";
     };
 }
