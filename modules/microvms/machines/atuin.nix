@@ -30,7 +30,7 @@ in
         enable = true;
 
         port = 8888;
-        openRegistration = true;
+        openRegistration = false;
 
         database.createLocally = true;
       };
