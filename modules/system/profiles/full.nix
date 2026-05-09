@@ -1,7 +1,7 @@
 { self, ... }:
 {
   flake.modules.hjem.profile-full =
-    { pkgs, osConfig, ... }:
+    { pkgs, ... }:
     {
       imports = with self.modules.hjem; [
         ghostty
@@ -17,6 +17,7 @@
         lazygit
 
         nvim
+        opencode
       ];
 
       packages = with pkgs; [
