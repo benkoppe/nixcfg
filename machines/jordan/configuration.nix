@@ -22,6 +22,7 @@
     direnv
     atuin
     tmux-full
+    ssh
 
     git
     gh
