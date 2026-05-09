@@ -16,6 +16,7 @@
     }
     { app = "${pkgs.ghostty-bin}/Applications/Ghostty.app"; }
     # { app = "/Volumes/Apps/Manual/Xcode.app"; }
+    { app = "/System/Applications/System Settings.app"; }
     {
       spacer = {
         small = false;
