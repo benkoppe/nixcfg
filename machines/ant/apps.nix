@@ -73,6 +73,7 @@
 
         # Productivity Apps
         (greedy "microsoft-powerpoint")
+        (greedy "microsoft-word")
         (greedy "obsidian")
         # "vlc"
 
