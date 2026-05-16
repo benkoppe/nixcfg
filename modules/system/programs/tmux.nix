@@ -107,6 +107,12 @@
         tmux-which-key
         better-mouse-mode
         {
+          plugin = continuum;
+          extraConfig = ''
+            set -g @continuum-restore 'on'
+          '';
+        }
+        {
           plugin = resurrect;
           extraConfig = ''
             set -g @resurrect-dir '$HOME/.cache/tmux/resurrect'
