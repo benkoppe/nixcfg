@@ -4,6 +4,7 @@
 # nix
 .direnv
 result*
+.cache
 
 # terraform
 .terraform
