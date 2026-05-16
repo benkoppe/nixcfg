@@ -32,6 +32,8 @@
     resilio.id = 11;
     atuin.id = 12;
 
+    samba.id = 20;
+
     tang.id = 50;
   };
 }
