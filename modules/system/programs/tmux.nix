@@ -40,6 +40,10 @@
 
         set  -s extended-keys        on
         set  -g extended-keys-format csi-u
+        set  -g allow-passthrough    on  # OSC 52 clipboard passthru 
+
+        unbind -T copy-mode-vi MouseDragEnd1Pane # don't make mouse selection auto-copy
+        bind-key -T copy-mode-vi Y send -X copy-selection # copy without scrolling to bottom
 
         # set background color of selected window in status line to a slightly different green
         # changed on computer from colour48
