@@ -37,6 +37,7 @@
         setw -g clock-mode-style  12
         set  -s escape-time       0
         set  -g history-limit     50000
+        set  -s extended-keys     on
 
         # set background color of selected window in status line to a slightly different green
         # changed on computer from colour48
