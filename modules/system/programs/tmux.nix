@@ -112,7 +112,14 @@
         tmux-thumbs
         pain-control
         tmux-which-key
-        better-mouse-mode
+        {
+          plugin = better-mouse-mode;
+          extraConfig = ''
+            # don't let mouse exit copy mode
+            set -g @scroll-down-exit-copy-mode "off"
+            set -g @emulate-scroll-for-no-mouse-alternate-buffer "on"
+          '';
+        }
         {
           plugin = continuum;
           extraConfig = ''
