@@ -114,8 +114,15 @@
         {
           plugin = tmux-which-key;
           extraConfig = ''
-            # write to xdg config home instead of nix store
+            # Write to XDG config/data dirs instead of the read-only Nix store.
             set -g @tmux-which-key-xdg-enable 1
+
+            # Don't build from YAML on start, this is already done on generation.
+            set -g @tmux-which-key-disable-autobuild 1
+
+            # Follows nixpkgs prefered path for plugins instead of the default
+            # path of `{XDG_*_HOME}/tmux/plugins/tmux-which-key`.
+            set -g @tmux-which-key-xdg-plugin-path tmux-plugins/tmux-which-key
           '';
         }
         {
