@@ -111,7 +111,13 @@
         extrakto
         tmux-thumbs
         pain-control
-        tmux-which-key
+        {
+          plugin = tmux-which-key;
+          extraConfig = ''
+            # write to xdg config home instead of nix store
+            set -g @tmux-which-key-xdg-enable 1
+          '';
+        }
         {
           plugin = better-mouse-mode;
           extraConfig = ''
