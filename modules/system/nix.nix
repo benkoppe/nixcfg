@@ -1,12 +1,29 @@
-{ inputs, lib, ... }:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
 let
   registryMap = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
 
   registry = lib.mapAttrs (_: flake: { inherit flake; }) registryMap;
 in
 {
+  flake.modules.generic.nix =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = with pkgs; [
+        nix-output-monitor
+        nh
+      ];
+    };
+
   flake.modules.nixos.nix = {
-    imports = [ inputs.determinate.nixosModules.default ];
+    imports = [
+      inputs.determinate.nixosModules.default
+      self.modules.generic.nix
+    ];
 
     nixpkgs.config.allowUnfree = true;
 
@@ -39,7 +56,10 @@ in
   };
 
   flake.modules.darwin.nix = {
-    imports = [ inputs.determinate.darwinModules.default ];
+    imports = [
+      inputs.determinate.darwinModules.default
+      self.modules.generic.nix
+    ];
 
     nixpkgs.config.allowUnfree = true;
 
