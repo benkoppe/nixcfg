@@ -50,7 +50,7 @@
               backend = "docker";
               containers = {
                 komodo-periphery = {
-                  image = "ghcr.io/moghtech/komodo-periphery:2";
+                  image = "ghcr.io/moghtech/komodo-periphery:2.2";
                   pull = "always";
                   labels = {
                     "komodo.skip" = "";
