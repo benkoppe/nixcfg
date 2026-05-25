@@ -153,7 +153,7 @@
                 deploy.targetHost = "root@luka";
                 tags = [ "development" ];
               };
-              bird.deploy.targetHost = "root@165.1.75.12";
+              bird.deploy.targetHost = "root@bird";
               dray = {
                 deploy.targetHost = "root@dray";
                 tags = [ "development" ];
