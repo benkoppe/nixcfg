@@ -129,7 +129,7 @@
           plugin = better-mouse-mode;
           extraConfig = ''
             # don't let mouse exit copy mode
-            set -g @scroll-down-exit-copy-mode "off"
+            set -g @scroll-down-exit-copy-mode "on"
             set -g @emulate-scroll-for-no-mouse-alternate-buffer "on"
           '';
         }
