@@ -55,6 +55,7 @@
         # (greedy "jordanbaird-ice")
         (greedy "bettertouchtool")
         (greedy "keyboardcleantool")
+        (greedy "linearmouse")
 
         # Remote desktop
         # "vnc-viewer"
