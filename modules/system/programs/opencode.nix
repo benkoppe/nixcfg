@@ -96,6 +96,23 @@ in
 
             bash = lib.genAttrs commands.allowed (lib.const "allow");
           };
+
+          lsp = true;
+
+          provider.lmstudio = {
+            npm = "@ai-sdk/openai-compatible";
+            name = "LM Studio (local)";
+            options.baseURL = "http://127.0.0.1:1234/v1";
+            models = {
+              "qwen/qwen3-coder-30b" = {
+                name = "Qwen3 Coder 30B";
+                limit = {
+                  context = 262144;
+                  output = 32768;
+                };
+              };
+            };
+          };
         };
       };
     };
