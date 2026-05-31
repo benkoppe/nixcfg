@@ -35,8 +35,6 @@
       url = "github:snugnug/hjem-rum";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hjem.follows = "hjem";
-      inputs.ndg.follows = "";
-      inputs.treefmt-nix.follows = "";
     };
 
     terranix = {
