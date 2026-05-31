@@ -54,6 +54,11 @@
 
       environment.systemPackages = with pkgs; [
         cdrkit # needed to create cloudinit drives
+
+        # Keep the system util-linux login ahead of proxmox-ve's buildEnv copy.
+        # Tailscale SSH execs `login`; a mismatched Proxmox login can load PAM modules
+        # from the current system with an incompatible glibc and fail with "Module is unknown".
+        (lib.hiPrio util-linux)
       ];
 
       services.openssh = {
