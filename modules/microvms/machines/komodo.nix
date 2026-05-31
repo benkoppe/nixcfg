@@ -17,6 +17,10 @@ in
         {
           inherit vHost;
           inherit port;
+          reverseProxyExtraConfig = ''
+            header_up X-Forwarded-For {http.request.header.CF-Connecting-IP}
+            header_up X-Real-IP {http.request.header.CF-Connecting-IP}
+          '';
         }
         {
           vHost = "nexterm.thekoppe.com";
