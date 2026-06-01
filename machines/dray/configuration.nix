@@ -11,6 +11,7 @@
     proxmox
     tailgate
     copyparty
+    zabbix-agent
 
     self.inputs.vgpu4nixos.nixosModules.host
     # self.inputs.nixos-vfio.nixosModules.vfio
