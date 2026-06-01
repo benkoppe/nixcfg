@@ -10,6 +10,8 @@ in
       imports = with self.modules.nixos; [
         microvms_client
         caddy
+
+        zabbix-agent
         backup-b2
       ];
 
@@ -50,6 +52,8 @@ in
 
       # https://github.com/NixOS/nixpkgs/issues/417572#issuecomment-3372914263
       services.phpfpm.pools.zabbix.phpPackage = pkgs.php83;
+
+      my.zabbix-agent.server = "127.0.0.1";
 
       services.zabbixServer = {
         enable = true;

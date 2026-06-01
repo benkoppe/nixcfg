@@ -14,6 +14,7 @@ in
         caddy
         smtp-koppe-development
 
+        zabbix-agent-caddy
         backup-b2
       ];
 
