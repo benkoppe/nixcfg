@@ -31,7 +31,7 @@ in
         }
       ];
 
-      my.backup-b2.forgejo = {
+      my.backup-b2.forgejo-data = {
         paths = [ config.services.forgejo.stateDir ];
         restartServices = [ "forgejo" ];
       };

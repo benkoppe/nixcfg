@@ -12,6 +12,18 @@
       };
 
       config = {
+        topology.networks.proxmox-cluster = {
+          name = lib.mkDefault "Proxmox cluster";
+          cidrv4 = lib.mkDefault "10.201.201.0/24";
+        };
+
+        topology.self.interfaces.cluster0 = {
+          virtual = true;
+          type = "bridge";
+          addresses = [ "10.201.201.${toString cfg.id}" ];
+          network = "proxmox-cluster";
+        };
+
         services.proxmox-ve.bridges = [ "cluster0" ];
 
         systemd.network.netdevs."cluster0" = {

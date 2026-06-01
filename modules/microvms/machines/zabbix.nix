@@ -37,7 +37,7 @@ in
         }
       ];
 
-      my.backup-b2.zabbix = {
+      my.backup-b2.zabbix-data = {
         paths = [
           "/var/lib/postgresql"
           "/var/lib/zabbix"

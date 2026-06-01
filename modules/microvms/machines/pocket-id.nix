@@ -23,7 +23,7 @@ in
         }
       ];
 
-      my.backup-b2.pocket-id = {
+      my.backup-b2.pocket-id-data = {
         paths = [ config.services.pocket-id.dataDir ];
         restartServices = [ "pocket-id" ];
       };

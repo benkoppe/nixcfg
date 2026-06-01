@@ -21,7 +21,7 @@ in
         }
       ];
 
-      my.backup-b2.lldap = {
+      my.backup-b2.lldap-data = {
         paths = [ "/var/lib/private/lldap" ];
         restartServices = [ "lldap" ];
         onCalendar = "*-*-* 01:00:00";

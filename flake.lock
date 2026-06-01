@@ -695,6 +695,29 @@
         "type": "github"
       }
     },
+    "nix-topology": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778407980,
+        "narHash": "sha256-r980BhsReZQe6FkmyNZkwCZpvzARo5jZgTl8HxjAssY=",
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "rev": "ca0a602f650306d00d6f3e3c76d0f4c48a5c5adc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "type": "github"
+      }
+    },
     "nixos-vfio": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -996,6 +1019,7 @@
         "niri-flake": "niri-flake",
         "nix-darwin": "nix-darwin_2",
         "nix-homebrew": "nix-homebrew",
+        "nix-topology": "nix-topology",
         "nixos-vfio": "nixos-vfio",
         "nixpkgs": "nixpkgs_4",
         "nvim-flake": "nvim-flake",

@@ -33,7 +33,7 @@ in
         }
       ];
 
-      my.backup-b2.vaultwarden = {
+      my.backup-b2.vaultwarden-data = {
         paths = [ dataDir ];
         restartServices = [ "vaultwarden" ];
       };
@@ -66,7 +66,7 @@ in
       };
       clan.core.vars.generators.smtp-koppe-development.files.password.owner = "vaultwarden";
 
-      services.restic.backups.vaultwarden.timerConfig.OnCalendar = lib.mkForce "*-*-* *:0";
+      services.restic.backups.vaultwarden-data.timerConfig.OnCalendar = lib.mkForce "*-*-* *:0";
 
       services.vaultwarden = {
         enable = true;

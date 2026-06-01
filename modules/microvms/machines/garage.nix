@@ -36,7 +36,7 @@ in
         }
       ];
 
-      my.backup-b2.garage = {
+      my.backup-b2.garage-data = {
         paths = [ mntDirNoSymlink ];
         restartServices = [ "garage" ];
       };

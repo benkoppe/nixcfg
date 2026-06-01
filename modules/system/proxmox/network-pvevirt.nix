@@ -25,6 +25,22 @@
       };
 
       config = {
+        topology.networks."${config.networking.hostName}-pvevirt" = {
+          name = "${config.networking.hostName} Proxmox guests";
+          cidrv4 = "${cfg.subnet}.0/24";
+          cidrv6 = "fd12:4567:789a::/64";
+        };
+
+        topology.self.interfaces.pvevirt = {
+          virtual = true;
+          type = "bridge";
+          addresses = [
+            cfg.gateway
+            "fd12:4567:789a::1"
+          ];
+          network = "${config.networking.hostName}-pvevirt";
+        };
+
         services.proxmox-ve.bridges = [ "pvevirt" ];
 
         systemd.network.netdevs."pvevirt".netdevConfig = {

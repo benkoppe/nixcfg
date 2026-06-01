@@ -13,6 +13,19 @@
       };
 
       config = {
+        topology.self.interfaces.tailscale0 = {
+          virtual = true;
+          type = "wireguard";
+          network = "tailscale";
+          physicalConnections = [
+            {
+              node = "tailnet";
+              interface = "mesh";
+              renderer.reverse = true;
+            }
+          ];
+        };
+
         clan.core.vars.generators.tailgate-auth-key = {
           prompts.key = {
             description = "Tailscale auth key for tailgates";
