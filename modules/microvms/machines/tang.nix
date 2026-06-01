@@ -3,6 +3,8 @@
   flake.clan.machines.vm-tang = {
     imports = with self.modules.nixos; [
       microvms_client
+
+      zabbix-agent
     ];
 
     microvm.volumes = [

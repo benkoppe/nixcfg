@@ -11,6 +11,8 @@ in
       imports = with self.modules.nixos; [
         microvms_client
         caddy
+
+        zabbix-agent-caddy
       ];
 
       my.caddy.virtualHosts = [

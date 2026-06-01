@@ -11,6 +11,8 @@ in
         microvms_client
 
         caddy
+
+        zabbix-agent-caddy
       ];
 
       options.my.adguard.vHost = lib.mkOption {

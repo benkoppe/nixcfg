@@ -12,6 +12,8 @@
     {
       imports = with self.modules.nixos; [
         microvms_client
+
+        zabbix-agent
       ];
 
       microvm.shares = [

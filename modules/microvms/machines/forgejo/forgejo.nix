@@ -18,6 +18,7 @@ in
         smtp-koppe-development
         github2forgejo
 
+        zabbix-agent-caddy
         backup-b2
       ];
 

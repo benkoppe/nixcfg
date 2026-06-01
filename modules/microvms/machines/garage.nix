@@ -24,6 +24,8 @@ in
         microvms_client
 
         caddy
+
+        zabbix-agent-caddy
         backup-b2
       ];
 
