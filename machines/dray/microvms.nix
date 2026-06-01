@@ -31,6 +31,7 @@
     lancache.id = 10;
     resilio.id = 11;
     atuin.id = 12;
+    zabbix.id = 13;
 
     samba.id = 20;
 
