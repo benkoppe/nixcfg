@@ -77,6 +77,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+    selfhst-icons = {
+      url = "github:selfhst/icons";
+      flake = false;
+    };
 
     import-tree.url = "github:vic/import-tree";
 

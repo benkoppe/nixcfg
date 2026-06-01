@@ -1,7 +1,10 @@
 { inputs, self, ... }:
 {
   flake.modules.nixos.topology = {
-    imports = [ inputs.nix-topology.nixosModules.default ];
+    imports = [
+      inputs.nix-topology.nixosModules.default
+      self.modules.nixos."topology/extractors"
+    ];
   };
 
   perSystem =
