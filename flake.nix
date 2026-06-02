@@ -70,8 +70,6 @@
 
     lancache-nix.url = "github:menixator/lancache.nix";
 
-    niri-flake.url = "github:sodiboo/niri-flake";
-
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs.nixpkgs.follows = "nixpkgs";

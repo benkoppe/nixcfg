@@ -1,15 +1,7 @@
-{ inputs, ... }:
 {
   flake.modules.nixos.niri =
     { pkgs, ... }:
     {
-      imports = [
-        inputs.niri-flake.nixosModules.niri
-      ];
-      nixpkgs.overlays = [
-        inputs.niri-flake.overlays.niri
-      ];
-
       # We need an XDG portal for various applications to work properly,
       # such as Flatpak applications.
       xdg.portal = {
@@ -32,14 +24,7 @@
         ly.enable = true;
       };
 
-      programs.niri = {
-        enable = true;
-
-        # settings.xwayland-satellite = {
-        #   enable = true;
-        #   path = lib.getExe pkgs.xwayland-satellite-unstable;
-        # };
-      };
+      programs.niri.enable = true;
 
       # services.xserver = {
       #   enable = true;
