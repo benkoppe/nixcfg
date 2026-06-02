@@ -41,7 +41,7 @@ jobs:
           purge-primary-key: never
 
       - name: Build topology images
-        run: nix build --accept-flake-config .#topology.x86_64-linux.config.output
+        run: nix build .#packages.x86_64-linux.topology-images
 
       - name: Copy topology output
         run: |

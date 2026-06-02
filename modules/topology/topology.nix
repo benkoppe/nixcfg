@@ -8,11 +8,69 @@
   };
 
   perSystem =
-    { lib, ... }:
+    {
+      lib,
+      pkgs,
+      system,
+      ...
+    }:
     {
       topology.nixosConfigurations = lib.filterAttrs (
         name: cfg: cfg.config ? topology && !(lib.hasPrefix "vm-" name) && name != "butler"
       ) self.clan.nixosConfigurations;
+
+      packages.topology-images =
+        let
+          topologyOutput = self.topology.${system}.config.output;
+        in
+        pkgs.runCommand "topology-images"
+          {
+            nativeBuildInputs = [
+              pkgs.inkscape
+              pkgs.python3
+            ];
+
+            FONTCONFIG_FILE = pkgs.makeFontsConf {
+              fontDirectories = [ pkgs.jetbrains-mono ];
+            };
+          }
+          ''
+            mkdir -p "$out"
+
+            cp -r ${topologyOutput}/. "$out/"
+            chmod -R u+w "$out"
+
+            OUT="$out" python3 <<'PY'
+            import base64
+            import os
+            import pathlib
+            import re
+            import urllib.parse
+
+            pattern = re.compile("href=\"data:image/svg\\+xml;utf8,([^\"]+)\"")
+
+            for path in pathlib.Path(os.environ["OUT"]).glob("*.svg"):
+                text = path.read_text()
+
+                def repl(match):
+                    svg = urllib.parse.unquote(match.group(1))
+                    svg = svg.replace(" width=\"null\"", "")
+                    svg = svg.replace(" height=\"null\"", "")
+                    encoded = base64.b64encode(svg.encode()).decode()
+                    return f"href=\"data:image/svg+xml;base64,{encoded}\""
+
+                path.write_text(pattern.sub(repl, text))
+            PY
+
+            for svg in "$out"/*.svg; do
+              name="$(basename "$svg" .svg)"
+              inkscape "$svg" \
+                --export-type=png \
+                --export-area-page \
+                --export-dpi=96 \
+                --export-filename="$out/$name.png"
+            done
+          '';
 
       topology.modules = [
         # manual router/switch/network/cloud/oracle definitions here
