@@ -66,7 +66,7 @@ in
 
                 networking.hostName = lib.mkForce cfg.name;
 
-                topology.id = "${config.networking.hostName}-${cfg.name}";
+                topology.id = lib.mkDefault "${config.networking.hostName}-${cfg.name}";
 
                 sops.age.keyFile = "/var/lib/sops-nix-mnt/key.txt";
 

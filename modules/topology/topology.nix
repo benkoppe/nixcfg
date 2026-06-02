@@ -126,14 +126,14 @@
                 interfaces.enp0s6.network = "oracle-vcn";
               };
 
-              dray-cloudflared-dray.interfaces.tunnel = {
+              dray-cloudflared.interfaces.tunnel = {
                 virtual = true;
                 type = "tunnel";
                 network = "cloudflare-tunnels";
                 physicalConnections = [ (mkConnection "cloudflare" "tunnel") ];
               };
 
-              luka-cloudflared-luka.interfaces.tunnel = {
+              luka-cloudflared.interfaces.tunnel = {
                 virtual = true;
                 type = "tunnel";
                 network = "cloudflare-tunnels";
