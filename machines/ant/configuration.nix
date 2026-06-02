@@ -30,6 +30,10 @@
     ];
   };
 
+  determinateNix.customSettings.trusted-users = [
+    "root"
+  ];
+
   networking =
     let
       hostName = "ant";
