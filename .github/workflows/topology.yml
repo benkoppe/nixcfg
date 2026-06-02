@@ -1,0 +1,39 @@
+name: Build topology
+
+on:
+  push:
+    branches:
+      - clan
+    paths-ignore:
+      - "docs/topology/**"
+
+permissions:
+  contents: write
+
+jobs:
+  topology:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: cachix/install-nix-action@v31.10.6
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build topology images
+        run: nix build --accept-flake-config .#topology.x86_64-linux.config.output
+
+      - name: Copy topology output
+        run: |
+          mkdir -p docs/topology
+          rm -rf docs/topology/*
+          cp -aL result/. docs/topology/
+
+      - name: Commit topology output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A docs/topology
+          git diff --cached --quiet || git commit -m "topology: update rendered images"
+          git push
