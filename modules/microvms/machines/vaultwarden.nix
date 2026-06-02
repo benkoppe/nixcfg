@@ -1,37 +1,38 @@
 { self, lib, ... }:
 let
   dataDir = "/var/lib/vaultwarden/data";
-
-  vHost = "vault.thekoppe.com";
 in
 {
   flake.clan.machines.vm-vaultwarden =
     { config, pkgs, ... }:
+    let
+      endpoint = config.my.public-endpoints.vaultwarden;
+    in
     {
       imports = with self.modules.nixos; [
         microvms_client
 
-        caddy
+        public-endpoints_caddy
+
         smtp-koppe-development
 
         zabbix-agent-caddy
         backup-b2
       ];
 
-      my.caddy.virtualHosts = [
-        {
-          inherit vHost;
+      my.public-endpoints.vaultwarden = {
+        vHost = "vault.thekoppe.com";
+        caddy = {
           port = config.services.vaultwarden.config.ROCKET_PORT;
-
-          # fix bitwarden client error on /api/tasks 404 return
-          # see https://github.com/dani-garcia/vaultwarden/pull/6557#issuecomment-3692818999
-          extraConfig = [
-            ''
-              respond /api/tasks {"data":[]} 200
-            ''
-          ];
-        }
-      ];
+          # # fix bitwarden client error on /api/tasks 404 return
+          # # see https://github.com/dani-garcia/vaultwarden/pull/6557#issuecomment-3692818999
+          # extraConfig = [
+          #   ''
+          #     respond /api/tasks {"data":[]} 200
+          #   ''
+          # ];
+        };
+      };
 
       my.backup-b2.vaultwarden-data = {
         paths = [ dataDir ];
@@ -75,7 +76,7 @@ in
         config = {
           ADMIN_TOKEN_FILE = config.clan.core.vars.generators.vaultwarden-admin.files.password-hash.path;
 
-          DOMAIN = "https://${vHost}";
+          DOMAIN = "https://${endpoint.vHost}";
           SIGNUPS_ALLOWED = false;
           DATA_FOLDER = dataDir;
 

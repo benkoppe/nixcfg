@@ -1,7 +1,7 @@
 { self, lib, ... }:
 {
   flake.clan.machines.vm-fastapi-dls =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     let
       fastapi-dls-override =
         self.inputs.fastapi-dls-nixos.packages.${pkgs.stdenv.targetPlatform.system}.default.overrideAttrs
@@ -21,6 +21,8 @@
               EOF
             '';
           });
+
+      endpoint = config.my.public-endpoints.fastapi-dls;
     in
     {
       imports = with self.modules.nixos; [
@@ -28,23 +30,20 @@
 
         self.inputs.fastapi-dls-nixos.nixosModules.default
 
-        caddy
+        public-endpoints_caddy
       ];
 
-      my.caddy.virtualHosts = [
-        {
-          vHost = "dls.thekoppe.com";
-          port = 8000;
-          # address = "https://localhost";
-        }
-      ];
+      my.public-endpoints.fastapi-dls = {
+        vHost = "dls.thekoppe.com";
+        caddy.port = 8000;
+      };
 
       services.fastapi-dls = {
         enable = true;
-        listen.ip = "dls.thekoppe.com";
+        listen.ip = endpoint.vHost;
         listen.port = 443;
         extraOptions = {
-          CORS_ORIGINS = "https://dls.thekoppe.com";
+          CORS_ORIGINS = "https://${endpoint.vHost}";
         };
       };
 
