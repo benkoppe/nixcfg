@@ -84,7 +84,7 @@
 
             nodes.cloudflare = mkDevice "Cloudflare" {
               info = "Public tunnel ingress";
-              image = ./assets/cloudflare.svg;
+              image = ./assets/cloudflare.png;
 
               interfaces = {
                 wan = { };
@@ -103,12 +103,14 @@
             };
 
             nodes.oracle = mkDevice "Oracle Cloud" {
-              hardware.info = "OCI VCN 10.1.0.0/16";
-              renderer.preferredType = "card";
+              image = ./assets/oracle-cloud.png;
 
               interfaces = {
                 wan = { };
-                vcn.network = "oracle-vcn";
+                vcn = {
+                  network = "oracle-vcn";
+                  addresses = [ "10.1.0.0/16" ];
+                };
               };
 
               connections.vcn = mkConnection "bird" "enp0s6";
