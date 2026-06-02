@@ -94,6 +94,7 @@
 
             nodes.tailnet = mkDevice "Tailscale Tailnet" {
               info = "Mesh VPN";
+              image = ./assets/tailscale.png;
 
               interfaces = {
                 wan = { };
