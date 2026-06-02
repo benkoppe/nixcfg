@@ -1,9 +1,59 @@
 { lib, ... }:
 {
   flake.modules.nixos.cloudflared =
-    { pkgs, config, ... }:
+    {
+      pkgs,
+      config,
+      hostConfig ? null,
+      ...
+    }:
     let
       cfg = config.my.cloudflared;
+
+      vmConfigs =
+        if hostConfig == null then
+          { }
+        else
+          lib.mapAttrs (
+            vmName: vm:
+            if vm.flake != null then vm.flake.nixosConfigurations.${vmName}.config else vm.config.config
+          ) (hostConfig.microvm.vms or { });
+
+      cloudflaredEndpoints =
+        vmCfg:
+        lib.filterAttrs (_: endpoint: endpoint ? cloudflared && endpoint.cloudflared != null) (
+          vmCfg.my."public-endpoints" or { }
+        );
+
+      endpointPortSuffix =
+        endpoint:
+        lib.optionalString (endpoint.cloudflared.port != null) ":${toString endpoint.cloudflared.port}";
+
+      endpointOrigin =
+        vmCfg: endpoint:
+        "${endpoint.cloudflared.scheme}://${vmCfg.my.microvm.ipv4}${endpointPortSuffix endpoint}";
+
+      endpointOriginServerName =
+        endpoint:
+        if endpoint.cloudflared.originServerName != null then
+          endpoint.cloudflared.originServerName
+        else
+          endpoint.vHost;
+
+      mkIngressRule = vmCfg: endpoint: {
+        service = endpointOrigin vmCfg endpoint;
+        originRequest.originServerName = endpointOriginServerName endpoint;
+      };
+
+      mkVmIngress =
+        _vmName: vmCfg:
+        lib.mapAttrs' (_: endpoint: lib.nameValuePair endpoint.vHost (mkIngressRule vmCfg endpoint)) (
+          cloudflaredEndpoints vmCfg
+        );
+
+      endpointIngress = lib.concatMapAttrs mkVmIngress vmConfigs;
+
+      ingress = endpointIngress // cfg.ingress;
     in
     {
       options.my.cloudflared = {
@@ -42,7 +92,7 @@
               credentialsFile = config.clan.core.vars.generators.cloudflared-tunnel.files.credentials-file.path;
 
               default = "http_status:404";
-              inherit (cfg) ingress;
+              inherit ingress;
             };
           };
         };
