@@ -1,5 +1,4 @@
-{ self, ... }:
-{
+_: {
   flake.modules.nixos.zabbix-agent =
     {
       config,
@@ -37,44 +36,5 @@
             ];
           };
         };
-    };
-
-  flake.modules.nixos.zabbix-agent-caddy =
-    {
-      pkgs,
-      config,
-      lib,
-      ...
-    }:
-    let
-      caddyDiscovery = pkgs.writeText "caddy-discovery.json" (
-        builtins.toJSON {
-          data = map (vh: {
-            "{#CADDY_VHOST}" = vh.vHost;
-            "{#CADDY_UPSTREAM}" = "${vh.address}:${toString vh.port}";
-          }) config.my.caddy.virtualHosts;
-        }
-      );
-    in
-    {
-      imports = with self.modules.nixos; [ zabbix-agent ];
-
-      services.caddy.globalConfig = lib.mkAfter ''
-        metrics {
-          per_host
-        }
-      '';
-
-      services.zabbixAgent = {
-        extraPackages = with pkgs; [
-          curl
-          coreutils
-        ];
-
-        settings.UserParameter = [
-          "caddy.metrics,curl -fsS http://127.0.0.1:2019/metrics"
-          "caddy.discovery,cat ${caddyDiscovery}"
-        ];
-      };
     };
 }

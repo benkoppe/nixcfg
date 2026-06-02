@@ -3,6 +3,7 @@
   flake.modules.nixos."microvms_client" = {
     imports = with self.modules.nixos; [
       basics
+      public-endpoints
 
       microvms_client_network
       microvms_client_vsock-ssh

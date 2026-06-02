@@ -8,15 +8,14 @@ in
     {
       imports = with self.modules.nixos; [
         microvms_client
-        caddy
+
+        public-endpoints_caddy
       ];
 
-      my.caddy.virtualHosts = [
-        {
-          vHost = "resilio.thekoppe.com";
-          port = config.services.resilio.httpListenPort;
-        }
-      ];
+      my.public-endpoints.resilio = {
+        vHost = "resilio.thekoppe.com";
+        caddy.port = config.services.resilio.httpListenPort;
+      };
 
       microvm.volumes = [
         {

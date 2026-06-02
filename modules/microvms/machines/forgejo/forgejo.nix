@@ -1,7 +1,5 @@
 { self, lib, ... }:
 let
-  vHost = "git.thekoppe.com";
-
   dataDir = "/var/lib/forgejo";
 in
 {
@@ -9,12 +7,16 @@ in
     { config, pkgs, ... }:
     let
       cfg = config.services.forgejo;
+
+      endpoint = config.my.public-endpoints.forgejo;
     in
     {
       imports = with self.modules.nixos; [
         microvms_client
 
-        caddy
+        public-endpoints_caddy
+        public-endpoints_cloudflared
+
         smtp-koppe-development
         github2forgejo
 
@@ -22,16 +24,15 @@ in
         backup-b2
       ];
 
+      my.public-endpoints.forgejo = {
+        vHost = "git.thekoppe.com";
+        caddy.port = cfg.settings.server.HTTP_PORT;
+        cloudflared = { };
+      };
+
       microvm.mem = 4096; # 2 GiB
 
-      my.caddy.virtualHosts = [
-        {
-          inherit vHost;
-          port = cfg.settings.server.HTTP_PORT;
-        }
-      ];
-
-      my.backup-b2.forgejo = {
+      my.backup-b2.forgejo-data = {
         paths = [ config.services.forgejo.stateDir ];
         restartServices = [ "forgejo" ];
       };
@@ -91,7 +92,7 @@ in
           in
           {
             server = rec {
-              DOMAIN = "${vHost}";
+              DOMAIN = "${endpoint.vHost}";
               ROOT_URL = "https://${DOMAIN}";
               HTTP_PORT = 3000;
               LANDING_PAGE = "explore";

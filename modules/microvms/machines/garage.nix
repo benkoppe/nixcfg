@@ -1,6 +1,5 @@
 { self, ... }:
 let
-  vHost = "garage.thekoppe.com";
   ports = {
     s3_api = 3900;
     s3_web = 3902;
@@ -23,20 +22,18 @@ in
       imports = with self.modules.nixos; [
         microvms_client
 
-        caddy
+        public-endpoints_caddy
 
         zabbix-agent-caddy
         backup-b2
       ];
 
-      my.caddy.virtualHosts = [
-        {
-          inherit vHost;
-          port = 3909;
-        }
-      ];
+      my.public-endpoints.garage = {
+        vHost = "garage.thekoppe.com";
+        caddy.port = 3909;
+      };
 
-      my.backup-b2.garage = {
+      my.backup-b2.garage-data = {
         paths = [ mntDirNoSymlink ];
         restartServices = [ "garage" ];
       };

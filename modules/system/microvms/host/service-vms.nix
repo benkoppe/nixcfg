@@ -6,6 +6,8 @@ in
   flake.modules.nixos."microvms_host_service-vms" =
     { config, ... }:
     {
+      imports = [ self.modules.nixos.microvms_host_topology ];
+
       options.my.service-vms = mkOption {
         type = types.attrsOf (
           types.submodule (
@@ -63,6 +65,8 @@ in
                 my.microvm.id = cfg.id;
 
                 networking.hostName = lib.mkForce cfg.name;
+
+                topology.id = lib.mkDefault "${config.networking.hostName}-${cfg.name}";
 
                 sops.age.keyFile = "/var/lib/sops-nix-mnt/key.txt";
 

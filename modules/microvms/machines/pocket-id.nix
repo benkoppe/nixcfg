@@ -1,29 +1,30 @@
 { self, ... }:
-let
-  vHost = "pocket.thekoppe.com";
-in
 {
   flake.clan.machines.vm-pocket-id =
     { config, pkgs, ... }:
+    let
+      endpoint = config.my.public-endpoints.pocket-id;
+    in
     {
       imports = with self.modules.nixos; [
         microvms_client
 
-        caddy
+        public-endpoints_caddy
+        public-endpoints_cloudflared
+
         smtp-koppe-development
 
         zabbix-agent-caddy
         backup-b2
       ];
 
-      my.caddy.virtualHosts = [
-        {
-          inherit vHost;
-          port = config.services.pocket-id.settings.PORT;
-        }
-      ];
+      my.public-endpoints.pocket-id = {
+        vHost = "pocket.thekoppe.com";
+        caddy.port = config.services.pocket-id.settings.PORT;
+        cloudflared = { };
+      };
 
-      my.backup-b2.pocket-id = {
+      my.backup-b2.pocket-id-data = {
         paths = [ config.services.pocket-id.dataDir ];
         restartServices = [ "pocket-id" ];
       };
@@ -83,7 +84,7 @@ in
           };
 
         settings = {
-          APP_URL = "https://${vHost}";
+          APP_URL = "https://${endpoint.vHost}";
           PORT = 1411;
           ANALYTICS_DISABLED = true;
           TRUSTED_PLATFORM = "CF-Connecting-IP";

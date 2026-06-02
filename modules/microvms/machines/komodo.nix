@@ -1,34 +1,42 @@
 { self, ... }:
 let
-  vHost = "komodo.thekoppe.com";
   port = 9120;
   rootDirectory = "/var/lib/komodo";
 in
 {
   flake.clan.machines.vm-komodo =
     { pkgs, config, ... }:
+    let
+      endpoint = config.my.public-endpoints.komodo;
+    in
     {
       imports = with self.modules.nixos; [
         microvms_client
-        caddy
+
+        public-endpoints_caddy
+        public-endpoints_cloudflared
 
         zabbix-agent-caddy
       ];
 
-      my.caddy.virtualHosts = [
-        {
-          inherit vHost;
-          inherit port;
-          reverseProxyExtraConfig = ''
-            header_up X-Forwarded-For {http.request.header.CF-Connecting-IP}
-            header_up X-Real-IP {http.request.header.CF-Connecting-IP}
-          '';
-        }
-        {
+      my.public-endpoints = {
+        komodo = {
+          vHost = "komodo.thekoppe.com";
+          caddy = {
+            inherit port;
+            reverseProxyExtraConfig = ''
+              header_up X-Forwarded-For {http.request.header.CF-Connecting-IP}
+              header_up X-Real-IP {http.request.header.CF-Connecting-IP}
+            '';
+          };
+          cloudflared = { };
+        };
+
+        nexterm = {
           vHost = "nexterm.thekoppe.com";
-          port = 6989;
-        }
-      ];
+          caddy.port = 6989;
+        };
+      };
 
       microvm.mem = 4096;
 
@@ -137,7 +145,7 @@ in
                   (getSecret "komodo-mongo-env")
                 ];
                 environment = {
-                  KOMODO_HOST = "https://${vHost}";
+                  KOMODO_HOST = "https://${endpoint.vHost}";
                   KOMODO_TITLE = "Komodo";
                   KOMODO_FIRST_SERVER_NAME = "Local";
                   KOMODO_FIRST_SERVER_ADDRESS = "https://komodo-periphery:8120";

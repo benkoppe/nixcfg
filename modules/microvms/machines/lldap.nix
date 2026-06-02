@@ -1,27 +1,26 @@
 { self, ... }:
-let
-  vHost = "lldap.thekoppe.com";
-in
 {
   flake.clan.machines.vm-lldap =
     { config, ... }:
+    let
+      endpoint = config.my.public-endpoints.lldap;
+    in
     {
       imports = with self.modules.nixos; [
         microvms_client
-        caddy
+
+        public-endpoints_caddy
 
         zabbix-agent-caddy
         backup-b2
       ];
 
-      my.caddy.virtualHosts = [
-        {
-          inherit vHost;
-          port = config.services.lldap.settings.http_port;
-        }
-      ];
+      my.public-endpoints.lldap = {
+        vHost = "lldap.thekoppe.com";
+        caddy.port = config.services.lldap.settings.http_port;
+      };
 
-      my.backup-b2.lldap = {
+      my.backup-b2.lldap-data = {
         paths = [ "/var/lib/private/lldap" ];
         restartServices = [ "lldap" ];
         onCalendar = "*-*-* 01:00:00";
@@ -81,7 +80,7 @@ in
         };
 
         settings = {
-          http_url = "https://${vHost}";
+          http_url = "https://${endpoint.vHost}";
           http_host = "0.0.0.0";
           http_port = 17170;
 

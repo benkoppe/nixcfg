@@ -37,6 +37,9 @@ in
 
         networking.useNetworkd = true;
 
+        # hide 10-eth from topology
+        topology.extractors.systemd-network.enable = false;
+
         systemd.network.networks."10-eth" = {
           matchConfig.MACAddress = cfg.mac;
           # Static IP configuration

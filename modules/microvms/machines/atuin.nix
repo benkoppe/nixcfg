@@ -1,24 +1,20 @@
 { self, ... }:
-let
-  vHost = "atuin.thekoppe.com";
-in
 {
   flake.clan.machines.vm-atuin =
     { config, ... }:
     {
       imports = with self.modules.nixos; [
         microvms_client
-        caddy
+
+        public-endpoints_caddy
 
         zabbix-agent-caddy
       ];
 
-      my.caddy.virtualHosts = [
-        {
-          inherit vHost;
-          inherit (config.services.atuin) port;
-        }
-      ];
+      my.public-endpoints.atuin = {
+        vHost = "atuin.thekoppe.com";
+        caddy.port = config.services.atuin.port;
+      };
 
       microvm.volumes = [
         {

@@ -1,15 +1,18 @@
 { self, ... }:
 let
-  vHost = "zabbix.thekoppe.com";
   webPort = 8080;
 in
 {
   flake.clan.machines.vm-zabbix =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
+    let
+      endpoint = config.my.public-endpoints.zabbix;
+    in
     {
       imports = with self.modules.nixos; [
         microvms_client
-        caddy
+
+        public-endpoints_caddy
 
         zabbix-agent-caddy
         backup-b2
@@ -17,12 +20,10 @@ in
 
       microvm.mem = 3072;
 
-      my.caddy.virtualHosts = [
-        {
-          inherit vHost;
-          port = webPort;
-        }
-      ];
+      my.public-endpoints.zabbix = {
+        vHost = "zabbix.thekoppe.com";
+        caddy.port = webPort;
+      };
 
       microvm.volumes = [
         {
@@ -37,7 +38,7 @@ in
         }
       ];
 
-      my.backup-b2.zabbix = {
+      my.backup-b2.zabbix-data = {
         paths = [
           "/var/lib/postgresql"
           "/var/lib/zabbix"
@@ -70,7 +71,7 @@ in
       services.zabbixWeb = {
         enable = true;
         frontend = "nginx";
-        hostname = vHost;
+        hostname = endpoint.vHost;
 
         server.address = "127.0.0.1";
 

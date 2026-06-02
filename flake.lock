@@ -695,6 +695,29 @@
         "type": "github"
       }
     },
+    "nix-topology": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778407980,
+        "narHash": "sha256-r980BhsReZQe6FkmyNZkwCZpvzARo5jZgTl8HxjAssY=",
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "rev": "ca0a602f650306d00d6f3e3c76d0f4c48a5c5adc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "type": "github"
+      }
+    },
     "nixos-vfio": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -996,14 +1019,32 @@
         "niri-flake": "niri-flake",
         "nix-darwin": "nix-darwin_2",
         "nix-homebrew": "nix-homebrew",
+        "nix-topology": "nix-topology",
         "nixos-vfio": "nixos-vfio",
         "nixpkgs": "nixpkgs_4",
         "nvim-flake": "nvim-flake",
         "proxmox-nixos": "proxmox-nixos",
+        "selfhst-icons": "selfhst-icons",
         "systems": "systems_4",
         "terranix": "terranix",
         "treefmt-nix": "treefmt-nix_2",
         "vgpu4nixos": "vgpu4nixos"
+      }
+    },
+    "selfhst-icons": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780050552,
+        "narHash": "sha256-aH+KJJKxpPOWCN43Cf5H3NKuILxRkch8nwA0td3x/Xk=",
+        "owner": "selfhst",
+        "repo": "icons",
+        "rev": "6e0e196eb824ba991eddf63e0975af0bd54bbf31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "selfhst",
+        "repo": "icons",
+        "type": "github"
       }
     },
     "sops-nix": {

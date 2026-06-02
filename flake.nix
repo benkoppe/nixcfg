@@ -72,6 +72,16 @@
 
     niri-flake.url = "github:sodiboo/niri-flake";
 
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+    selfhst-icons = {
+      url = "github:selfhst/icons";
+      flake = false;
+    };
+
     import-tree.url = "github:vic/import-tree";
 
     treefmt-nix = {
@@ -127,6 +137,7 @@
         inputs.flake-parts.flakeModules.modules
         inputs.clan-core.flakeModules.default
         inputs.terranix.flakeModule
+        inputs.nix-topology.flakeModule
         inputs.treefmt-nix.flakeModule
         (inputs.import-tree ./modules)
       ];
