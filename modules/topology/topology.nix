@@ -93,8 +93,7 @@
             };
 
             nodes.tailnet = mkDevice "Tailscale Tailnet" {
-              hardware.info = "Mesh VPN";
-              renderer.preferredType = "card";
+              info = "Mesh VPN";
 
               interfaces = {
                 wan = { };
@@ -117,9 +116,18 @@
             };
 
             nodes = {
-              dray.interfaces.eno1.network = "home";
-              luka.interfaces.enp6s0.network = "home";
-              shai.interfaces.eno1.network = "home";
+              dray = {
+                hardware.info = "Lenovo ThinkStation P520";
+                interfaces.eno1.network = "home";
+              };
+              luka = {
+                hardware.info = "2023 Custom Build";
+                interfaces.enp6s0.network = "home";
+              };
+              shai = {
+                hardware.info = "HP ProDesk 600 G5";
+                interfaces.eno1.network = "home";
+              };
 
               bird = {
                 parent = "oracle";
