@@ -1,3 +1,4 @@
+{ self, ... }:
 {
   flake.modules.nixos.niri =
     { pkgs, ... }:
@@ -9,8 +10,6 @@
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
         config.common.default = "*";
       };
-
-      environment.systemPackages = with pkgs; [ alacritty ];
 
       services.displayManager = {
         enable = true;
@@ -26,4 +25,19 @@
 
       programs.niri.enable = true;
     };
+
+  flake.modules.hjem.niri = {
+    imports = with self.modules.hjem; [ ghostty ];
+
+    rum.desktops.niri = {
+      enable = true;
+
+      binds = {
+        "Mod+Return" = {
+          parameters.hotkey-overlay-title = "Open a Terminal: ghostty";
+          spawn = [ "ghostty" ];
+        };
+      };
+    };
+  };
 }
