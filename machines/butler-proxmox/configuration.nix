@@ -15,10 +15,10 @@
     "${modulesPath}/virtualisation/qemu-guest-agent.nix"
   ];
 
+  services.qemuGuest.enable = true;
+
   # automatically grow root partition to match disk
   boot.growPartition = lib.mkDefault true;
-
-  services.qemuGuest.enable = true;
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
