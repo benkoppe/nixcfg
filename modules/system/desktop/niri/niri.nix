@@ -37,6 +37,7 @@
 
       packages = with pkgs; [
         hyprlock
+        apple-cursor
       ];
 
       rum.desktops.niri = {
