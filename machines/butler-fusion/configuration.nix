@@ -9,6 +9,7 @@
     basics
     development
 
+    hjem
     niri
 
     "${modulesPath}/virtualisation/vmware-guest.nix"
@@ -34,4 +35,11 @@
   nixpkgs.config.allowUnsupportedSystem = true;
 
   hardware.graphics.enable = true;
+
+  hjem.users.ben = {
+    user = "ben";
+    directory = "/home/ben";
+
+    imports = with self.modules.hjem; [ ];
+  };
 }

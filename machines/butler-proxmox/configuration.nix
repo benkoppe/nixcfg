@@ -23,4 +23,11 @@
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
+
+  hjem.users.ben = {
+    user = "ben";
+    directory = "/home/ben";
+
+    imports = with self.modules.hjem; [ ];
+  };
 }
