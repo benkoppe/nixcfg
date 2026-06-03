@@ -156,6 +156,7 @@
               butler = {
                 tags = [ "development" ];
               };
+              butler-fusion.tags = [ "development" ];
               butler-proxmox.tags = [ "development" ];
               luka = {
                 deploy.targetHost = "root@luka";
