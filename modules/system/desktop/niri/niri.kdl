@@ -1,0 +1,18 @@
+// This config is in the KDL format: https://kdl.dev
+// "/-" comments out the following node.
+// Check the wiki for a full description of the configuration:
+// https://niri-wm.github.io/niri/Configuration:-Introduction
+
+// Input device configuration.
+// Find the full list of options on the wiki:
+// https://niri-wm.github.io/niri/Configuration:-Input
+input {
+  keyboard {
+    // enable numlock on startup
+    numlock
+  }
+
+  touchpad {
+    natural-scroll
+  }
+}

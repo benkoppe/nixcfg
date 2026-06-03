@@ -42,6 +42,8 @@
       rum.desktops.niri = {
         enable = true;
 
+        config = builtins.readFile ./niri.kdl;
+
         binds =
           let
             allowWhenLocked = {
@@ -92,19 +94,19 @@
             "Mod+K".action = "focus-window-up";
             "Mod+L".action = "focus-column-right";
 
-            "Mod+Alt+Left".action = "move-column-left";
-            "Mod+Alt+Down".action = "move-window-down";
-            "Mod+Alt+Up".action = "move-window-up";
-            "Mod+Alt+Right".action = "move-column-right";
-            "Mod+Alt+H".action = "move-column-left";
-            "Mod+Alt+J".action = "move-window-down";
-            "Mod+Alt+K".action = "move-window-up";
-            "Mod+Alt+L".action = "move-column-right";
+            "Mod+Ctrl+Left".action = "move-column-left";
+            "Mod+Ctrl+Down".action = "move-window-down";
+            "Mod+Ctrl+Up".action = "move-window-up";
+            "Mod+Ctrl+Right".action = "move-column-right";
+            "Mod+Ctrl+H".action = "move-column-left";
+            "Mod+Ctrl+J".action = "move-window-down";
+            "Mod+Ctrl+K".action = "move-window-up";
+            "Mod+Ctrl+L".action = "move-column-right";
 
             "Mod+Home".action = "focus-column-first";
             "Mod+End".action = "focus-column-last";
-            "Mod+Alt+Home".action = "move-column-to-first";
-            "Mod+Alt+End".action = "move-column-to-last";
+            "Mod+Ctrl+Home".action = "move-column-to-first";
+            "Mod+Ctrl+End".action = "move-column-to-last";
 
             "Mod+Shift+Left".action = "focus-monitor-left";
             "Mod+Shift+Down".action = "focus-monitor-down";
@@ -115,14 +117,14 @@
             "Mod+Shift+K".action = "focus-monitor-up";
             "Mod+Shift+L".action = "focus-monitor-right";
 
-            "Mod+Shift+Alt+Left".action = "move-column-to-monitor-left";
-            "Mod+Shift+Alt+Down".action = "move-column-to-monitor-down";
-            "Mod+Shift+Alt+Up".action = "move-column-to-monitor-up";
-            "Mod+Shift+Alt+Right".action = "move-column-to-monitor-right";
-            "Mod+Shift+Alt+H".action = "move-column-to-monitor-left";
-            "Mod+Shift+Alt+J".action = "move-column-to-monitor-down";
-            "Mod+Shift+Alt+K".action = "move-column-to-monitor-up";
-            "Mod+Shift+Alt+L".action = "move-column-to-monitor-right";
+            "Mod+Shift+Ctrl+Left".action = "move-column-to-monitor-left";
+            "Mod+Shift+Ctrl+Down".action = "move-column-to-monitor-down";
+            "Mod+Shift+Ctrl+Up".action = "move-column-to-monitor-up";
+            "Mod+Shift+Ctrl+Right".action = "move-column-to-monitor-right";
+            "Mod+Shift+Ctrl+H".action = "move-column-to-monitor-left";
+            "Mod+Shift+Ctrl+J".action = "move-column-to-monitor-down";
+            "Mod+Shift+Ctrl+K".action = "move-column-to-monitor-up";
+            "Mod+Shift+Ctrl+L".action = "move-column-to-monitor-right";
 
             "Mod+Page_Down".action = "focus-workspace-down";
             "Mod+Page_Up".action = "focus-workspace-up";
@@ -135,10 +137,10 @@
             "Mod+WheelScrollUp" = wheelCooldown // {
               action = "focus-workspace-up";
             };
-            "Mod+Alt+WheelScrollDown" = wheelCooldown // {
+            "Mod+Ctrl+WheelScrollDown" = wheelCooldown // {
               action = "move-column-to-workspace-down";
             };
-            "Mod+Alt+WheelScrollUp" = wheelCooldown // {
+            "Mod+Ctrl+WheelScrollUp" = wheelCooldown // {
               action = "move-column-to-workspace-up";
             };
 
@@ -146,10 +148,10 @@
             "Mod+WheelScrollLeft".action = "focus-column-left";
             "Mod+Shift+WheelScrollDown".action = "focus-column-right";
             "Mod+Shift+WheelScrollUp".action = "focus-column-left";
-            "Mod+Alt+WheelScrollRight".action = "move-column-right";
-            "Mod+Alt+WheelScrollLeft".action = "move-column-left";
-            "Mod+Alt+Shift+WheelScrollDown".action = "move-column-right";
-            "Mod+Alt+Shift+WheelScrollUp".action = "move-column-left";
+            "Mod+Ctrl+WheelScrollRight".action = "move-column-right";
+            "Mod+Ctrl+WheelScrollLeft".action = "move-column-left";
+            "Mod+Ctrl+Shift+WheelScrollDown".action = "move-column-right";
+            "Mod+Ctrl+Shift+WheelScrollUp".action = "move-column-left";
 
             "Mod+1".action = "focus-workspace 1";
             "Mod+2".action = "focus-workspace 2";
@@ -161,16 +163,16 @@
             "Mod+8".action = "focus-workspace 8";
             "Mod+9".action = "focus-workspace 9";
             "Mod+0".action = "focus-workspace 10";
-            "Mod+Alt+1".action = "move-column-to-workspace 1";
-            "Mod+Alt+2".action = "move-column-to-workspace 2";
-            "Mod+Alt+3".action = "move-column-to-workspace 3";
-            "Mod+Alt+4".action = "move-column-to-workspace 4";
-            "Mod+Alt+5".action = "move-column-to-workspace 5";
-            "Mod+Alt+6".action = "move-column-to-workspace 6";
-            "Mod+Alt+7".action = "move-column-to-workspace 7";
-            "Mod+Alt+8".action = "move-column-to-workspace 8";
-            "Mod+Alt+9".action = "move-column-to-workspace 9";
-            "Mod+Alt+0".action = "move-column-to-workspace 10";
+            "Mod+Ctrl+1".action = "move-column-to-workspace 1";
+            "Mod+Ctrl+2".action = "move-column-to-workspace 2";
+            "Mod+Ctrl+3".action = "move-column-to-workspace 3";
+            "Mod+Ctrl+4".action = "move-column-to-workspace 4";
+            "Mod+Ctrl+5".action = "move-column-to-workspace 5";
+            "Mod+Ctrl+6".action = "move-column-to-workspace 6";
+            "Mod+Ctrl+7".action = "move-column-to-workspace 7";
+            "Mod+Ctrl+8".action = "move-column-to-workspace 8";
+            "Mod+Ctrl+9".action = "move-column-to-workspace 9";
+            "Mod+Ctrl+0".action = "move-column-to-workspace 10";
 
             "Mod+Tab".action = "focus-workspace-previous";
 
@@ -186,13 +188,13 @@
             "Mod+R".action = "switch-preset-column-width";
             "Mod+Shift+R".action = "switch-preset-column-width-back";
 
-            "Mod+Alt+Shift+R".action = "switch-preset-window-height";
-            "Mod+Alt+R".action = "reset-window-height";
+            "Mod+Ctrl+Shift+R".action = "switch-preset-window-height";
+            "Mod+Ctrl+R".action = "reset-window-height";
 
             "Mod+F".action = "maximize-column";
             "Mod+Shift+F".action = "fullscreen-window";
 
-            "Mod+Alt+F".action = "expand-column-to-available-width";
+            "Mod+Ctrl+F".action = "expand-column-to-available-width";
 
             "Mod+C".action = "center-column";
             "Mod+Shift+C".action = "center-visible-columns";
