@@ -30,6 +30,7 @@
 
     imports = with self.modules.hjem; [
       niri
+      browsers
     ];
   };
 }
