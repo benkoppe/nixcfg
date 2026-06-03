@@ -153,9 +153,6 @@
 
           inventory = {
             machines = {
-              butler = {
-                tags = [ "development" ];
-              };
               butler-fusion.tags = [ "development" ];
               butler-proxmox.tags = [ "development" ];
               luka = {
