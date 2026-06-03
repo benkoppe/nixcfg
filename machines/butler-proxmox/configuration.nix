@@ -28,6 +28,8 @@
     user = "ben";
     directory = "/home/ben";
 
-    imports = with self.modules.hjem; [ ];
+    imports = with self.modules.hjem; [
+      niri
+    ];
   };
 }
