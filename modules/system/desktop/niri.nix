@@ -67,24 +67,21 @@
               parameters.repeat = false;
               action = "close-window";
             };
-          }
-          //
+
             # PROGRAMS
-            {
-              "Super+Alt+L" = {
-                parameters.hotkey-overlay-title = "Lock Screen";
-                spawn = [ "hyprlock" ];
-              };
-              "Mod+Return" = {
-                parameters.hotkey-overlay-title = "Open Terminal";
-                spawn = [ "ghostty" ];
-              };
-              "Mod+B" = {
-                parameters.hotkey-overlay-title = "Open Brave";
-                spawn = [ "brave" ];
-              };
-            }
-          // {
+            "Super+Alt+L" = {
+              parameters.hotkey-overlay-title = "Lock Screen";
+              spawn = [ "hyprlock" ];
+            };
+            "Mod+Return" = {
+              parameters.hotkey-overlay-title = "Open Terminal";
+              spawn = [ "ghostty" ];
+            };
+            "Mod+B" = {
+              parameters.hotkey-overlay-title = "Open Brave";
+              spawn = [ "brave" ];
+            };
+
             # MOVEMENT
             "Mod+Left".action = "focus-column-left";
             "Mod+Down".action = "focus-window-down";
@@ -223,7 +220,7 @@
             # The allow-inhibiting=false property can be applied to other binds as well,
             # which ensures niri always processes them, even when an inhibitor is active.
             "Mod+Escape" = {
-              parameters.allows-inhibiting = false;
+              parameters.allow-inhibiting = false;
               action = "toggle-keyboard-shortcuts-inhibit";
             };
 
@@ -232,8 +229,7 @@
             "Ctrl+Alt+Delete".action = "quit";
 
             "Mod+Shift+P".action = "power-off-monitors";
-          }
-          // {
+
             # VOLUME
             "XF86AudioRaiseVolume" = allowWhenLocked // {
               action = ''spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"'';
