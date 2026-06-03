@@ -44,5 +44,14 @@
       niri
       browsers
     ];
+
+    rum.desktops.niri.config =
+      lib.mkAfter
+        # kdl
+        ''
+          output "Virtual-1" {
+            scale 1.8
+          }
+        '';
   };
 }
