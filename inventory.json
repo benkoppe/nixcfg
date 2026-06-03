@@ -14,6 +14,9 @@
     },
     "butler-proxmox": {
       "installedAt": 1780427137
+    },
+    "butler-fusion": {
+      "installedAt": 1780513749
     }
   }
 }
