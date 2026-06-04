@@ -45,8 +45,6 @@
         };
         files."id_ed25519.pub" = {
           secret = false;
-          owner = "ben";
-          mode = "0644";
         };
         runtimeInputs = [ pkgs.openssh ];
         script = ''
@@ -57,11 +55,20 @@
       users.users.ben.openssh.authorizedKeys.keys = peerButlerAuthorizedKeys;
     };
 
-  flake.modules.hjem.profiles_butler = {
-    imports = with self.modules.hjem; [
-      niri
-      browsers
-      ssh
-    ];
-  };
+  flake.modules.hjem.profiles_butler =
+    { lib, osConfig, ... }:
+    {
+      imports = with self.modules.hjem; [
+        niri
+        browsers
+        ssh
+      ];
+
+      xdg.config.files."ssh/config".text = lib.mkBefore ''
+        Host butler-*
+          User ben
+          IdentityFile ${osConfig.clan.core.vars.generators.ben-butler-ssh.files."id_ed25519".path}
+          IdentitiesOnly yes
+      '';
+    };
 }
