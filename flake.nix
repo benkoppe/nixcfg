@@ -153,8 +153,14 @@
 
           inventory = {
             machines = {
-              butler-fusion.tags = [ "development" ];
-              butler-proxmox.tags = [ "development" ];
+              butler-fusion = {
+                deploy.targetHost = "root@172.16.85.129";
+                tags = [ "development" ];
+              };
+              butler-proxmox = {
+                deploy.targetHost = "root@10.0.1.29";
+                tags = [ "development" ];
+              };
               luka = {
                 deploy.targetHost = "root@luka";
                 tags = [ "development" ];
