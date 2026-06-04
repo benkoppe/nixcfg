@@ -6,10 +6,7 @@
 }:
 {
   imports = with self.modules.nixos; [
-    basics
-
-    hjem
-    niri
+    profiles_butler
 
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/virtualisation/qemu-guest-agent.nix"
@@ -24,13 +21,4 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
 
-  hjem.users.ben = {
-    user = "ben";
-    directory = "/home/ben";
-
-    imports = with self.modules.hjem; [
-      niri
-      browsers
-    ];
-  };
 }

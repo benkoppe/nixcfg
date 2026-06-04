@@ -6,11 +6,7 @@
 }:
 {
   imports = with self.modules.nixos; [
-    basics
-    development
-
-    hjem
-    niri
+    profiles_butler
 
     "${modulesPath}/virtualisation/vmware-guest.nix"
   ];
@@ -37,14 +33,6 @@
   hardware.graphics.enable = true;
 
   hjem.users.ben = {
-    user = "ben";
-    directory = "/home/ben";
-
-    imports = with self.modules.hjem; [
-      niri
-      browsers
-    ];
-
     rum.desktops.niri.config =
       lib.mkAfter
         # kdl
