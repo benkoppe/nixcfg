@@ -25,6 +25,14 @@
         }
       ];
 
+      microvm.volumes = [
+        {
+          image = "/tank0/microvms/samba/samba-state.img";
+          mountPoint = "/var/lib/samba";
+          size = 256;
+        }
+      ];
+
       systemd.services.create-share-dirs = {
         wantedBy = [ "multi-user.target" ];
         after = [ "mnt-files.mount" ];
@@ -90,6 +98,7 @@
             "hosts allow" =
               "10.1.0.0" # host bridge running tailscale
               + " 100.64.0.0/10" # normal tailscale range
+              + " 192.168.1." # home LAN
               + " 127.0.0.1 localhost";
             "hosts deny" = "0.0.0.0/0";
             "guest account" = "nobody";
