@@ -155,11 +155,17 @@
             machines = {
               butler-fusion = {
                 deploy.targetHost = "root@172.16.85.129";
-                tags = [ "development" ];
+                tags = [
+                  "development"
+                  "butler"
+                ];
               };
               butler-proxmox = {
                 deploy.targetHost = "root@10.0.1.29";
-                tags = [ "development" ];
+                tags = [
+                  "development"
+                  "butler"
+                ];
               };
               luka = {
                 deploy.targetHost = "root@luka";
