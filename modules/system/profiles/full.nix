@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.hjem.profile-full =
+  flake.modules.hjem.profiles_full =
     { pkgs, ... }:
     {
       imports = with self.modules.hjem; [
