@@ -3,7 +3,7 @@
     { config, ... }:
     {
       files.".bashrc".text = ''
-        ${config.environment.loadEnv}
+        . ${config.environment.loadEnv}
       '';
 
       files.".bash_profile".text = ''
