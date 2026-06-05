@@ -38,6 +38,8 @@
       packages = with pkgs; [
         hyprlock
         apple-cursor
+
+        waypipe
       ];
 
       rum.desktops.niri = {
