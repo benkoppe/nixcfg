@@ -1,6 +1,11 @@
 {
   flake.modules.hjem.bitwarden =
-    { pkgs, lib, ... }:
+    {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
     let
       isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
     in
@@ -14,9 +19,9 @@
       environment.sessionVariables = {
         SSH_AUTH_SOCK =
           if isDarwin then
-            "$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+            "${config.directory}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
           else
-            "$HOME/.bitwarden-ssh-agent.sock";
+            "${config.directory}/.bitwarden-ssh-agent.sock";
       };
     };
 }
