@@ -52,7 +52,9 @@
         '';
       };
 
-      users.users.ben.openssh.authorizedKeys.keys = peerButlerAuthorizedKeys;
+      users.users.ben.openssh.authorizedKeys.keys = peerButlerAuthorizedKeys ++ [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJgiH4Iu1GUe9Hd40cSnQH94EHj0VmjXdbsaBED2WMHT colmena"
+      ];
     };
 
   flake.modules.hjem.profiles_butler =
