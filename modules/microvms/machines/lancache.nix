@@ -43,7 +43,10 @@
         cacheLocation = "/var/lib/lancache/cache";
         logPrefix = "/var/log/nginx/lancache";
 
-        upstreamDns = [ "10.1.0.1" ];
+        upstreamDns = [
+          "1.1.1.1"
+          "1.0.0.1"
+        ];
         listenAddress = "10.1.0.10";
 
         cacheDiskSize = "290g";
