@@ -63,6 +63,7 @@
       imports = with self.modules.hjem; [
         basics
 
+        niri
         browsers
         bitwarden
       ];
