@@ -62,6 +62,7 @@
         niri
         browsers
         ssh
+        bitwarden
       ];
 
       xdg.config.files."ssh/config".text = lib.mkBefore ''
