@@ -1,4 +1,3 @@
-{ self, ... }:
 {
   flake.modules.nixos.niri =
     { pkgs, ... }:
@@ -33,14 +32,14 @@
   flake.modules.hjem.niri =
     { pkgs, ... }:
     {
-      imports = with self.modules.hjem; [ ghostty ];
-
       packages = with pkgs; [
         hyprlock
         apple-cursor
 
         waypipe
       ];
+
+      rum.programs.ghostty.enable = true;
 
       rum.desktops.niri = {
         enable = true;
