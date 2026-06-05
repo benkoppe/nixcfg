@@ -28,6 +28,8 @@
 
           window-decoration = isDarwin;
           macos-titlebar-style = "tabs";
+          # zsh is good enough at handling the title
+          shell-integration-features = "no-title";
 
           cursor-style = "bar";
           cursor-style-blink = true;
