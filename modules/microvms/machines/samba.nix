@@ -16,7 +16,10 @@
       familyUsersPath = "${familyPath}/users";
       familyTimemachinePath = "${familyPath}/timemachine";
 
-      familyUsers = [ "ben" ];
+      familyUsers = [
+        "ben"
+        "greg"
+      ];
 
       mkTimemachineShare = user: {
         name = "timemachine-${user}";
