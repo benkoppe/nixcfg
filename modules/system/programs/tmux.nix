@@ -45,6 +45,9 @@
         unbind -T copy-mode-vi MouseDragEnd1Pane # don't make mouse selection auto-copy
         bind-key -T copy-mode-vi Y send -X copy-selection # copy without scrolling to bottom
 
+        # override window title
+        set -g set-titles on
+
         # set background color of selected window in status line to a slightly different green
         # changed on computer from colour48
         set -g window-status-current-style bg=colour42,fg=black
