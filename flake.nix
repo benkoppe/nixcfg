@@ -70,8 +70,6 @@
 
     lancache-nix.url = "github:menixator/lancache.nix";
 
-    niri-flake.url = "github:sodiboo/niri-flake";
-
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -155,8 +153,19 @@
 
           inventory = {
             machines = {
-              butler = {
-                tags = [ "development" ];
+              butler-fusion = {
+                deploy.targetHost = "root@172.16.85.129";
+                tags = [
+                  "development"
+                  "butler"
+                ];
+              };
+              butler-proxmox = {
+                deploy.targetHost = "root@10.0.1.29";
+                tags = [
+                  "development"
+                  "butler"
+                ];
               };
               luka = {
                 deploy.targetHost = "root@luka";

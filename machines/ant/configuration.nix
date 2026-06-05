@@ -24,11 +24,15 @@
     directory = "/Users/ben";
 
     imports = with self.modules.hjem; [
-      profile-full
+      profiles_full
 
       colima
     ];
   };
+
+  determinateNix.customSettings.trusted-users = [
+    "root"
+  ];
 
   networking =
     let

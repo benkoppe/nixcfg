@@ -9,8 +9,11 @@
     "dray": {
       "installedAt": 1767665768
     },
-    "butler": {
-      "installedAt": 1772450979
+    "butler-proxmox": {
+      "installedAt": 1780427137
+    },
+    "butler-fusion": {
+      "installedAt": 1780513749
     }
   }
 }

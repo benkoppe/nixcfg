@@ -16,7 +16,7 @@
     }:
     {
       topology.nixosConfigurations = lib.filterAttrs (
-        name: cfg: cfg.config ? topology && !(lib.hasPrefix "vm-" name) && name != "butler"
+        name: cfg: cfg.config ? topology && !(lib.hasPrefix "vm-" name) && !(lib.hasPrefix "butler" name)
       ) self.clan.nixosConfigurations;
 
       packages.topology-images =

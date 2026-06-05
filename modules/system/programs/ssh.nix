@@ -2,7 +2,14 @@
   flake.modules.hjem.ssh =
     { lib, config, ... }:
     {
+      files.".ssh/config".text =
+        # sshclientconfig
+        ''
+          Include ${config.xdg.config.directory}/ssh/config
+        '';
+
       xdg.config.files."ssh/config".text = lib.concatLines [
+        # sshclientconfig
         ''
           Host *
             Compression no
@@ -23,5 +30,7 @@
             ControlPath ${config.xdg.cache.directory}/ssh/%r@%n:%p
         ''
       ];
+
+      xdg.cache.files."ssh".type = "directory";
     };
 }

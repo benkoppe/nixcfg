@@ -68,6 +68,12 @@ in
     determinateNix = {
       enable = true;
 
+      customSettings = {
+        trusted-users = [
+          "root"
+        ];
+      };
+
       inherit registry;
     };
   };
