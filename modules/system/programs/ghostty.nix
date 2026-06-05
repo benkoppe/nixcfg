@@ -35,6 +35,6 @@
       };
 
       rum.programs.zsh.plugins.ghostty-integration.source =
-        "${pkgs.ghostty-bin}/Applications/Ghostty.app/Contents/Resources/ghostty/shell-integration/zsh/ghostty-integration";
+        lib.mkIf isDarwin "${pkgs.ghostty-bin}/Applications/Ghostty.app/Contents/Resources/ghostty/shell-integration/zsh/ghostty-integration";
     };
 }
