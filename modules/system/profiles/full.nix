@@ -7,6 +7,7 @@
         ghostty
 
         zsh
+        bash
         direnv
         atuin
         tmux-full
