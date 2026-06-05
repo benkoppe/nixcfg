@@ -26,6 +26,7 @@
     imports = with self.modules.hjem; [
       profiles_full
 
+      bitwarden
       colima
     ];
   };

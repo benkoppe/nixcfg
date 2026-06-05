@@ -56,9 +56,6 @@
 
           # Always color ls and group directories
           alias ls='ls --color=auto'
-
-          # Use bitwarden desktop ssh agent
-          export SSH_AUTH_SOCK="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
         '';
       };
     };
