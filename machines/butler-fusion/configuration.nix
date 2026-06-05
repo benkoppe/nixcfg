@@ -11,7 +11,10 @@
     "${modulesPath}/virtualisation/vmware-guest.nix"
   ];
 
-  virtualisation.vmware.guest.enable = true;
+  virtualisation.vmware.guest = {
+    enable = true;
+    headless = false;
+  };
 
   # automatically grow root partition to match disk
   boot.growPartition = lib.mkDefault true;
