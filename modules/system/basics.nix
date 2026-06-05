@@ -18,6 +18,10 @@
 
       time.timeZone = lib.mkDefault "America/Los_Angeles";
 
+      # I don't want the gnome ssh agent
+      # when I want one, it's the one in bitwarden.nix
+      services.gnome.gcr-ssh-agent.enable = false;
+
       environment.systemPackages = [ pkgs.ghostty.terminfo ];
     };
 
