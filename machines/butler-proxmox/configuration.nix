@@ -9,6 +9,8 @@
   imports = with self.modules.nixos; [
     profiles_butler
 
+    dms-shell
+
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/virtualisation/qemu-guest-agent.nix"
   ];
