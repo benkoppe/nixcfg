@@ -2,6 +2,7 @@
   self,
   lib,
   modulesPath,
+  pkgs,
   ...
 }:
 {
@@ -20,4 +21,10 @@
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
+
+  hjem.users.ben.imports = with self.modules.hjem; [ profiles_full ];
+
+  users.users.ben.shell = pkgs.zsh;
+
+  programs.zsh.enable = true;
 }
