@@ -28,4 +28,11 @@
   flake.modules.darwin.basics = {
     imports = (with self.modules.generic; [ basics ]) ++ (with self.modules.darwin; [ nix ]);
   };
+
+  flake.modules.hjem.basics = {
+    imports = with self.modules.hjem; [
+      ssh
+      bash
+    ];
+  };
 }

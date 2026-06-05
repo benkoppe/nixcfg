@@ -61,9 +61,9 @@
     { lib, osConfig, ... }:
     {
       imports = with self.modules.hjem; [
-        niri
+        basics
+
         browsers
-        ssh
         bitwarden
       ];
 
