@@ -10,6 +10,7 @@
     profiles_butler
 
     dms-shell
+    qmk-full
 
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/virtualisation/qemu-guest-agent.nix"
