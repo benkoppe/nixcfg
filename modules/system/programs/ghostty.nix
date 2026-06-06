@@ -33,6 +33,10 @@
 
           cursor-style = "bar";
           cursor-style-blink = true;
+
+          # LINUX-ONLY settings
+          app-notifications = "no-clipboard-copy";
+          clipboard-read = "allow";
         };
       };
 
