@@ -136,7 +136,7 @@
             };
 
             # === Security ====
-            "Mod+Shift+Q" = hotkeyOverlay "Lock Screen" // {
+            "Mod+Ctrl+L" = hotkeyOverlay "Lock Screen" // {
               spawn = dmsIpcCall ++ [
                 "lock"
                 "lock"
