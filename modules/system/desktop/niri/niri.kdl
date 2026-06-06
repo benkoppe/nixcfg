@@ -6,6 +6,12 @@
 // Input device configuration.
 // Find the full list of options on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Input
+
+// default by dms
+config-notification {
+  disable-failed
+}
+
 input {
   keyboard {
     // enable numlock on startup
@@ -16,6 +22,7 @@ input {
   }
 
   touchpad {
+    tap
     natural-scroll
   }
 
@@ -29,12 +36,13 @@ input {
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
+  background-color "transparent"
   // Set gaps around windows in logical pixels.
-  gaps 4
+  // gaps 4
 
-  focus-ring {
-    width 4
-  }
+  // focus-ring {
+  //   width 4
+  // }
 }
 
 hotkey-overlay {
@@ -57,6 +65,12 @@ cursor {
 // A ~ at the front will be expanded to the home directory.
 // The path is formatted with strftime(3) to give you the screenshot date and time.
 // screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+screenshot-path "~/docs/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+layer-rule {
+  match namespace="^quickshell$"
+  place-within-backdrop true
+}
 
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
@@ -68,6 +82,7 @@ window-rule {
     // - host Firefox (app-id is "firefox")
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id="zoom"
     open-floating true
 }
 
@@ -81,4 +96,67 @@ window-rule {
 
     // Use this instead if you want them visible on third-party screenshot tools.
     // block-out-from "screencast"
+}
+
+// dms default
+window-rule {
+  // This regular expression is intentionally made as specific as possible,
+  // since this is the default config, and we want no false positives.
+  // You can get away with just app-id="wezterm" if you want.
+  match app-id=r#"^org\.wezfurlong\.wezterm$"#
+  default-column-width {}
+}
+window-rule {
+  match app-id=r#"^org\.gnome\."#
+  draw-border-with-background false
+  geometry-corner-radius 12
+  clip-to-geometry true
+}
+window-rule {
+  match app-id=r#"^gnome-control-center$"#
+  match app-id=r#"^pavucontrol$"#
+  match app-id=r#"^nm-connection-editor$"#
+  default-column-width { proportion 0.5; }
+  open-floating false
+}
+window-rule {
+  match app-id=r#"^org\.gnome\.Calculator$"#
+  match app-id=r#"^gnome-calculator$"#
+  match app-id=r#"^galculator$"#
+  match app-id=r#"^blueman-manager$"#
+  match app-id=r#"^org\.gnome\.Nautilus$"#
+  match app-id=r#"^xdg-desktop-portal$"#
+  open-floating true
+}
+window-rule {
+  match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
+  default-floating-position x=10 y=10 relative-to="bottom-right"
+  open-focused false
+}
+window-rule {
+  match app-id=r#"^org\.wezfurlong\.wezterm$"#
+  match app-id="Alacritty"
+  match app-id="zen"
+  match app-id="com.mitchellh.ghostty"
+  match app-id="kitty"
+  draw-border-with-background false
+}
+// Open dms windows as floating by default
+window-rule {
+  match app-id=r#"org.quickshell$"#
+  match app-id=r#"com.danklinux.dms$"#
+  open-floating true
+}
+debug {
+  honor-xdg-activation-with-invalid-serial
+}
+
+// Override to disable super+tab
+recent-windows {
+  binds {
+    Alt+Tab         { next-window scope="output"; }
+    Alt+Shift+Tab   { previous-window scope="output"; }
+    Alt+grave       { next-window filter="app-id"; }
+    Alt+Shift+grave { previous-window filter="app-id"; }
+  }
 }
