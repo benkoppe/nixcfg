@@ -23,6 +23,7 @@
     };
 
     hjem.extraModules = with self.modules.hjem; [
+      dms-shell
       dms-shell-theming
       app-icons
     ];
@@ -63,5 +64,17 @@
         [Settings]
         gtk-icon-theme-name=breeze-dark
       '';
+    };
+
+  flake.modules.hjem.dms-shell =
+    { lib, ... }:
+    {
+      # this should be copied to settings.json for the real runtime config
+      xdg.config.files."DankMaterialShell/settings-base.json" = {
+        generator = lib.generators.toJSON { };
+        value = {
+          currentThemeName = "dynamic";
+        };
+      };
     };
 }
