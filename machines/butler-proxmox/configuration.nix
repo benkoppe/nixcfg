@@ -25,7 +25,10 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
 
-  hjem.users.ben.imports = with self.modules.hjem; [ profiles_full ];
+  hjem.users.ben.imports = with self.modules.hjem; [
+    profiles_full
+    vesktop
+  ];
 
   users.users.ben.shell = pkgs.zsh;
 
