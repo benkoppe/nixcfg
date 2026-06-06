@@ -49,7 +49,7 @@
             clipboard-read = "allow";
 
             keybind = [
-              "ctrl+t=new_tab"
+              "ctrl+shift+t=new_tab"
               "ctrl+plus=increase_font_size:1"
               "ctrl+minus=decrease_font_size:1"
               "ctrl+zero=reset_font_size"
