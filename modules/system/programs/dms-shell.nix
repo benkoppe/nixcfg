@@ -23,12 +23,12 @@
     };
 
     hjem.extraModules = with self.modules.hjem; [
-      dms-shell
+      dms-shell-theming
       app-icons
     ];
   };
 
-  flake.modules.hjem.dms-shell =
+  flake.modules.hjem.dms-shell-theming =
     { lib, ... }:
     {
       rum.desktops.niri.config =
