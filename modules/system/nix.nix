@@ -47,6 +47,10 @@ in
         randomizedDelaySec = "60min";
       };
 
+      settings.trusted-users = [
+        "root"
+        "@wheel"
+      ];
     }
     // {
       channel.enable = false;
@@ -71,6 +75,7 @@ in
       customSettings = {
         trusted-users = [
           "root"
+          "@admin"
         ];
       };
 
