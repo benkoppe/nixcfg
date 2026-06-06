@@ -518,11 +518,11 @@
     },
     "mnw": {
       "locked": {
-        "lastModified": 1779567938,
-        "narHash": "sha256-3c/aliHq9oXfmMSN5MZo8sk0znw9Zp+mDT3arj3xuiU=",
+        "lastModified": 1780652237,
+        "narHash": "sha256-DwA/RqEcchISgQd6z6ceT8U8k7sC2bDBoN9MlNtglcU=",
         "owner": "Gerg-L",
         "repo": "mnw",
-        "rev": "8e71691ad38b1efa7d7488c75ab115db33e046fd",
+        "rev": "283b9bbfeb5adf12aa4378562b5a6b5ef18fbcb2",
         "type": "github"
       },
       "original": {
@@ -779,11 +779,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1780203844,
-        "narHash": "sha256-K5sT4jTpGs15ADhviMKNBH38REpPf5Q6mM1+N6cArVE=",
+        "lastModified": 1780453794,
+        "narHash": "sha256-bXMRa9VTsHSPXL4Cw8R6JJLQeY3Y/IP4+YJCYVmQ7FY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b51242d7d43689db2f3be91bd05d5b24fbb469c4",
+        "rev": "6b316287bae2ee04c9b93c8c858d930fd07d7338",
         "type": "github"
       },
       "original": {
@@ -879,11 +879,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1780643869,
-        "narHash": "sha256-TB7JdfoHgg1e6xJWyNfiiAMn7JSxiuJFr9D2stxOuj4=",
+        "lastModified": 1780762654,
+        "narHash": "sha256-BuJLaMs7tkz8vLZEZuzpD6/gbCCMcinyXeE35C9EiaU=",
         "owner": "benkoppe",
         "repo": "nvim-flake",
-        "rev": "c766a877e935b6c33e0cb85af4df970d1106e777",
+        "rev": "8d1a565d60bc5ea3c16beb9543cfe069e865ea65",
         "type": "github"
       },
       "original": {
