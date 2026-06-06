@@ -33,7 +33,6 @@
     { pkgs, ... }:
     {
       packages = with pkgs; [
-        hyprlock
         apple-cursor
         wl-clipboard-rs
 
@@ -74,10 +73,10 @@
             };
 
             # PROGRAMS
-            "Super+Alt+L" = {
-              parameters.hotkey-overlay-title = "Lock Screen";
-              spawn = [ "hyprlock" ];
-            };
+            # "Super+Alt+L" = {
+            #   parameters.hotkey-overlay-title = "Lock Screen";
+            #   spawn = [ "hyprlock" ];
+            # };
             "Mod+Return" = {
               parameters.hotkey-overlay-title = "Open Terminal";
               spawn = [ "ghostty" ];
