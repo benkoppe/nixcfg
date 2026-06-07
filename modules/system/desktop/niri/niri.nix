@@ -82,9 +82,11 @@
               parameters.hotkey-overlay-title = "Open Terminal";
               spawn = [ "ghostty" ];
             };
-            "Mod+B" = {
-              parameters.hotkey-overlay-title = "Open Brave";
+            "Mod+B" = hotkeyOverlay "Open Brave" // {
               spawn = [ "brave" ];
+            };
+            "Mod+Shift+B" = hotkeyOverlay "Open Helium" // {
+              spawn = [ "helium" ];
             };
             "Mod+Space" = hotkeyOverlay "Application Launcher" // {
               spawn = dmsIpcCall ++ [

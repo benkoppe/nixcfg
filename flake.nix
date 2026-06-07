@@ -61,6 +61,11 @@
 
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
+    helium = {
+      url = "github:amaanq/helium-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     copyparty.url = "github:9001/copyparty";
 
     github2forgejo = {
