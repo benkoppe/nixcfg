@@ -71,6 +71,8 @@ in
     {
       packages = [ pkgs.opencode ];
 
+      xdg.config.files."opencode/skills".source = ./skills;
+
       xdg.config.files."opencode/opencode.json" = {
         generator = lib.generators.toJSON { };
         value = {
