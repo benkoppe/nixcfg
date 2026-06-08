@@ -37,6 +37,8 @@
         ];
       };
 
+      programs.mosh.enable = true;
+
       clan.core.vars.generators.ben-butler-ssh = {
         files."id_ed25519" = {
           secret = true;
