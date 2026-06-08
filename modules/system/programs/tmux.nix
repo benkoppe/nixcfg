@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, inputs, ... }:
 {
   flake.modules.hjem.tmux-full = {
     imports = with self.modules.hjem; [
@@ -186,13 +186,6 @@
   flake.modules.hjem.tmux-sessionizer =
     { pkgs, lib, ... }:
     let
-      tmux-sessionizer-source = pkgs.fetchFromGitHub {
-        owner = "ThePrimeagen";
-        repo = "tmux-sessionizer";
-        rev = "7edf8211e36368c29ffc0d2c6d5d2d350b4d729b";
-        hash = "sha256-4QGlq/cLbed7AZhQ3R1yH+44gmgp9gSzbiQft8X5NwU=";
-      };
-
       tmux-sessionizer-shims = /* bash */ ''
         # --- tmux-sessionizer shims (run before upstream script) ----------------------
 
@@ -276,9 +269,11 @@
 
             ${tmux-sessionizer-shims}
 
-            ${builtins.readFile "${tmux-sessionizer-source}/tmux-sessionizer"}
+            source ${inputs.tmux-sessionizer}/tmux-sessionizer "$@"
           '';
         excludeShellChecks = [
+          "SC2034"
+          "SC1091"
           "SC2236"
           "SC2155"
           "SC1090"

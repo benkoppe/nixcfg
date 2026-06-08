@@ -98,6 +98,12 @@
 
     systems.url = "github:nix-systems/default";
 
+    # non-flake inputs
+    tmux-sessionizer = {
+      url = "github:theprimeagen/tmux-sessionizer";
+      flake = false;
+    };
+
     # darwin inputs
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
