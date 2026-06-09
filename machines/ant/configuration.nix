@@ -17,6 +17,8 @@
 
   environment.systemPackages = with pkgs; [
     alt-tab-macos
+
+    mosh
   ];
 
   hjem.users.ben = {
