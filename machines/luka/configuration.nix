@@ -19,7 +19,7 @@
     {
       proto = "tcp";
       sourcePort = 8765;
-      destination = "10.0.0.50";
+      destination = "10.0.0.50:8765";
     }
   ];
   networking.firewall.allowedTCPPorts = [ 8765 ];
