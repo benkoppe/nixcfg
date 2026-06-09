@@ -12,6 +12,7 @@
         inputs.microvm.nixosModules.host
 
         microvms_host_network
+        microvms_host_firewall
       ];
 
       # fixes daily crash issue with shared nix store

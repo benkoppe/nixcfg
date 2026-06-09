@@ -37,4 +37,49 @@
 
     tang.id = 50;
   };
+
+  my.microvms.firewall = {
+    enable = true;
+
+    adminCidrs = [
+      "192.168.1.0/24"
+      "100.64.0.0/10"
+    ];
+
+    dnsServers = [ "192.168.1.1" ];
+
+    allowVmInternet = true;
+    logDenied = true;
+
+    vmToVmRules = [
+      {
+        name = "cloudflared-to-pocket-id";
+        from = "cloudflared-dray";
+        to = "pocket-id";
+        proto = "tcp";
+        ports = [ 443 ];
+      }
+      {
+        name = "cloudflared-to-komodo";
+        from = "cloudflared-dray";
+        to = "komodo";
+        proto = "tcp";
+        ports = [ 443 ];
+      }
+      {
+        name = "cloudflared-to-forgejo";
+        from = "cloudflared-dray";
+        to = "forgejo";
+        proto = "tcp";
+        ports = [ 443 ];
+      }
+      {
+        name = "pocket-id-to-lldap";
+        from = "pocket-id";
+        to = "lldap";
+        proto = "tcp";
+        ports = [ 3890 ];
+      }
+    ];
+  };
 }

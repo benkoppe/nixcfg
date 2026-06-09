@@ -42,8 +42,7 @@
         set  -g extended-keys-format csi-u
         set  -g allow-passthrough    on  # OSC 52 clipboard passthru 
 
-        set -as terminal-features ",xterm-ghostty*:RGB"
-        set -as terminal-features ",xterm-ghostty*:RGB"
+        set -as terminal-features ",xterm-ghostty:RGB:usstyle:overline"
 
         unbind -T copy-mode-vi MouseDragEnd1Pane # don't make mouse selection auto-copy
         bind-key -T copy-mode-vi Y send -X copy-selection # copy without scrolling to bottom
