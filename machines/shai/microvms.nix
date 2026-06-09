@@ -23,4 +23,20 @@
 
     tang.id = 50;
   };
+
+  my.microvms.firewall = {
+    enable = true;
+
+    adminCidrs = [
+      "192.168.1.0/24"
+      "100.64.0.0/10"
+    ];
+
+    dnsServers = [ "192.168.1.1" ];
+
+    allowVmInternet = true;
+    logDenied = true;
+
+    vmToVmRules = [ ];
+  };
 }
