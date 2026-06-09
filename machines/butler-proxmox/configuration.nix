@@ -33,4 +33,6 @@
   users.users.ben.shell = pkgs.zsh;
 
   programs.zsh.enable = true;
+
+  services.tailscale.enable = true;
 }
