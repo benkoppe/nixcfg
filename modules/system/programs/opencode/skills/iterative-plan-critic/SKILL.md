@@ -27,8 +27,8 @@ Use when:
 3. Ask it to identify only concrete plan defects.
 4. For each criticism, decide whether it is valid, partly valid, invalid, or preference-only.
 5. Apply only valid or partly valid criticism to the plan.
-6. Repeat with a fresh criticizer until one returns exactly `No concrete criticisms.`
-7. Stop earlier only if remaining feedback is preference-only, duplicated, or non-actionable.
+6. Repeat with a fresh criticizer only while it reports new Blocking or Material defects.
+7. Stop when remaining feedback is Minor, preference-only, duplicated, speculative, or non-actionable.
 8. Return the final plan plus a short note that the criticizer loop converged.
 
 ## Criticizer Prompt Template
@@ -55,12 +55,18 @@ Focus only on concrete defects that would cause:
 - Dependency/API risk
 - Non-executable instructions
 - Conflicts with repo guidelines or architecture
+Classify each criticism as one of:
+- Blocking: likely to cause wrong implementation, broken behavior, unsafe behavior, or a non-executable plan.
+- Material: likely to waste significant time or require rework, but not fatal.
+- Minor: wording, style, optional clarity, preference, edge-case overfitting, or nice-to-have improvement.
+Only report Blocking or Material issues by default.
+Mention Minor issues only if they reveal a real execution risk.
 Ignore pure preferences unless they affect correctness or execution.
-If there are no concrete defects, say exactly:
-No concrete criticisms.
+If there are no Blocking or Material issues, say exactly:
+Good enough to implement.
 Return only:
-1. Verdict
-2. Numbered criticisms
+1. Verdict: Blocked, Needs tightening, or Good enough to implement
+2. Numbered Blocking/Material criticisms
 3. Concise suggested fixes
 Plan to criticize:
 <PASTE_PLAN_HERE>
@@ -77,17 +83,22 @@ After each criticizer result:
 - Do not blindly accept criticism that expands scope beyond the user’s goal.
 - Preserve explicit cut lines and deferred work.
 - Prefer concrete API, validation, test, and verification wording.
+- Do not chase exhaustive perfection; the goal is an executable, low-risk plan.
 
 ## Stop Condition
 
 Stop when:
 
-- A fresh criticizer returns No concrete criticisms.
-  If the loop repeats the same issue:
+- A fresh criticizer returns `Good enough to implement.`
+- The criticizer reports only Minor, preference-only, duplicated, speculative, or non-actionable feedback.
+- Two criticizer rounds have completed without finding a new Blocking issue.
+If the loop repeats the same issue:
 - Tighten the plan once.
 - If it recurs without new substance, call it resolved or preference-only and explain why.
-  Final Output
-  Return:
+
+Final Output
+
+Return:
 - The final implementation plan.
 - A short convergence note.
 - Any residual risks or known deferrals.
