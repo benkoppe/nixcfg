@@ -23,6 +23,11 @@
       services.gnome.gcr-ssh-agent.enable = false;
 
       environment.systemPackages = [ pkgs.ghostty.terminfo ];
+
+      zramSwap = {
+        enable = true;
+        algorithm = "zstd";
+      };
     };
 
   flake.modules.darwin.basics = {

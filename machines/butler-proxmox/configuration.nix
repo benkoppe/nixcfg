@@ -21,6 +21,8 @@
   # automatically grow root partition to match disk
   boot.growPartition = lib.mkDefault true;
 
+  fileSystems."/".autoResize = true;
+
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
@@ -35,4 +37,11 @@
   programs.zsh.enable = true;
 
   services.tailscale.enable = true;
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024; # MiB
+    }
+  ];
 }
