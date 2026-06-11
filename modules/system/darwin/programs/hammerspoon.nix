@@ -124,7 +124,7 @@
           hyper_key = 'x',
         },
         ['Discord'] = {
-          bundleID = 'com.hammerandchisel.discord',
+          bundleID = 'dev.vencord.vesktop',
           hyper_key = 'd',
         },
         ['VMWare'] = {

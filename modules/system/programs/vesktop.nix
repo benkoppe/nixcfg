@@ -9,15 +9,8 @@
         #   }
         # '';
       };
-    in
-    {
-      packages = [
-        (pkgs.vesktop.override {
-          withSystemVencord = true;
-        })
-      ];
 
-      xdg.config.files = {
+      configFiles = {
         # vesktop settings
         "vesktop/settings.json" = {
           generator = lib.generators.toJSON { };
@@ -112,5 +105,23 @@
           text = value;
         }
       ) themes;
+
+      isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+    in
+    {
+      packages = [
+        (pkgs.vesktop.override {
+          withSystemVencord = true;
+        })
+      ];
+
+      # config stored in different locations on linux / darwin
+      xdg.config.files = lib.mkIf (!isDarwin) configFiles;
+
+      files = lib.mkIf isDarwin (
+        lib.mapAttrs' (
+          name: value: lib.nameValuePair "Library/Application Support/${name}" value
+        ) configFiles
+      );
     };
 }

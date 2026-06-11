@@ -28,6 +28,7 @@
     imports = with self.modules.hjem; [
       profiles_full
 
+      vesktop
       bitwarden
       colima
     ];

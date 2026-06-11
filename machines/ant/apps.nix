@@ -1,4 +1,9 @@
 { pkgs, ... }:
+let
+  vesktop = pkgs.vesktop.override {
+    withSystemVencord = true;
+  };
+in
 {
   system.defaults.dock.persistent-apps = [
     {
@@ -8,7 +13,7 @@
     }
     { app = "/Applications/Brave Browser.app"; }
     # { app = "${pkgs.spotify}/Applications/Spotify.app"; }
-    { app = "/Applications/Discord.app"; }
+    { app = "${vesktop}/Applications/Vesktop.app"; }
     {
       spacer = {
         small = false;
@@ -64,7 +69,7 @@
         (greedy "parsec")
 
         # Social
-        (greedy "discord")
+        # (greedy "discord")
         # "notion"
         # "slack"
         # "telegram"
