@@ -26,6 +26,13 @@
 
   services.vnstat.enable = true;
 
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024; # MiB
+    }
+  ];
+
   clan.core.vars.generators = {
     ups-primary-password = {
       files.value.secret = true;
