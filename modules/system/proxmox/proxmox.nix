@@ -29,9 +29,27 @@
               '';
             });
 
-            # Thread the patched server through the remaining packages
+            # Disable the Proxmox web UI subscription popup.
+            proxmox-widget-toolkit' = prev.proxmox-widget-toolkit.overrideAttrs (old: {
+              postPatch = (old.postPatch or "") + ''
+                sed -i Utils.js \
+                  -e "s|checked_command: function (orig_cmd) {|checked_command: function (orig_cmd) { orig_cmd(); return;|"
+              '';
+            });
+
+            # Thread the patched packages through the remaining packages
             pve-ha-manager' = prev.pve-ha-manager.override { pve-qemu-server = pve-qemu-server'; };
-            pve-manager' = prev.pve-manager.override { pve-ha-manager = pve-ha-manager'; };
+            pve-manager' =
+              (prev.pve-manager.override {
+                pve-ha-manager = pve-ha-manager';
+                proxmox-widget-toolkit = proxmox-widget-toolkit';
+              }).overrideAttrs
+                (old: {
+                  postPatch = (old.postPatch or "") + ''
+                    sed -i www/manager6/Workspace.js \
+                      -e "s|Proxmox.Utils.checked_command(Ext.emptyFn); // display subscription status|Ext.emptyFn();|"
+                  '';
+                });
             proxmox-ve' = prev.proxmox-ve.override {
               pve-qemu-server = pve-qemu-server';
               pve-ha-manager = pve-ha-manager';
@@ -39,6 +57,7 @@
             };
           in
           {
+            proxmox-widget-toolkit = proxmox-widget-toolkit';
             pve-qemu-server = pve-qemu-server';
             pve-ha-manager = pve-ha-manager';
             pve-manager = pve-manager';
