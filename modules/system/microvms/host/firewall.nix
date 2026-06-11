@@ -8,7 +8,6 @@ let
     mkEnableOption
     mkIf
     mkOption
-    optional
     optionalString
     types
     ;
@@ -50,6 +49,39 @@ let
       };
     };
   };
+
+  vmToIpRuleType = types.submodule {
+    options = {
+      name = mkOption {
+        type = types.str;
+        description = "Human-readable rule name.";
+      };
+
+      from = mkOption {
+        type = types.str;
+        description = "Source VM name from my.service-vms.";
+      };
+
+      proto = mkOption {
+        type = types.enum [
+          "tcp"
+          "udp"
+        ];
+        default = "tcp";
+        description = "Protocol to allow.";
+      };
+
+      destinations = mkOption {
+        type = types.listOf types.str;
+        description = "Destination IPv4 addresses to allow.";
+      };
+
+      ports = mkOption {
+        type = types.listOf types.port;
+        description = "Destination ports to allow.";
+      };
+    };
+  };
 in
 {
   flake.modules.nixos."microvms_host_firewall" =
@@ -63,7 +95,7 @@ in
         name:
         let
           vm = serviceVms.${name};
-          id = vm.id;
+          inherit (vm) id;
         in
         {
           inherit id;
@@ -73,15 +105,25 @@ in
 
       vmIfaces = mapAttrsToList (_: vm: "vm${toString vm.id}") serviceVms;
 
-      mkVmToVmRule =
+      mkVmSourceMatch =
         rule:
         let
           from = vmInfo rule.from;
+        in
+        "iifname ${quote from.iface} ip saddr ${from.ip}";
+
+      mkVmRule = rule: destinationMatch: ''
+        ${mkVmSourceMatch rule} ${destinationMatch} ${rule.proto} dport ${nftElements (map toString rule.ports)} counter accept comment ${quote "microvm allow: ${rule.name}"}
+      '';
+
+      mkVmToVmRule =
+        rule:
+        let
           to = vmInfo rule.to;
         in
-        ''
-          iifname ${quote from.iface} ip saddr ${from.ip} oifname ${quote to.iface} ip daddr ${to.ip} ${rule.proto} dport ${nftElements (map toString rule.ports)} counter accept comment ${quote "microvm allow: ${rule.name}"}
-        '';
+        mkVmRule rule "oifname ${quote to.iface} ip daddr ${to.ip}";
+
+      mkVmToIpRule = rule: mkVmRule rule "ip daddr ${nftElements rule.destinations}";
 
       mkAntiSpoofRule =
         name: _:
@@ -99,6 +141,7 @@ in
       '';
 
       vmToVmRules = concatMapStringsSep "\n        " mkVmToVmRule cfg.vmToVmRules;
+      vmToIpRules = concatMapStringsSep "\n        " mkVmToIpRule cfg.vmToIpRules;
       antiSpoofRules = concatStringsSep "\n        " (mapAttrsToList mkAntiSpoofRule serviceVms);
 
       adminRule = optionalString (cfg.adminCidrs != [ ]) ''
@@ -167,13 +210,24 @@ in
           default = [ ];
           description = "Explicit allowed VM-to-VM service dependencies.";
         };
+
+        vmToIpRules = mkOption {
+          type = types.listOf vmToIpRuleType;
+          default = [ ];
+          description = "Explicit allowed VM egress to IPv4 destinations.";
+        };
       };
 
       config = mkIf cfg.enable {
-        assertions = map (rule: {
-          assertion = hasAttr rule.from serviceVms && hasAttr rule.to serviceVms;
-          message = "my.microvms.firewall rule '${rule.name}' references an unknown VM.";
-        }) cfg.vmToVmRules;
+        assertions =
+          (map (rule: {
+            assertion = hasAttr rule.from serviceVms && hasAttr rule.to serviceVms;
+            message = "my.microvms.firewall rule '${rule.name}' references an unknown VM.";
+          }) cfg.vmToVmRules)
+          ++ (map (rule: {
+            assertion = hasAttr rule.from serviceVms;
+            message = "my.microvms.firewall rule '${rule.name}' references an unknown source VM.";
+          }) cfg.vmToIpRules);
 
         networking.nftables.enable = true;
 
@@ -215,6 +269,8 @@ in
               ${antiSpoofRules}
 
               ${vmToVmRules}
+
+              ${vmToIpRules}
 
               ${adminRule}
 
