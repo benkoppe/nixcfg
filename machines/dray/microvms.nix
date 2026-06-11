@@ -81,5 +81,15 @@
         ports = [ 3890 ];
       }
     ];
+
+    vmToIpRules = [
+      {
+        name = "komodo-to-bird-periphery";
+        from = "komodo";
+        proto = "tcp";
+        destinations = [ "100.112.62.127" ];
+        ports = [ 8120 ];
+      }
+    ];
   };
 }
