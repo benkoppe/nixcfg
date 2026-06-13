@@ -8,6 +8,7 @@
   imports = with self.modules.nixos; [
     basics
     luks-encrypt
+    boot_limine
     self.inputs.nixos-vfio.nixosModules.vfio
     proxmox
     tailgate
