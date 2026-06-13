@@ -47,10 +47,14 @@ in
         randomizedDelaySec = "60min";
       };
 
-      settings.trusted-users = [
-        "root"
-        "@wheel"
-      ];
+      settings = {
+        trusted-users = [
+          "root"
+          "@wheel"
+        ];
+        # https://discourse.nixos.org/t/why-does-nix-direnv-recommend-setting-nix-settings-keep-outputs/31081
+        keep-outputs = true;
+      };
     }
     // {
       channel.enable = false;
