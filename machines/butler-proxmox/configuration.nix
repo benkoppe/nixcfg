@@ -36,7 +36,11 @@
 
   programs.zsh.enable = true;
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+    extraSetFlags = [ "--accept-routes" ];
+  };
 
   swapDevices = [
     {
