@@ -8,6 +8,7 @@
 {
   imports = with self.modules.nixos; [
     profiles_butler
+    boot_limine
 
     dms-shell
     qmk-full
