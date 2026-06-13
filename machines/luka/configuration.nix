@@ -16,15 +16,6 @@
     ./microvms.nix
   ];
 
-  networking.nat.forwardPorts = [
-    {
-      proto = "tcp";
-      sourcePort = 8765;
-      destination = "10.0.0.50:8765";
-    }
-  ];
-  networking.firewall.allowedTCPPorts = [ 8765 ];
-
   services.vnstat.enable = true;
 
   swapDevices = [
