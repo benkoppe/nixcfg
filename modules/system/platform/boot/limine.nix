@@ -6,7 +6,7 @@
         enable = lib.mkDefault true;
         efiSupport = lib.mkDefault true;
         efiInstallAsRemovable = lib.mkDefault true;
-        maxGenerations = lib.mkDefault 50;
+        maxGenerations = lib.mkDefault 10;
       };
 
       efi.canTouchEfiVariables = lib.mkDefault true;
