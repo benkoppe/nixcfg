@@ -23,7 +23,7 @@
             UserKnownHostsFile ~/.ssh/known_hosts
 
             User root
-            SetEnv COLORTERM=truecolor TERM=xterm-256color
+            SetEnv COLORTERM=truecolor
 
             ControlMaster auto
             ControlPersist 60m
