@@ -37,11 +37,23 @@
 
   programs.zsh.enable = true;
 
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "client";
-    extraSetFlags = [ "--accept-routes" ];
-  };
+  networking.interfaces.ens18.ipv4.routes = [
+    {
+      address = "10.1.0.0";
+      prefixLength = 24;
+      via = "10.0.1.1";
+    }
+    {
+      address = "10.1.1.0";
+      prefixLength = 24;
+      via = "10.0.1.1";
+    }
+    {
+      address = "10.2.0.0";
+      prefixLength = 24;
+      via = "10.0.1.1";
+    }
+  ];
 
   swapDevices = [
     {
