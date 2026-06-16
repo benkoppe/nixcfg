@@ -176,6 +176,8 @@
               "10.1.0.0" # host bridge running tailscale
               + " 100.64.0.0/10" # normal tailscale range
               + " 192.168.1." # home LAN
+              + " 10.1.1." # dray proxmox
+              + " 10.0.1." # luka proxmox
               + " 127.0.0.1 localhost";
             "hosts deny" = "0.0.0.0/0";
             "guest account" = "nobody";
