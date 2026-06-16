@@ -110,16 +110,19 @@
   #   # blacklistNvidia = true;
   #   # disableEFIfb = true;
   # };
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nvidiafb"
+    "rivafb"
+    "rivatv"
+  ];
   boot.initrd.kernelModules = [
-    "vfio_pci"
-    "vfio"
-    "vfio_iommu_type1"
-
-    "nvidia" # replace or remove with your device's driver as needed
+    # "nvidia" # replace or remove with your device's driver as needed
   ];
   boot.kernelParams = [
     "intel_iommu=on"
-    "vfio-pci.ids=10de:1bb0,10de:10f0"
+    "nouveau.modeset=0"
+    # "vfio-pci.ids=10de:1bb0,10de:10f0"
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
