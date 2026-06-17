@@ -32,6 +32,9 @@
 
             cursor-style = "bar";
             cursor-style-blink = true;
+
+            clipboard-read = "allow";
+            clipboard-write = "allow";
           }
 
           (lib.mkIf isDarwin {
@@ -46,7 +49,6 @@
             background-blur-radius = 32;
 
             app-notifications = "no-clipboard-copy";
-            clipboard-read = "allow";
 
             keybind = [
               "ctrl+shift+t=new_tab"
