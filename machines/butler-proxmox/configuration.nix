@@ -28,6 +28,11 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
 
+  environment.systemPackages = with pkgs; [
+    kdePackages.qtwayland
+    qt5.qtwayland
+  ];
+
   hjem.users.ben.imports = with self.modules.hjem; [
     profiles_full
     vesktop
