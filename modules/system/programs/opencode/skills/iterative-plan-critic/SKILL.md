@@ -1,6 +1,5 @@
 ---
 name: iterative-plan-critic
-description: Use when refining a non-trivial implementation plan with fresh read-only criticizer subagents before coding. Trigger on requests like "criticize this plan in an iterative loop", "iterate until no criticisms", "make this plan robust iteratively", or "run a criticizer loop".
 ---
 
 # Iterative Plan Critic
@@ -92,13 +91,14 @@ Stop when:
 - A fresh criticizer returns `Good enough to implement.`
 - The criticizer reports only Minor, preference-only, duplicated, speculative, or non-actionable feedback.
 - Two criticizer rounds have completed without finding a new Blocking issue.
-If the loop repeats the same issue:
+  If the loop repeats the same issue:
 - Tighten the plan once.
 - If it recurs without new substance, call it resolved or preference-only and explain why.
 
 Final Output
 
 Return:
+
 - The final implementation plan.
 - A short convergence note.
 - Any residual risks or known deferrals.
