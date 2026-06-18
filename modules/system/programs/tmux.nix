@@ -41,6 +41,7 @@
         set  -s extended-keys        on
         set  -g extended-keys-format csi-u
         set  -g allow-passthrough    on  # OSC 52 clipboard passthru 
+        set  -s set-clipboard on
 
         set -as terminal-features ",xterm-ghostty:RGB:usstyle:overline"
 
