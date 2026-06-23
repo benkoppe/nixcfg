@@ -138,6 +138,10 @@
       url = "github:dmmulroy/.dotfiles";
       flake = false;
     };
+    pi-agent-extensions = {
+      url = "github:rytswd/pi-agent-extensions";
+      flake = false;
+    };
 
     # darwin inputs
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";

@@ -1097,6 +1097,22 @@
         "type": "github"
       }
     },
+    "pi-agent-extensions": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781528793,
+        "narHash": "sha256-sWFbRQ6xa1zpB1/F3RgFN+BcNgBau/5KhYNcHCLpA1E=",
+        "owner": "rytswd",
+        "repo": "pi-agent-extensions",
+        "rev": "8ab1546585b0ed117ec090675ed2eccdeb19cdca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rytswd",
+        "repo": "pi-agent-extensions",
+        "type": "github"
+      }
+    },
     "proxmox-nixos": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -1145,6 +1161,7 @@
         "nixos-vfio": "nixos-vfio",
         "nixpkgs": "nixpkgs_3",
         "nvim-flake": "nvim-flake",
+        "pi-agent-extensions": "pi-agent-extensions",
         "proxmox-nixos": "proxmox-nixos",
         "selfhst-icons": "selfhst-icons",
         "systems": "systems_3",
