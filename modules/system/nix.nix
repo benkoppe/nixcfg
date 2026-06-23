@@ -12,10 +12,15 @@ in
 {
   flake.modules.generic.nix =
     { pkgs, ... }:
+    let
+      inherit (pkgs.stdenv.hostPlatform) system;
+    in
     {
       environment.systemPackages = with pkgs; [
         nix-output-monitor
         nh
+        inputs.nix-diff-rs.packages.${system}.default
+        inputs.nix-tree-rs.packages.${system}.default
       ];
     };
 
