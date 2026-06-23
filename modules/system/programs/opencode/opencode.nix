@@ -1,3 +1,4 @@
+{ inputs, ... }:
 let
   commands.allowed = [
     "rg*"
@@ -68,8 +69,11 @@ in
 {
   flake.modules.hjem.opencode =
     { lib, pkgs, ... }:
+    let
+      inherit (pkgs.stdenv.hostPlatform) system;
+    in
     {
-      packages = [ pkgs.opencode ];
+      packages = [ inputs.llm-agents.packages.${system}.opencode ];
 
       xdg.config.files."opencode/skills".source = ./skills;
 
@@ -80,7 +84,10 @@ in
 
           autoupdate = false;
 
-          plugin = [ "opencode-claude-auth@latest" ];
+          plugin = [
+            "opencode-claude-auth@latest"
+            "@plannotator/opencode@latest"
+          ];
 
           permission = {
             "*" = "ask";
