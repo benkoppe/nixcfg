@@ -73,9 +73,24 @@ in
       inherit (pkgs.stdenv.hostPlatform) system;
     in
     {
-      packages = [ inputs.llm-agents.packages.${system}.opencode ];
+      packages = [
+        inputs.llm-agents.packages.${system}.opencode
+        (pkgs.callPackage ./_plannotator.nix { })
+      ];
 
       xdg.config.files."opencode/skills".source = ./skills;
+
+      xdg.config.files."opencode/commands/plannotator-review.md".text = ''
+        --- description: Open interactive code review for current changes or a PR URL; pass --git to force Git in JJ workspaces ---
+      '';
+
+      xdg.config.files."opencode/commands/plannotator-annotate.md".text = ''
+        --- description: Open interactive annotation UI for a markdown file, HTML file, or URL ---
+      '';
+
+      xdg.config.files."opencode/commands/plannotator-last.md".text = ''
+        --- description: Annotate the last assistant message ---
+      '';
 
       xdg.config.files."opencode/opencode.json" = {
         generator = lib.generators.toJSON { };
@@ -86,7 +101,12 @@ in
 
           plugin = [
             "opencode-claude-auth@latest"
-            "@plannotator/opencode@latest"
+            [
+              "@plannotator/opencode@latest"
+              {
+                workflow = "manual";
+              }
+            ]
           ];
 
           permission = {
