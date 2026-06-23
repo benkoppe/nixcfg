@@ -19,6 +19,7 @@
 
         nvim
         opencode
+        pi
       ];
 
       packages = with pkgs; [
