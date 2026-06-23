@@ -1,0 +1,24 @@
+// Keeps lastChangelogVersion stable to avoid noise in dotfiles git history
+// See: https://github.com/badlogic/pi-mono/issues/720
+// Source: github.com/Mic92/dotfiles/blob/main/home/.pi/agent/extensions/stable-settings.ts
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { readFileSync, writeFileSync } from "fs";
+import { join } from "path";
+import { homedir } from "os";
+
+export default function (pi: ExtensionAPI) {
+  pi.on("session_start", async () => {
+    const settingsPath = join(homedir(), ".pi", "agent", "settings.json");
+    try {
+      const settings = JSON.parse(readFileSync(settingsPath, "utf-8"));
+      settings.lastChangelogVersion = "99.99.99";
+      writeFileSync(
+        settingsPath,
+        JSON.stringify(settings, null, 2) + "\n",
+        "utf-8",
+      );
+    } catch {
+      // ignore errors
+    }
+  });
+}
