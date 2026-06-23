@@ -84,16 +84,21 @@
 
         serviceConfig.Type = "oneshot";
 
+        path = [ pkgs.acl ];
+
         script = ''
           mkdir -p ${familySharedPath}
           mkdir -p ${familyUsersPath}
           mkdir -p ${familyTimemachinePath}
 
           chown root:family ${familyPath}
-          chmod 0770 ${familyPath}
+          chmod 2770 ${familyPath}
 
           chown root:family ${familySharedPath}
           chmod 2770 ${familySharedPath}
+          setfacl -b ${familySharedPath}
+          setfacl -m g:family:rwx,m:rwx ${familySharedPath}
+          setfacl -d -m g:family:rwx,m:rwx ${familySharedPath}
 
           chown root:family ${familyUsersPath}
           chmod 0750 ${familyUsersPath}
@@ -197,13 +202,12 @@
             "browseable" = "yes";
             "read only" = "no";
 
-            # Important: no force user here.
-            # This share relies on real Unix permissions.
+            "force group" = "family";
             "create mask" = "0660";
             "directory mask" = "0770";
-            "force group" = "family";
-            "inherit permissions" = "yes";
-            "inherit acls" = "yes";
+            "force create mode" = "0660";
+            "force directory mode" = "2770";
+
             "hide unreadable" = "yes";
             "delete readonly" = "yes";
           };
