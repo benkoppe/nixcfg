@@ -56,6 +56,11 @@
 
           # Always color ls and group directories
           alias ls='ls --color=auto'
+
+          # Load direnv-instant integration for non-blocking prompt
+          if [ -n "''${commands[direnv-instant]}" ] && [ -n "''${commands[direnv-instant]}" ]; then
+            eval "$(direnv-instant hook zsh)"
+          fi
         '';
       };
     };
