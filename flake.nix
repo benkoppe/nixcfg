@@ -19,6 +19,7 @@
       inputs.nixpkgs.follows = "nixpkgs"; # Avoid this if using nixpkgs stable.
       inputs.nix-darwin.follows = "nix-darwin";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.systems.follows = "systems";
     };
 
     determinate = {
@@ -35,6 +36,35 @@
       url = "github:snugnug/hjem-rum";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hjem.follows = "hjem";
+    };
+
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.systems.follows = "systems";
+    };
+
+    direnv-instant = {
+      url = "github:Mic92/direnv-instant";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
+    nix-diff-rs = {
+      url = "github:Mic92/nix-diff-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
+    nix-tree-rs = {
+      url = "github:Mic92/nix-tree-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     terranix = {
@@ -104,6 +134,11 @@
       flake = false;
     };
 
+    dmmulroy-dotfiles = {
+      url = "github:dmmulroy/.dotfiles";
+      flake = false;
+    };
+
     # darwin inputs
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
@@ -124,6 +159,7 @@
       "https://nix-community.cachix.org"
       "https://cache.nixos.org"
       "https://install.determinate.systems"
+      "https://cache.thalheim.io"
       "https://cache.saumon.network/proxmox-nixos"
       "https://niri-flake-benkoppe.cachix.org"
       "https://niri.cachix.org"
@@ -133,6 +169,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+      "cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc="
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
       "niri-flake-benkoppe.cachix.org-1:wMG1r1sgn0hQN1esSnSRTnLUB0fQegCEUhA2TDlRwzI="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
