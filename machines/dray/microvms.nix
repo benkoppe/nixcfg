@@ -53,6 +53,20 @@
     allowVmInternet = true;
     logDenied = true;
 
+    cidrToVmRules = [
+      {
+        name = "zabbix-active-agents-to-server";
+        sourceCidrs = [
+          "10.0.0.0/24" # luka/default microVM subnet
+          "10.1.0.0/24" # dray microVM subnet
+          "10.2.0.0/24" # shai microVM subnet
+        ];
+        to = "zabbix";
+        proto = "tcp";
+        ports = [ 10051 ];
+      }
+    ];
+
     vmToVmRules = [
       {
         name = "cloudflared-to-pocket-id";

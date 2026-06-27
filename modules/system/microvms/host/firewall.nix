@@ -58,8 +58,9 @@ let
       };
 
       from = mkOption {
-        type = types.str;
-        description = "Source VM name from my.service-vms.";
+        type = types.nullOr types.str;
+        default = null;
+        description = "Source VM name from my.service-vms, or null for all local VMs.";
       };
 
       proto = mkOption {
@@ -74,6 +75,39 @@ let
       destinations = mkOption {
         type = types.listOf types.str;
         description = "Destination IPv4 addresses to allow.";
+      };
+
+      ports = mkOption {
+        type = types.listOf types.port;
+        description = "Destination ports to allow.";
+      };
+    };
+  };
+
+  cidrToVmRuleType = types.submodule {
+    options = {
+      name = mkOption {
+        type = types.str;
+        description = "Human-readable rule name.";
+      };
+
+      sourceCidrs = mkOption {
+        type = types.listOf types.str;
+        description = "Source IPv4 CIDRs or addresses to allow.";
+      };
+
+      to = mkOption {
+        type = types.str;
+        description = "Destination VM name from my.service-vms.";
+      };
+
+      proto = mkOption {
+        type = types.enum [
+          "tcp"
+          "udp"
+        ];
+        default = "tcp";
+        description = "Protocol to allow.";
       };
 
       ports = mkOption {
@@ -107,10 +141,13 @@ in
 
       mkVmSourceMatch =
         rule:
-        let
-          from = vmInfo rule.from;
-        in
-        "iifname ${quote from.iface} ip saddr ${from.ip}";
+        if rule.from == null then
+          "iifname @vm_ifaces"
+        else
+          let
+            from = vmInfo rule.from;
+          in
+          "iifname ${quote from.iface} ip saddr ${from.ip}";
 
       mkVmRule = rule: destinationMatch: ''
         ${mkVmSourceMatch rule} ${destinationMatch} ${rule.proto} dport ${nftElements (map toString rule.ports)} counter accept comment ${quote "microvm allow: ${rule.name}"}
@@ -124,6 +161,15 @@ in
         mkVmRule rule "oifname ${quote to.iface} ip daddr ${to.ip}";
 
       mkVmToIpRule = rule: mkVmRule rule "ip daddr ${nftElements rule.destinations}";
+
+      mkCidrToVmRule =
+        rule:
+        let
+          to = vmInfo rule.to;
+        in
+        ''
+          ip saddr ${nftElements rule.sourceCidrs} oifname ${quote to.iface} ip daddr ${to.ip} ${rule.proto} dport ${nftElements (map toString rule.ports)} counter accept comment ${quote "microvm allow: ${rule.name}"}
+        '';
 
       mkAntiSpoofRule =
         name: _:
@@ -142,6 +188,7 @@ in
 
       vmToVmRules = concatMapStringsSep "\n        " mkVmToVmRule cfg.vmToVmRules;
       vmToIpRules = concatMapStringsSep "\n        " mkVmToIpRule cfg.vmToIpRules;
+      cidrToVmRules = concatMapStringsSep "\n        " mkCidrToVmRule cfg.cidrToVmRules;
       antiSpoofRules = concatStringsSep "\n        " (mapAttrsToList mkAntiSpoofRule serviceVms);
 
       adminRule = optionalString (cfg.adminCidrs != [ ]) ''
@@ -216,6 +263,12 @@ in
           default = [ ];
           description = "Explicit allowed VM egress to IPv4 destinations.";
         };
+
+        cidrToVmRules = mkOption {
+          type = types.listOf cidrToVmRuleType;
+          default = [ ];
+          description = "Explicit allowed IPv4 sources to VM services.";
+        };
       };
 
       config = mkIf cfg.enable {
@@ -225,9 +278,13 @@ in
             message = "my.microvms.firewall rule '${rule.name}' references an unknown VM.";
           }) cfg.vmToVmRules)
           ++ (map (rule: {
-            assertion = hasAttr rule.from serviceVms;
+            assertion = rule.from == null || hasAttr rule.from serviceVms;
             message = "my.microvms.firewall rule '${rule.name}' references an unknown source VM.";
-          }) cfg.vmToIpRules);
+          }) cfg.vmToIpRules)
+          ++ (map (rule: {
+            assertion = hasAttr rule.to serviceVms;
+            message = "my.microvms.firewall rule '${rule.name}' references an unknown destination VM.";
+          }) cfg.cidrToVmRules);
 
         networking.nftables.enable = true;
 
@@ -271,6 +328,8 @@ in
               ${vmToVmRules}
 
               ${vmToIpRules}
+
+              ${cidrToVmRules}
 
               ${adminRule}
 

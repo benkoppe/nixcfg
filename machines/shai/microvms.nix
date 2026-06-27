@@ -38,5 +38,14 @@
     logDenied = true;
 
     vmToVmRules = [ ];
+
+    vmToIpRules = [
+      {
+        name = "vms-to-zabbix-active";
+        proto = "tcp";
+        destinations = [ "10.1.0.13" ];
+        ports = [ 10051 ];
+      }
+    ];
   };
 }
