@@ -66,4 +66,7 @@
       size = 16 * 1024; # MiB
     }
   ];
+
+  hardware.bluetooth.enable = true;
+  hardware.enableRedistributableFirmware = true;
 }
