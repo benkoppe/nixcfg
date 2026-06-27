@@ -15,7 +15,7 @@ Self-review.
 1. Read \`git diff <base>..HEAD\` line by line for bugs you introduced
 2. Trim verbose/stale comments and dead code.
 3. Run linter and tests.
-4. Fix and amend. If clean, say so.
+4. Fix. If clean, say so.
 `.trim();
 
 export default function (pi: ExtensionAPI) {
