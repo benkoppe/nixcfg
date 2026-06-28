@@ -30,6 +30,15 @@
     allowVmInternet = true;
     logDenied = true;
 
+    cidrToVmRules = [
+      {
+        name = "zabbix-to-vms-passive";
+        sourceCidrs = [ "10.1.0.13" ];
+        proto = "tcp";
+        ports = [ 10050 ];
+      }
+    ];
+
     vmToVmRules = [ ];
 
     vmToIpRules = [

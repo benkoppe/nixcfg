@@ -74,7 +74,7 @@ let
 
       destinations = mkOption {
         type = types.listOf types.str;
-        description = "Destination IPv4 addresses to allow.";
+        description = "Destination IPv4 CIDRs or addresses to allow.";
       };
 
       ports = mkOption {
@@ -97,8 +97,9 @@ let
       };
 
       to = mkOption {
-        type = types.str;
-        description = "Destination VM name from my.service-vms.";
+        type = types.nullOr types.str;
+        default = null;
+        description = "Destination VM name from my.service-vms, or null for all local VMs.";
       };
 
       proto = mkOption {
@@ -165,10 +166,17 @@ in
       mkCidrToVmRule =
         rule:
         let
-          to = vmInfo rule.to;
+          destinationMatch =
+            if rule.to == null then
+              "oifname @vm_ifaces"
+            else
+              let
+                to = vmInfo rule.to;
+              in
+              "oifname ${quote to.iface} ip daddr ${to.ip}";
         in
         ''
-          ip saddr ${nftElements rule.sourceCidrs} oifname ${quote to.iface} ip daddr ${to.ip} ${rule.proto} dport ${nftElements (map toString rule.ports)} counter accept comment ${quote "microvm allow: ${rule.name}"}
+          ip saddr ${nftElements rule.sourceCidrs} ${destinationMatch} ${rule.proto} dport ${nftElements (map toString rule.ports)} counter accept comment ${quote "microvm allow: ${rule.name}"}
         '';
 
       mkAntiSpoofRule =
@@ -282,7 +290,7 @@ in
             message = "my.microvms.firewall rule '${rule.name}' references an unknown source VM.";
           }) cfg.vmToIpRules)
           ++ (map (rule: {
-            assertion = hasAttr rule.to serviceVms;
+            assertion = rule.to == null || hasAttr rule.to serviceVms;
             message = "my.microvms.firewall rule '${rule.name}' references an unknown destination VM.";
           }) cfg.cidrToVmRules);
 

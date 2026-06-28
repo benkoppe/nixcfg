@@ -106,6 +106,17 @@
         destinations = [ "100.112.62.127" ];
         ports = [ 8120 ];
       }
+      {
+        name = "zabbix-to-agents-passive";
+        from = "zabbix";
+        proto = "tcp";
+        destinations = [
+          "10.0.0.0/24"
+          "10.1.0.0/24"
+          "10.2.0.0/24"
+        ];
+        ports = [ 10050 ];
+      }
     ];
   };
 }
