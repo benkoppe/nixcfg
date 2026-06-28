@@ -19,6 +19,8 @@
       familyUsers = [
         "ben"
         "greg"
+        "nancy"
+        "alex"
       ];
 
       mkTimemachineShare = user: {
