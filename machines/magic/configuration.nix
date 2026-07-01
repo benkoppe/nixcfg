@@ -1,7 +1,15 @@
+{ self, ... }:
 {
-  imports = [
-
+  imports = with self.modules.nixos; [
+    basics
+    luks-encrypt
+    boot_limine
   ];
 
-  # New machine!
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024; # MiB
+    }
+  ];
 }

@@ -1,10 +1,11 @@
 # ---
 # schema = "btrfs-single-disk-subvolumes"
 # [placeholders]
-# mainDisk = "/dev/disk/by-id/ata-Samsung_SSD_840_EVO_500GB_S1DHNSAF427715Z" 
+# mainDisk = "/dev/disk/by-id/ata-Samsung_SSD_840_EVO_500GB_S1DHNSAF427715Z"
 # ---
 # This file was automatically generated!
 # CHANGING this configuration requires wiping and reinstalling the machine
+{ config, ... }:
 {
   boot.loader.grub = {
     efiInstallAsRemovable = true;
@@ -45,26 +46,40 @@
             "root" = {
               size = "100%";
               content = {
-                type = "btrfs";
-                extraArgs = [
-                  "--force"
-                  "--label root"
-                ];
-                subvolumes = {
-                  "@root" = {
-                    mountpoint = "/";
-                    mountOptions = [ ];
-                  };
-                  "@nix" = {
-                    mountpoint = "/nix";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                  "@home" = {
-                    mountpoint = "/home";
-                    mountOptions = [ "compress=zstd" ];
+                type = "luks";
+                name = "crypted";
+                passwordFile = config.clan.core.vars.generators.luks-password.files.password.path;
+                settings = {
+                  allowDiscards = true;
+                };
+                content = {
+                  type = "btrfs";
+                  extraArgs = [
+                    "--force"
+                    "--label root"
+                  ];
+                  subvolumes = {
+                    "@root" = {
+                      mountpoint = "/";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "@nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "@home" = {
+                      mountpoint = "/home";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
                   };
                 };
               };
