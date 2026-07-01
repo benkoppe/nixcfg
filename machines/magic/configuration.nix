@@ -13,6 +13,16 @@
     }
   ];
 
+  hardware.enableRedistributableFirmware = true;
+
+  hardware.graphics.enable = true;
+
+  services = {
+    desktopManager.plasma6.enable = true;
+
+    displayManager.plasma-login-manager.enable = true;
+  };
+
   # Work around a nixpkgs/systemd-initrd mismatch: config/terminfo.nix
   # adds /etc/terminfo/l/linux from pkgs.ncurses, but this ncurses build
   # does not ship share/terminfo/l/linux, causing initrd assembly to fail.
