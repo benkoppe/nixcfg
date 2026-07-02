@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, pkgs, ... }:
 {
   imports = with self.modules.nixos; [
     basics
@@ -13,7 +13,7 @@
     }
   ];
 
-  hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
 
   hardware.graphics.enable = true;
 
@@ -21,7 +21,12 @@
     desktopManager.plasma6.enable = true;
 
     displayManager.plasma-login-manager.enable = true;
+
+    xserver.enable = true;
   };
+
+  programs.firefox.enable = true;
+  environment.systemPackages = [ pkgs.remmina ];
 
   # Work around a nixpkgs/systemd-initrd mismatch: config/terminfo.nix
   # adds /etc/terminfo/l/linux from pkgs.ncurses, but this ncurses build
