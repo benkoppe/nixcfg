@@ -266,6 +266,25 @@
                 roles.default.extraModules = with self.modules.nixos; [ development ];
               };
 
+              user-nancy = {
+                module.name = "users";
+                roles.default.settings = {
+                  user = "nancy";
+                  share = true;
+                  groups = [
+                    "networkmanager"
+                    "video"
+                    "input"
+                  ];
+                };
+                roles.default.machines.magic = { };
+                roles.default.extraModules = [
+                  {
+                    users.users.nancy.description = "Nancy";
+                  }
+                ];
+              };
+
               clan-cache = {
                 module.name = "trusted-nix-caches";
                 roles.default.tags.all = { };
