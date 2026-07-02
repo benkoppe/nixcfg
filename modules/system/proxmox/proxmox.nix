@@ -6,7 +6,7 @@
 }:
 {
   flake.modules.nixos.proxmox =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     {
       imports = [
         inputs.proxmox-nixos.nixosModules.proxmox-ve
@@ -68,7 +68,7 @@
 
       services.proxmox-ve = {
         enable = true;
-        ipAddress = lib.mkDefault "192.168.1.101";
+        ipAddress = lib.mkDefault config.my.networking.lan.address;
       };
 
       environment.systemPackages = with pkgs; [

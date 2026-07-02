@@ -8,6 +8,7 @@
   imports = with self.modules.nixos; [
     basics
     zfs-encrypt
+    network_lan
     proxmox
     tailgate
     copyparty
@@ -58,7 +59,12 @@
 
   services.proxmox-ve = {
     enable = true;
-    ipAddress = "192.168.1.100";
+  };
+
+  my.networking.lan = {
+    enable = true;
+    interface = "eno1";
+    address = "192.168.1.101";
   };
 
   # hardware.graphics.enable = true;

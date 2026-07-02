@@ -3,6 +3,7 @@
   imports = with self.modules.nixos; [
     basics
     zfs-encrypt
+    network_lan
     tailgate
 
     ./microvms.nix
@@ -13,4 +14,10 @@
   ];
 
   services.vnstat.enable = true;
+
+  my.networking.lan = {
+    enable = true;
+    interface = "eno1";
+    address = "192.168.1.102";
+  };
 }

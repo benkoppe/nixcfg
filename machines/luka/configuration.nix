@@ -9,6 +9,7 @@
     basics
     luks-encrypt
     boot_limine
+    network_lan
     self.inputs.nixos-vfio.nixosModules.vfio
     proxmox
     tailgate
@@ -24,6 +25,12 @@
       size = 16 * 1024; # MiB
     }
   ];
+
+  my.networking.lan = {
+    enable = true;
+    interface = "enp6s0";
+    address = "192.168.1.100";
+  };
 
   clan.core.vars.generators = {
     ups-primary-password = {
