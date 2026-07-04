@@ -176,6 +176,7 @@
             "server string" = "smbnix";
             "netbios name" = "smbnix";
             "security" = "user";
+            "access based share enum" = "yes";
 
             # Only available on localhost and Tailscale
             # note: localhost is the ipv6 localhost ::1
