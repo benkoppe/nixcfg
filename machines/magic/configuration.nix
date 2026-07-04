@@ -1,4 +1,9 @@
-{ self, pkgs, ... }:
+{
+  self,
+  pkgs,
+  config,
+  ...
+}:
 {
   imports = with self.modules.nixos; [
     basics
@@ -20,10 +25,25 @@
   services = {
     desktopManager.plasma6.enable = true;
 
-    displayManager.plasma-login-manager.enable = true;
+    displayManager = {
+      plasma-login-manager.enable = false;
+      sddm.enable = true;
+      sddm.wayland.enable = false;
+      defaultSession = "plasmax11";
+    };
 
     xserver.enable = true;
   };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  };
+
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   programs.firefox.enable = true;
   environment.systemPackages = [ pkgs.remmina ];
