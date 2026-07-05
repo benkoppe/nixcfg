@@ -89,6 +89,10 @@ in
       };
 
       inherit registry;
+
+      # determinateNixd = {
+      #   telemetry.sentry.endpoint = null;
+      # };
     };
   };
 }

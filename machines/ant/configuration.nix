@@ -3,6 +3,7 @@
   imports = with self.modules.darwin; [
     basics
     homebrew
+    tmignore
 
     karabiner
     hammerspoon
@@ -20,6 +21,10 @@
 
     mosh
   ];
+
+  users.users.ben = {
+    home = "/Users/ben";
+  };
 
   hjem.users.ben = {
     user = "ben";

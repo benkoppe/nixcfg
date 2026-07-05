@@ -126,6 +126,13 @@
       url = "github:benkoppe/nvim-flake";
     };
 
+    tmignore = {
+      url = "github:benkoppe/tmignore";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-darwin.follows = "nix-darwin";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
     systems.url = "github:nix-systems/default";
 
     # non-flake inputs
