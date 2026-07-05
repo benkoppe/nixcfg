@@ -15,6 +15,7 @@
         enable = true;
 
         command = "all";
+        mode = "apply"; # defaults to dry-run
 
         scan.roots = [
           "${home}/Developer"
