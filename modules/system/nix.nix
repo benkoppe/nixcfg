@@ -5,7 +5,14 @@
   ...
 }:
 let
-  registryMap = lib.filterAttrs (_: v: lib.isType "flake" v) inputs;
+  registryInputNames = [
+    "nixpkgs"
+    "nixpkgs-stable"
+  ];
+
+  registryMap = lib.filterAttrs (
+    name: value: builtins.elem name registryInputNames && lib.isType "flake" value
+  ) inputs;
 
   registry = lib.mapAttrs (_: flake: { inherit flake; }) registryMap;
 in
