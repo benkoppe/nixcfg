@@ -67,6 +67,7 @@ in
         (greedy "nomachine")
         (greedy "moonlight")
         (greedy "parsec")
+        (greedy "rustdesk")
 
         # Social
         # (greedy "discord")
