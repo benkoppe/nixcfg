@@ -32,11 +32,11 @@
       };
 
       externalExtensions =
-        (map (mkExternalExtension inputs.dmmulroy-dotfiles) [ "web-tools" ])
+        (map (mkExternalExtension "${inputs.dmmulroy-dotfiles}/home/.pi/agent/extensions") [ "web-tools" ])
         ++ (map (mkExternalExtension inputs.pi-agent-extensions) [
           "direnv"
           "notify"
-          "questionaire"
+          "questionnaire"
           "slow-mode"
           "stash"
           "statusline"
