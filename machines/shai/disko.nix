@@ -1,14 +1,5 @@
 { config, ... }:
 {
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-    enableCryptodisk = true;
-
-    device = "nodev";
-  };
-
   boot.zfs.forceImportRoot = false;
 
   boot.kernelParams = [ "zfs.zfs_arc_max=2147483648" ]; # 2 GiB
