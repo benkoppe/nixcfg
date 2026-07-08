@@ -28,10 +28,10 @@ in
         backup-b2
       ];
 
-      my.public-endpoints.garage = {
-        vHost = "garage.thekoppe.com";
-        caddy.port = 3909;
-      };
+      # my.public-endpoints.garage = {
+      #   vHost = "garage.thekoppe.com";
+      #   caddy.port = 3909;
+      # };
 
       my.backup-b2.garage-data = {
         paths = [ mntDirNoSymlink ];
@@ -92,6 +92,7 @@ in
           };
           share = true;
         };
+        # TODO: remove; garage-webui was removed
         garage-webui-environment = {
           prompts.value = {
             description = "Garage Web UI environment variables";
@@ -136,26 +137,6 @@ in
           admin = {
             api_bind_addr = "[::]:${toString ports.admin}";
           };
-        };
-      };
-
-      systemd.services.garage-webui = {
-        description = "Garage Web UI";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "garage.service" ];
-
-        serviceConfig = {
-          ExecStart = "${pkgs.garage-webui}/bin/garage-webui";
-          Restart = "always";
-
-          EnvironmentFile = config.clan.core.vars.generators.garage-webui-environment.files.value.path;
-        };
-        environment = {
-          CONFIG_PATH = "/etc/garage.toml";
-
-          API_BASE_URL = "https://${subdomains.admin}.thekoppe.com";
-          S3_REGION = "garage";
-          S3_ENDPOINT_URL = "http://localhost:${toString ports.s3_api}";
         };
       };
     };
