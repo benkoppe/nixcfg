@@ -1,25 +1,34 @@
 # CHANGING this configuration requires wiping and reinstalling the machine
-{ config, ... }:
+{ config, pkgs, ... }:
 {
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-    enableCryptodisk = true;
+  # boot.loader.grub = {
+  #   enable = true;
+  #   efiSupport = true;
+  #   efiInstallAsRemovable = true;
+  #   enableCryptodisk = true;
+  #
+  #   mirroredBoots = [
+  #     {
+  #       devices = [ "nodev" ];
+  #       path = "/boot1";
+  #       efiSysMountPoint = "/boot1";
+  #     }
+  #     {
+  #       devices = [ "nodev" ];
+  #       path = "/boot2";
+  #       efiSysMountPoint = "/boot2";
+  #     }
+  #   ];
+  # };
 
-    mirroredBoots = [
-      {
-        devices = [ "nodev" ];
-        path = "/boot1";
-        efiSysMountPoint = "/boot1";
-      }
-      {
-        devices = [ "nodev" ];
-        path = "/boot2";
-        efiSysMountPoint = "/boot2";
-      }
-    ];
-  };
+  # limine config
+  boot.loader.efi.efiSysMountPoint = "/boot1";
+  # limine version of mirrored boots
+  boot.loader.limine.extraInstallCommands = ''
+    if ${pkgs.util-linux}/bin/mountpoint -q /boot2; then
+      ${pkgs.rsync}/bin/rsync -a --delete /boot1/ /boot2/
+    fi
+  '';
 
   boot.zfs.forceImportRoot = false;
   boot.zfs.extraPools = [ "tank0" ];
