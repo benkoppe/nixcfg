@@ -28,6 +28,8 @@
         niri
       ];
 
+      system.primaryUser = "ben";
+
       hjem.users.ben = {
         user = "ben";
         directory = "/home/ben";

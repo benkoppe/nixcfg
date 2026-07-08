@@ -16,17 +16,27 @@
           topology
         ]);
 
-      time.timeZone = lib.mkDefault "America/Los_Angeles";
+      # add system.primaryUser option to match with nix-darwin
+      options = {
+        system.primaryUser = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = null;
+        };
+      };
 
-      # I don't want the gnome ssh agent
-      # when I want one, it's the one in bitwarden.nix
-      services.gnome.gcr-ssh-agent.enable = false;
+      config = {
+        time.timeZone = lib.mkDefault "America/Los_Angeles";
 
-      environment.systemPackages = [ pkgs.ghostty.terminfo ];
+        # I don't want the gnome ssh agent
+        # when I want one, it's the one in bitwarden.nix
+        services.gnome.gcr-ssh-agent.enable = false;
 
-      zramSwap = {
-        enable = true;
-        algorithm = "zstd";
+        environment.systemPackages = [ pkgs.ghostty.terminfo ];
+
+        zramSwap = {
+          enable = true;
+          algorithm = "zstd";
+        };
       };
     };
 
