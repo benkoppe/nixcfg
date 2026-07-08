@@ -30,7 +30,6 @@
     hjem = {
       url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix-darwin.follows = "nix-darwin";
     };
     hjem-rum = {
       url = "github:snugnug/hjem-rum";
