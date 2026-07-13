@@ -2,6 +2,7 @@
   self,
   pkgs,
   config,
+  lib,
   ...
 }:
 {
@@ -9,7 +10,11 @@
     basics
     luks-encrypt
     boot_limine
+    boot_plymouth
   ];
+
+  boot.loader.timeout = 1;
+  boot.plymouth.theme = lib.mkForce "breeze";
 
   swapDevices = [
     {
