@@ -81,7 +81,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    vgpu4nixos.url = "github:mrzenc/vgpu4nixos";
+    vgpu4nixos.url = "github:benkoppe/vgpu4nixos";
 
     fastapi-dls-nixos = {
       url = "github:mrzenc/fastapi-dls-nixos";
