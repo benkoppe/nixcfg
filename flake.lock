@@ -1112,11 +1112,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1783976537,
-        "narHash": "sha256-8qXYxVVnXNbCKkM7Z+snffCvXvxIAWpt76GyWNzO3xk=",
+        "lastModified": 1783976957,
+        "narHash": "sha256-yHZAWtCsS11wFFDkG85l68OfW0fi4nlo4I+TQnZMlpg=",
         "owner": "benkoppe",
         "repo": "nvim-flake",
-        "rev": "69389e3d3f85e2bd0c9c19747c933d47c1b09ee0",
+        "rev": "e5f4f5a2b03abdfa5092e538519ec3822faa27d3",
         "type": "github"
       },
       "original": {
