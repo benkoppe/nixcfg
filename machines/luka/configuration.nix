@@ -56,8 +56,8 @@
 
     ups."apc-smart-620" = {
       driver = "apcsmart";
-      port = "/dev/ttyUSB0";
-      description = "USB UPS";
+      port = "/dev/serial/by-id/usb-Keyspan__a_division_of_InnoSys_Inc._Keyspan_USA-19H-if00-port0";
+      description = "APC Smart-UPS 620";
       # directives = [
       #   "vendorid = 4234" # Result from `lsusb`
       #   "productid = 0001" # Result from `lsusb`
@@ -78,7 +78,10 @@
       };
     };
 
-    upsmon.monitor."apc-smart-620".user = "primary-client";
+    upsmon.monitor."apc-smart-620" = {
+      user = "primary-client";
+      type = "primary";
+    };
   };
 
   users.users.nutmon.extraGroups = [ "dialout" ];
