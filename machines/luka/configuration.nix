@@ -53,18 +53,16 @@
 
   power.ups = {
     enable = true;
+    mode = "netserver";
 
     ups."apc-smart-620" = {
       driver = "apcsmart";
       port = "/dev/serial/by-id/usb-Keyspan__a_division_of_InnoSys_Inc._Keyspan_USA-19H-if00-port0";
       description = "APC Smart-UPS 620";
-      # directives = [
-      #   "vendorid = 4234" # Result from `lsusb`
-      #   "productid = 0001" # Result from `lsusb`
-      # ];
-      # summary = ''
-      #   override.battery.charge.low = 33
-      # '';
+      directives = [
+        "ignorelb"
+        "override.battery.runtime.low = 900"
+      ];
     };
 
     users = {
@@ -78,11 +76,26 @@
       };
     };
 
-    upsmon.monitor."apc-smart-620" = {
-      user = "primary-client";
-      type = "primary";
+    upsd.listen = [
+      {
+        address = "127.0.0.1";
+      }
+      {
+        address = "192.168.1.100";
+      }
+    ];
+
+    upsmon = {
+      monitor."apc-smart-620" = {
+        user = "primary-client";
+        type = "primary";
+      };
+
+      settings.HOSTSYNC = 300;
     };
   };
+
+  networking.firewall.interfaces.enp6s0.allowedTCPPorts = [ 3493 ];
 
   users.users.nutmon.extraGroups = [ "dialout" ];
 
