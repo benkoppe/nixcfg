@@ -68,6 +68,47 @@
     address = "192.168.1.101";
   };
 
+  clan.core.vars.generators.dray-ups-primary-password = {
+    files.value.secret = true;
+    script = "openssl rand -base64 48 > $out/value";
+    runtimeInputs = with pkgs; [
+      openssl
+    ];
+    share = true;
+  };
+
+  power.ups = {
+    enable = true;
+    mode = "standalone";
+
+    ups."apc-backups-rs-500" = {
+      driver = "usbhid-ups";
+      port = "auto";
+      description = "APC Back-UPS RS 500";
+
+      directives = [
+        "vendorid = 051d"
+        "productid = 0002"
+        "serial = BB0751011423"
+
+        # Ignore the UPS's potentially late LB flag and preserve shutdown time.
+        "ignorelb"
+        "override.battery.charge.low = 30"
+        "override.battery.runtime.low = 600"
+      ];
+    };
+
+    users.primary-client = {
+      passwordFile = config.clan.core.vars.generators.dray-ups-primary-password.files.value.path;
+      upsmon = "primary";
+    };
+
+    upsmon.monitor."apc-backups-rs-500" = {
+      user = "primary-client";
+      type = "primary";
+    };
+  };
+
   # hardware.graphics.enable = true;
   # services.xserver.videoDrivers = [ "nvidia" ];
   #
