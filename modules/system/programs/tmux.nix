@@ -44,6 +44,7 @@
         set  -s set-clipboard on
 
         set -as terminal-features ",xterm-ghostty:RGB:usstyle:overline"
+        set -as terminal-features ",xterm-256color:RGB"
 
         unbind -T copy-mode-vi MouseDragEnd1Pane # don't make mouse selection auto-copy
         bind-key -T copy-mode-vi Y send -X copy-selection # copy without scrolling to bottom
