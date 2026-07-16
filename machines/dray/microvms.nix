@@ -97,6 +97,13 @@
         proto = "tcp";
         ports = [ 3890 ];
       }
+      {
+        name = "forgejo-to-lldap";
+        from = "forgejo";
+        to = "lldap";
+        proto = "tcp";
+        ports = [ 3890 ];
+      }
     ];
 
     vmToIpRules = [

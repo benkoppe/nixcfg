@@ -51,12 +51,13 @@
           lldap-user-pass = mkSecret "Lldap admin pass config";
         };
 
-      networking.firewall.allowedTCPPorts = [ 17170 ];
-
-      networking.firewall.extraCommands = ''
-        iptables -A INPUT -p tcp --dport 3890 -s 10.1.0.5 -j ACCEPT
-        iptables -A INPUT -p tcp --dport 3890 -j DROP
-      '';
+      networking.nftables.enable = true;
+      networking.firewall = {
+        allowedTCPPorts = [ 17170 ];
+        extraInputRules = ''
+          ip saddr { 10.1.0.5, 10.1.0.8 } tcp dport 3890 accept
+        '';
+      };
 
       systemd.services.lldap =
         let
