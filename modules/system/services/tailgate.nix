@@ -46,7 +46,7 @@
           useRoutingFeatures = "server";
 
           extraSetFlags = [
-            "--ssh"
+            # "--ssh"
             "--advertise-exit-node"
             "--accept-routes"
           ]
