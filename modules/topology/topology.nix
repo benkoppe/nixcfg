@@ -120,23 +120,67 @@
             };
 
             nodes.router = mkRouter "Home Router" {
-              info = "ASUS RT-AC3100";
-              image = ./assets/asus-rt-ac3100.png;
+              info = "UCG Fiber";
+              image = ./assets/ucg-fiber.png;
 
+              interfaceGroups = [
+                [ "wan" ]
+                [ "lan" ]
+              ];
               interfaces.wan = { };
               interfaces.lan.network = "home";
               connections.lan = mkConnection "core-switch" "uplink";
             };
 
             nodes.core-switch = mkSwitch "Core Switch" {
-              info = "Netgear GS608";
-              image = ./assets/netgear-gs608.png;
+              info = "USW Pro Max 16 PoE";
+              image = ./assets/usw-pro-max-16-poe.png;
 
+              interfaceGroups = [
+                [
+                  "uplink"
+                  "server-switch"
+                  "office-switch"
+                ]
+              ];
               connections = {
                 uplink = mkConnection "router" "lan";
+                server-switch = mkConnection "server-switch" "uplink";
+                office-switch = mkConnection "office-switch" "uplink";
+              };
+            };
+
+            nodes.server-switch = mkSwitch "Server Switch" {
+              info = "USW Flex Mini 2.5G";
+              image = ./assets/usw-flex-mini-2.5g.png;
+
+              interfaceGroups = [
+                [
+                  "uplink"
+                  "dray"
+                  "luka"
+                  "shai"
+                ]
+              ];
+              connections = {
                 dray = mkConnection "dray" "eno1";
                 luka = mkConnection "luka" "enp6s0";
                 shai = mkConnection "shai" "eno1";
+              };
+            };
+
+            nodes.office-switch = mkSwitch "Office Switch" {
+              info = "USW Flex Mini 2.5G";
+              image = ./assets/usw-flex-mini-2.5g.png;
+
+              interfaceGroups = [
+                [
+                  "uplink"
+                  "magic"
+                ]
+              ];
+              connections = {
+                magic = mkConnection "magic" "enp3s0";
               };
             };
 
