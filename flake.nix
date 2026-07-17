@@ -245,13 +245,22 @@
             };
 
             instances = {
-              admin = {
-                roles.default.tags.all = { };
-                roles.default.settings = {
-                  allowedKeys = {
+              sshd = {
+                roles.server.tags.all = { };
+                roles.server.settings = {
+                  authorizedKeys = {
                     colmena = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJgiH4Iu1GUe9Hd40cSnQH94EHj0VmjXdbsaBED2WMHT colmena";
                   };
-                  certificateSearchDomains = [ "thekoppe.com" ];
+                  certificate.searchDomains = [ "thekoppe.com" ];
+                };
+              };
+
+              user-root = {
+                module.name = "users";
+                roles.default.tags.all = { };
+                roles.default.settings = {
+                  user = "root";
+                  prompt = false;
                 };
               };
 
