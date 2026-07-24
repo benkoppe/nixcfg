@@ -2,7 +2,7 @@
   "lastChangelogVersion": "99.99.99",
   "theme": "tokyonight",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.5",
+  "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "high",
   "compaction": {
     "enabled": true
