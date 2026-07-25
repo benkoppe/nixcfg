@@ -18,8 +18,7 @@
         lazygit
 
         nvim
-        opencode
-        pi
+        ai
       ];
 
       packages = with pkgs; [
