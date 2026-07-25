@@ -5,6 +5,8 @@
       inputs.hjem-rum.hjemModules.hjem-rum
       self.modules.hjem.hjem
     ];
+
+    hjem.clobberByDefault = true;
   };
 
   flake.modules.darwin.hjem = {
