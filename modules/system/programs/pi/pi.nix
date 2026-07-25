@@ -25,6 +25,14 @@
 
       piAgentDeps = pkgs.callPackage ./_package.nix { };
 
+      webToolsSource = "${inputs.dmmulroy-dotfiles}/home/.pi/agent/extensions/web-tools";
+
+      webTools = pkgs.runCommand "pi-web-tools" { } ''
+        mkdir -p "$out"
+        cp -R ${webToolsSource}/. "$out/"
+        ln -s ${piAgentDeps}/node_modules "$out/node_modules"
+      '';
+
       # load extension from external inputs
       mkExternalExtension = input: extensionName: {
         name = ".pi/agent/extensions/${extensionName}";
@@ -32,7 +40,12 @@
       };
 
       externalExtensions =
-        (map (mkExternalExtension "${inputs.dmmulroy-dotfiles}/home/.pi/agent/extensions") [ "web-tools" ])
+        [
+          {
+            name = ".pi/agent/extensions/web-tools";
+            value.source = webTools;
+          }
+        ]
         ++ (map (mkExternalExtension inputs.pi-agent-extensions) [
           "direnv"
           "notify"
@@ -43,14 +56,7 @@
         ]);
     in
     {
-      packages = [
-        (pkgs.writeShellScriptBin "pi" ''
-          # Extensions are symlinked from dotfiles, so node walk-up misses
-          # their npm deps. NODE_PATH points jiti at the prebuilt node_modules.
-          export NODE_PATH="${piAgentDeps}/node_modules''${NODE_PATH:+:$NODE_PATH}"
-          exec ${inputs.llm-agents.packages.${system}.pi}/bin/pi "$@"
-        '')
-      ];
+      packages = [ inputs.llm-agents.packages.${system}.pi ];
 
       files =
         (builtins.listToAttrs (map mkAgentFile agentFiles)) // (builtins.listToAttrs externalExtensions);
