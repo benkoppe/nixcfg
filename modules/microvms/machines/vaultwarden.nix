@@ -1,4 +1,9 @@
-{ self, lib, ... }:
+{
+  self,
+  lib,
+  inputs,
+  ...
+}:
 let
   dataDir = "/var/lib/vaultwarden/data";
 in
@@ -7,6 +12,8 @@ in
     { config, pkgs, ... }:
     let
       endpoint = config.my.public-endpoints.vaultwarden;
+
+      vaultwardenPkgs = inputs.nixpkgs-vaultwarden.legacyPackages.${pkgs.system};
     in
     {
       imports = with self.modules.nixos; [
@@ -72,6 +79,9 @@ in
       services.vaultwarden = {
         enable = true;
         dbBackend = "sqlite";
+
+        package = vaultwardenPkgs.vaultwarden;
+        webVaultPackage = vaultwardenPkgs.vaultwarden.webvault;
 
         config = {
           ADMIN_TOKEN_FILE = config.clan.core.vars.generators.vaultwarden-admin.files.password-hash.path;

@@ -16,31 +16,6 @@
         "type": "github"
       }
     },
-    "blueprint": {
-      "inputs": {
-        "nixpkgs": [
-          "llm-agents",
-          "nixpkgs"
-        ],
-        "systems": [
-          "llm-agents",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1776249299,
-        "narHash": "sha256-Dt9t1TGRmJFc0xVYhttNBD6QsAgHOHCArqGa0AyjrJY=",
-        "owner": "numtide",
-        "repo": "blueprint",
-        "rev": "56131e8628f173d24a27f6d27c0215eff57e40dd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "blueprint",
-        "type": "github"
-      }
-    },
     "brew-src": {
       "flake": false,
       "locked": {
@@ -78,11 +53,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782772816,
-        "narHash": "sha256-s9BuFv0mRuZx9C1MF8qPHRdcAK14ONi0A5m6E2wqOoM=",
+        "lastModified": 1784665499,
+        "narHash": "sha256-9BMxlTxCCDAeoNLtb1a/st7udtTIJep+wpUzquA29VU=",
         "owner": "nix-community",
         "repo": "bun2nix",
-        "rev": "5a39d717029e94163ac223aee8d5c9946cafed1c",
+        "rev": "0f2a1f0b6f42cebe3b149bf62d38754c5e0e9729",
         "type": "github"
       },
       "original": {
@@ -647,7 +622,6 @@
     },
     "llm-agents": {
       "inputs": {
-        "blueprint": "blueprint",
         "bun2nix": "bun2nix",
         "flake-parts": [
           "flake-parts"
@@ -663,11 +637,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783463692,
-        "narHash": "sha256-scvxUgPdBRCqXSTSON2xq1MZ0CLCq2km84IeZEvM29M=",
+        "lastModified": 1784914663,
+        "narHash": "sha256-uKzEsH6bTPZFgbKtP0CYev9/OxHJn4pJnjaUQH64Soo=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "08d37159b55b596aff4d60f290d7bd948e3dd928",
+        "rev": "986f053ee1a69b341389bdb8b4da4a35facaf2fb",
         "type": "github"
       },
       "original": {
@@ -699,11 +673,11 @@
     },
     "mnw": {
       "locked": {
-        "lastModified": 1780772958,
-        "narHash": "sha256-VKKe8r4pwCGWZ3Yr9CPN129R4S3CKLSrlYqdYz3vKpM=",
+        "lastModified": 1784154424,
+        "narHash": "sha256-HRn4O1X2ShYtbq5Egji72/aemyc2cIQicjRZD9hBqM8=",
         "owner": "Gerg-L",
         "repo": "mnw",
-        "rev": "0871dbf63a53610c95db04439ed8ea4d6ec9c160",
+        "rev": "0151d9fa87992cbeb67c86616fb9170dcec830b6",
         "type": "github"
       },
       "original": {
@@ -1012,11 +986,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1783856661,
-        "narHash": "sha256-ZGP04e+Q6WyQJGA9ZvI5CL6+heGQldbAG9U1T9NGvmU=",
+        "lastModified": 1784707089,
+        "narHash": "sha256-2V/6imsUgB7mPZlHY54oeVBRDoZbPKnvzwkAHUSSufk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "569d578509928497eddc3fdbf94a799027050be4",
+        "rev": "b3fe9581c9061c749abef42b6d4ee7b7c05c33fa",
         "type": "github"
       },
       "original": {
@@ -1039,6 +1013,22 @@
         "owner": "NixOS",
         "ref": "nixos-25.11",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-vaultwarden": {
+      "locked": {
+        "lastModified": 1784941835,
+        "narHash": "sha256-ORuYUG6vcNf6Hsb2FGtQW34bmtzoA3oxi8J/YicbrrQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "701b3fd657f582f3464354b24baf93e1ee579b03",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "701b3fd657f582f3464354b24baf93e1ee579b03",
         "type": "github"
       }
     },
@@ -1110,11 +1100,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1783976957,
-        "narHash": "sha256-yHZAWtCsS11wFFDkG85l68OfW0fi4nlo4I+TQnZMlpg=",
+        "lastModified": 1784897193,
+        "narHash": "sha256-q6ENeqxPuQ52iy2G3jAhkJgLrUSiwYOGsmMr/lHrvQo=",
         "owner": "benkoppe",
         "repo": "nvim-flake",
-        "rev": "e5f4f5a2b03abdfa5092e538519ec3822faa27d3",
+        "rev": "c4717982c84822eeeb76853d4dcc006525208200",
         "type": "github"
       },
       "original": {
@@ -1186,6 +1176,7 @@
         "nix-tree-rs": "nix-tree-rs",
         "nixos-vfio": "nixos-vfio",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-vaultwarden": "nixpkgs-vaultwarden",
         "nvim-flake": "nvim-flake",
         "pi-agent-extensions": "pi-agent-extensions",
         "proxmox-nixos": "proxmox-nixos",

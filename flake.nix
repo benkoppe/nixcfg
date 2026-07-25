@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
 
+    nixpkgs-vaultwarden.url = "github:NixOS/nixpkgs/701b3fd657f582f3464354b24baf93e1ee579b03";
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
