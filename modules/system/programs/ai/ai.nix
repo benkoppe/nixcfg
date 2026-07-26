@@ -6,6 +6,7 @@
       pi
       codex
       claude-code
+      claudex
     ];
   };
 
@@ -53,9 +54,9 @@
         inputs.llm-agents.packages.${system}.claude-code
       ];
 
-      xdg.config.files."claude-code/settings.json".type = "copy";
-      xdg.config.files."claude-code/settings.json".generator = builtins.toJSON;
-      xdg.config.files."claude-code/settings.json".value = {
+      files.".claude/settings.json".type = "copy";
+      files.".claude/settings.json".generator = builtins.toJSON;
+      files.".claude/settings.json".value = {
         "$schema" = "https://json.schemastore.org/claude-code-settings.json";
 
         env.CLAUDE_BASH_NO_LOGIN = "1";
@@ -90,10 +91,33 @@
 
         attribution.commit = "";
         attribution.pr = "";
+        includeCoAuthoredBy = false;
 
         env.CLAUDE_CODE_DISABLE_TERMINAL_TITLE = "1";
         env.CLAUDE_CODE_HIDE_ACCOUNT_INFO = "1";
         # env.DISABLE_COST_WARNINGS = "1";
       };
+    };
+
+  flake.modules.hjem.claudex =
+    { pkgs, ... }:
+    let
+      inherit (pkgs.stdenv.hostPlatform) system;
+    in
+    {
+      packages = [
+        (pkgs.writeShellScriptBin "claudex" ''
+          export CLAUDE_CODE_SUBAGENT_MODEL="gpt-5.6-sol"
+          export CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1
+          export CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=3
+          export ENABLE_TOOL_SEARCH=false
+          export ANTHROPIC_BASE_URL="http://127.0.0.1:8317"
+          export ANTHROPIC_AUTH_TOKEN="sk-dummy"
+
+          exec ${inputs.llm-agents.packages.${system}.claude-code}/bin/claude \
+            --model "gpt-5.6-sol" \
+            "$@"
+        '')
+      ];
     };
 }
