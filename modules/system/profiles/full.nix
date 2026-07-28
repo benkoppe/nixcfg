@@ -11,6 +11,7 @@
         direnv
         atuin
         tmux-full
+        herdr
         ssh
 
         git
