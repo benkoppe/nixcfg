@@ -31,6 +31,9 @@
         ''
       ];
 
-      xdg.cache.files."ssh".type = "directory";
+      xdg.cache.files."ssh" = {
+        type = "directory";
+        clobber = false;
+      };
     };
 }
