@@ -33,6 +33,7 @@
     atuin.id = 12;
     zabbix.id = 13;
     rustdesk.id = 14;
+    bookstack.id = 15;
 
     samba.id = 20;
 
