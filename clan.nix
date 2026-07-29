@@ -37,6 +37,7 @@
             deploy.targetHost = "root@shai";
             tags = [ "development" ];
           };
+          mcclung.deploy.targetHost = "root@mcclung";
 
           ant = {
             machineClass = "darwin";

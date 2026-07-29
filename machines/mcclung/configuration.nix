@@ -12,9 +12,35 @@
     boot_limine
 
     tailgate
+    proxmox
   ];
 
   my.luks.tangUnlock.enable = false;
+
+  my.proxmox = {
+    id = 10;
+    network = {
+      subnet = "10.10.1";
+      externalInterface = "wlp3s0";
+    };
+  };
+
+  services.proxmox-ve.ipAddress = "100.95.221.58";
+
+  my.tailgate.routes = [
+    "10.10.1.0/24"
+  ];
+
+  # Use networkd only for the Proxmox virtual bridges.
+  systemd.network.enable = true;
+  systemd.network.networks."99-ethernet-default-dhcp".enable = false;
+  systemd.network.networks."99-wireless-client-dhcp".enable = false;
+
+  networking.networkmanager.unmanaged = [
+    "interface-name:pvevirt"
+    "interface-name:cluster0"
+    "interface-name:tap*"
+  ];
 
   nixpkgs.config = {
     allowUnfreePredicate =
@@ -66,4 +92,11 @@
 
   # Work around the ncurses/systemd-initrd terminfo mismatch.
   boot.initrd.systemd.contents."/etc/terminfo/l/linux".enable = false;
+
+  # services.xserver = {
+  #   enable = true;
+  #   desktopManager.xfce.enable = true;
+  # };
+  #
+  # services.displayManager.lightdm.enable = true;
 }
