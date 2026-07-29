@@ -1,10 +1,11 @@
 # ---
 # schema = "btrfs-single-disk-subvolumes"
 # [placeholders]
-# mainDisk = "/dev/disk/by-id/ata-APPLE_SSD_SM0128F_S18UNYBD609407" 
+# mainDisk = "/dev/disk/by-id/ata-APPLE_SSD_SM0128F_S18UNYBD609407"
 # ---
 # This file was automatically generated!
 # CHANGING this configuration requires wiping and reinstalling the machine
+{ config, ... }:
 {
   boot.loader.grub = {
     efiInstallAsRemovable = true;
@@ -45,26 +46,40 @@
             "root" = {
               size = "100%";
               content = {
-                type = "btrfs";
-                extraArgs = [
-                  "--force"
-                  "--label root"
-                ];
-                subvolumes = {
-                  "@root" = {
-                    mountpoint = "/";
-                    mountOptions = [ ];
-                  };
-                  "@nix" = {
-                    mountpoint = "/nix";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
-                  "@home" = {
-                    mountpoint = "/home";
-                    mountOptions = [ "compress=zstd" ];
+                type = "luks";
+                name = "crypted";
+                passwordFile = config.clan.core.vars.generators.luks-password.files.password.path;
+                settings = {
+                  allowDiscards = true;
+                };
+                content = {
+                  type = "btrfs";
+                  extraArgs = [
+                    "--force"
+                    "--label root"
+                  ];
+                  subvolumes = {
+                    "@root" = {
+                      mountpoint = "/";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "@nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "@home" = {
+                      mountpoint = "/home";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
                   };
                 };
               };
