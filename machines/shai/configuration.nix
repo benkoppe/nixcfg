@@ -9,7 +9,6 @@
     basics
     zfs-encrypt
     boot_limine
-    network_lan
     tailgate
 
     ./microvms.nix

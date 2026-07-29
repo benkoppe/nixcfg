@@ -14,6 +14,8 @@
         ++ (with self.modules.nixos; [
           nix
           topology
+
+          network_lan
         ]);
 
       # add system.primaryUser option to match with nix-darwin

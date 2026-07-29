@@ -9,7 +9,6 @@
     basics
     zfs-encrypt
     boot_limine
-    network_lan
     proxmox
     tailgate
     copyparty
@@ -56,10 +55,6 @@
       subnet = "10.1.1";
       externalInterface = "eno1";
     };
-  };
-
-  services.proxmox-ve = {
-    enable = true;
   };
 
   my.networking.lan = {

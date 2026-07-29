@@ -9,7 +9,6 @@
     basics
     luks-encrypt
     boot_limine
-    network_lan
     self.inputs.nixos-vfio.nixosModules.vfio
     proxmox
     tailgate
