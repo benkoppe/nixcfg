@@ -93,7 +93,7 @@
         attribution.pr = "";
         includeCoAuthoredBy = false;
 
-        env.CLAUDE_CODE_DISABLE_TERMINAL_TITLE = "1";
+        # env.CLAUDE_CODE_DISABLE_TERMINAL_TITLE = "1"; # disabled for herdr signal
         env.CLAUDE_CODE_HIDE_ACCOUNT_INFO = "1";
         # env.DISABLE_COST_WARNINGS = "1";
 
