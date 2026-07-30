@@ -96,6 +96,23 @@
         env.CLAUDE_CODE_DISABLE_TERMINAL_TITLE = "1";
         env.CLAUDE_CODE_HIDE_ACCOUNT_INFO = "1";
         # env.DISABLE_COST_WARNINGS = "1";
+
+        hooks.SessionStart = [
+          {
+            matcher = "*";
+            hooks = [
+              {
+                type = "command";
+                command = ''
+                  if [ -f "$HOME/.claude/hooks/herdr-agent-state.sh" ]; then
+                    exec bash "$HOME/.claude/hooks/herdr-agent-state.sh" session
+                  fi
+                '';
+                timeout = 10;
+              }
+            ];
+          }
+        ];
       };
     };
 
