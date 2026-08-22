@@ -59,6 +59,7 @@
 
       users.users.ben.openssh.authorizedKeys.keys = peerButlerAuthorizedKeys ++ [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJgiH4Iu1GUe9Hd40cSnQH94EHj0VmjXdbsaBED2WMHT colmena"
+        "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMi9YvflcdrTvIG+LQ4LMaUxZH2MqCSAuLPVJFfPNcm9/0j5CdL4A722vtHkvINuBHnRtlIPPcrnic1ns6SC4+w= termius-iphone-14-pro"
       ];
 
       programs.fuse.enable = true;
