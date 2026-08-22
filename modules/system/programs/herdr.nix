@@ -143,6 +143,23 @@
                 command = "rmarganti.herdr-pluck.pluck";
                 description = "pluck visible token";
               }
+              {
+                key = "prefix+shift+e";
+                type = "pane";
+                command = ''
+                  tmp="$(mktemp "''${TMPDIR:-/tmp}/herdr-visible.XXXXXX")" || exit 1
+                  trap 'rm -f "$tmp"' EXIT
+
+                  "''${HERDR_BIN_PATH:-herdr}" pane read \
+                    "$HERDR_ACTIVE_PANE_ID" \
+                    --source visible \
+                    --format text \
+                    > "$tmp" || exit 1
+
+                  "''${EDITOR:-nvim}" "$tmp"
+                '';
+                description = "edit visible pane contents";
+              }
             ];
           };
 
