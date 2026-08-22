@@ -3,7 +3,7 @@ _: {
     { pkgs, ... }:
     {
       packages = {
-        herdr-automatic-rename = pkgs.callPackage ./herdr-automatic-rename { };
+        herdr-autoname = pkgs.callPackage ./herdr-autoname { };
       };
     };
 }

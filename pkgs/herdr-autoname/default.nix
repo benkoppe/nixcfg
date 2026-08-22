@@ -4,7 +4,7 @@
 }:
 
 rustPlatform.buildRustPackage {
-  pname = "herdr-automatic-rename";
+  pname = "herdr-autoname";
   version = "0.1.0";
 
   src = lib.cleanSourceWith {
@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage {
   meta = {
     description = "Automatic Herdr tab names and workspace/agent jump indexes";
     license = lib.licenses.mit;
-    mainProgram = "herdr-automatic-rename";
+    mainProgram = "herdr-autoname";
   };
 }

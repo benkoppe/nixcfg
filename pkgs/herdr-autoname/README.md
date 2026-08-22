@@ -1,26 +1,30 @@
-# herdr-automatic-rename
+# herdr-autoname
 
-Private Herdr 0.8.2+ plugin for:
+Herdr 0.8.2+ plugin for:
 
-- display-only bare workspace jump indexes through `$automatic_rename_index`;
+- display-only bare workspace jump indexes through `$autoname_index`;
 - display-only bare agent jump indexes in grouped (`spaces`) order;
 - automatic tab names with `[N]` prefixes;
 - manual tab rename opt-out and a `reset` action.
 
 The plugin is event-driven and intentionally has no shell hook. Ordinary foreground command changes settle on the next subscribed Herdr event.
 
+References:
+
+- https://github.com/Mic92/dotfiles/tree/main/pkgs/herdr-autoname
+
 Required Herdr sidebar configuration:
 
 ```toml
 [ui.sidebar.agents]
 rows = [
-  ["state_icon", "$automatic_rename_index", "workspace", "tab"],
+  ["state_icon", "$autoname_index", "workspace", "tab"],
   ["agent"],
 ]
 
 [ui.sidebar.spaces]
 rows = [
-  ["state_icon", "$automatic_rename_index", "workspace"],
+  ["state_icon", "$autoname_index", "workspace"],
   ["branch", "git_status"],
 ]
 ```

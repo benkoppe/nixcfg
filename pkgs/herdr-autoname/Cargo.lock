@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "herdr-automatic-rename"
+name = "herdr-autoname"
 version = "0.1.0"
 dependencies = [
  "anyhow",

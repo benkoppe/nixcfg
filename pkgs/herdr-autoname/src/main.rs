@@ -1,7 +1,7 @@
 //! Focused Herdr navigation labels for Ben's configuration.
 //!
 //! - Workspaces and agents publish a bare 1-9 jump-key number as display-only
-//!   metadata (`$automatic_rename_index`).
+//!   metadata (`$autoname_index`).
 //! - Tabs are named after the relevant pane's agent task or foreground program
 //!   and retain an `[N]` jump-key prefix.
 //! - A tab renamed by hand opts out of automatic naming, while numbering still
@@ -19,8 +19,8 @@ use std::fs::{self, OpenOptions};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-const INDEX_TOKEN: &str = "automatic_rename_index";
-const METADATA_SOURCE: &str = "herdr-automatic-rename";
+const INDEX_TOKEN: &str = "autoname_index";
+const METADATA_SOURCE: &str = "herdr-autoname";
 const MAX_NAME_LEN: usize = 20;
 const MAX_TITLE_LEN: usize = 28;
 
@@ -51,8 +51,6 @@ struct Snapshot {
 #[derive(Debug, Default, Deserialize)]
 struct Workspace {
     workspace_id: String,
-    #[serde(default)]
-    label: String,
     #[serde(default)]
     focused: bool,
     #[serde(default)]
@@ -104,14 +102,6 @@ struct Layout {
 struct State {
     #[serde(default)]
     tabs: BTreeMap<String, String>,
-}
-
-#[derive(Debug, Deserialize)]
-struct LegacyTabState {
-    #[serde(default)]
-    auto: String,
-    #[serde(default)]
-    enabled: bool,
 }
 
 #[derive(Debug, Default, Deserialize)]
@@ -213,7 +203,7 @@ fn state_root() -> PathBuf {
 }
 
 fn state_dir() -> PathBuf {
-    state_root().join("herdr-automatic-rename-rs")
+    state_root().join("herdr-autoname")
 }
 
 fn home_dir() -> PathBuf {
@@ -227,28 +217,10 @@ fn session_dir() -> PathBuf {
 }
 
 fn load_state(path: &Path) -> State {
-    if let Some(state) = fs::read(path)
+    fs::read(path)
         .ok()
         .and_then(|bytes| serde_json::from_slice(&bytes).ok())
-    {
-        return state;
-    }
-
-    // One-time migration from the shell plugin's {tab: {auto, enabled}} file.
-    // Keeping its claims prevents every currently auto-named tab from looking
-    // like a manual rename when the Nix-built plugin first takes over.
-    let legacy_path = state_root().join("herdr-automatic-rename/state.json");
-    let legacy: BTreeMap<String, LegacyTabState> = fs::read(legacy_path)
-        .ok()
-        .and_then(|bytes| serde_json::from_slice(&bytes).ok())
-        .unwrap_or_default();
-    State {
-        tabs: legacy
-            .into_iter()
-            .filter(|(_, entry)| entry.enabled)
-            .map(|(tab_id, entry)| (tab_id, entry.auto))
-            .collect(),
-    }
+        .unwrap_or_default()
 }
 
 fn save_state(path: &Path, state: &State) -> Result<()> {
@@ -268,17 +240,11 @@ fn reconcile_workspaces(snapshot: &Snapshot) {
     let positions = visible_workspace_positions(snapshot);
     for workspace in &snapshot.workspaces {
         let current = workspace.tokens.get(INDEX_TOKEN).map(String::as_str);
-        // Releases before the metadata design embedded `[N]` in custom_name.
-        // Suppress a second number until that legacy workspace is recreated.
-        let desired = if numeric_prefix(&workspace.label).is_some() {
-            None
-        } else {
-            positions
-                .get(&workspace.workspace_id)
-                .copied()
-                .filter(|position| (1..=9).contains(position))
-                .map(|position| position.to_string())
-        };
+        let desired = positions
+            .get(&workspace.workspace_id)
+            .copied()
+            .filter(|position| (1..=9).contains(position))
+            .map(|position| position.to_string());
         report_workspace_token(&workspace.workspace_id, current, desired.as_deref());
     }
 }

@@ -10,7 +10,7 @@
       inherit (pkgs.stdenv.hostPlatform) system;
       selfPkgs = self.packages.${system};
 
-      plugins = [ selfPkgs.herdr-automatic-rename ];
+      plugins = [ selfPkgs.herdr-autoname ];
 
       registryScript = pkgs.writeText "herdr-plugin-registry.nu" ''
         def main [...roots: string] {
@@ -145,7 +145,7 @@
               agents.rows = [
                 [
                   "state_icon"
-                  "$automatic_rename_index"
+                  "$autoname_index"
                   "workspace"
                   "tab"
                 ]
@@ -155,7 +155,7 @@
               spaces.rows = [
                 [
                   "state_icon"
-                  "$automatic_rename_index"
+                  "$autoname_index"
                   "workspace"
                 ]
                 [
