@@ -28,6 +28,9 @@
   hardware.graphics.enable = true;
 
   services = {
+    # Let Plasma/Dolphin discover and mount optical media.
+    udisks2.enable = true;
+
     desktopManager.plasma6.enable = true;
 
     displayManager = {
@@ -51,7 +54,12 @@
   nixpkgs.config.nvidia.acceptLicense = true;
 
   programs.firefox.enable = true;
-  environment.systemPackages = [ pkgs.remmina ];
+
+  users.users.nancy.extraGroups = [ "cdrom" ];
+
+  environment.systemPackages = with pkgs; [
+    remmina
+  ];
 
   # Work around a nixpkgs/systemd-initrd mismatch: config/terminfo.nix
   # adds /etc/terminfo/l/linux from pkgs.ncurses, but this ncurses build
