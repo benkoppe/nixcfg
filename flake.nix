@@ -201,6 +201,7 @@
         inputs.nix-topology.flakeModule
         inputs.treefmt-nix.flakeModule
         (inputs.import-tree ./modules)
+        ./pkgs/flake-module.nix
         ./clan.nix
       ];
 
