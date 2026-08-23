@@ -111,6 +111,7 @@
             roles.server.machines."dray".settings = {
               dataPath = "/var/lib/ncps";
               caches = [
+                "https://cache.thekoppe.com?priority=10&optional=1"
                 "https://cache.nixos.org"
                 "https://nix-community.cachix.org"
                 "https://install.determinate.systems"
@@ -120,6 +121,7 @@
                 "https://cuda-maintainers.cachix.org"
               ];
               publicKeys = [
+                "cache.thekoppe.com-1:k6bpXbbySclfYx+w7EoTxq/R/mveWHpOe7daqtNsLA0="
                 "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
                 "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
                 "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
