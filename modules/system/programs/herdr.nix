@@ -173,9 +173,9 @@
                   "state_icon"
                   "$autoname_index"
                   "workspace"
-                  "tab"
+                  "agent"
                 ]
-                [ "agent" ]
+                [ "tab" ]
               ];
 
               spaces.rows = [
