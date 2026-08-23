@@ -34,6 +34,7 @@
     zabbix.id = 13;
     rustdesk.id = 14;
     bookstack.id = 15;
+    niks3.id = 16;
 
     samba.id = 20;
 
@@ -88,6 +89,13 @@
         name = "cloudflared-to-forgejo";
         from = "cloudflared-dray";
         to = "forgejo";
+        proto = "tcp";
+        ports = [ 443 ];
+      }
+      {
+        name = "cloudflared-to-niks3";
+        from = "cloudflared-dray";
+        to = "niks3";
         proto = "tcp";
         ports = [ 443 ];
       }

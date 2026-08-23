@@ -53,6 +53,12 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    niks3 = {
+      url = "github:Mic92/niks3";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+    };
+
     nix-diff-rs = {
       url = "github:Mic92/nix-diff-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -166,7 +172,7 @@
 
   nixConfig = {
     extra-substituters = [
-      # "https://cache.thekoppe.com?optional=1"
+      "https://cache.thekoppe.com?priority=10&optional=1"
       "https://nix-community.cachix.org"
       "https://cache.nixos.org"
       "https://install.determinate.systems"
@@ -178,7 +184,7 @@
       "https://niri.cachix.org"
     ];
     extra-trusted-public-keys = [
-      # "cache.thekoppe.com-1:wlGIiKGgTLSwbGKl/364Xw964bP81gYku7wi/BE2sRM="
+      "cache.thekoppe.com-1:k6bpXbbySclfYx+w7EoTxq/R/mveWHpOe7daqtNsLA0="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
