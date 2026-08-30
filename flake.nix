@@ -130,6 +130,7 @@
 
     nvim-flake = {
       url = "github:benkoppe/nvim-flake";
+      inputs.llm-agents.follows = "llm-agents";
     };
 
     tmignore = {

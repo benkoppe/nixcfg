@@ -4,9 +4,14 @@
     { pkgs, ... }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
+
+      nvimPkgs = inputs.nvim-flake.packages.${system};
     in
     {
-      packages = [ inputs.nvim-flake.packages.${system}.default ];
+      packages = [
+        nvimPkgs.full
+        nvimPkgs.minimal
+      ];
     };
 
 }
