@@ -11,7 +11,8 @@ It defines:
 - My Oracle Cloud VMs
   - [bird](/machines/bird)
 - My local dev VMs
-  - [butler](/machines/butler)
+  - [butler-proxmox](/machines/butler-proxmox)
+  - [butler-fusion](/machines/butler-fusion)
 - My Macbook
   - [ant](/machines/ant)
 
