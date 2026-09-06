@@ -12,6 +12,12 @@
         nvimPkgs.full
         nvimPkgs.minimal
       ];
+
+      environment.sessionVariables = {
+        ALTERNATE_EDITOR = "";
+        EDITOR = "vi";
+        VISUAL = "nvim";
+      };
     };
 
 }

@@ -49,11 +49,6 @@
           export PATH=$HOME/.npm-packages/bin:$HOME/bin:$PATH
           export PATH=$HOME/.local/share/bin:$PATH
 
-          # nvim is my editor
-          export ALTERNATE_EDITOR=""
-          export EDITOR="vi" 
-          export VISUAL="nvim"
-
           # Always color ls and group directories
           alias ls='ls --color=auto'
 
