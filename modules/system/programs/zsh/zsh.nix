@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   flake.modules.hjem.zsh =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       rum.programs.zsh = {
         enable = true;
@@ -32,6 +32,10 @@
           autoload -Uz compinit
           compinit
 
+          # Bind autosuggest widgets once (on the first prompt) instead of
+          # re-wrapping every widget before each prompt, which costs ~50ms.
+          ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
           bindkey '^Y' autosuggest-accept
 
           bindkey '^[[A' history-substring-search-up
@@ -46,6 +50,8 @@
 
           # Always color ls and group directories
           alias ls='ls --color=auto'
+
+          ${config.shellAliasesInit}
         '';
       };
     };
