@@ -230,6 +230,7 @@
           devShells.default = pkgs.mkShell {
             packages = [
               inputs'.clan-core.packages.clan-cli
+              inputs'.hjem.packages.hjem
               config.treefmt.build.wrapper
               pkgs.nh
             ];
