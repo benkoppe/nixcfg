@@ -4,7 +4,7 @@
     { pkgs, config, ... }:
     let
       fastapi-dls-override =
-        self.inputs.fastapi-dls-nixos.packages.${pkgs.stdenv.targetPlatform.system}.default.overrideAttrs
+        (pkgs.callPackage "${self.inputs.fastapi-dls-nixos}/package.nix" { }).overrideAttrs
           (old: {
             preBuild = old.preBuild + ''
                     cat > fastapi_dls/run.py << 'EOF'
@@ -25,6 +25,20 @@
       endpoint = config.my.public-endpoints.fastapi-dls;
     in
     {
+      # TODO: remove soon
+      nixpkgs.overlays = [
+        (_: prev: {
+          pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+            (_: python-prev: {
+              inline-snapshot = python-prev.inline-snapshot.overridePythonAttrs (old: {
+                # The documentation snapshots expect an older Black formatter.
+                disabledTestPaths = (old.disabledTestPaths or [ ]) ++ [ "tests/test_docs.py" ];
+              });
+            })
+          ];
+        })
+      ];
+
       imports = with self.modules.nixos; [
         microvms_client
 

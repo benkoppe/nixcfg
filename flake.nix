@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
 
-    nixpkgs-vaultwarden.url = "github:NixOS/nixpkgs/0224a92dddc2fd720bba210d195565241a716df9";
+    # nixpkgs-vaultwarden.url = "github:NixOS/nixpkgs/0224a92dddc2fd720bba210d195565241a716df9";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -22,11 +22,6 @@
       inputs.nix-darwin.follows = "nix-darwin";
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
-    };
-
-    determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hjem = {
@@ -131,6 +126,7 @@
     nvim-flake = {
       url = "github:benkoppe/nvim-flake";
       inputs.llm-agents.follows = "llm-agents";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     tmignore = {
@@ -149,7 +145,7 @@
     };
 
     dmmulroy-dotfiles = {
-      url = "github:dmmulroy/.dotfiles";
+      url = "github:dmmulroy/.dotfiles/75f55523f4fb9d882692c448792f5d6b5b7d426f";
       flake = false;
     };
     pi-agent-extensions = {
@@ -176,7 +172,6 @@
       "https://cache.thekoppe.com?priority=10&optional=1"
       "https://nix-community.cachix.org"
       "https://cache.nixos.org"
-      "https://install.determinate.systems"
       "https://cache.clan.lol"
       "https://cache.numtide.com"
       "https://cache.thalheim.io"
@@ -188,7 +183,6 @@
       "cache.thekoppe.com-1:k6bpXbbySclfYx+w7EoTxq/R/mveWHpOe7daqtNsLA0="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
       "cache.clan.lol-1:3KztgSAB5R1M+Dz7vzkBGzXdodizbgLXGXKXlcQLA28="
       "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
       "cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc="

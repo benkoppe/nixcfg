@@ -29,13 +29,21 @@ in
         inputs.nix-diff-rs.packages.${system}.default
         inputs.nix-tree-rs.packages.${system}.default
       ];
+
+      nix = {
+        package = pkgs.nixVersions.latest;
+        settings.experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+        channel.enable = false;
+        inherit registry;
+        nixPath = lib.mapAttrsToList (name: flake: "${name}=${flake.outPath}") registryMap;
+      };
     };
 
   flake.modules.nixos.nix = {
-    imports = [
-      inputs.determinate.nixosModules.default
-      self.modules.generic.nix
-    ];
+    imports = [ self.modules.generic.nix ];
 
     nixpkgs.config.allowUnfree = true;
 
@@ -67,39 +75,33 @@ in
         # https://discourse.nixos.org/t/why-does-nix-direnv-recommend-setting-nix-settings-keep-outputs/31081
         keep-outputs = true;
       };
-    }
-    // {
-      channel.enable = false;
-      inherit registry;
-      nixPath = lib.mapAttrsToList (name: flake: "${name}=${flake.outPath}") registryMap;
     };
   };
 
   flake.modules.darwin.nix = {
-    imports = [
-      inputs.determinate.darwinModules.default
-      self.modules.generic.nix
-    ];
+    imports = [ self.modules.generic.nix ];
 
     nixpkgs.config.allowUnfree = true;
 
-    nix.enable = false;
-
-    determinateNix = {
+    nix = {
       enable = true;
 
-      customSettings = {
-        trusted-users = [
-          "root"
-          "@admin"
+      settings.trusted-users = [
+        "root"
+        "@admin"
+      ];
+
+      gc = {
+        automatic = true;
+        options = "--delete-older-than 3d";
+        interval = [
+          {
+            Weekday = 7;
+            Hour = 3;
+            Minute = 15;
+          }
         ];
       };
-
-      inherit registry;
-
-      # determinateNixd = {
-      #   telemetry.sentry.endpoint = null;
-      # };
     };
   };
 }

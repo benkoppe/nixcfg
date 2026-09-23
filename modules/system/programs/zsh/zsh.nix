@@ -39,11 +39,6 @@
           bindkey '^[[B' history-substring-search-down
           bindkey '^N' history-substring-search-down
 
-          if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-            . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-            . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-          fi
-
           # Define variables for directories
           export PATH=$HOME/.pnpm-packages/bin:$HOME/.pnpm-packages:$PATH
           export PATH=$HOME/.npm-packages/bin:$HOME/bin:$PATH

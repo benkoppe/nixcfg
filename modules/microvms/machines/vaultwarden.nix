@@ -1,7 +1,7 @@
 {
   self,
   lib,
-  inputs,
+  # inputs,
   ...
 }:
 let
@@ -13,7 +13,8 @@ in
     let
       endpoint = config.my.public-endpoints.vaultwarden;
 
-      vaultwardenPkgs = inputs.nixpkgs-vaultwarden.legacyPackages.${pkgs.system};
+      # vaultwardenPkgs = inputs.nixpkgs-vaultwarden.legacyPackages.${pkgs.system};
+      vaultwardenPkgs = pkgs;
     in
     {
       imports = with self.modules.nixos; [

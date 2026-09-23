@@ -1,12 +1,4 @@
 {
-  flake.modules.nixos.bitwarden = {
-    # needed to make bitwarden work currently due to EOL electron
-    # TODO: remove me when github.com/NixOS/nixpkgs/issues/526914 is resolved
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-39.8.10"
-    ];
-  };
-
   flake.modules.hjem.bitwarden =
     {
       pkgs,
@@ -21,8 +13,7 @@
       packages =
         with pkgs;
         lib.optionals (!isDarwin) [
-          # TODO: remove this too, see above
-          (bitwarden-desktop.override { electron_39 = pkgs.electron_39-bin; })
+          bitwarden-desktop
         ];
 
       environment.sessionVariables = {

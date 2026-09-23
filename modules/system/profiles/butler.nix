@@ -26,7 +26,6 @@
 
         hjem
         niri
-        bitwarden
       ];
 
       system.primaryUser = "ben";

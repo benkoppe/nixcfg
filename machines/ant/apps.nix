@@ -64,7 +64,7 @@ in
 
         # Remote desktop
         # "vnc-viewer"
-        (greedy "nomachine")
+        # (greedy "nomachine")
         (greedy "moonlight")
         (greedy "parsec")
         (greedy "rustdesk")
