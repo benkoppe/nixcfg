@@ -78,7 +78,10 @@ in
         (pkgs.callPackage ./_plannotator.nix { })
       ];
 
-      xdg.config.files."opencode/skills".source = ./skills;
+      xdg.config.files."opencode/skills".source = builtins.path {
+        path = ./skills;
+        name = "opencode-skills";
+      };
 
       xdg.config.files."opencode/commands/plannotator-review.md".text = ''
         --- description: Open interactive code review for current changes or a PR URL; pass --git to force Git in JJ workspaces ---
