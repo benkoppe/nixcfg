@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   flake.modules.hjem.direnv =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
     in
@@ -16,7 +16,11 @@
         enable = true;
 
         integrations.nix-direnv.enable = true;
-        integrations.zsh.enable = true;
+        integrations.zsh.enable = false;
       };
+
+      rum.programs.zsh.initConfig = lib.mkAfter ''
+        eval "$(direnv-instant hook zsh)"
+      '';
     };
 }
