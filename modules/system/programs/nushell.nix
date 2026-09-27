@@ -13,18 +13,13 @@
     in
     {
       packages = [
-        pkgs.nushell
         pkgs.carapace
       ];
 
-      xdg.config.files."nushell/settings.nu" = {
-        generator = settings: ''
-          $env.config = $env.config | merge deep (
-            r###'${builtins.toJSON settings}'### | from json
-          )
-        '';
+      rum.programs.nushell = {
+        enable = true;
 
-        value = {
+        settings = {
           show_banner = false;
 
           history = {
@@ -52,43 +47,114 @@
             footer_inheritance = true;
           };
         };
+
+        aliases = (lib.mapAttrs (_: value: lib.mkDefault value) config.shellAliases) // {
+          la = "ls --all";
+          ll = "ls --long";
+          lla = "ls --long --all";
+        };
+
+        extraConfig = ''
+          source ${carapaceInit}
+
+          def --env mc [path: path] {
+            mkdir $path
+            cd $path
+          }
+
+          $env.config.keybindings ++= [
+            {
+              name: accept_suggestion
+              modifier: control
+              keycode: char_y
+              mode: [emacs vi_insert vi_normal]
+              event: { send: HistoryHintComplete }
+            }
+            {
+              name: accept_suggestion_word
+              modifier: alt
+              keycode: char_f
+              mode: [emacs vi_insert vi_normal]
+              event: { send: HistoryHintWordComplete }
+            }
+          ]
+        '';
       };
 
-      xdg.config.files."nushell/aliases.nu".text = ''
-        alias lg = lazygit
+      rum.programs.starship = {
+        enable = true;
 
-        alias la = ls --all
-        alias ll = ls --long
-        alias lla = ls --long --all
+        integrations = {
+          nushell.enable = true;
+          zsh.enable = false;
+          fish.enable = false;
+        };
 
-        def --env mc [path: path] {
-          mkdir $path
-          cd $path
-        }
-      '';
+        settings = {
+          add_newline = true;
 
-      xdg.config.files."nushell/config.nu".text = ''
-        source ${config.xdg.config.files."nushell/settings.nu".source}
-        source ${config.xdg.config.files."nushell/aliases.nu".source}
+          # Explicit module list keeps language/version modules out.
+          format = lib.concatStrings [
+            "[┏━](bold yellow) "
+            "$hostname"
+            "$directory"
+            "$git_branch"
+            "$git_status"
+            "$nix_shell"
+            "$status"
+            "$cmd_duration"
+            "$line_break"
+            "$character"
+          ];
 
-        source ${carapaceInit}
+          hostname = {
+            ssh_only = true;
+            format = "[@$hostname](bold green) ";
+          };
 
-        $env.config.keybindings ++= [
-          {
-            name: accept_suggestion
-            modifier: control
-            keycode: char_y
-            mode: [emacs vi_insert vi_normal]
-            event: { send: HistoryHintComplete }
-          }
-          {
-            name: accept_suggestion_word
-            modifier: alt
-            keycode: char_f
-            mode: [emacs vi_insert vi_normal]
-            event: { send: HistoryHintWordComplete }
-          }
-        ]
-      '';
+          directory = {
+            style = "bold cyan";
+            truncation_length = 3;
+            truncate_to_repo = true;
+            format = "[$path]($style)[$read_only]($read_only_style) ";
+          };
+
+          git_branch = {
+            symbol = "";
+            style = "bold purple";
+            format = "on [$branch]($style) ";
+          };
+
+          git_status = {
+            style = "bold yellow";
+            format = "([$all_status$ahead_behind]($style) )";
+          };
+
+          nix_shell = {
+            symbol = "";
+            style = "bold blue";
+            format = "[nix:$state]($style) ";
+          };
+
+          status = {
+            disabled = false;
+            symbol = "";
+            style = "bold red";
+            format = "[exit:$status]($style) ";
+          };
+
+          cmd_duration = {
+            min_time = 2000;
+            style = "bold yellow";
+            format = "took [$duration]($style) ";
+          };
+
+          character = {
+            success_symbol = "[┃](bold yellow)";
+            error_symbol = "[┃](bold red)";
+            vimcmd_symbol = "[┃](bold green)";
+          };
+        };
+      };
     };
 }
