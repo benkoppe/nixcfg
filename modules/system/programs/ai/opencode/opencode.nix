@@ -73,10 +73,16 @@ in
       inherit (pkgs.stdenv.hostPlatform) system;
     in
     {
-      packages = [
-        inputs.llm-agents.packages.${system}.opencode
-        (pkgs.callPackage ./_plannotator.nix { })
-      ];
+      packages =
+        let
+          llm-agents = inputs.llm-agents.packages.${system};
+        in
+        [
+          llm-agents.opencode
+          llm-agents.opencode2
+          llm-agents.cli-proxy-api
+          (pkgs.callPackage ./_plannotator.nix { })
+        ];
 
       xdg.config.files."opencode/skills".source = builtins.path {
         path = ./skills;
@@ -103,7 +109,6 @@ in
           autoupdate = false;
 
           plugin = [
-            "opencode-claude-auth@latest"
             [
               "@plannotator/opencode@latest"
               {
@@ -131,19 +136,9 @@ in
 
           lsp = true;
 
-          provider.lmstudio = {
-            npm = "@ai-sdk/openai-compatible";
-            name = "LM Studio (local)";
-            options.baseURL = "http://127.0.0.1:1234/v1";
-            models = {
-              "qwen/qwen3-coder-30b" = {
-                name = "Qwen3 Coder 30B";
-                limit = {
-                  context = 262144;
-                  output = 32768;
-                };
-              };
-            };
+          provider.anthropic.settings = {
+            baseURL = "http://localhost:8317";
+            apiKey = "{env:OPENCODE_PROXY_API_KEY}";
           };
         };
       };
