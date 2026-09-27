@@ -4,23 +4,26 @@
     { pkgs, lib, ... }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
+
+      direnvInstant = inputs.direnv-instant.packages.${system}.default;
     in
     {
       packages = [
         pkgs.direnv
         pkgs.nix-direnv
-        inputs.direnv-instant.packages.${system}.default
+        direnvInstant
       ];
 
       rum.programs.direnv = {
         enable = true;
 
         integrations.nix-direnv.enable = true;
+        integrations.nushell.enable = true;
         integrations.zsh.enable = false;
       };
 
       rum.programs.zsh.initConfig = lib.mkAfter ''
-        eval "$(direnv-instant hook zsh)"
+        eval "$(${lib.getExe direnvInstant} hook zsh)"
       '';
     };
 }

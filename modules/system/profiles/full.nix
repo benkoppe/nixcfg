@@ -8,6 +8,7 @@
 
         zsh
         bash
+        nushell
         direnv
         atuin
         tmux-full
