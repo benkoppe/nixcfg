@@ -72,6 +72,23 @@
         source ${config.xdg.config.files."nushell/aliases.nu".source}
 
         source ${carapaceInit}
+
+        $env.config.keybindings ++= [
+          {
+            name: accept_suggestion
+            modifier: control
+            keycode: char_y
+            mode: [emacs vi_insert vi_normal]
+            event: { send: HistoryHintComplete }
+          }
+          {
+            name: accept_suggestion_word
+            modifier: alt
+            keycode: char_f
+            mode: [emacs vi_insert vi_normal]
+            event: { send: HistoryHintWordComplete }
+          }
+        ]
       '';
     };
 }
