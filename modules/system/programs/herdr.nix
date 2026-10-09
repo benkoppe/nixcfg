@@ -57,6 +57,7 @@
     {
       packages = [
         inputs.llm-agents.packages.${system}.herdr
+        selfPkgs.herdr-autoname
       ];
 
       xdg.config.files."herdr/plugins.json" = {
@@ -121,6 +122,12 @@
             ];
 
             command = [
+              {
+                key = "prefix+shift+a";
+                type = "plugin_action";
+                command = "herdr-autoname.reset";
+                description = "reset tab to automatic naming";
+              }
               {
                 key = "prefix+alt+g";
                 type = "popup";
