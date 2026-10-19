@@ -71,6 +71,7 @@ in
     { lib, pkgs, ... }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
+      plannotatorSource = inputs.llm-agents.packages.${system}.plannotator.src;
     in
     {
       packages =
@@ -81,7 +82,7 @@ in
           llm-agents.opencode
           llm-agents.opencode2
           llm-agents.cli-proxy-api
-          (pkgs.callPackage ./_plannotator.nix { })
+          llm-agents.plannotator
         ];
 
       xdg.config.files."opencode/skills".source = builtins.path {
@@ -89,17 +90,14 @@ in
         name = "opencode-skills";
       };
 
-      xdg.config.files."opencode/commands/plannotator-review.md".text = ''
-        --- description: Open interactive code review for current changes or a PR URL; pass --git to force Git in JJ workspaces ---
-      '';
+      xdg.config.files."opencode/commands/plannotator-review.md".source =
+        "${plannotatorSource}/apps/opencode-plugin/commands/plannotator-review.md";
 
-      xdg.config.files."opencode/commands/plannotator-annotate.md".text = ''
-        --- description: Open interactive annotation UI for a markdown file, HTML file, or URL ---
-      '';
+      xdg.config.files."opencode/commands/plannotator-annotate.md".source =
+        "${plannotatorSource}/apps/opencode-plugin/commands/plannotator-annotate.md";
 
-      xdg.config.files."opencode/commands/plannotator-last.md".text = ''
-        --- description: Annotate the last assistant message ---
-      '';
+      xdg.config.files."opencode/commands/plannotator-last.md".source =
+        "${plannotatorSource}/apps/opencode-plugin/commands/plannotator-last.md";
 
       xdg.config.files."opencode/opencode.json" = {
         generator = lib.generators.toJSON { };
@@ -107,6 +105,8 @@ in
           "$schema" = "https://opencode.ai/config.json";
 
           autoupdate = false;
+
+          skills = [ "${plannotatorSource}/apps/skills/core" ];
 
           plugin = [
             [
