@@ -47,7 +47,7 @@
     adminCidrs = [
       "192.168.1.0/24"
       "100.64.0.0/10"
-      "10.0.1.29/32" # butler-proxmox
+      "${builtins.head self.machines.butler-proxmox.ip.addresses4}/32"
       "10.1.1.0/24"
     ];
 

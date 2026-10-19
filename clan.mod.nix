@@ -9,41 +9,6 @@
       };
 
       inventory = {
-        machines = {
-          butler-fusion = {
-            deploy.targetHost = "root@172.16.85.129";
-            tags = [
-              "development"
-              "butler"
-            ];
-          };
-          butler-proxmox = {
-            deploy.targetHost = "root@10.0.1.29";
-            tags = [
-              "development"
-              "butler"
-            ];
-          };
-          luka = {
-            deploy.targetHost = "root@luka";
-            tags = [ "development" ];
-          };
-          bird.deploy.targetHost = "root@bird";
-          dray = {
-            deploy.targetHost = "root@dray";
-            tags = [ "development" ];
-          };
-          shai = {
-            deploy.targetHost = "root@shai";
-            tags = [ "development" ];
-          };
-          mcclung.deploy.targetHost = "root@mcclung";
-
-          ant = {
-            machineClass = "darwin";
-          };
-        };
-
         instances = {
           sshd = {
             roles.server.tags.all = { };
@@ -92,7 +57,6 @@
                 "input"
               ];
             };
-            roles.default.machines.magic = { };
             roles.default.extraModules = [
               {
                 users.users.nancy.description = "Nancy";
@@ -106,9 +70,9 @@
             roles.default.extraModules = [ ];
           };
 
-          # use dray as cache proxy
           ncps = {
-            roles.server.machines."dray".settings = {
+            module.name = "ncps";
+            roles.server.settings = {
               dataPath = "/var/lib/ncps";
               caches = [
                 "https://cache.thekoppe.com?priority=10&optional=1"
@@ -129,9 +93,6 @@
                 "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
               ];
             };
-
-            roles.client.machines."luka".settings = { };
-            roles.client.machines."shai".settings = { };
           };
         };
       };
