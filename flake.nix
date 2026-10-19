@@ -116,8 +116,6 @@
       flake = false;
     };
 
-    import-tree.url = "github:vic/import-tree";
-
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -201,10 +199,14 @@
         inputs.terranix.flakeModule
         inputs.nix-topology.flakeModule
         inputs.treefmt-nix.flakeModule
-        (inputs.import-tree ./modules)
-        ./pkgs/flake-module.nix
-        ./clan.nix
-      ];
+      ]
+      ++ builtins.filter (
+        path:
+        let
+          name = baseNameOf path;
+        in
+        name == "mod.nix" || inputs.nixpkgs.lib.hasSuffix ".mod.nix" name
+      ) (inputs.nixpkgs.lib.filesystem.listFilesRecursive ./.);
 
       systems = import inputs.systems;
 
