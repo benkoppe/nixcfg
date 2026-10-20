@@ -142,6 +142,10 @@
       flake = false;
     };
 
+    pstack = {
+      url = "github:cursor/plugins";
+      flake = false;
+    };
     dmmulroy-dotfiles = {
       url = "github:dmmulroy/.dotfiles/75f55523f4fb9d882692c448792f5d6b5b7d426f";
       flake = false;

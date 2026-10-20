@@ -957,6 +957,22 @@
         "type": "github"
       }
     },
+    "pstack": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792374675,
+        "narHash": "sha256-0tDYeAH507geEODDTgVJ4kF+ayDcD3wqc/ds7HicgsI=",
+        "owner": "cursor",
+        "repo": "plugins",
+        "rev": "6b78e9f4e46c75d1697d837e51f07c2692e60b24",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cursor",
+        "repo": "plugins",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "clan-core": "clan-core",
@@ -985,6 +1001,7 @@
         "nvim-flake": "nvim-flake",
         "pi-agent-extensions": "pi-agent-extensions",
         "proxmox-nixos": "proxmox-nixos",
+        "pstack": "pstack",
         "selfhst-icons": "selfhst-icons",
         "systems": "systems_3",
         "terranix": "terranix",

@@ -106,7 +106,10 @@ in
 
           autoupdate = false;
 
-          skills = [ "${plannotatorSource}/apps/skills/core" ];
+          skills = [
+            "${plannotatorSource}/apps/skills/core"
+            "${inputs.pstack}/pstack/skills"
+          ];
 
           plugin = [
             [
