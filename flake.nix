@@ -2,9 +2,7 @@
   description = "Infrastructure dendritic clan configuration with flake-parts";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
-
-    # nixpkgs-vaultwarden.url = "github:NixOS/nixpkgs/0224a92dddc2fd720bba210d195565241a716df9";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
