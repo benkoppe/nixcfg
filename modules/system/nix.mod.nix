@@ -47,6 +47,19 @@ in
 
     nixpkgs.config.allowUnfree = true;
 
+    # TODO: remove once nixpkgs fixes diff-cover's HTML report tests.
+    nixpkgs.overlays = [
+      (_: prev: {
+        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+          (_: python-prev: {
+            diff-cover = python-prev.diff-cover.overridePythonAttrs {
+              doCheck = false;
+            };
+          })
+        ];
+      })
+    ];
+
     nix = {
       gc = {
         automatic = true;
