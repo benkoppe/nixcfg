@@ -1,6 +1,7 @@
 { self, lib, ... }:
 let
   dnsPort = 53;
+  webPort = 3000;
   username = "ben";
 in
 {
@@ -25,7 +26,7 @@ in
         my.caddy.virtualHosts = [
           {
             inherit (config.my.adguard) vHost;
-            inherit (config.services.adguardhome) port;
+            port = webPort;
           }
         ];
 
@@ -63,12 +64,12 @@ in
 
         services.adguardhome = {
           enable = true;
-          port = 3000;
           openFirewall = true;
 
           mutableSettings = false;
           settings = {
             http = {
+              address = "0.0.0.0:${toString webPort}";
               pprof = {
                 port = 6060;
                 enabled = false;
