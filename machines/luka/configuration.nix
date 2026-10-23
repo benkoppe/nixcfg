@@ -162,7 +162,7 @@
   #   numPages = 16; # match guest RAM
   # };
   virtualisation.kvmfr = {
-    enable = true;
+    enable = false;
     devices = [
       {
         size = 128; # MB
