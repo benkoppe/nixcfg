@@ -69,6 +69,9 @@ impl Server {
                     }
                     Err(error) => panic!("accept: {error}"),
                 };
+                // Darwin inherits O_NONBLOCK from the listener. Requests use
+                // blocking reads with a timeout, regardless of the platform.
+                stream.set_nonblocking(false).unwrap();
                 stream
                     .set_read_timeout(Some(Duration::from_secs(2)))
                     .unwrap();
