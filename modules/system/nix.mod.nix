@@ -23,6 +23,19 @@ in
       inherit (pkgs.stdenv.hostPlatform) system;
     in
     {
+      # TODO: remove once nixpkgs fixes diff-cover's HTML report tests.
+      nixpkgs.overlays = [
+        (_: prev: {
+          pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+            (_: python-prev: {
+              diff-cover = python-prev.diff-cover.overridePythonAttrs {
+                doCheck = false;
+              };
+            })
+          ];
+        })
+      ];
+
       environment.systemPackages = with pkgs; [
         nix-output-monitor
         nh
@@ -46,19 +59,6 @@ in
     imports = [ self.modules.generic.nix ];
 
     nixpkgs.config.allowUnfree = true;
-
-    # TODO: remove once nixpkgs fixes diff-cover's HTML report tests.
-    nixpkgs.overlays = [
-      (_: prev: {
-        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-          (_: python-prev: {
-            diff-cover = python-prev.diff-cover.overridePythonAttrs {
-              doCheck = false;
-            };
-          })
-        ];
-      })
-    ];
 
     nix = {
       gc = {
