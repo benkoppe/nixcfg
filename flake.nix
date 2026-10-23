@@ -169,7 +169,7 @@
 
   nixConfig = {
     extra-substituters = [
-      "https://cache.thekoppe.com?priority=10&optional=1"
+      "https://cache.thekoppe.com?priority=10"
       "https://nix-community.cachix.org"
       "https://cache.nixos.org"
       "https://cache.clan.lol"

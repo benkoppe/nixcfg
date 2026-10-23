@@ -75,7 +75,7 @@
             roles.server.settings = {
               dataPath = "/var/lib/ncps";
               caches = [
-                "https://cache.thekoppe.com?priority=10&optional=1"
+                "https://cache.thekoppe.com"
                 "https://cache.nixos.org"
                 "https://nix-community.cachix.org"
                 "https://cache.saumon.network/proxmox-nixos"
