@@ -229,8 +229,11 @@
         enable = true;
         openFirewall = true;
 
-        publish.enable = true;
-        publish.userServices = true;
+        settings.publish = {
+          disable-publishing = false;
+          disable-user-service-publishing = false;
+          publish-addresses = true;
+        };
         nssmdns4 = true;
 
         extraServiceFiles =
