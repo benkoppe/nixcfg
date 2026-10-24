@@ -111,13 +111,14 @@ in
             "${inputs.pstack}/pstack/skills"
           ];
 
-          plugin = [
+          plugins = [
             [
               "@plannotator/opencode@latest"
               {
                 workflow = "manual";
               }
             ]
+            "${inputs.opencode-claude-code.packages.${system}.default}/lib/opencode-claude-code"
           ];
 
           permission = {

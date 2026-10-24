@@ -922,6 +922,26 @@
         "type": "github"
       }
     },
+    "opencode-claude-code": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792721541,
+        "narHash": "sha256-P4RwCxo9o0m4z0lH0TBGNcxI9QjkP/lioJmYCMXfdEk=",
+        "owner": "benkoppe",
+        "repo": "opencode-claude-code",
+        "rev": "94ac701b4ed7152c05e302b49c8b66b83578c618",
+        "type": "github"
+      },
+      "original": {
+        "owner": "benkoppe",
+        "repo": "opencode-claude-code",
+        "type": "github"
+      }
+    },
     "pi-agent-extensions": {
       "flake": false,
       "locked": {
@@ -1001,6 +1021,7 @@
         "nixos-vfio": "nixos-vfio",
         "nixpkgs": "nixpkgs_3",
         "nvim-flake": "nvim-flake",
+        "opencode-claude-code": "opencode-claude-code",
         "pi-agent-extensions": "pi-agent-extensions",
         "proxmox-nixos": "proxmox-nixos",
         "pstack": "pstack",
