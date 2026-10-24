@@ -114,7 +114,8 @@ in
             backend = "docker";
             containers = {
               mongo = {
-                image = "mongo:latest";
+                # Pinned: major upgrades need a featureCompatibilityVersion bump first.
+                image = "mongo:9.0";
                 pull = "always";
                 labels = {
                   "komodo.skip" = "";
