@@ -995,6 +995,23 @@
         "type": "github"
       }
     },
+    "rex": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793130245,
+        "narHash": "sha256-huqlPLoJdejUIvUfSAik367MJrHkOkbdnxZ07lvzBqA=",
+        "type": "tarball",
+        "url": "https://pkgs.superlogical.com/rex/nix/preview/0.1.0-preview.9.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://pkgs.superlogical.com/rex/nix/preview.tar.gz"
+      }
+    },
     "root": {
       "inputs": {
         "clan-core": "clan-core",
@@ -1025,6 +1042,7 @@
         "pi-agent-extensions": "pi-agent-extensions",
         "proxmox-nixos": "proxmox-nixos",
         "pstack": "pstack",
+        "rex": "rex",
         "selfhst-icons": "selfhst-icons",
         "systems": "systems_3",
         "terranix": "terranix",

@@ -13,6 +13,7 @@
     dms-shell
     qmk-full
     sunshine
+    rex
 
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/virtualisation/qemu-guest-agent.nix"
