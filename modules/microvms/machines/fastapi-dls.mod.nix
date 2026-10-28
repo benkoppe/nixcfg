@@ -25,20 +25,6 @@
       endpoint = config.my.public-endpoints.fastapi-dls;
     in
     {
-      # TODO: remove soon
-      nixpkgs.overlays = [
-        (_: prev: {
-          pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-            (_: python-prev: {
-              inline-snapshot = python-prev.inline-snapshot.overridePythonAttrs (old: {
-                # The documentation snapshots expect an older Black formatter.
-                disabledTestPaths = (old.disabledTestPaths or [ ]) ++ [ "tests/test_docs.py" ];
-              });
-            })
-          ];
-        })
-      ];
-
       imports = with self.modules.nixos; [
         microvms_client
 
