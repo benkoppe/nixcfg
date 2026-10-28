@@ -60,9 +60,4 @@
   environment.systemPackages = with pkgs; [
     remmina
   ];
-
-  # Work around a nixpkgs/systemd-initrd mismatch: config/terminfo.nix
-  # adds /etc/terminfo/l/linux from pkgs.ncurses, but this ncurses build
-  # does not ship share/terminfo/l/linux, causing initrd assembly to fail.
-  boot.initrd.systemd.contents."/etc/terminfo/l/linux".enable = false;
 }

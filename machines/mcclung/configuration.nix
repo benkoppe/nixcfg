@@ -90,9 +90,6 @@
   networking.useNetworkd = lib.mkForce false;
   networking.networkmanager.enable = true;
 
-  # Work around the ncurses/systemd-initrd terminfo mismatch.
-  boot.initrd.systemd.contents."/etc/terminfo/l/linux".enable = false;
-
   # services.xserver = {
   #   enable = true;
   #   desktopManager.xfce.enable = true;
