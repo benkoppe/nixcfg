@@ -69,10 +69,7 @@
             # add ethernet driver module for tang
             ++ config.hardware.facter.detected.boot.initrd.networking.kernelModules;
 
-            systemd = {
-              enable = true;
-              network.enable = true;
-            };
+            systemd.network.enable = true;
 
             network = {
               enable = true;

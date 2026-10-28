@@ -37,7 +37,7 @@
       plasma-login-manager.enable = false;
       sddm.enable = true;
       sddm.wayland.enable = false;
-      defaultSession = "plasmax11";
+      defaultSession = "plasma";
     };
 
     xserver.enable = true;
