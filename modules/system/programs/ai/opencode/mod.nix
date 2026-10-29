@@ -77,10 +77,15 @@ in
       packages =
         let
           llm-agents = inputs.llm-agents.packages.${system};
+          # Rex picks the sidebar icon from argv0, and only knows "opencode".
+          opencode2 = pkgs.runCommand "opencode2" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+            makeWrapper ${llm-agents.opencode2}/bin/.opencode2-wrapped $out/bin/opencode2 \
+              --argv0 opencode \
+              --prefix PATH : ${lib.makeBinPath [ pkgs.ripgrep ]}
+          '';
         in
         [
-          llm-agents.opencode
-          llm-agents.opencode2
+          opencode2
           llm-agents.cli-proxy-api
           llm-agents.plannotator
         ];
