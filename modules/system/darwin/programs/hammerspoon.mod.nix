@@ -115,8 +115,8 @@
           bundleID = 'net.imput.helium',
           hyper_key = 'n',
         },
-        ['Ghostty'] = {
-          bundleID = 'com.mitchellh.ghostty',
+        ['Rex Beta'] = {
+          bundleID = 'com.superlogical.rex',
           hyper_key = 'return',
         },
         ['Xcode'] = {
