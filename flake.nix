@@ -137,11 +137,6 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
-    opencode-claude-code = {
-      url = "github:benkoppe/opencode-claude-code";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     systems.url = "github:nix-systems/default";
 
     # non-flake inputs

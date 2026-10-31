@@ -123,7 +123,6 @@ in
                 workflow = "manual";
               }
             ]
-            "${inputs.opencode-claude-code.packages.${system}.default}/lib/opencode-claude-code"
           ];
 
           permission = {
