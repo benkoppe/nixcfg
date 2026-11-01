@@ -15,9 +15,27 @@
   };
 
   flake.modules.hjem.codex =
-    { pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
+
+      mcpServers = lib.mapAttrs (
+        _: s:
+        {
+          inherit (s) enabled;
+        }
+        // (
+          if s.url != null then
+            { inherit (s) url; } // lib.optionalAttrs (s.headers != { }) { http_headers = s.headers; }
+          else
+            { inherit (s) command args; } // lib.optionalAttrs (s.env != { }) { inherit (s) env; }
+        )
+      ) config.agents.mcp.servers;
     in
     {
       imports = with self.modules.hjem; [ ai-setup ];
@@ -33,6 +51,8 @@
           approval_policy = "on-request";
           check_for_update_on_startup = false;
           commit_attribution = "";
+
+          mcp_servers = mcpServers;
         };
       };
     };
