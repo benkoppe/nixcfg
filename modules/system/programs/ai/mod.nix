@@ -19,26 +19,13 @@
         inputs.llm-agents.packages.${system}.codex
       ];
 
-      xdg.config.files."codex/config.toml".type = "copy";
-      xdg.config.files."codex/config.toml".generator = pkgs.writers.writeTOML "codex-config.toml";
-      xdg.config.files."codex/config.toml".value = {
-        approval_policy = "on-request";
-        check_for_update_on_startup = false;
-        commit_attribution = "";
-
-        default_permissions = "default";
-        permissions.default = {
-          extends = ":workspace";
-
-          filesystem = {
-            ":root" = "deny";
-            ":minimal" = "read";
-            ":workspace_roots"."." = "write";
-            ":workspace_roots".".git" = "write";
-          };
-
-          network.enabled = true;
-          network.domains."*" = "allow";
+      xdg.config.files."codex/config.toml" = {
+        type = "copy";
+        generator = pkgs.writers.writeTOML "codex-config.toml";
+        value = {
+          approval_policy = "on-request";
+          check_for_update_on_startup = false;
+          commit_attribution = "";
         };
       };
     };
