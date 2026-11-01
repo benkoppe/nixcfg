@@ -11,7 +11,16 @@
 
   flake.modules.hjem.ai-setup = {
     key = "nixcfg#hjem.ai-setup";
-    imports = with self.modules.hjem; [ mcp ];
+    imports = with self.modules.hjem; [
+      mcp
+      skills
+    ];
+
+    agents.skills.sources = [ "${inputs.pstack}/pstack/skills" ];
+
+    agents.skills.entries = {
+      iterative-plan-critic = ./skills/iterative-plan-critic;
+    };
   };
 
   flake.modules.hjem.codex =
@@ -99,6 +108,8 @@
         inputs.llm-agents.packages.${system}.claude-code
         pkgs.ripgrep
       ];
+
+      agents.skills.targets = [ ".claude/skills" ];
 
       files.".claude/skills/nix-mcps".source = mcpPlugin;
 

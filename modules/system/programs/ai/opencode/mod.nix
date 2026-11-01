@@ -50,11 +50,6 @@
           llm-agents.plannotator
         ];
 
-      xdg.config.files."opencode/skills".source = builtins.path {
-        path = ./skills;
-        name = "opencode-skills";
-      };
-
       xdg.config.files."opencode/commands/plannotator-review.md".source =
         "${plannotatorSource}/apps/opencode-plugin/commands/plannotator-review.md";
 
@@ -73,7 +68,6 @@
 
           skills = [
             "${plannotatorSource}/apps/skills/core"
-            "${inputs.pstack}/pstack/skills"
           ];
 
           plugins = [
