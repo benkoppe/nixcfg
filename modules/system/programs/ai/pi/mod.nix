@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
   flake.modules.hjem.pi =
     {
@@ -56,6 +56,8 @@
         ]);
     in
     {
+      imports = with self.modules.hjem; [ ai-setup ];
+
       packages = [ inputs.llm-agents.packages.${system}.pi ];
 
       files =

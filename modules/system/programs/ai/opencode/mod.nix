@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ self, inputs, ... }:
 {
   flake.modules.hjem.opencode =
     { lib, pkgs, ... }:
@@ -7,6 +7,8 @@
       plannotatorSource = inputs.llm-agents.packages.${system}.plannotator.src;
     in
     {
+      imports = with self.modules.hjem; [ ai-setup ];
+
       packages =
         let
           llm-agents = inputs.llm-agents.packages.${system};

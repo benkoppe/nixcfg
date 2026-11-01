@@ -9,12 +9,19 @@
     ];
   };
 
+  flake.modules.hjem.ai-setup = {
+    key = "nixcfg#hjem.ai-setup";
+    imports = with self.modules.hjem; [ mcp ];
+  };
+
   flake.modules.hjem.codex =
     { pkgs, ... }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
     in
     {
+      imports = with self.modules.hjem; [ ai-setup ];
+
       packages = [
         inputs.llm-agents.packages.${system}.codex
       ];
@@ -36,6 +43,8 @@
       inherit (pkgs.stdenv.hostPlatform) system;
     in
     {
+      imports = with self.modules.hjem; [ ai-setup ];
+
       packages = [
         inputs.llm-agents.packages.${system}.claude-code
         pkgs.ripgrep
