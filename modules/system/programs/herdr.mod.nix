@@ -12,7 +12,6 @@
 
       plugins = [
         selfPkgs.herdr-autoname
-        selfPkgs.herdr-pluck
       ];
 
       registryScript = pkgs.writeText "herdr-plugin-registry.nu" ''
@@ -145,12 +144,6 @@
                 height = "70%";
               }
               {
-                key = "prefix+f";
-                type = "plugin_action";
-                command = "rmarganti.herdr-pluck.pluck";
-                description = "pluck visible token";
-              }
-              {
                 key = "prefix+shift+e";
                 type = "pane";
                 command = ''
@@ -203,25 +196,6 @@
 
           theme.name = "tokyo-night";
         };
-      };
-
-      xdg.config.files."herdr/plugins/config/rmarganti.herdr-pluck/config.toml" = {
-        generator = (pkgs.formats.toml { }).generate "herdr-pluck-config.toml";
-
-        value = {
-          # Works locally and through remote Herdr attachments.
-          clipboard = "osc52";
-
-          patterns = [
-            {
-              name = "nix-hash";
-              regex = "(sha256-[0-9a-zA-Z=/+]{44}|[0-9a-f]{7,40}|[0-9a-z]{52})";
-              priority = 25;
-            }
-          ];
-        };
-
-        clobber = true;
       };
     };
 }
