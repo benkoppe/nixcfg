@@ -14,6 +14,8 @@
     imports = with self.modules.hjem; [
       mcp
       skills
+
+      plannotator
     ];
 
     agents.skills.sources = [ "${inputs.pstack}/pstack/skills" ];
@@ -22,6 +24,25 @@
       iterative-plan-critic = ./skills/iterative-plan-critic;
     };
   };
+
+  flake.modules.hjem.plannotator =
+    { lib, pkgs, ... }:
+    let
+      inherit (pkgs.stdenv.hostPlatform) system;
+      plannotator = inputs.llm-agents.packages.${system}.plannotator;
+    in
+    {
+      key = "nixcfg#hjem.plannotator";
+      packages = [ plannotator ];
+
+      agents.skills.entries = lib.genAttrs [
+        "plannotator"
+        "plannotator-annotate"
+        "plannotator-inbox"
+        "plannotator-last"
+        "plannotator-review"
+      ] (name: "${plannotator.src}/apps/skills/core/${name}");
+    };
 
   flake.modules.hjem.codex =
     {

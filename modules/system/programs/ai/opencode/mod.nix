@@ -9,7 +9,6 @@
     }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
-      plannotatorSource = inputs.llm-agents.packages.${system}.plannotator.src;
 
       mcpServers = lib.mapAttrs (
         _: s:
@@ -33,7 +32,10 @@
       ) config.agents.mcp.servers;
     in
     {
-      imports = with self.modules.hjem; [ ai-setup ];
+      imports = with self.modules.hjem; [
+        ai-setup
+        plannotator
+      ];
 
       packages =
         let
@@ -47,17 +49,7 @@
         in
         [
           opencode2
-          llm-agents.plannotator
         ];
-
-      xdg.config.files."opencode/commands/plannotator-review.md".source =
-        "${plannotatorSource}/apps/opencode-plugin/commands/plannotator-review.md";
-
-      xdg.config.files."opencode/commands/plannotator-annotate.md".source =
-        "${plannotatorSource}/apps/opencode-plugin/commands/plannotator-annotate.md";
-
-      xdg.config.files."opencode/commands/plannotator-last.md".source =
-        "${plannotatorSource}/apps/opencode-plugin/commands/plannotator-last.md";
 
       xdg.config.files."opencode/opencode.json" = {
         generator = lib.generators.toJSON { };
@@ -65,10 +57,6 @@
           "$schema" = "https://opencode.ai/config.json";
 
           update = "disable";
-
-          skills = [
-            "${plannotatorSource}/apps/skills/core"
-          ];
 
           plugins = [
             {
