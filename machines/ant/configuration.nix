@@ -36,6 +36,8 @@
       vesktop
       bitwarden
       colima
+
+      rex
     ];
   };
 
