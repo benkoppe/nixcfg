@@ -58,9 +58,39 @@
     };
 
   flake.modules.hjem.claude-code =
-    { pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
+
+      json = pkgs.formats.json { };
+
+      mcpJson = json.generate "claude-mcps.json" {
+        mcpServers = lib.mapAttrs (
+          _: s:
+          if s.url != null then
+            {
+              type = "http";
+              inherit (s) url;
+            }
+            // lib.optionalAttrs (s.headers != { }) { inherit (s) headers; }
+          else
+            {
+              type = "stdio";
+              inherit (s) command args;
+            }
+            // lib.optionalAttrs (s.env != { }) { inherit (s) env; }
+        ) (lib.filterAttrs (_: s: s.enabled) config.agents.mcp.servers);
+      };
+
+      mcpPlugin = pkgs.runCommand "claude-nix-plugin" { } ''
+        install -Dm644 ${json.generate "plugin.json" { name = "nix"; }} $out/.claude-plugin/plugin.json
+        install -Dm644 ${mcpJson} $out/.mcp.json
+      '';
     in
     {
       imports = with self.modules.hjem; [ ai-setup ];
@@ -69,6 +99,8 @@
         inputs.llm-agents.packages.${system}.claude-code
         pkgs.ripgrep
       ];
+
+      files.".claude/skills/nix-mcps".source = mcpPlugin;
 
       files.".claude/settings.json" = {
         type = "copy";
