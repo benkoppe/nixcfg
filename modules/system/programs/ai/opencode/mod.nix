@@ -109,7 +109,7 @@ in
         value = {
           "$schema" = "https://opencode.ai/config.json";
 
-          autoupdate = false;
+          update = "disable";
 
           skills = [
             "${plannotatorSource}/apps/skills/core"
@@ -117,12 +117,10 @@ in
           ];
 
           plugins = [
-            [
-              "@plannotator/opencode@latest"
-              {
-                workflow = "manual";
-              }
-            ]
+            {
+              package = "@plannotator/opencode@latest";
+              options.workflow = "manual";
+            }
           ];
 
           permission = {
