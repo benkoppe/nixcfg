@@ -162,23 +162,6 @@
 
           attribution.commit = "";
           attribution.pr = "";
-
-          hooks.SessionStart = [
-            {
-              matcher = "*";
-              hooks = [
-                {
-                  type = "command";
-                  command = ''
-                    if [ -f "$HOME/.claude/hooks/herdr-agent-state.sh" ]; then
-                      exec bash "$HOME/.claude/hooks/herdr-agent-state.sh" session
-                    fi
-                  '';
-                  timeout = 10;
-                }
-              ];
-            }
-          ];
         };
       };
     };
