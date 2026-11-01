@@ -6,7 +6,6 @@
       pi
       codex
       claude-code
-      claudex
     ];
   };
 
@@ -114,27 +113,5 @@
           }
         ];
       };
-    };
-
-  flake.modules.hjem.claudex =
-    { pkgs, ... }:
-    let
-      inherit (pkgs.stdenv.hostPlatform) system;
-    in
-    {
-      packages = [
-        (pkgs.writeShellScriptBin "claudex" ''
-          export CLAUDE_CODE_SUBAGENT_MODEL="gpt-5.6-sol"
-          export CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1
-          export CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=3
-          export ENABLE_TOOL_SEARCH=false
-          export ANTHROPIC_BASE_URL="http://127.0.0.1:8317"
-          export ANTHROPIC_AUTH_TOKEN="sk-dummy"
-
-          exec ${inputs.llm-agents.packages.${system}.claude-code}/bin/claude \
-            --model "gpt-5.6-sol" \
-            "$@"
-        '')
-      ];
     };
 }
