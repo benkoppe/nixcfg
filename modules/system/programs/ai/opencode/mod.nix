@@ -1,10 +1,36 @@
 { self, inputs, ... }:
 {
   flake.modules.hjem.opencode =
-    { lib, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
       plannotatorSource = inputs.llm-agents.packages.${system}.plannotator.src;
+
+      mcpServers = lib.mapAttrs (
+        _: s:
+        {
+          disabled = !s.enabled;
+        }
+        // (
+          if s.url != null then
+            {
+              type = "remote";
+              inherit (s) url;
+            }
+            // lib.optionalAttrs (s.headers != { }) { inherit (s) headers; }
+          else
+            {
+              type = "local";
+              command = [ s.command ] ++ s.args;
+            }
+            // lib.optionalAttrs (s.env != { }) { environment = s.env; }
+        )
+      ) config.agents.mcp.servers;
     in
     {
       imports = with self.modules.hjem; [ ai-setup ];
@@ -56,6 +82,8 @@
               options.workflow = "manual";
             }
           ];
+
+          mcp.servers = mcpServers;
         };
       };
     };
