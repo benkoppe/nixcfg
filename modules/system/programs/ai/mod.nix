@@ -38,67 +38,55 @@
     {
       packages = [
         inputs.llm-agents.packages.${system}.claude-code
+        pkgs.ripgrep
       ];
 
-      files.".claude/settings.json".type = "copy";
-      files.".claude/settings.json".generator = builtins.toJSON;
-      files.".claude/settings.json".value = {
-        "$schema" = "https://json.schemastore.org/claude-code-settings.json";
+      files.".claude/settings.json" = {
+        type = "copy";
+        generator = builtins.toJSON;
+        value = {
+          "$schema" = "https://json.schemastore.org/claude-code-settings.json";
 
-        env.CLAUDE_BASH_NO_LOGIN = "1";
-        env.CLAUDE_CODE_EAGER_FLUSH = "1";
-        env.CLAUDE_CODE_FORCE_GLOBAL_CACHE = "1";
-        env.MCP_CONNECTION_NONBLOCKING = "1";
-        env.USE_BUILTIN_RIPGREP = "0";
+          env.CLAUDE_CODE_EAGER_FLUSH = "1";
+          env.USE_BUILTIN_RIPGREP = "0";
 
-        alwaysThinkingEnabled = true;
-        env.CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING = "1";
-        env.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1";
-        env.CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY = "20";
-        env.CLAUDE_CODE_PLAN_V2_AGENT_COUNT = "5";
-        env.CLAUDE_CODE_PLAN_V2_EXPLORE_AGENT_COUNT = "5";
-        env.DISABLE_AUTO_COMPACT = "1";
-        env.ENABLE_MCP_LARGE_OUTPUT_FILES = "1";
-        env.ENABLE_TOOL_SEARCH = "auto:5";
-        env.MAX_THINKING_TOKENS = "31999";
+          env.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1";
+          env.DISABLE_AUTO_COMPACT = "1";
+          env.ENABLE_TOOL_SEARCH = "auto:5";
 
-        skipWebFetchPreflight = true;
-        env.CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY = "1";
-        env.DISABLE_AUTOUPDATER = "1";
-        env.DISABLE_ERROR_REPORTING = "1";
-        env.DISABLE_INSTALLATION_CHECKS = "1";
-        # env.DISABLE_TELEMETRY = "1";
+          skipWebFetchPreflight = true;
+          env.CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY = "1";
+          env.DISABLE_UPDATES = "1";
+          env.DISABLE_ERROR_REPORTING = "1";
+          env.DISABLE_INSTALLATION_CHECKS = "1";
+          # env.DISABLE_TELEMETRY = "1";
 
-        enabledPlugins."clangd-lsp@claude-plugins-official" = true;
-        enabledPlugins."code-review@claude-plugins-official" = true;
-        enabledPlugins."code-simplifier@claude-plugins-official" = true;
-        enabledPlugins."ralph-loop@claude-plugins-official" = true;
-        enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
+          enabledPlugins."clangd-lsp@claude-plugins-official" = true;
+          enabledPlugins."code-review@claude-plugins-official" = true;
+          enabledPlugins."code-simplifier@claude-plugins-official" = true;
+          enabledPlugins."ralph-loop@claude-plugins-official" = true;
+          enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
 
-        attribution.commit = "";
-        attribution.pr = "";
-        includeCoAuthoredBy = false;
+          attribution.commit = "";
+          attribution.pr = "";
 
-        # env.CLAUDE_CODE_DISABLE_TERMINAL_TITLE = "1"; # disabled for herdr signal
-        env.CLAUDE_CODE_HIDE_ACCOUNT_INFO = "1";
-        # env.DISABLE_COST_WARNINGS = "1";
-
-        hooks.SessionStart = [
-          {
-            matcher = "*";
-            hooks = [
-              {
-                type = "command";
-                command = ''
-                  if [ -f "$HOME/.claude/hooks/herdr-agent-state.sh" ]; then
-                    exec bash "$HOME/.claude/hooks/herdr-agent-state.sh" session
-                  fi
-                '';
-                timeout = 10;
-              }
-            ];
-          }
-        ];
+          hooks.SessionStart = [
+            {
+              matcher = "*";
+              hooks = [
+                {
+                  type = "command";
+                  command = ''
+                    if [ -f "$HOME/.claude/hooks/herdr-agent-state.sh" ]; then
+                      exec bash "$HOME/.claude/hooks/herdr-agent-state.sh" session
+                    fi
+                  '';
+                  timeout = 10;
+                }
+              ];
+            }
+          ];
+        };
       };
     };
 }
