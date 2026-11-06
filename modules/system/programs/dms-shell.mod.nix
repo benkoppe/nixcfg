@@ -66,6 +66,12 @@
         generator = lib.generators.toJSON { };
         value = {
           currentThemeName = "dynamic";
+
+          # lock the auto-logged-in session immediately and after idle (seconds)
+          lockAtStartup = true;
+          lockBeforeSuspend = true;
+          acLockTimeout = 1800;
+          acMonitorTimeout = 600;
         };
       };
     };
