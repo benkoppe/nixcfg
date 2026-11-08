@@ -38,6 +38,7 @@
       colima
 
       rex
+      browse
     ];
   };
 
