@@ -1,0 +1,111 @@
+# Brings back the coding agents and other commands in the Rex panes after the
+# Rex server restarts.
+#
+# While an agent runs, its integration writes a record for the pane (agent,
+# session, directory, flags), in a file named after the pane's REX_BLOCK. Other
+# commands get one from preexec.
+#   - When the command exits, the prompt comes back and precmd deletes the record.
+#   - When Rex stops, it kills the shell before any prompt, so the record stays.
+# A restored pane keeps its REX_BLOCK, so its new shell finds the record and
+# resumes it.
+
+[[ -n $REX_BLOCK ]] || return
+
+# Load the integrations, in Rex panes only. opencode's variable replaces
+# cli.json's plugin list, which would drop other plugins if set everywhere.
+export CLAUDE_CODE_PLUGIN_DIRS=@claudePlugin@
+export OPENCODE_CLI_CONFIG_CONTENT='{"plugins":["@opencodePlugin@"]}'
+# Codex has no such variable, so pass its hook as a config override.
+@codexCommand@() {
+  command @codexCommand@ -c 'hooks.SessionStart=[{hooks=[{type="command",command="rex-resume-hook codex",timeout=10}]}]' "$@"
+}
+
+# Rex starts each pane's shell as a login shell. A nested zsh is not one, and
+# may be running inside the pane's agent or command.
+[[ -o login ]] || return
+
+typeset -g _rex_resume_dir=${XDG_STATE_HOME:-$HOME/.local/state}/rex-resume
+typeset -g _rex_resume_record=$_rex_resume_dir/${REX_BLOCK#block:}
+typeset -g _rex_resume_cmd _rex_resume_prefill
+
+_rex_resume_forget() {
+  [[ -e $_rex_resume_record ]] && rm -f -- $_rex_resume_record
+}
+
+# Only a simple command with a listed program runs again. Any other command
+# comes back on the prompt, because running it again could repeat its effects.
+typeset -ga _rex_resume_rerun=(@rerunCommands@)
+_rex_resume_remember() {
+  [[ $1 != *$'\n'* && $1 != ' '* ]] || return
+  local -a words=(${(z)3})
+  local word kind=command
+  for word in $words; do
+    [[ $word == (\;|\&|\||\&\&|\|\||\|\&|\&\||\(|\)|\{|\}) ]] && kind=prompt
+  done
+  while [[ $words[1] == (*=*|command|exec|noglob|nocorrect) ]]; do
+    shift words
+  done
+  (( $_rex_resume_rerun[(Ie)${words[1]:t}] )) || kind=prompt
+  mkdir -p -- $_rex_resume_dir
+  print -rl -- $kind $1 $PWD >| $_rex_resume_record
+}
+
+autoload -Uz add-zsh-hook add-zle-hook-widget
+add-zsh-hook precmd _rex_resume_forget
+add-zsh-hook preexec _rex_resume_remember
+
+[[ -r $_rex_resume_record ]] || return
+
+() {
+  local -a record=("${(@f)$(<$_rex_resume_record)}") cmd
+  local agent=$record[1] session=$record[2] cwd=$record[3] i arg line
+  case $agent in
+    command | prompt) line=$session ;;
+    claude) cmd=(@claudeCommand@ --resume $session) ;;
+    opencode) cmd=(@opencodeCommand@ --session $session) ;;
+    codex) cmd=(@codexCommand@ resume $session) ;;
+    pi) cmd=(@piCommand@ --session $session) ;;
+    *) return ;;
+  esac
+  # Pass again only these flags from the agent's command line.
+  for (( i = 4; i <= $#record; i++ )); do
+    arg=$record[i]
+    case $agent:$arg in
+      claude:--dangerously-skip-permissions | claude:--model=* | claude:--permission-mode=* | \
+      opencode:--auto | \
+      codex:--dangerously-bypass-approvals-and-sandbox | codex:--approve-for-me | codex:--search | \
+      codex:--model=* | codex:--sandbox=* | codex:--ask-for-approval=* | codex:--profile=* | codex:--add-dir=* | \
+      pi:--no-tools | pi:-nt | pi:--no-builtin-tools | pi:-nbt | pi:--no-extensions | pi:-ne | \
+      pi:--approve | pi:-a | pi:--no-approve | pi:-na | \
+      pi:--extension=* | pi:--tools=* | pi:--exclude-tools=*)
+        cmd+=($arg) ;;
+      claude:--model | claude:--permission-mode | \
+      codex:-m | codex:--model | codex:-s | codex:--sandbox | codex:-a | codex:--ask-for-approval | \
+      codex:-p | codex:--profile | codex:--add-dir | \
+      pi:-e | pi:--extension | pi:-t | pi:--tools | pi:-xt | pi:--exclude-tools)
+        (( i < $#record )) && cmd+=($arg $record[++i]) ;;
+    esac
+  done
+  : ${line:=${(j: :)${(q-)cmd[@]}}}
+  if [[ $agent == prompt ]]; then
+    cd -- $cwd 2>/dev/null
+    _rex_resume_cmd=$line _rex_resume_prefill=1
+  else
+    _rex_resume_cmd="cd -- ${(q-)cwd} && $line"
+  fi
+  add-zle-hook-widget line-init _rex_resume_accept
+  # A pane closed while its command ran leaves a record no pane will match.
+  rm -f -- $_rex_resume_dir/*(Nm+30)
+}
+
+# Types the resume command, and runs it unless it only comes back on the
+# prompt. Running it as if typed gives it job control and history.
+_rex_resume_accept() {
+  add-zle-hook-widget -d line-init _rex_resume_accept
+  BUFFER=$_rex_resume_cmd
+  if (( _rex_resume_prefill )); then
+    CURSOR=$#BUFFER
+  else
+    zle accept-line
+  fi
+}

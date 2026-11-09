@@ -1,7 +1,7 @@
-# SessionStart command hook for Claude Code and Codex: records the session this
-# Rex pane shows, for rex-agent-resume.zsh. Both agents also fire it when the
+# SessionStart command hook for Claude Code and Codex. It records the session
+# this Rex pane shows, for rex-resume.zsh. Both agents also run it when the
 # conversation on screen changes (/clear, /resume, fork, compaction), so the
-# record follows it. Usage: rex-agent-resume-hook claude|codex
+# record names the current one. Usage: rex-resume-hook claude|codex
 
 import json
 import os
@@ -30,11 +30,12 @@ process = psutil.Process().parent()
 while process.name() in {"sh", "bash", "dash", "zsh"}:
     process = process.parent()
 args = process.cmdline()[1:]
-# The record has one line per field; a multi-line prompt is not a flag.
+# The record has one line per field. A multi-line argument is a prompt, not a
+# flag, so leave it out.
 args = [arg for arg in args if "\n" not in arg]
 
 state = os.environ.get("XDG_STATE_HOME") or os.path.expanduser("~/.local/state")
-directory = os.path.join(state, "rex-agent-resume")
+directory = os.path.join(state, "rex-resume")
 os.makedirs(directory, exist_ok=True)
 with open(os.path.join(directory, block.removeprefix("block:")), "w") as record:
     record.write("\n".join([agent, event["session_id"], event["cwd"], *args]) + "\n")

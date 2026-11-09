@@ -65,7 +65,7 @@
     {
       imports = with self.modules.hjem; [
         ai-setup
-        rex-agent-resume
+        rex-resume
       ];
 
       packages = [ rexCli ];

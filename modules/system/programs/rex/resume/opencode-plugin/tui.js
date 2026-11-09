@@ -1,6 +1,7 @@
-// opencode TUI plugin: records the session this Rex pane shows, for
-// rex-agent-resume.zsh. It runs in the TUI, which knows the pane and the session
-// on screen; opencode's server plugins run in a shared service that knows neither.
+// opencode TUI plugin that records the session this Rex pane shows, for
+// rex-resume.zsh. It runs in the TUI, which has the pane's REX_BLOCK and the
+// session on screen. opencode's server plugins run in a shared service that
+// has neither.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -13,15 +14,15 @@ function setup(api) {
   if (!block) return;
   const dir = path.join(
     process.env.XDG_STATE_HOME || path.join(process.env.HOME, ".local/state"),
-    "rex-agent-resume",
+    "rex-resume",
   );
   const file = path.join(dir, block.replace(/^block:/, ""));
   // The TUI's flags, to pass again on resume. opencode is a Bun binary, so its
   // argv starts with "bun" and the bundled script. The record has one line per
-  // field; a multi-line prompt is not a flag.
+  // field. A multi-line argument is a prompt, not a flag, so leave it out.
   const args = process.argv.slice(2).filter((arg) => !arg.includes("\n"));
 
-  // Runs again whenever the route changes or a session's parent loads.
+  // The effect runs again when the route changes or a session's parent loads.
   return createRoot((dispose) => {
     createEffect((recorded) => {
       const route = api.ui.router.current();
@@ -44,4 +45,4 @@ function setup(api) {
   });
 }
 
-export default { id: "rex-agent-resume", setup };
+export default { id: "rex-resume", setup };
