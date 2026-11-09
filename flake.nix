@@ -40,7 +40,7 @@
     };
 
     rex = {
-      url = "https://pkgs.superlogical.com/rex/nix/preview.tar.gz";
+      url = "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
