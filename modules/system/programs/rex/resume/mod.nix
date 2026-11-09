@@ -94,7 +94,7 @@
         # Codex runs the hook by name, so its trusted hash survives rebuilds.
         packages = [ hook ];
 
-        files.".pi/agent/extensions/rex-resume.js".source = ./pi-extension.js;
+        files.".pi/agent/extensions/rex-resume.js".source = "${./pi-extension.js}";
 
         rum.programs.zsh.initConfig = lib.mkAfter ''
           source ${zshInit}
