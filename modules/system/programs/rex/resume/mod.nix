@@ -75,6 +75,7 @@
         rerun = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [
+            "v"
             "nvim"
             "vim"
             "less"
