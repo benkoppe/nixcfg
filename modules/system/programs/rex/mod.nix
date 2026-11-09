@@ -63,7 +63,10 @@
       '';
     in
     {
-      imports = with self.modules.hjem; [ ai-setup ];
+      imports = with self.modules.hjem; [
+        ai-setup
+        rex-agent-resume
+      ];
 
       packages = [ rexCli ];
 
