@@ -13,6 +13,10 @@
 # cli.json's plugin list, which would drop other plugins if set everywhere.
 export CLAUDE_CODE_PLUGIN_DIRS=@claudePlugin@
 export OPENCODE_CLI_CONFIG_CONTENT='{"plugins":["@opencodePlugin@"]}'
+# Codex has no such variable, so pass its hook as a config override.
+@codexCommand@() {
+  command @codexCommand@ -c 'hooks.SessionStart=[{hooks=[{type="command",command="rex-agent-resume-hook codex",timeout=10}]}]' "$@"
+}
 
 # Rex starts each pane's shell as a login shell. A nested zsh is not one, and
 # may be running inside the agent.
@@ -36,16 +40,27 @@ add-zsh-hook precmd _rex_agent_forget
   case $agent in
     claude) cmd=(@claudeCommand@ --resume $session) ;;
     opencode) cmd=(@opencodeCommand@ --session $session) ;;
+    codex) cmd=(@codexCommand@ resume $session) ;;
+    pi) cmd=(@piCommand@ --session $session) ;;
     *) return ;;
   esac
   # Pass again only these flags from the agent's command line.
   for (( i = 4; i <= $#record; i++ )); do
     arg=$record[i]
     case $agent:$arg in
-      claude:--dangerously-skip-permissions | claude:--model=* | claude:--permission-mode=* | opencode:--auto)
+      claude:--dangerously-skip-permissions | claude:--model=* | claude:--permission-mode=* | \
+      opencode:--auto | \
+      codex:--dangerously-bypass-approvals-and-sandbox | codex:--approve-for-me | codex:--search | \
+      codex:--model=* | codex:--sandbox=* | codex:--ask-for-approval=* | codex:--profile=* | codex:--add-dir=* | \
+      pi:--no-tools | pi:-nt | pi:--no-builtin-tools | pi:-nbt | pi:--no-extensions | pi:-ne | \
+      pi:--approve | pi:-a | pi:--no-approve | pi:-na | \
+      pi:--extension=* | pi:--tools=* | pi:--exclude-tools=*)
         cmd+=($arg) ;;
-      claude:--model | claude:--permission-mode)
-        cmd+=($arg=$record[i+1]) ;;
+      claude:--model | claude:--permission-mode | \
+      codex:-m | codex:--model | codex:-s | codex:--sandbox | codex:-a | codex:--ask-for-approval | \
+      codex:-p | codex:--profile | codex:--add-dir | \
+      pi:-e | pi:--extension | pi:-t | pi:--tools | pi:-xt | pi:--exclude-tools)
+        (( i < $#record )) && cmd+=($arg $record[++i]) ;;
     esac
   done
   _rex_agent_resume_cmd="cd -- ${(q-)cwd} && ${(j: :)${(q-)cmd[@]}}"
