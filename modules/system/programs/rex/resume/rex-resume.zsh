@@ -54,10 +54,10 @@ typeset -ga _rex_resume_rerun=(@rerunCommands@)
 _rex_resume_remember() {
   [[ $1 != *$'\n'* && $1 != ' '* ]] || return
   local -a words=(${(z)3})
-  local word kind=command simple=1
-  for word in $words; do
-    [[ $word == (\;|\&|\||\&\&|\|\||\|\&|\&\||\(|\)|\{|\}) ]] && kind=prompt simple=0
-  done
+  local kind=command simple=1
+  # A line that could run code as it expands, through $(...), `...`, <(...),
+  # a redirection or a second command, is not simple, even if quoted.
+  [[ $3 == *[\$\`\<\>\(\)\{\}\;\|\&]* ]] && kind=prompt simple=0
   while [[ $words[1] == (*=*|command|exec|noglob|nocorrect) ]]; do
     shift words
   done
