@@ -38,6 +38,8 @@
   hjem.users.ben.imports = with self.modules.hjem; [
     profiles_full
     vesktop
+
+    browse
   ];
 
   users.users.ben.shell = pkgs.zsh;
