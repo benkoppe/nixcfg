@@ -170,6 +170,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-switch = {
+      url = "github:Sanyam-G/homebrew-switch";
+      flake = false;
+    };
   };
 
   nixConfig = {

@@ -8,6 +8,7 @@
     karabiner
     hammerspoon
     browsers
+    switch
 
     macos-defaults
 
