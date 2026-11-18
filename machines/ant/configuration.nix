@@ -1,4 +1,4 @@
-{ self, pkgs, ... }:
+{ self, ... }:
 {
   imports = with self.modules.darwin; [
     basics
@@ -14,12 +14,6 @@
     hjem
 
     ./apps.nix
-  ];
-
-  environment.systemPackages = with pkgs; [
-    alt-tab-macos
-
-    mosh
   ];
 
   users.users.ben = {
