@@ -28,10 +28,17 @@
       imports = with self.modules.nixos; [
         microvms_client
 
-        self.inputs.fastapi-dls-nixos.nixosModules.default
+        # Import with `self = null` so the module builds its package from this VM's pkgs
+        # (respecting nixpkgs.config) instead of the input's unconfigured legacyPackages.
+        (import "${self.inputs.fastapi-dls-nixos}/default.nix" { })
 
         public-endpoints_caddy
       ];
+
+      # CVE-2026-120459 (python-jose accepts empty HMAC keys) doesn't affect fastapi-dls:
+      # it only signs/verifies with RS256 using RSA keys (algorithms pinned in jwt.decode).
+      # Pinned to the exact version so a future bump forces a re-check.
+      nixpkgs.config.permittedInsecurePackages = [ "python3.12-python-jose-3.5.0" ];
 
       my.public-endpoints.fastapi-dls = {
         vHost = "dls.thekoppe.com";
