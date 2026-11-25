@@ -3,8 +3,14 @@
   flake.clan.machines.vm-fastapi-dls =
     { pkgs, config, ... }:
     let
+      # Upstream hardcodes python312Packages, which Hydra mostly doesn't cache (default is
+      # python3), so every nixpkgs bump rebuilt ~350 python3.12 paths. Use the default python.
+      dlsPkgs = pkgs // {
+        python312Packages = pkgs.python3Packages;
+      };
+
       fastapi-dls-override =
-        (pkgs.callPackage "${self.inputs.fastapi-dls-nixos}/package.nix" { }).overrideAttrs
+        (import "${self.inputs.fastapi-dls-nixos}/package.nix" { pkgs = dlsPkgs; }).overrideAttrs
           (old: {
             preBuild = old.preBuild + ''
                     cat > fastapi_dls/run.py << 'EOF'
@@ -28,9 +34,15 @@
       imports = with self.modules.nixos; [
         microvms_client
 
-        # Import with `self = null` so the module builds its package from this VM's pkgs
-        # (respecting nixpkgs.config) instead of the input's unconfigured legacyPackages.
-        (import "${self.inputs.fastapi-dls-nixos}/default.nix" { })
+        # Import with `self = null` so the module builds its package from dlsPkgs (this VM's
+        # pkgs, respecting nixpkgs.config) instead of the input's unconfigured legacyPackages.
+        (
+          { config, lib, ... }:
+          import "${self.inputs.fastapi-dls-nixos}/default.nix" { } {
+            inherit config lib;
+            pkgs = dlsPkgs;
+          }
+        )
 
         public-endpoints_caddy
       ];
@@ -38,7 +50,7 @@
       # CVE-2026-120459 (python-jose accepts empty HMAC keys) doesn't affect fastapi-dls:
       # it only signs/verifies with RS256 using RSA keys (algorithms pinned in jwt.decode).
       # Pinned to the exact version so a future bump forces a re-check.
-      nixpkgs.config.permittedInsecurePackages = [ "python3.12-python-jose-3.5.0" ];
+      nixpkgs.config.permittedInsecurePackages = [ "python3.14-python-jose-3.5.0" ];
 
       my.public-endpoints.fastapi-dls = {
         vHost = "dls.thekoppe.com";
