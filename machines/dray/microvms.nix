@@ -68,6 +68,16 @@
         proto = "tcp";
         ports = [ 10051 ];
       }
+      {
+        name = "media-vlan-to-lancache";
+        sourceCidrs = [ "192.168.30.0/24" ];
+        to = "lancache";
+        proto = "tcp";
+        ports = [
+          80
+          443
+        ];
+      }
     ];
 
     vmToVmRules = [
