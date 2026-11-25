@@ -68,5 +68,13 @@
 
       systemd.services.fastapi-dls.serviceConfig.ExecStart =
         lib.mkForce "${lib.getBin fastapi-dls-override}/bin/fastapi-dls";
+
+      microvm.volumes = [
+        {
+          image = "fastapi-dls-data.img";
+          mountPoint = "/var/lib/private/fastapi-dls";
+          size = 64;
+        }
+      ];
     };
 }
