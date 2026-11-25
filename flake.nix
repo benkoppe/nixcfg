@@ -107,7 +107,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lancache-nix.url = "github:menixator/lancache.nix";
+    lancache-nix.url = "github:benkoppe/lancache.nix";
 
     nix-topology = {
       url = "github:oddlama/nix-topology";

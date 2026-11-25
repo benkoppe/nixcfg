@@ -1,7 +1,7 @@
 { self, inputs, ... }:
 {
   flake.clan.machines.vm-lancache =
-    { pkgs, ... }:
+    { ... }:
     {
       imports = with self.modules.nixos; [
         microvms_client
@@ -15,14 +15,7 @@
           mountPoint = "/var/lib/lancache";
           size = 300 * 1024;
         }
-        {
-          image = "lancache-logs.img";
-          mountPoint = "/var/log/nginx/lancache";
-          size = 64;
-        }
       ];
-
-      services.nginx.package = pkgs.nginxMainline.override { withSlice = true; };
 
       services.resolved.enable = false;
 
@@ -41,31 +34,10 @@
         enable = true;
 
         cacheLocation = "/var/lib/lancache/cache";
-        logPrefix = "/var/log/nginx/lancache";
-
-        upstreamDns = [
-          "1.1.1.1"
-          "1.0.0.1"
-        ];
         listenAddress = "10.1.0.10";
 
         cacheDiskSize = "290g";
-        minFreeDisk = "10g";
         cacheIndexSize = "250m";
-        cacheMaxAge = "3560d";
-        sliceSize = "1m";
-
-        logFormat = "cachelog";
-
-        domainsPackage = pkgs.fetchFromGitHub {
-          owner = "uklans";
-          repo = "cache-domains";
-          rev = "1f5897f4dacf3dab5f4d6fca2fe497d3327eaea9";
-          sha256 = "sha256-xrHuYIrGSzsPtqErREMZ8geawvtYcW6h2GyeGMw1I88=";
-        };
-
-        # Defines the number of worker processes.
-        workerProcesses = "auto";
       };
     };
 }

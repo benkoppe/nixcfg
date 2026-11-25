@@ -502,15 +502,15 @@
     },
     "lancache-nix": {
       "locked": {
-        "lastModified": 1741876714,
-        "narHash": "sha256-DnsK7a1b2MKOgHqRzaUChXSIavkBmv7+TrAd+WX8/lo=",
-        "owner": "menixator",
+        "lastModified": 1795626148,
+        "narHash": "sha256-Ft2EQvLQUvKKBP5ADyLAWLcTwOoMomRSqfGPcUfBAVg=",
+        "owner": "benkoppe",
         "repo": "lancache.nix",
-        "rev": "2df456815921c8dc8767d3abff07c086a9528634",
+        "rev": "d03acd46d58f7bd5999a7e7e3f9ad5a7b095c5f4",
         "type": "github"
       },
       "original": {
-        "owner": "menixator",
+        "owner": "benkoppe",
         "repo": "lancache.nix",
         "type": "github"
       }
