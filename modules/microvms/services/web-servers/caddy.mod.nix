@@ -70,7 +70,7 @@
           enable = true;
           package = pkgs.caddy.withPlugins {
             plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
-            hash = "sha256-icoMGmEKr+RTfru4YrUH6rFKJTlj9Jkt82Cti3MeKSM=";
+            hash = "sha256-nVNQBiT5CsTBz8cVf5OCXBEwc7oD693DX2CClZCegTc=";
           };
 
           virtualHosts = lib.foldl' lib.recursiveUpdate { } (
