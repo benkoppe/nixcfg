@@ -17,16 +17,10 @@
         }
       ];
 
-      services.resolved.enable = false;
-
-      networking.firewall = {
-        allowedTCPPorts = [
-          53
-          80
-          443
-        ];
-        allowedUDPPorts = [ 53 ];
-      };
+      networking.firewall.allowedTCPPorts = [
+        80
+        443
+      ];
 
       microvm.mem = 4096;
 
