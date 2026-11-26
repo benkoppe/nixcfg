@@ -9,11 +9,9 @@
     in
     {
       packages = [
-        nvimPkgs.full
+        (nvimPkgs.full.wrap { argv0 = "nvim"; })
         nvimPkgs.minimal
       ];
-
-      shellAliases.v = "nvim";
 
       environment.sessionVariables = {
         ALTERNATE_EDITOR = "";
