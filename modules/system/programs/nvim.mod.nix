@@ -13,6 +13,8 @@
         nvimPkgs.minimal
       ];
 
+      shellAliases.v = "nvim";
+
       environment.sessionVariables = {
         ALTERNATE_EDITOR = "";
         EDITOR = "vi";
