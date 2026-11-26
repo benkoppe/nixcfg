@@ -20,7 +20,7 @@ for name in vim.fs.dir(dir) do
 	end
 end
 
--- "nvim" or "v".
+-- The name it runs as, e.g. "nvim".
 local program = vim.fs.basename(vim.v.argv[1])
 local file
 
