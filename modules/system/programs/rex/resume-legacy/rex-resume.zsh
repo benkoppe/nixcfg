@@ -54,6 +54,8 @@ _rex_resume_save() {
 # Only a simple command with a listed program runs again. Any other command
 # comes back on the prompt, because running it again could repeat its effects.
 typeset -ga _rex_resume_rerun=(@rerunCommands@)
+# Programs that report themselves to Rex (../resume) in panes with OSC7577_TOKEN.
+typeset -ga _rex_resume_reported=(opencode @opencodeCommand@ nvim v)
 _rex_resume_remember() {
   [[ $1 != *$'\n'* && $1 != ' '* ]] || return
   local -a words=(${(z)3})
@@ -64,8 +66,7 @@ _rex_resume_remember() {
   while [[ $words[1] == (*=*|command|exec|noglob|nocorrect) ]]; do
     shift words
   done
-  # Rex resumes opencode itself here.
-  if [[ -n $OSC7577_TOKEN && ${words[1]:t} == (opencode|@opencodeCommand@) ]]; then
+  if [[ -n $OSC7577_TOKEN ]] && (( $_rex_resume_reported[(Ie)${words[1]:t}] )); then
     _rex_resume_forget
     return
   fi

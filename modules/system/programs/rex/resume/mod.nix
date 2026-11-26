@@ -5,6 +5,8 @@
     {
       # Auto-discovered by opencode.
       xdg.config.files."opencode/plugins/rex-resume/tui.js".source = ./opencode-plugin/tui.js;
+      # On Neovim's runtimepath, for nvim and v.
+      xdg.data.files."nvim/site/plugin/rex-resume.lua".source = ./nvim-plugin/rex-resume.lua;
 
       # Before local.lua, so it can override the rules.
       xdg.config.files."rex/resume.lua".source = ./resume.lua;

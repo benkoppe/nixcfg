@@ -15,3 +15,10 @@ rex.set("resume.trust.opencode", {
 		["--prompt"] = { "drop", values = 1 },
 	},
 })
+
+-- Reported by nvim-plugin/, for sessions it saves.
+for _, program in ipairs({ "nvim", "v" }) do
+	rex.set("resume.trust." .. program, {
+		command = { program, "-S", rex.match.under("~/.local/state/nvim/rex-resume") },
+	})
+end
