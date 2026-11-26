@@ -69,8 +69,12 @@
         ports = [ 10051 ];
       }
       {
-        name = "media-vlan-to-lancache";
-        sourceCidrs = [ "192.168.30.0/24" ];
+        name = "clients-to-lancache";
+        sourceCidrs = [
+          "192.168.30.0/24" # media VLAN
+          "10.0.1.0/24" # luka proxmox VMs
+          "10.1.1.0/24" # dray proxmox VMs
+        ];
         to = "lancache";
         proto = "tcp";
         ports = [
