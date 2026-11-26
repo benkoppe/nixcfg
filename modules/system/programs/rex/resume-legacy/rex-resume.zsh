@@ -1,3 +1,6 @@
+# LEGACY: superseded by ../resume (OSC 7577), which handles opencode in panes
+# with OSC7577_TOKEN.
+#
 # Brings back the coding agents and other commands in the Rex panes after the
 # Rex server restarts.
 #
@@ -15,7 +18,7 @@
 # Load the integrations, in Rex panes only. opencode's variable replaces
 # cli.json's plugin list, which would drop other plugins if set everywhere.
 export CLAUDE_CODE_PLUGIN_DIRS=@claudePlugin@
-export OPENCODE_CLI_CONFIG_CONTENT='{"plugins":["@opencodePlugin@"]}'
+[[ -n $OSC7577_TOKEN ]] || export OPENCODE_CLI_CONFIG_CONTENT='{"plugins":["@opencodePlugin@"]}'
 # Codex has no such variable, so pass its hook as a config override.
 @codexCommand@() {
   command @codexCommand@ -c 'hooks.SessionStart=[{hooks=[{type="command",command="rex-resume-hook codex",timeout=10}]}]' "$@"
@@ -61,6 +64,11 @@ _rex_resume_remember() {
   while [[ $words[1] == (*=*|command|exec|noglob|nocorrect) ]]; do
     shift words
   done
+  # Rex resumes opencode itself here.
+  if [[ -n $OSC7577_TOKEN && ${words[1]:t} == (opencode|@opencodeCommand@) ]]; then
+    _rex_resume_forget
+    return
+  fi
   (( $_rex_resume_rerun[(Ie)${words[1]:t}] )) || kind=prompt
   mkdir -p -- $_rex_resume_dir
   # Codex records its session only once it gets a message, so take a resumed

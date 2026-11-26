@@ -50,7 +50,7 @@
       rexCli =
         if isDarwin then
           pkgs.writeShellScriptBin "rex" ''
-            exec "/Applications/Rex Beta.app/Contents/Helpers/Rex Server.rex/Contents/MacOS/rex" "$@"
+            exec "/Applications/Rex.app/Contents/Helpers/Rex Server.rex/Contents/MacOS/rex" "$@"
           ''
         else
           rexPackage;
@@ -66,9 +66,16 @@
       imports = with self.modules.hjem; [
         ai-setup
         rex-resume
+        # TODO: remove once every Rex server sets OSC7577_TOKEN.
+        rex-resume-legacy
       ];
 
       packages = [ rexCli ];
+
+      xdg.config.files."rex/init.lua" = {
+        text = builtins.readFile ./init.lua;
+        clobber = true;
+      };
 
       agents = {
         skills.entries.rex = rexSkill;

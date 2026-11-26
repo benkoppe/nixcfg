@@ -40,11 +40,12 @@
       packages =
         let
           llm-agents = inputs.llm-agents.packages.${system};
-          # Rex picks the sidebar icon from argv0, and only knows "opencode".
+          # Rex's sidebar icon and resume rule both expect "opencode".
           opencode2 = pkgs.runCommand "opencode2" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
             makeWrapper ${llm-agents.opencode2}/bin/.opencode2-wrapped $out/bin/opencode2 \
               --argv0 opencode \
               --prefix PATH : ${lib.makeBinPath [ pkgs.ripgrep ]}
+            ln -s opencode2 $out/bin/opencode
           '';
         in
         [
