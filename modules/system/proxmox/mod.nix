@@ -80,6 +80,29 @@
         (lib.hiPrio util-linux)
       ];
 
+      # pvedaemon uses nixpkgs-stable's glibc, so it can't load the system's newer PAM modules.
+      # TODO: remove once proxmox-nixos and the system share a nixpkgs release (proxmox-nixos#266).
+      security.pam.services.proxmox-ve-auth.rules =
+        let
+          pam =
+            inputs.proxmox-nixos.inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.linux-pam;
+          use = name: { modulePath = lib.mkForce "${pam}/lib/security/pam_${name}.so"; };
+        in
+        {
+          account.unix = use "unix";
+          auth = {
+            faillock = use "faillock";
+            unix = use "unix";
+            deny = use "deny";
+          };
+          password.unix = use "unix";
+          session = {
+            env = use "env";
+            unix = use "unix";
+            limits = use "limits";
+          };
+        };
+
       services.openssh = {
         # fixes problems with proxmox-nixos
         settings.AcceptEnv = lib.mkForce [
