@@ -13,9 +13,13 @@
             source "$ZSH/oh-my-zsh.sh"
           '';
 
-          powerlevel10k.source = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-
-          powerlevel10k-config.source = "${lib.cleanSource ./.}/p10k.zsh";
+          # Prompt only: in `zsh -c`, p10k's `setopt monitor` backgrounds the command (e.g. Rex resumes).
+          powerlevel10k.config = ''
+            if [[ -z $ZSH_EXECUTION_STRING ]]; then
+              source "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme"
+              source "${lib.cleanSource ./.}/p10k.zsh"
+            fi
+          '';
 
           zsh-syntax-highlighting.source = "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
 
